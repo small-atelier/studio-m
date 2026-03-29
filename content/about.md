@@ -20,6 +20,9 @@ I also keep track of **inventory, techniques, and notes**, making Studio M a com
 Whether you're here to browse completed projects, follow painting techniques, or just enjoy the miniatures, welcome to the studio! 🎨
 
 ---
+
+![Studio M Logo](/images/studio-m-logo.png)
+
 ![Studio M Logo]({{'images/studio-m-logo.png' | relURL }})
 
 ![Studio M Logo relURL]({{'images/studio-m-logo.png' | relURL }})
