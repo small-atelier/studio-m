@@ -4,12 +4,14 @@ date: 2026-03-29T11:43:48Z
 draft: false
 categories: ["Projects"]
 tags: ["Necrons", "Army"]
-featured: "thumbnail.jpg"
+featured: "thumbnail.png"
 images:
-  - "thumbnail.jpg"
+  - "thumbnail.png"
 ---
 
-# Necrons
+{{< lead >}}
+A growing Necron army focused on weathered metallics and desert basing.
+{{< /lead >}}
 
 ![Army](gallery/img_1281.jpeg)
 

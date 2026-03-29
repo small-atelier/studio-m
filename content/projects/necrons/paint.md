@@ -4,8 +4,6 @@ date: 2026-03-29
 draft: false
 ---
 
-# Necron Paint Scheme Guide
-
 This guide documents our Necron paint workflow, from primer to base finishing. Follow the steps carefully for best results.
 
 ## Materials Used

@@ -5,8 +5,6 @@ date: 2026-03-29
 draft: false
 ------------
 
-# Necron Basing Guide
-
 This guide documents the basing process used for our Necron models.
 The goal is to create a dry desert-style base with good texture and contrast against the metallic models.
 
