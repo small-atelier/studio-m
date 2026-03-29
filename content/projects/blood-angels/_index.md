@@ -6,7 +6,11 @@ categories: ["Projects"]
 tags: []
 ---
 
-# Blood Angels
+{{< lead >}}
+A growing Necron army focused on weathered metallics and desert basing.
+{{< /lead >}}
+
+![Army](gallery/studio-m-logo.png)
 
 ## Overview
 Describe your project goals, concept, and inspiration.
@@ -20,4 +24,5 @@ Document steps, build stages, and painting progress.
 - Notes for future reference
 
 ## Photos
-![Project Image](/images/Blood-Angels/example.png)
+
+{{< carousel images="gallery/*" aspectRatio="21-9" interval="2500" >}}
