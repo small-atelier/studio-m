@@ -9,14 +9,15 @@ tags: []
 # Necrons
 
 ## Overview
-Describe your project goals, concept, and inspiration.
+
+A very, very cool Necron Army.
 
 ## Progress
 Document steps, build stages, and painting progress.
 
 ## Paint Recipes / Techniques
-- Color schemes
-- Techniques used
+- ![Basing](projects/Necrons/base.md)
+- ![Color schemes](projects/Necrons/paint.md)
 - Notes for future reference
 
 ## Photos
