@@ -1,0 +1,42 @@
+baseURL = "https://small-atelier.github.io/studio-m/"
+title = "Studio M"
+languageCode = "en-us"
+
+[[module.imports]]
+path = "github.com/nunocoracao/blowfish/v2"
+
+[params]
+subtitle = "Models and Minatures"
+description = "Models and Minatures"
+
+[params.sidebar]
+emoji = "🎨"
+subtitle = "Miniatures & Models"
+
+
+[menu]
+
+[[menu.main]]
+name = "Posts"
+url = "/posts/"
+weight = 10
+
+[[menu.main]]
+name = "Projects"
+url = "/projects/"
+weight = 20
+
+[[menu.main]]
+name = "About"
+url = "/about/"
+weight = 40
+
+[[menu.main]]
+name = "Notes"
+url = "/notes/"
+weight = 50
+
+[[menu.main]]
+name = "Inventory"
+url = "/inventory/"
+weight = 60

@@ -1,1 +1,3 @@
 # studio-m
+
+Hugo site
