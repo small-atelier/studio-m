@@ -1,12 +1,12 @@
 ---
-title: "Dark Angels"
-date: 2026-03-29T11:44:16Z
-draft: true
+title: "Ultramarines"
+date: 2026-03-29T11:44:44Z
+draft: false
 categories: ["Projects"]
 tags: []
 ---
 
-# Dark Angels
+# Ultramarines
 
 ## Overview
 Describe your project goals, concept, and inspiration.
@@ -20,4 +20,4 @@ Document steps, build stages, and painting progress.
 - Notes for future reference
 
 ## Photos
-![Project Image](/images/Dark-Angels/example.png)
+![Project Image](/images/Ultramarines/example.png)

@@ -1,12 +1,12 @@
 ---
-title: "Thousands Sons"
-date: 2026-03-29T11:43:36Z
-draft: true
+title: "Dark Angels"
+date: 2026-03-29T11:44:16Z
+draft: false
 categories: ["Projects"]
 tags: []
 ---
 
-# Thousands Sons
+# Dark Angels
 
 ## Overview
 Describe your project goals, concept, and inspiration.
@@ -20,4 +20,4 @@ Document steps, build stages, and painting progress.
 - Notes for future reference
 
 ## Photos
-![Project Image](/images/Thousands-Sons/example.png)
+![Project Image](/images/Dark-Angels/example.png)
