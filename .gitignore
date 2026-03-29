@@ -19,3 +19,5 @@ Thumbs.db
 
 # Temporary files
 tmp/
+
+.hugo_build.lock

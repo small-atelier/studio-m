@@ -14,7 +14,7 @@ init:
 	mod init github.com/small-atelier/studio-m
 
 ## Download modules / themes
-modules: 
+modules:
 	docker run --rm \
 	-v $(PWD):$(SITE) \
 	-w $(SITE) \
@@ -60,17 +60,17 @@ new-post:
 	$(IMAGE) \
 	new content/posts/$(name).md
 
-new-project:
-	docker run --rm \
-	-v $(PWD):$(SITE) \
-	-w $(SITE) \
-	$(IMAGE) \
-	new content/projects/$(name)/index.md
-
-
 ## Create new content
 ## Example: make new type=posts name=my-post
 new:
+	@if [ -z "$(type)" ]; then \
+		echo "Error: You must specify a type, e.g. make new-project type=post name=ork-killteam"; \
+		exit 1; \
+	fi	@if [ -z "$(name)" ]; then \
+		echo "Error: You must specify a project name, e.g. make new-project name=ork-killteam"; \
+		exit 1; \
+	fi
+	@mkdir -p content/$(type)/$(name)
 	docker run --rm \
 	-v $(PWD):$(SITE) \
 	-w $(SITE) \
@@ -80,6 +80,13 @@ new:
 ## Create new project bundle (better for images)
 ## Example: make new-project name=ork-killteam
 new-project:
+	@if [ -z "$(name)" ]; then \
+		echo "Error: You must specify a project name, e.g. make new-project name=ork-killteam"; \
+		exit 1; \
+	fi
+	@mkdir -p content/projects/$(name)
+	@mkdir -p static/images/$(name)
+	@cp static/images/studio-m-logo.png static/images/$(name)/example.png
 	docker run --rm \
 	-v $(PWD):$(SITE) \
 	-w $(SITE) \
@@ -107,3 +114,10 @@ help:
 	@echo "make new type=inventory name=my-unit"
 	@echo "make new-project name=my-project"
 	@echo ""
+
+# batch add initial backlog of projects ...
+armys:
+	@for name in $(subst ',', ' ', $(names)); do \
+		echo "Creating project $$name..."; \
+		$(MAKE) new-project name=$$name; \
+	done
