@@ -8,7 +8,7 @@ tags: []
 
 # Necrons
 
-![Army]({{ (.Resources.Get "gallery/img_1281.jpeg").RelPermalink | absURL }})
+![Army](gallery/img_1281.jpeg)
 
 ## Overview
 
