@@ -3,7 +3,10 @@ title: "Necrons"
 date: 2026-03-29T11:43:48Z
 draft: false
 categories: ["Projects"]
-tags: []
+tags: ["Necrons", "Army"]
+featured: "thumbnail.jpg"
+images:
+  - "thumbnail.jpg"
 ---
 
 # Necrons
