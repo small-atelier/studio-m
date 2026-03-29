@@ -21,4 +21,4 @@ Whether you're here to browse completed projects, follow painting techniques, or
 
 ---
 
-![Studio M Logo]({{ "images/studio-m-logo.png" | relUrl }})
+![Studio M Logo](/images/studio-m-logo.png)
