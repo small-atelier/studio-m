@@ -37,7 +37,7 @@ The theme is **ancient stone flooring**, inspired by the ruins of an old marble 
 >
 > Air-dry clay works best because it sticks to the base and holds texture well.
 
-![Clay Texture](gallery/tzeentch-clay.jpg)
+![Clay Texture](gallery/tzeentch-clay.jpg "Clay Texture")
 
 ### 2. Let It Dry
 
@@ -80,7 +80,7 @@ The theme is **ancient stone flooring**, inspired by the ruins of an old marble 
 
 ---
 
-![Finished base](gallery/tzeentch-basing-result.jpg)
+![Finished base](gallery/tzeentch-basing-result.jpg "Finished base")
 
 
 
