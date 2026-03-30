@@ -1,12 +1,12 @@
 ---
-title: "Ultramarines"
-date: 2026-03-29T11:44:44Z
+title: "Thousands Sons"
+date: 2026-03-29T11:43:36Z
 draft: false
 categories: ["Projects"]
 tags: []
 ---
 
-# Ultramarines
+# Thousands Sons
 
 ## Overview
 Describe your project goals, concept, and inspiration.
@@ -20,4 +20,5 @@ Document steps, build stages, and painting progress.
 - Notes for future reference
 
 ## Photos
-![Project Image](/images/Ultramarines/example.png)
+
+{{< carousel images="gallery/*" aspectRatio="21-9" interval="2500" >}}

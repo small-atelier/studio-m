@@ -1,12 +1,12 @@
 ---
-title: "Tzeentch"
-date: 2026-03-29T11:44:07Z
+title: "Dark Angels"
+date: 2026-03-29T11:44:16Z
 draft: false
 categories: ["Projects"]
 tags: []
 ---
 
-# Tzeentch
+# Dark Angels
 
 ## Overview
 Describe your project goals, concept, and inspiration.
@@ -20,4 +20,5 @@ Document steps, build stages, and painting progress.
 - Notes for future reference
 
 ## Photos
-![Project Image](/images/Tzeentch/example.png)
+
+{{< carousel images="gallery/*" aspectRatio="21-9" interval="2500" >}}

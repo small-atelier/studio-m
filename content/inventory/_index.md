@@ -6,16 +6,16 @@ draft: false
 # Studio M Inventory
 
 ## 3D Printers (Resin)
-- [Resin Printers](3d-printers/resin/model)
-- [Resin Stock](3d-printers/resin/stock)
+- [Resin Printers](printer/resin-model)
+- [Resin Stock](printer/resin)
 
 ## 3D Printers (FDM)
-- [FDM Printers](3d-printers/fdm/model)
-- [FDM Stock](3d-printers/fdm/stock)
+- [FDM Printers](printer/fdm-model)
+- [FDM Stock](printer/filament)
 
 ## Paints
-- [Acrylics](paint/acrylics/)
-- [Inks](paint/inks/)
+- [Acrylics](paint/acrylic)
+- [Inks](paint/ink)
 
 ## Misc
 - [Tools & Accessories](misc/tools/)
