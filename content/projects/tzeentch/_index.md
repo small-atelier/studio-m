@@ -15,6 +15,8 @@ Describe your project goals, concept, and inspiration.
 Document steps, build stages, and painting progress.
 
 ## Paint Recipes / Techniques
+- [Color schemes Brimstone Horrors's](brimstone-paint)
+- [Color schemes Screamers](screamers-paint)
 - Color schemes
 - Techniques used
 - Notes for future reference
