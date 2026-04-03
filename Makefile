@@ -84,9 +84,7 @@ new-project:
 		echo "Error: You must specify a project name, e.g. make new-project name=ork-killteam"; \
 		exit 1; \
 	fi
-	@mkdir -p content/projects/$(name)
-	@mkdir -p static/images/$(name)
-	@cp static/images/studio-m-logo.png static/images/$(name)/example.png
+	@mkdir -p content/projects/$(name)/gallery
 	docker run --rm \
 	-v $(PWD):$(SITE) \
 	-w $(SITE) \
