@@ -9,17 +9,15 @@ tags: []
 # Tzeentch
 
 ## Overview
-Describe your project goals, concept, and inspiration.
+A small Tzeentch daemon horde that works either as allies for a Thousand Sons army or as a stand-alone force. The focus is on models that reward the airbrush — fast, vivid results with minimal brushwork. Brimstone Horrors get a yellow-to-red flame gradient, Screamers a chaotic green-to-purple warp skin, all on dark ancient stone bases.
 
 ## Progress
-Document steps, build stages, and painting progress.
+Tested 3D printed proxies — airbrushed and experimented with a few different basing schemes. Paint recipes are locked in and the airbrush workflow is proven. Looking to find old sculpts as STLs to print going forward.
 
 ## Paint Recipes / Techniques
 - [Basing](base/)
-- [Color schemes Brimstone Horrors's](brimstone-paint)
-- [Color schemes Screamers](screamers-paint)
-- Techniques used
-- Notes for future reference
+- [Brimstone Horrors paint scheme](brimstone-paint)
+- [Screamers paint scheme](screamers-paint)
 
 ## Photos
 
