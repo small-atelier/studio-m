@@ -40,7 +40,7 @@ The theme is **ancient stone flooring**, inspired by the ruins of an old marble 
 * Allow the clay to **dry completely** before priming.
 * This prevents cracking or paint separation later.
 
-![Bases drying](gallery/IMG_1287.jpeg "Fresh clay — bases drying")
+![Bases drying](../gallery/IMG_1287.jpeg "Fresh clay — bases drying")
 
 ### 3. Add Marble Pieces
 
@@ -56,7 +56,7 @@ The theme is **ancient stone flooring**, inspired by the ruins of an old marble 
 * Spray the entire base with **black primer**.
 * This creates strong shadows in the texture and ties clay and plaster together.
 
-![Primed black](gallery/IMG_1290.jpeg "Bases after black primer")
+![Primed black](../gallery/IMG_1290.jpeg "Bases after black primer")
 
 ### 5. Dry Brush — Mid Grey
 
@@ -85,4 +85,4 @@ The theme is **ancient stone flooring**, inspired by the ruins of an old marble 
 
 The finished base reads as dark, cracked stone flooring with pale marble rubble scattered across it. The black primer in the recesses does most of the work — the grey drybrushing just catches the top surfaces and sells the stone texture.
 
-![Finished bases](gallery/IMG_1292.jpeg "Finished bases")
+![Finished bases](../gallery/IMG_1292.jpeg "Finished bases")
