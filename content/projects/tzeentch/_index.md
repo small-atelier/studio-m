@@ -6,8 +6,6 @@ categories: ["Projects"]
 tags: []
 ---
 
-# Tzeentch
-
 ## Overview
 A small Tzeentch daemon horde that works either as allies for a Thousand Sons army or as a stand-alone force. The focus is on models that reward the airbrush — fast, vivid results with minimal brushwork. Brimstone Horrors get a yellow-to-red flame gradient, Screamers a chaotic green-to-purple warp skin, all on dark ancient stone bases.
 
