@@ -4,7 +4,7 @@ date: 2026-05-19
 draft: false
 ---
 
-![Flamers](gallery/IMG_001.jpeg)
+![Flamers](../gallery/IMG_001.jpeg)
 
 Older models — STL prints from the web, painted before this project. Paint recipe unknown, bases need redoing to match the dark ancient stone scheme.
 
