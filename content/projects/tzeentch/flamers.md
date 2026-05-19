@@ -16,3 +16,4 @@ Older models — STL prints from the web, painted before this project. Paint rec
 | Painted      | yes           |
 | Bases        | needs redoing |
 | Paint recipe | unknown       |
+| Count        | 10 st         |

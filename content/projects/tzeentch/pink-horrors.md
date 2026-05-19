@@ -16,3 +16,4 @@ A unit of Pink Horrors painted before this project — paint recipe unknown, bas
 | Painted      | yes           |
 | Bases        | needs redoing |
 | Paint recipe | unknown       |
+| Count        | 12 st         |

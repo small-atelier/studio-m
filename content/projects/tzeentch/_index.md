@@ -14,6 +14,8 @@ A small Tzeentch daemon horde that works either as allies for a Thousand Sons ar
 ## Progress
 Tested 3D printed proxies — airbrushed and experimented with a few different basing schemes. Paint recipes are locked in and the airbrush workflow is proven. Looking to find old sculpts as STLs to print going forward.
 
+- [Roster](roster)
+
 ## Units
 - [Flamers of Tzeentch](flamers) — legacy, STL prints, needs rebasing
 - [Pink Horrors of Tzeentch](pink-horrors) — legacy, needs rebasing
