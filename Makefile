@@ -38,8 +38,18 @@ build:
 	$(IMAGE) \
 	--minify
 
-## Run development server
+## Run development server (local Hugo — instant reload)
 serve:
+	hugo server \
+		--bind 0.0.0.0 \
+		--port $(PORT) \
+		--baseURL http://localhost:$(PORT)/ \
+		--disableFastRender \
+		--buildDrafts \
+		--buildFuture
+
+## Run development server via Docker (no auto-reload on macOS)
+docker-serve:
 	docker run --rm \
 	-p $(PORT):1313 \
 	-v $(PWD):$(SITE) \
