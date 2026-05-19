@@ -1,0 +1,30 @@
+.thumbnail {
+  width: 160px;
+  min-height: 100px;
+  background-color: #e5e7eb;
+}
+
+html.dark .thumbnail {
+  background-color: #1f2937;
+}
+
+.thumbnail img {
+  object-fit: contain !important;
+  padding: 8px;
+}
+
+/* card view (if ever enabled) */
+.thumbnail_card {
+  min-width: 200px;
+  height: 130px;
+  background-color: #e5e7eb;
+}
+
+html.dark .thumbnail_card {
+  background-color: #1f2937;
+}
+
+.thumbnail_card img {
+  object-fit: contain !important;
+  padding: 8px;
+}
