@@ -10,6 +10,8 @@ draft: false
 
 ## Hardware
 
+{{< figure src="/images/inventory/resin-workstation.jpeg" caption="Resin workstation: Anycubic Wash & Cure 3 (left), UV curing box (right), and cleaning supplies" >}}
+
 ### Printer — Anycubic Photon Mono 2
 - Quantity: 1
 - Order Number: N20011140425390

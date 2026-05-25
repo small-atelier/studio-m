@@ -10,6 +10,8 @@ draft: false
 
 ## Hardware
 
+{{< figure src="/images/inventory/fdm-printer.jpeg" caption="Anycubic FDM printer with overhead filament spool rack" >}}
+
 ### Printer — Prusa i3 MK0 (?)
 
 
