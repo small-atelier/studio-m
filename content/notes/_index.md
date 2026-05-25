@@ -10,4 +10,4 @@ Quick observations, paint mix ratios, airbrush settings, and things I don't want
 
 ---
 
-![Studio M Logo](/studio-m/images/studio-m-logo.png)
+![Studio M Logo](/images/studio-m-logo.png)

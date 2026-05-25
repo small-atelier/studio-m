@@ -2,7 +2,7 @@ baseURL = "https://small-atelier.github.io/studio-m/"
 title = "Studio M"
 languageCode = "en-us"
 
-canonifyURLs = false
+canonifyURLs = true
 relativeURLs = false
 
 [[module.imports]]

@@ -10,4 +10,4 @@ Longer write-ups on painting projects, techniques, and lessons learned. Think of
 
 ---
 
-![Studio M Logo](/studio-m/images/studio-m-logo.png)
+![Studio M Logo](/images/studio-m-logo.png)
