@@ -12,6 +12,16 @@ This will give a **bright warp look for Screamers of Tzeentch serving Tzeentch**
 
 *(Primer + 3 airbrush passes)*
 
+## Prep
+
+Pin models and mount on a wooden board for batch airbrushing.
+
+The metal pin doubles as a permanent flight base — the plan is to keep it in, hover the model semi-low, and paint the rod black so it disappears. Less intrusive than a clear plastic flight stand.
+
+![Mounted and primed black](../gallery/IMG_011.jpeg "Models pinned and ready")
+
+---
+
 ## Prime (color primer instead of white/black)
 
 Use:
@@ -24,7 +34,7 @@ Why this works:
 * purple and blue over it look magical
 * shadows are already done
 
-Don’t fully cover every corner — slight unevenness looks organic.
+![After NATO Green primer](../gallery/IMG_012.jpeg "NATO Green — the shadow tone is already built in")
 
 ---
 
@@ -32,9 +42,13 @@ Don’t fully cover every corner — slight unevenness looks organic.
 
 Spray from **below the model**.
 
+Don’t fully cover every corner — slight unevenness looks organic.
+
 Paint:
 
 * **Army Painter Crystal Blue**
+
+Mix 1:1 with medium for airbrush
 
 Focus on:
 
@@ -47,15 +61,21 @@ Let some green remain in shadows.
 Result:
 green shadows → turquoise belly.
 
+![After Crystal Blue from below](../gallery/IMG_013.jpeg "Crystal Blue on the belly — turquoise showing, green still in the recesses")
+
 ---
 
 # Airbrush Pass 2 — Top Skin
 
 Spray from **above**.
 
+Don’t fully cover every corner — slight unevenness looks organic.
+
 Paint:
 
 * **Army Painter Alien Purple**
+
+Mix 1:1 with medium for airbrush
 
 Focus on:
 
@@ -68,6 +88,8 @@ Leave blue showing on the sides.
 Now you have:
 
 **green → blue → purple gradient**
+
+![After Alien Purple from above](../gallery/IMG_014.jpeg "The three-colour gradient — green base, blue sides, purple top")
 
 ---
 
@@ -87,29 +109,39 @@ Hit only:
 
 This creates **instant magical color contrast**.
 
+![Yellow glow on the front](../gallery/IMG_016.jpeg "Daemonic Yellow on the face and front fins")
+
 ---
 
-# Optional 30-second magic (worth it)
+# Ink Glazes
 
 Glaze lightly with inks:
 
-* **Liquitex Phthalocyanine Blue Ink** → underside
-* **Liquitex Quinacridone Magenta Ink** → back
+* **Liquitex Phthalocyanine Blue Ink** → underside — deepens the teal and adds iridescence
 
-It blends everything instantly.
+![After blue ink glaze](../gallery/IMG_018.jpeg "Phthalocyanine Blue ink — iridescent teal on the belly")
+
+* **Liquitex Quinacridone Magenta Ink** → back — pushes the purple richer and warmer
+
+![After magenta ink glaze](../gallery/IMG_017.jpeg "Quinacridone Magenta ink on the back — deep purple-red result")
 
 ---
 
-# 2-minute details
+# Details
 
-Teeth:
-**Skeleton Bone**
+Block in **Skeleton Bone** on eyes, teeth, and horns.
 
 Eyes:
-**Daemonic Yellow**
+- **Skeleton Bone** base
+- Glaze with **yellow ink** — gives them a glowing amber look
 
-Mouth:
-**Warlock Purple**
+Teeth and horns:
+- **Skeleton Bone** base
+- Wash with **Burnt Umber** — pushes them warm and dirty, stops them reading as clean white
+
+Mouth interior:
+- **Skeleton Bone** base
+- Glaze with **Phthalocyanine Blue Ink** — ties it back into the body colour, gives it a wet fleshy look
 
 ---
 
