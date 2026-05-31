@@ -32,8 +32,8 @@ SOCKET_WALL  = 0.8    # socket tube wall thickness
 
 ADD_MAGNETS  = True
 
-EXPORT_STL   = False
-EXPORT_DIR   = "//stl_output"   # relative to the .blend file; change to an absolute path if needed
+EXPORT_STL   = True
+EXPORT_DIR   = "/Users/mannil/Documents/STL_BASE"   # relative to the .blend file; change to an absolute path if needed
 
 # ----------------------------
 # LAYOUT (bin-pack onto 220 × 220 mm plates)

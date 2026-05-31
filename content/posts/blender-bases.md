@@ -5,7 +5,7 @@ draft: false
 tags: ["blender", "fdm", "3d-printing", "bases"]
 ---
 
-A Blender Python script that generates a full set of plain round and oval bases — hollow, print-ready, with optional magnet sockets. Good for when you want a clean blank base quickly without hunting for a file on Printables.
+A Blender Python script that generates a complete set of plain bases across all standard GW shapes and sizes — hollow, print-ready, with optional magnet sockets. Good for when you want a clean blank base quickly without hunting for a file on Printables.
 
 {{< lead >}}
 Built and tested in Blender 5.1.2. No plugins required — paste into the Script Editor and run.
@@ -15,14 +15,26 @@ Built and tested in Blender 5.1.2. No plugins required — paste into the Script
 
 ## What it generates
 
-- **Round bases:** 25 · 28.5 · 32 · 40 · 50 · 65 · 80 · 90 · 100 · 130 · 160 mm
-- **Oval bases:** 60×35 · 75×42 · 90×52 · 105×70 · 120×92 · 150×95 · 170×109 mm
-- Hollow interior — stands on the outer rim, open at the bottom
+**Round** — 20 · 25 · 28.5 · 32 · 40 · 50 · 65 · 80 · 90 · 100 · 130 · 160 mm
+
+**Oval** — 60×35 · 70×25 · 75×42 · 90×52 · 95×40 · 105×70 · 120×92 · 150×95 · 170×109 mm
+
+**Square** — 20 · 25 · 40 · 50 · 60 · 100 mm
+
+**Rectangular** — 25×50 · 40×60 · 50×75 · 50×100 mm
+
+**Pill** (stadium — rect with semicircular ends) — 70×25 · 95×40 mm
+
+**Slotted** — round 20 · 25 mm (single slot) · square 20 · 25 mm (single slot) · rect 20×40 · 25×50 mm (double slot for cavalry)
+
+All bases are:
+- Hollow interior, standing on the outer rim
 - GW-style taper on the top edge
 - Size label raised on the inside ceiling (readable from below)
-- Optional magnet sockets — two sizes, interleaved triangles (5×2 mm and 3×1 mm)
+- Optional magnet sockets — two sizes, interleaved triangles (5×2 mm and 3×1 mm), count scaled to base size
+- Slotted bases omit the label (the slot cutter would intersect it)
 
-Bases are laid out in print batches to fit a 220 × 220 mm bed (Anycubic Kobra X), flipped so the flat top face sits on the bed.
+Bases are bin-packed to fit a 220 × 220 mm print bed (Anycubic Kobra X), flipped flat-top-down for printing.
 
 ---
 
@@ -34,7 +46,7 @@ Bases are laid out in print batches to fit a 220 × 220 mm bed (Anycubic Kobra X
 4. Paste the script below (or open the `.py` file directly with **Open**)
 5. Click **Run Script** (▶) or press `Alt + P`
 
-The script builds everything into two collections — *Round Bases* and *Oval Bases* — and prints a batch summary to the console.
+The script builds everything into collections — *Round Bases*, *Oval Bases*, *Square Bases*, *Rect Bases*, *Pill Bases*, *Slotted Bases* — and prints a batch summary to the console.
 
 ---
 
@@ -42,32 +54,81 @@ The script builds everything into two collections — *Round Bases* and *Oval Ba
 
 All knobs are at the top of the file under `# CONFIG`.
 
+### Shape sizes
+
+| Variable | What it controls |
+|---|---|
+| `ROUND_SIZES` | list of round diameters |
+| `OVAL_SIZES` | list of `(x, y)` oval pairs |
+| `SQUARE_SIZES` | list of square side lengths |
+| `RECT_SIZES` | list of `(width, depth)` rect pairs |
+| `PILL_SIZES` | list of `(length, width)` pill pairs |
+| `SLOTTED_ROUND` | list of `{"diam", "style"}` dicts |
+| `SLOTTED_SQUARE` | list of `{"size", "style"}` dicts |
+| `SLOTTED_RECT` | list of `{"x", "y", "style"}` dicts |
+
+### Slot styles
+
+| Style | Description |
+|---|---|
+| `"single"` | one slot along Y axis (infantry) |
+| `"double"` | two parallel slots (cavalry — two tabs) |
+| `"cross"` | perpendicular crossed slots |
+
+### Geometry
+
 | Variable | Default | What it controls |
 |---|---|---|
-| `ROUND_SIZES` | list of diameters | which round bases to generate |
-| `OVAL_SIZES` | list of (x, y) pairs | which oval bases to generate |
-| `HEIGHT` | `4.0` | total base height in mm |
+| `HEIGHT` | `4.0` | total base height mm |
 | `WALL` | `1.6` | side wall thickness |
 | `BOTTOM_THICKNESS` | `1.2` | top floor thickness (model platform) |
 | `ADD_MAGNETS` | `True` | include magnet sockets |
-| `MAGNET_RING` | `0.55` | socket ring position as fraction of radius |
-| `EXPORT_STL` | `False` | export individual STLs after building |
-| `EXPORT_DIR` | `//stl_output` | output folder (`//` = next to the .blend file) |
+| `MAGNET_RING` | `0.55` | socket ring as fraction of radius |
+| `SLOT_WIDTH` | `2.0` | slot width mm |
+| `SLOT_DEPTH` | `3.0` | slot depth from top surface mm |
+| `SLOT_SPACING` | `14.0` | gap between double slots mm |
+
+### Export
+
+| Variable | Default | What it controls |
+|---|---|---|
+| `EXPORT_STL` | `False` | master export switch |
+| `EXPORT_ROUND` | `True` | include round bases |
+| `EXPORT_OVAL` | `True` | include oval bases |
+| `EXPORT_SQUARE` | `True` | include square bases |
+| `EXPORT_RECT` | `True` | include rect bases |
+| `EXPORT_PILL` | `True` | include pill bases |
+| `EXPORT_SLOT` | `True` | include all slotted bases |
+| `EXPORT_DIR` | `//stl_output` | output folder (`//` = next to .blend file) |
 
 ---
 
 ## Exporting STLs
 
-Set `EXPORT_STL = True` and optionally change `EXPORT_DIR` to an absolute path, then run the script. Each base is exported as its own file named after the object (`Base_25mm.stl`, `Base_60x35.stl`, etc.).
+Set `EXPORT_STL = True` and optionally change `EXPORT_DIR` to an absolute path, then run. Each base exports as its own file named by type and size:
+
+```
+stl_output/
+  round_25mm.stl
+  oval_60x35.stl
+  square_25mm.stl
+  rect_25x50.stl
+  pill_95x40.stl
+  slot_round_25mm.stl
+  slot_rect_25x50.stl
+  ...
+```
+
+Toggle individual type flags (`EXPORT_ROUND`, `EXPORT_OVAL`, etc.) to export only what you need.
 
 ---
 
 ## Print orientation
 
-Bases are placed **flat top face down** — the top surface (where the model stands) goes on the bed, the open cavity faces up. This avoids any bridging over the hollow interior and gives a clean top surface straight off the print.
+Bases are placed **flat top face down** — the model platform goes on the bed, the open cavity faces up. No bridging over the hollow interior, clean top surface straight off the print.
 
 ---
 
 ## The script
 
-{{< include-code path="blender/base/bases_v5.py" lang="python" >}}
+{{< include-code path="blender/base/bases_v6.py" lang="python" >}}
