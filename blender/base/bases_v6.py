@@ -274,7 +274,7 @@ def make_oval(x, y, col, label=True):
     obj.name = f"oval_{x}x{y}"
     add_recess(obj, rx, ry)
     if ADD_MAGNETS:
-        add_magnet_sockets(obj, rx)
+        add_magnet_sockets(obj, min(rx, ry))
     if label:
         add_text(obj, f"{x}x{y} mm", rx, ry)
     move(obj, col)
@@ -451,7 +451,7 @@ def make_pill(length, width, col):
     obj.name = f"pill_{length}x{width}"
     add_pill_recess(obj, length, width)
     if ADD_MAGNETS:
-        add_magnet_sockets(obj, min(length, width) / 2)
+        add_magnet_sockets(obj, min(length, width) / 2)  # ring bounded by narrow side
     add_text(obj, f"{length}x{width}", width / 2)
     move(obj, col)
     return obj
