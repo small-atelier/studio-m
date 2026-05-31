@@ -25,7 +25,11 @@ Built and tested in Blender 5.1.2. No plugins required — paste into the Script
 
 **Pill** (stadium — rect with semicircular ends) — 70×25 · 95×40 mm
 
-**Slotted** — round 20 · 25 mm (single slot) · square 20 · 25 mm (single slot) · rect 20×40 · 25×50 mm (double slot for cavalry)
+**Slotted round** — 20 · 25 mm — single straight slot
+
+**Slotted square** — 20 · 25 mm — single straight slot + corner-to-corner diagonal slot (separate files for each)
+
+**Slotted rect (cavalry)** — 20×40 · 25×50 mm — two parallel slots running along the long axis, side by side across the width
 
 All bases are:
 - Hollow interior, standing on the outer rim
@@ -69,11 +73,12 @@ All knobs are at the top of the file under `# CONFIG`.
 
 ### Slot styles
 
-| Style | Description |
-|---|---|
-| `"single"` | one slot along Y axis (infantry) |
-| `"double"` | two parallel slots (cavalry — two tabs) |
-| `"cross"` | perpendicular crossed slots |
+| Style | Description | Used for |
+|---|---|---|
+| `"single"` | one slot along Y axis | infantry round & square |
+| `"double"` | two parallel slots along length, side by side in X | cavalry rect |
+| `"diagonal"` | corner-to-corner slot at 45° | square bases |
+| `"cross"` | perpendicular crossed slots | larger bases |
 
 ### Geometry
 
@@ -86,7 +91,8 @@ All knobs are at the top of the file under `# CONFIG`.
 | `MAGNET_RING` | `0.55` | socket ring as fraction of radius |
 | `SLOT_WIDTH` | `2.0` | slot width mm |
 | `SLOT_DEPTH` | `3.0` | slot depth from top surface mm |
-| `SLOT_SPACING` | `14.0` | gap between double slots mm |
+| `SLOT_SPACING` | `14.0` | front-to-back spacing between cavalry slots mm |
+| `SLOT_LENGTH_FACTOR` | `0.60` | slot length as fraction of base dimension |
 
 ### Export
 
@@ -115,6 +121,8 @@ stl_output/
   rect_25x50.stl
   pill_95x40.stl
   slot_round_25mm.stl
+  slot_square_25mm.stl
+  slot_square_25mm_diag.stl
   slot_rect_25x50.stl
   ...
 ```

@@ -53,9 +53,10 @@ SOCKET_WALL  = 0.8    # socket tube wall thickness
 ADD_MAGNETS   = True
 
 # Slotted bases — style: 'single' | 'double' (cavalry) | 'cross'
-SLOT_WIDTH   = 2.0
-SLOT_DEPTH   = 3.0    # from top surface downward
-SLOT_SPACING = 14.0   # centre-to-centre gap between double slots
+SLOT_WIDTH         = 2.0
+SLOT_DEPTH         = 3.0    # from top surface downward
+SLOT_SPACING       = 14.0   # centre-to-centre gap between double slots
+SLOT_LENGTH_FACTOR = 0.60   # slot length as fraction of base dimension
 
 SLOTTED_ROUND = [
     {"diam": 20, "style": "single"},
@@ -64,20 +65,22 @@ SLOTTED_ROUND = [
 SLOTTED_SQUARE = [
     {"size": 20, "style": "single"},
     {"size": 25, "style": "single"},
+    {"size": 20, "style": "diagonal"},
+    {"size": 25, "style": "diagonal"},
 ]
 SLOTTED_RECT = [
     {"x": 20, "y": 40, "style": "double"},
     {"x": 25, "y": 50, "style": "double"},
 ]
 
-EXPORT_STL    = False
+EXPORT_STL    = True
 EXPORT_ROUND  = True
 EXPORT_OVAL   = True
 EXPORT_SQUARE = True
 EXPORT_RECT   = True
 EXPORT_PILL   = True
 EXPORT_SLOT   = True
-EXPORT_DIR    = "//stl_output"   # // = relative to .blend file; or use an absolute path
+EXPORT_DIR    = "/Users/mannil/Documents/STL_BASE"  # // = relative to .blend file; or use an absolute path
 
 # ----------------------------
 # LAYOUT (bin-pack onto 220 × 220 mm plates)
@@ -460,7 +463,7 @@ def add_slot(obj, slot_length, style='single'):
     """Cut slot(s) into the top face of a base."""
     slot_z = obj.location.z + HEIGHT / 2 - SLOT_DEPTH / 2
 
-    def cut(cx, cy, along_x=False):
+    def cut(cx, cy, rz=0.0, along_x=False):
         bpy.ops.mesh.primitive_cube_add(size=1)
         s = bpy.context.object
         s.scale = (slot_length if along_x else SLOT_WIDTH,
@@ -468,6 +471,8 @@ def add_slot(obj, slot_length, style='single'):
                    SLOT_DEPTH)
         bpy.ops.object.transform_apply(scale=True)
         s.location = (obj.location.x + cx, obj.location.y + cy, slot_z)
+        if rz:
+            s.rotation_euler.z = rz
         mod = obj.modifiers.new("Slot", 'BOOLEAN')
         mod.object = s
         mod.operation = 'DIFFERENCE'
@@ -478,30 +483,39 @@ def add_slot(obj, slot_length, style='single'):
     if style == 'single':
         cut(0, 0)
     elif style == 'double':
-        cut(0, -SLOT_SPACING / 2)
-        cut(0,  SLOT_SPACING / 2)
+        # two slots run along length (Y), offset side-by-side in X
+        cut(-SLOT_SPACING / 2, 0)
+        cut( SLOT_SPACING / 2, 0)
     elif style == 'cross':
-        cut(0, 0)             # along Y
-        cut(0, 0, along_x=True)  # along X
+        cut(0, 0)
+        cut(0, 0, along_x=True)
+    elif style == 'diagonal':
+        cut(0, 0, rz=math.radians(45))
 
 
 def make_slotted_round(d, style, col):
     obj = make_round(d, col, label=False)
-    add_slot(obj, d * 0.85, style)
+    add_slot(obj, d * SLOT_LENGTH_FACTOR, style)
     obj.name = f"slot_round_{d}mm"
     return obj
 
 
 def make_slotted_square(s, style, col):
     obj = make_square(s, col, label=False)
-    add_slot(obj, s * 0.85, style)
-    obj.name = f"slot_square_{s}mm"
+    if style == 'diagonal':
+        slot_len = s * math.sqrt(2) * SLOT_LENGTH_FACTOR
+        obj.name = f"slot_square_{s}mm_diag"
+    else:
+        slot_len = s * SLOT_LENGTH_FACTOR
+        obj.name = f"slot_square_{s}mm"
+    add_slot(obj, slot_len, style)
     return obj
 
 
 def make_slotted_rect(x, y, style, col):
     obj = make_rect(x, y, col, label=False)
-    add_slot(obj, y * 0.85, style)   # slot runs along long axis
+    dim = max(x, y)   # slots always run along the long axis
+    add_slot(obj, dim * SLOT_LENGTH_FACTOR, style)
     obj.name = f"slot_rect_{x}x{y}"
     return obj
 
