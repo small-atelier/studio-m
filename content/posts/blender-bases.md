@@ -35,7 +35,7 @@ All bases are:
 - Hollow interior, standing on the outer rim
 - GW-style taper on the top edge
 - Size label raised on the inside ceiling (readable from below)
-- Optional magnet sockets — two sizes, interleaved triangles (5×2 mm and 3×1 mm), count scaled to base size
+- Optional magnet sockets — two sizes, interleaved triangles (5×2 mm and 3×1 mm), count scaled to base size. Oval bases use an elliptical ring so sockets stay inside the wall at all angles and clear of the centre label
 - Slotted bases omit the label (the slot cutter would intersect it)
 
 Bases are bin-packed to fit a 220 × 220 mm print bed (Anycubic Kobra X), flipped flat-top-down for printing.
@@ -139,4 +139,4 @@ Bases are placed **flat top face down** — the model platform goes on the bed, 
 
 ## The script
 
-{{< include-code path="blender/base/bases_v6.py" lang="python" >}}
+{{< include-code path="blender/base/bases.py" lang="python" >}}

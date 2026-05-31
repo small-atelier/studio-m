@@ -73,14 +73,14 @@ SLOTTED_RECT = [
     {"x": 25, "y": 50, "style": "double"},
 ]
 
-EXPORT_STL    = True
+EXPORT_STL    = False
 EXPORT_ROUND  = True
 EXPORT_OVAL   = True
 EXPORT_SQUARE = True
 EXPORT_RECT   = True
 EXPORT_PILL   = True
 EXPORT_SLOT   = True
-EXPORT_DIR    = "/Users/mannil/Documents/STL_BASE"  # // = relative to .blend file; or use an absolute path
+EXPORT_DIR    = "//stl_output"   # // = relative to .blend file; or use an absolute path
 
 # ----------------------------
 # LAYOUT (bin-pack onto 220 × 220 mm plates)
