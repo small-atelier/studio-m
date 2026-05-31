@@ -20,34 +20,35 @@ The smaller, grumbling daemons that replace a Pink Horror when it's slain. 26 pr
 
 ## Paint Scheme
 
-Simple and fast — these are rank-and-file fillers, not showpieces. White primer keeps the blue vivid without needing the laborious drybrush-over-black approach.
+Simple and fast — these are rank-and-file fillers, not showpieces. Grey primer keeps the blue vivid without going too pale, while still giving the ink something light to react with. The ink is used as a filter throughout — not a wash, it coats the whole model and the gradient comes from the underlying light/dark structure.
 
 ### 1. Prime
 
-**Vallejo Surface Primer – White**
+**Vallejo Surface Primer – Grey** (light grey)
 
-Same as the Brimstone Horrors. Keeps the blue ink bright and punchy.
+Light enough to keep the blue punchy, dark enough to not blow out the shadows like white would.
 
-### 2. Airbrush — Blue Base
+### 2. Ink Filter — Blue
 
-**Liquitex Phthalocyanine Blue Ink**, diluted 1:2 with water.
+**Liquitex Phthalocyanine Blue Ink**
 
-Flood the whole model. Let it pool slightly in the recesses — that's the shading done automatically.
+Filter pass over the whole model, slightly from above. The grey primer shows through as a mid-tone — raised surfaces pick up the blue brightly, recesses stay cooler and darker.
 
-### 3. Airbrush — Highlight Pass
+### 3. Drybrush — Edge Pop
 
-**Liquitex Phthalocyanine Blue Ink + a few drops of Matt White**, sprayed from above only.
+**Matt White** drybrushed over the whole model.
 
-Lifts the top surfaces without going fully white. Keeps the model reading as blue rather than pale.
+Picks out the raised edges and knuckles. This creates the light structure for the second ink pass to work with.
 
-### 4. Drybrush — Edge Pop
+### 4. Ink Filter — Blue Second Pass
 
-Very light **Matt White** drybrush on the highest points — knuckles, horns, raised fists.
+**Liquitex Phthalocyanine Blue Ink**
 
-Adds crispness without brightening the whole model.
+Second filter over everything. The white edges now read as bright blue; the mid-tones deepen. Two ink passes give more depth than one without any extra complexity.
 
 ### 5. Details
 
+- **Weapons and trim** — **Black** base, **gold metallic** on the raised edges
 - **Teeth and claws** — **Skeleton Bone**, quick wash with **Burnt Umber**
 - **Eyes** — tiny dot of **Daemonic Yellow** or leave black for a dead, angry look
 

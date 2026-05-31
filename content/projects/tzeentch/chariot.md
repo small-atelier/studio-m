@@ -42,7 +42,7 @@ The rider/crew slot is magnetized — one chariot frame, two warscrolls:
 ## Paint
 
 - **Screamer pulls** — follow the [Screamer scheme](screamers-paint)
-- **Chariot frame** — match the screamer palette: NATO Green base, Crystal Blue drybrush, gold details
+- **Chariot frame** — follow the [Disc scheme](disc)
 - **Exalted Flamer crew** (Burning Chariot config) — follow the [Flamers scheme](flamers)
 - **Herald rider** (Fateskimmer config) — follow the [Herald of Tzeentch scheme](herald-of-tzeentch)
 
