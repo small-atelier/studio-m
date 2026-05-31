@@ -10,13 +10,13 @@ Older models — STL prints from the web, painted before this project. Paint rec
 
 ## Status
 
-|              |               |
-|--------------|---------------|
-| Assembled    | yes           |
-| Painted      | yes           |
-| Bases        | needs redoing |
-| Paint recipe | unknown       |
-| Count        | 10 st         |
+|              |                       |
+|--------------|-----------------------|
+| Assembled    | yes                   |
+| Painted      | yes                   |
+| Bases        | 32 mm - needs redoing |
+| Paint recipe | unknown               |
+| Count        | 10 st                 |
 
 ---
 

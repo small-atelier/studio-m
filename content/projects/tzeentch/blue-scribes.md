@@ -1,0 +1,23 @@
+---
+title: "The Blue Scribes"
+date: 2026-05-30
+draft: false
+---
+
+P'tarix and Xirat'p — two Blue Horrors riding a Disc of Tzeentch, frantically writing down every spell cast around them.
+
+## Status
+
+|              |                    |
+|--------------|--------------------|
+| Assembled    | no — model printed |
+| Painted      | no                 |
+| Bases        | 60 mm              |
+| Paint recipe | not planned        |
+| Count        | 1 st               |
+
+---
+
+## Notes
+
+A unique model with two sub-schemes: the Blue Horror riders (blue ink over white base) and the Disc (follow the [Screamer scheme](screamers-paint)). The scrolls and quills are the character detail — **Skeleton Bone** with **Burnt Umber** wash, ink writing picked out in a dark colour.

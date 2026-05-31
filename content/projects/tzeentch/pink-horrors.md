@@ -10,13 +10,13 @@ A unit of Pink Horrors painted before this project — paint recipe unknown, bas
 
 ## Status
 
-|              |               |
-|--------------|---------------|
-| Assembled    | yes           |
-| Painted      | yes           |
-| Bases        | needs redoing |
-| Paint recipe | unknown       |
-| Count        | 12 st         |
+|              |                           |
+|--------------|---------------------------|
+| Assembled    | yes                       |
+| Painted      | yes                       |
+| Bases        | 32 mm - but needs redoing |
+| Paint recipe | unknown                   |
+| Count        | 12 st                     |
 
 ---
 

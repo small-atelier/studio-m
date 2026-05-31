@@ -4,6 +4,25 @@ date: 2026-03-29
 draft: false
 ---
 
+
+![Screamer's](../gallery/IMG_019.jpeg "Screamer's")
+
+## Status
+
+|              |       |
+|--------------|-------|
+| Assembled    | yes   |
+| Painted      | yes   |
+| Bases        | 32 mm |
+| Paint recipe | yes   |
+| Count        | 12 st |
+
+> 3 extra screamers from this batch are reserved for the [chariot platforms](chariot): 1 large screamer (chariot 1) and 2 standard screamers (chariot 2). Same paint scheme applies.
+
+---
+
+# Paint Scheme
+
 This will give a **bright warp look for Screamers of Tzeentch serving Tzeentch**.
 
 ---
@@ -134,14 +153,14 @@ Block in **Skeleton Bone** on eyes, teeth, and horns.
 Eyes:
 - **Skeleton Bone** base
 - Glaze with **yellow ink** — gives them a glowing amber look
+- With a tiny line of black, gives them cat eyes
 
 Teeth and horns:
 - **Skeleton Bone** base
 - Wash with **Burnt Umber** — pushes them warm and dirty, stops them reading as clean white
+- And then a partial coat of  **Skeleton Bone** again for the tips ...
 
-Mouth interior:
-- **Skeleton Bone** base
-- Glaze with **Phthalocyanine Blue Ink** — ties it back into the body colour, gives it a wet fleshy look
+![Details](../gallery/IMG_019.jpeg "Details done")
 
 ---
 

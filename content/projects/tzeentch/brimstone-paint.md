@@ -4,6 +4,24 @@ date: 2026-03-29
 draft: false
 ---
 
+![Brimstone Horror's](../gallery/IMG_028.jpeg "Brimstone Horror's")
+
+## Status
+
+|              |       |
+|--------------|-------|
+| Assembled    | yes   |
+| Painted      | yes   |
+| Bases        | 28 mm |
+| Paint recipe | yes   |
+| Count        | 15 st |
+
+---
+
+# Paint Scheme 
+
+Fast batch scheme built around a single airbrush gradient and one ink filter pass. White prime keeps the yellow vivid. The Magenta ink is not a wash — it's a transparent filter airbrushed over the whole model. It tints everything, but the underlying yellow and orange still show through; the gradient comes from the colour already on the model, not from the ink pooling in recesses. No blending, no freehand — the whole unit can be done in one session.
+
 ## Prep
 
 Mount models on sticks for easy batch handling — lets you airbrush all sides without touching them.
@@ -47,21 +65,21 @@ You don’t need accuracy. Random shadows look natural for fire.
 
 ---
 
-# Ink Dip / Heavy Wash
+# Ink Filter Pass
 
 Now the magic step.
 
-Airbrush on **Liquitex Quinacridone Magenta ink** diluted about:
+Airbrush **Liquitex Quinacridone Magenta ink** diluted about:
 
 **1 part ink : 2–3 parts water**
 
-Target the recesses: mouths, inside the flame shapes, deep crevices.
+Spray over the whole model — this is a filter, not a wash. Cover everything, but lean the pass slightly toward the recesses and shadow areas to let the magenta build a little deeper there. Not chasing recesses the way a wash would; just nudging the filter heavier where the shadows already live.
 
 What happens:
 
-* yellow areas stay bright
-* orange becomes red
-* recesses become deep red
+* yellow areas stay bright — the ink is too transparent to kill the yellow
+* orange areas shift red — more underlying colour for the magenta to tint
+* the gradient was already built in the previous steps; the ink just unifies and deepens it
 
 Instant flame gradient.
 

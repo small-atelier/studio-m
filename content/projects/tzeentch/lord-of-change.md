@@ -10,13 +10,13 @@ Painted before this project started — paint recipe unknown. Base is done corre
 
 ## Status
 
-|              |         |
-|--------------|---------|
-| Assembled    | yes     |
-| Painted      | yes     |
-| Bases        | done    |
-| Paint recipe | unknown |
-| Count        | 1 st    |
+|              |                           |
+|--------------|---------------------------|
+| Assembled    | yes                       |
+| Painted      | yes                       |
+| Bases        | 100 mm with wound counter |
+| Paint recipe | unknown                   |
+| Count        | 1 st                      |
 
 ---
 
