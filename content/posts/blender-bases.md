@@ -1,7 +1,7 @@
 ---
 title: "Generating Miniature Bases with Blender"
 date: 2026-05-31
-draft: true
+draft: false
 tags: ["blender", "fdm", "3d-printing", "bases"]
 ---
 
