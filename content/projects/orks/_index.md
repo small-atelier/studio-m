@@ -9,10 +9,13 @@ tags: []
 # Orks
 
 ## Overview
-Describe your project goals, concept, and inspiration.
 
-## Progress
-Document steps, build stages, and painting progress.
+An old Ork collection, built up over years — plus whatever gets added (and painted) from here on.
+
+## Roster
+
+- [Full Roster](roster) — everything owned, painted status, notes
+- [11th Edition Army Plans](army-plans) — wanted/to build/to paint, suggested army builds
 
 ## Paint Recipes / Techniques
 - Color schemes
