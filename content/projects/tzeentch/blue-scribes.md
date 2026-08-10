@@ -15,7 +15,9 @@ P'tarix and Xirat'p — two Blue Horrors riding a Disc of Tzeentch, frantically 
 | Bases        | 60 mm              |
 | Paint recipe | not planned        |
 | Count        | 1 st               |
-| Links        | *(no current 40k datasheet — Legends removed in 11th ed)* · [Wahapedia AoS](https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/The-Blue-Scribes) *(AoS Legends)* · [GW model](https://warhammer.com/en-CA/shop/Daemons-of-Tzeentch-Blue-Scribes) *(regional/legacy listing — check before trusting)* |
+| AoS          | [Wahapedia AoS](https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/The-Blue-Scribes) *(AoS Legends)* |
+| 40k          | *(no current datasheet — Legends removed in 11th ed)* |
+| GW           | [GW model](https://warhammer.com/en-CA/shop/Daemons-of-Tzeentch-Blue-Scribes) *(regional/legacy listing — check before trusting)* |
 
 ---
 

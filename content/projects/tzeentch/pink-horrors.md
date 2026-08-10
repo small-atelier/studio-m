@@ -17,7 +17,9 @@ A unit of Pink Horrors painted before this project — paint recipe unknown, bas
 | Bases        | 32 mm - but needs redoing |
 | Paint recipe | unknown                   |
 | Count        | 12 st                     |
-| Links        | [Wahapedia 40k](https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Pink-Horrors) · [Wahapedia AoS](https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/Pink-Horrors) · [GW model](https://www.warhammer.com/en-WW/shop/pink-horrors-2018) |
+| AoS          | [Wahapedia AoS](https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/Pink-Horrors) |
+| 40k          | [Wahapedia 40k](https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Pink-Horrors) |
+| GW           | [GW model](https://www.warhammer.com/en-WW/shop/pink-horrors-2018) |
 
 ---
 

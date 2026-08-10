@@ -14,7 +14,7 @@ Three disc models printed — each one a 60mm base with a magnetized top. All th
 | Painted   | no   |
 | Bases     | 60mm |
 | Count      | 3 st |
-| Links     | *(no current GW kit — Herald on Disc is old Finecast/resin, out of production, AoS Legends-only)* |
+| GW        | *(no current GW kit — Herald on Disc is old Finecast/resin, out of production, AoS Legends-only)* |
 
 ---
 

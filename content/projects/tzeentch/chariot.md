@@ -14,7 +14,7 @@ Two chariot frames being built as a shared physical platform. Each frame carries
 | Painted   | no       |
 | Bases     | 120×92mm |
 | Count     | 2 st     |
-| Links     | [GW model](https://www.warhammer.com/en-WW/shop/herald-of-tzeentch-on-burning-chariot-2016) *(mounted-Herald listing; an unmanned-chariot listing also exists at [Burning-Chariot-of-Tzeentch](https://www.warhammer.com/en-US/shop/Burning-Chariot-of-Tzeentch))* |
+| GW        | [GW model](https://www.warhammer.com/en-WW/shop/herald-of-tzeentch-on-burning-chariot-2016) *(mounted-Herald listing; an unmanned-chariot listing also exists at [Burning-Chariot-of-Tzeentch](https://www.warhammer.com/en-US/shop/Burning-Chariot-of-Tzeentch))* |
 
 ---
 

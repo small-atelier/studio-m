@@ -14,7 +14,7 @@ Three Herald of Tzeentch bodies — the interchangeable rider for the disc and c
 | Painted      | no                   |
 | Bases        | 40 mm                |
 | Count        | 3 st                 |
-| Links        | [GW model](https://www.warhammer.com/en-WW/shop/herald-of-tzeentch-on-burning-chariot-2016) *(multi-build kit — also builds the Exalted Flamer and unmanned Burning Chariot)* |
+| GW           | [GW model](https://www.warhammer.com/en-WW/shop/herald-of-tzeentch-on-burning-chariot-2016) *(multi-build kit — also builds the Exalted Flamer and unmanned Burning Chariot)* |
 
 > First print rejected — large Tzeentch symbol's being clipped off from the staff and saved for some future use !?
 

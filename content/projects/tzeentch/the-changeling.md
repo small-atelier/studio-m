@@ -15,7 +15,9 @@ Tzeentch's greatest trickster — a unique daemon that impersonates others perfe
 | Bases        | 40 mm              |
 | Paint recipe | not planned        |
 | Count        | 1 st               |
-| Links        | [Wahapedia 40k](https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/The-Changeling) · [Wahapedia AoS](https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/The-Changeling) · [GW model](https://www.warhammer.com/en-US/shop/the-changeling-2016) |
+| AoS          | [Wahapedia AoS](https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/The-Changeling) |
+| 40k          | [Wahapedia 40k](https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/The-Changeling) |
+| GW           | [GW model](https://www.warhammer.com/en-US/shop/the-changeling-2016) |
 
 ---
 

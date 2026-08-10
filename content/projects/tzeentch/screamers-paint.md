@@ -16,7 +16,9 @@ draft: false
 | Bases        | 32 mm |
 | Paint recipe | yes   |
 | Count        | 12 st |
-| Links        | [Wahapedia 40k](https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Screamers) · [Wahapedia AoS](https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/Screamers-of-Tzeentch) · [GW model](https://www.warhammer.com/en-US/shop/screamers-2016) |
+| AoS          | [Wahapedia AoS](https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/Screamers-of-Tzeentch) |
+| 40k          | [Wahapedia 40k](https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Screamers) |
+| GW           | [GW model](https://www.warhammer.com/en-US/shop/screamers-2016) |
 
 > 3 extra screamers from this batch are reserved for the [chariot platforms](chariot): 1 large screamer (chariot 1) and 2 standard screamers (chariot 2). Same paint scheme applies.
 
