@@ -10,6 +10,25 @@ Army-list ideas for Age of Sigmar (4th Edition), Disciples of Tzeentch. Same phy
 
 **Working list:** *(add a Warhammer Community/GW app or similar army-builder link here once one exists)*
 
+## Points (4th ed)
+
+| Unit                                     | Points | Notes |
+|-------------------------------------------|-------:|-------|
+| [Kairos Fateweaver](kairos-fateweaver)   | 400p   |       |
+| [Lord of Change](lord-of-change)         | 380p   |       |
+| [Flamers of Tzeentch](flamers)           | 130p   | fixed at 3 models |
+| [Pink Horrors](pink-horrors)             | 170p   | 10 models |
+| [Blue Horrors and Brimstone Horrors](blue-horrors) | 120p | 10 models, one combined warscroll |
+| [Screamers of Tzeentch](screamers-paint) | 80p    | 3 models |
+| [The Changeling](the-changeling)         | 140p   |       |
+| Fateskimmer ([Herald](herald-of-tzeentch) on [chariot](chariot)) | 140p | |
+| Changecaster ([Herald](herald-of-tzeentch) on foot)              | 140p | |
+| [Exalted Flamer of Tzeentch](exalted-flamer) | 120p | no separate warscroll for chariot-crew config — see note below |
+| Fluxmaster ([Herald](herald-of-tzeentch) on [disc](disc))        | 180p | Legends |
+| [The Blue Scribes](blue-scribes)         | 180p   | Legends |
+
+> No AoS warscroll exists for an Exalted Flamer crewing a chariot — the only chariot warscroll is the Herald-mounted Fateskimmer. Same gap as on the 40k side (see [Roster](roster) notes), so [chariot](chariot)'s Exalted-Flamer-crewed build isn't a legal option in either system currently.
+
 ## Notes / Ideas
 
 > Draft, flagged as a guess — I don't know this collection's AoS points/allegiance preferences yet, so treat this as a rough starting sketch to correct rather than a real list.

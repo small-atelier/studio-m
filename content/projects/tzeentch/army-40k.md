@@ -10,6 +10,24 @@ Army-list ideas for Warhammer 40,000 (11th Edition), Chaos Daemons. Model roster
 
 **Working list:** *(add a NewRecruit or similar army-builder link here once one exists)*
 
+## Points (11th ed)
+
+| Unit                                     | Points        | Notes |
+|-------------------------------------------|---------------:|-------|
+| [Kairos Fateweaver](kairos-fateweaver)   | 295p           |       |
+| [Lord of Change](lord-of-change)         | 285p           |       |
+| [Flamers of Tzeentch](flamers)           | 130p / 65p     | 6 / 3 models |
+| [Pink Horrors of Tzeentch](pink-horrors) | 140p           |       |
+| [Blue Horrors](blue-horrors)             | free           | spawned from Pink Horrors split |
+| [Brimstone Horrors](brimstone-paint)     | free           | spawned from Blue Horrors split — no standalone datasheet |
+| [Screamers of Tzeentch](screamers-paint) | 160p / 80p     | 6 / 3 models |
+| Fateskimmer ([Herald](herald-of-tzeentch) on [chariot](chariot)) | 95p | |
+| Fluxmaster ([Herald](herald-of-tzeentch) on [disc](disc))        | 60p | |
+| Changecaster ([Herald](herald-of-tzeentch) on foot)              | 60p | |
+| [Exalted Flamer](exalted-flamer)         | 65p            |       |
+| [The Changeling](the-changeling)         | 90p            |       |
+| [The Blue Scribes](blue-scribes)         | *(no current datasheet — Legends removed)* | last known value 75p, not currently playable |
+
 ## Notes / Ideas
 
 > Draft — points below are pulled from the [Roster](roster) table, not re-verified against a list builder. Treat as a starting sketch, not a locked list.

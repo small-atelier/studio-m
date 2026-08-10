@@ -12,7 +12,7 @@ The smaller, grumbling daemons that replace a Pink Horror when it's slain. 26 pr
 |--------------|------------------------------|
 | Assembled    | no — post-processing needed  |
 | Painted      | no                           |
-| Bases        | 28 mm — ran out, making more |
+| Bases        | 25 mm                        |
 | Paint recipe | planned — see below          |
 | Count        | 26 st                        |
 | AoS          | [Wahapedia AoS](https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/Blue-Horrors-and-Brimstone-Horrors) |

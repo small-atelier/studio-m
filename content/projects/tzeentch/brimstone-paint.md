@@ -12,7 +12,7 @@ draft: false
 |--------------|-------|
 | Assembled    | yes   |
 | Painted      | yes   |
-| Bases        | 28 mm |
+| Bases        | 25 mm |
 | Paint recipe | yes   |
 | Count        | 15 st |
 | AoS          | [Wahapedia AoS](https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/Blue-Horrors-and-Brimstone-Horrors) |

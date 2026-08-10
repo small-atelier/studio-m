@@ -10,10 +10,10 @@ Tzeentch's greatest trickster — a unique daemon that impersonates others perfe
 
 |              |                    |
 |--------------|--------------------|
-| Assembled    | no — to be printed |
-| Painted      | no                 |
-| Bases        | 40 mm              |
-| Paint recipe | not planned        |
+| Assembled    | yes                |
+| Painted      | yes                |
+| Bases        | 40 mm — not based yet |
+| Paint recipe | yes                |
 | Count        | 1 st               |
 | AoS          | [Wahapedia AoS](https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/The-Changeling) |
 | 40k          | [Wahapedia 40k](https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/The-Changeling) |
@@ -21,6 +21,13 @@ Tzeentch's greatest trickster — a unique daemon that impersonates others perfe
 
 ---
 
-## Notes
+## Paint Scheme
 
-Printing without the flame effect — will be mounted floating on a plain base, same approach as the Flamers. The Changeling's hood and robes mean the paint scheme diverges from the usual Pink Horror approach — more cloth, less exposed skin. Scheme TBD once assembled.
+1. **Grey primer**
+2. **Umbra ink** — shadows
+3. **Blue ink**
+4. **Magenta**
+5. **White ink** — highlights
+6. Details picked out
+7. **Blue + White**
+8. **Skeleton Bone**

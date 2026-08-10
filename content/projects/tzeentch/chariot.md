@@ -4,14 +4,14 @@ date: 2026-05-30
 draft: false
 ---
 
-Two chariot frames being built as a shared physical platform. Each frame carries a magnetized rider slot — swap the crew to switch between warscroll configurations.
+Two chariot frames, same paint batch as the [Disc platform](disc).
 
 ## Status
 
 |           |          |
 |-----------|----------|
-| Assembled | no       |
-| Painted   | no       |
+| Assembled | yes      |
+| Painted   | yes      |
 | Bases     | 120×92mm |
 | Count     | 2 st     |
 | GW        | [GW model](https://www.warhammer.com/en-WW/shop/herald-of-tzeentch-on-burning-chariot-2016) *(mounted-Herald listing; an unmanned-chariot listing also exists at [Burning-Chariot-of-Tzeentch](https://www.warhammer.com/en-US/shop/Burning-Chariot-of-Tzeentch))* |
@@ -29,9 +29,12 @@ Pulled from the existing [screamers](screamers-paint) batch — each chariot get
 
 ---
 
-## Magnetized Configurations
+## Crew / Warscroll
 
-The rider/crew slot is magnetized — one chariot frame, two warscrolls:
+Each chariot's crew:
+
+- **Chariot 1** — [Herald Of Tzeentch](herald-of-tzeentch) → Fateskimmer
+- **Chariot 2** — [Exalted Flamer](exalted-flamer) → Burning Chariot
 
 | Rider / Crew                             | Warscroll          | 40k                                                                        | AoS                                                                                                                |
 |-------------------------------------------|---------------------|-------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
@@ -42,13 +45,11 @@ The rider/crew slot is magnetized — one chariot frame, two warscrolls:
 
 ## Paint
 
-- **Screamer pulls** — follow the [Screamer scheme](screamers-paint)
-- **Chariot frame** — follow the [Disc scheme](disc)
+- **Screamer** — follow the [Screamer scheme](screamers-paint)
+- **Chariot** — follow the [Disc scheme](disc)
 - **Exalted Flamer crew** (Burning Chariot config) — follow the [Flamers scheme](flamers)
 - **Herald rider** (Fateskimmer config) — follow the [Herald of Tzeentch scheme](herald-of-tzeentch)
 
 ## Build Notes
 
-- Recess a 2mm magnet into the chariot deck so the rider/crew sits flush
-- The Screamers can be fixed to the yoke or also magnetized for transport
-- Tried an extra large disc as the chariot flying base — too big. Testing ~70mm diameter instead.
+Flying base is the 70mm disc printed earlier, with the Herald mounted on it and a few screamers pulling the chariot
