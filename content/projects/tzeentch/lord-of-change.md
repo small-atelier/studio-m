@@ -17,6 +17,7 @@ Painted before this project started — paint recipe unknown. Base is done corre
 | Bases        | 100 mm with wound counter |
 | Paint recipe | unknown                   |
 | Count        | 1 st                      |
+| Links        | [Wahapedia 40k](https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Lord-of-Change) · [Wahapedia AoS](https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/Lord-of-Change) · [GW model](https://www.warhammer.com/en-US/shop/lord-of-change-2016) |
 
 ---
 

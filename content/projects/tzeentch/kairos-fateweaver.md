@@ -15,6 +15,7 @@ The Oracle of Tzeentch — a Lord of Change with two heads, one that sees the pa
 | Bases        | 100 mm with wound counter |
 | Paint recipe | not planned               |
 | Count        | 1 st (printing)           |
+| Links        | [Wahapedia 40k](https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Kairos-Fateweaver) · [Wahapedia AoS](https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/Kairos-Fateweaver) · [GW model](https://www.warhammer.com/en-WW/shop/Kairos-Fateweaver-2017) |
 
 > Large and complex print — main challenge will be pinning and assembly to make the joins invisible and the model structurally sound.
 

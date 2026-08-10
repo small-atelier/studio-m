@@ -14,14 +14,15 @@ Three disc models printed — each one a 60mm base with a magnetized top. All th
 | Painted   | no   |
 | Bases     | 60mm |
 | Count      | 3 st |
+| Links     | *(no current GW kit — Herald on Disc is old Finecast/resin, out of production, AoS Legends-only)* |
 
 ---
 
 ## Configuration
 
-| Rider       | Warscroll                  |
-|-------------|----------------------------|
-| [Herald of Tzeentch](herald-of-tzeentch) | Fluxmaster |
+| Rider       | Warscroll                  | 40k                                                                       | AoS                                                                                                     |
+|-------------|-----------------------------|------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| [Herald of Tzeentch](herald-of-tzeentch) | Fluxmaster | [40k](https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Fluxmaster) | [AoS](https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/Fluxmaster-Herald-of-Tzeentch-on-Disc) *(Legends)* |
 
 ---
 

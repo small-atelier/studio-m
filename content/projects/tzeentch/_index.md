@@ -12,7 +12,9 @@ A small Tzeentch daemon horde that works either as allies for a Thousand Sons ar
 ## Progress
 Tested 3D printed proxies — airbrushed and experimented with a few different basing schemes. Paint recipes are locked in and the airbrush workflow is proven. Looking to find old sculpts as STLs to print going forward.
 
-- [Roster](roster)
+- [Roster](roster) — everything owned, painted status, 40k/AoS datasheet links
+- [40k Army List](army-40k) — army-list ideas for Warhammer 40,000
+- [AoS Army List](army-aos) — army-list ideas for Age of Sigmar
 
 ## Units
 - [Lord Of Change](lord-of-change)

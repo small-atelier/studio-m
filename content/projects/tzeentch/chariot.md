@@ -14,6 +14,7 @@ Two chariot frames being built as a shared physical platform. Each frame carries
 | Painted   | no       |
 | Bases     | 120×92mm |
 | Count     | 2 st     |
+| Links     | [GW model](https://www.warhammer.com/en-WW/shop/herald-of-tzeentch-on-burning-chariot-2016) *(mounted-Herald listing; an unmanned-chariot listing also exists at [Burning-Chariot-of-Tzeentch](https://www.warhammer.com/en-US/shop/Burning-Chariot-of-Tzeentch))* |
 
 ---
 
@@ -32,10 +33,10 @@ Pulled from the existing [screamers](screamers-paint) batch — each chariot get
 
 The rider/crew slot is magnetized — one chariot frame, two warscrolls:
 
-| Rider / Crew                             | Warscroll          |
-|------------------------------------------|--------------------|
-| [Herald Of Tzeentch](herald-of-tzeentch) | Fateskimmer       |
-| [Exalted Flamer](exalted-flamer)         | Burning Chariot |
+| Rider / Crew                             | Warscroll          | 40k                                                                        | AoS                                                                                                                |
+|-------------------------------------------|---------------------|-------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
+| [Herald Of Tzeentch](herald-of-tzeentch) | Fateskimmer         | [40k](https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Fateskimmer)     | [AoS](https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/Fateskimmer-Herald-of-Tzeentch-on-Burning-Chariot)   |
+| [Exalted Flamer](exalted-flamer)         | Burning Chariot     | *(no standalone 40k datasheet)*                                               | [AoS](https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/Fateskimmer-Herald-of-Tzeentch-on-Burning-Chariot)   |
 
 ---
 

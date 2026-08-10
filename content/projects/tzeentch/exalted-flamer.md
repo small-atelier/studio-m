@@ -17,6 +17,7 @@ Part of the [modular magnet system](magnetization) — the same Exalted Flamer b
 | Bases        | 75 x 42mm                     |
 | Paint recipe | planned — see Flamers         |
 | Count        | 3 st (printing)               |
+| Links        | [Wahapedia 40k](https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Exalted-Flamer) · [Wahapedia AoS](https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/Exalted-Flamer-of-Tzeentch) · [GW model](https://www.warhammer.com/en-WW/shop/herald-of-tzeentch-on-burning-chariot-2016) *(shared multi-build kit — also builds Changecaster and the Burning Chariot)* |
 
 > Retro sculpt chosen over the modern version — cleaner silhouette without the attached flame effect. All three will be magnetized for plain base / chariot swaps.
 

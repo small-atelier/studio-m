@@ -14,6 +14,7 @@ Three Herald of Tzeentch bodies — the interchangeable rider for the disc and c
 | Painted      | no                   |
 | Bases        | 40 mm                |
 | Count        | 3 st                 |
+| Links        | [GW model](https://www.warhammer.com/en-WW/shop/herald-of-tzeentch-on-burning-chariot-2016) *(multi-build kit — also builds the Exalted Flamer and unmanned Burning Chariot)* |
 
 > First print rejected — large Tzeentch symbol's being clipped off from the staff and saved for some future use !?
 
@@ -21,11 +22,11 @@ Three Herald of Tzeentch bodies — the interchangeable rider for the disc and c
 
 ## Mount Options
 
-| Base               | Warscroll    |
-|--------------------|--------------|
-| Plain 40mm         | Changecaster |
-| [Disc](disc)       | Fluxmaster   |
-| [Chariot](chariot) | Fateskimmer  |
+| Base               | Warscroll    | 40k                                                                            | AoS                                                                                                     |
+|--------------------|--------------|---------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|
+| Plain 40mm         | Changecaster | [40k](https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Changecaster)      | [AoS](https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/Changecaster-Herald-of-Tzeentch)             |
+| [Disc](disc)       | Fluxmaster   | [40k](https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Fluxmaster)        | [AoS](https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/Fluxmaster-Herald-of-Tzeentch-on-Disc) *(Legends)* |
+| [Chariot](chariot) | Fateskimmer  | [40k](https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Fateskimmer)       | [AoS](https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/Fateskimmer-Herald-of-Tzeentch-on-Burning-Chariot) |
 
 ---
 
