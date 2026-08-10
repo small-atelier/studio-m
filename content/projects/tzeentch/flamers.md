@@ -6,7 +6,7 @@ draft: false
 
 ![Flamers](../gallery/IMG_001.jpeg)
 
-Older models — STL prints from the web, painted before this project. Paint recipe unknown, bases need redoing to match the dark ancient stone scheme.
+Older models — STL prints from the web, painted before this project. Paint recipe unknown.
 
 ## Status
 
@@ -14,7 +14,7 @@ Older models — STL prints from the web, painted before this project. Paint rec
 |--------------|-----------------------|
 | Assembled    | yes                   |
 | Painted      | yes                   |
-| Bases        | 32 mm - needs redoing |
+| Bases        | 32 mm                 |
 | Paint recipe | unknown               |
 | Count        | 10 st                 |
 | AoS          | [Wahapedia AoS](https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/Flamers-of-Tzeentch) |

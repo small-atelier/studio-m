@@ -6,7 +6,7 @@ draft: false
 
 ![Pink Horrors](../gallery/IMG_002.jpeg)
 
-A unit of Pink Horrors painted before this project — paint recipe unknown, bases wrong (need redoing to match the dark ancient stone scheme).
+A unit of Pink Horrors painted before this project — paint recipe unknown.
 
 ## Status
 
@@ -14,7 +14,7 @@ A unit of Pink Horrors painted before this project — paint recipe unknown, bas
 |--------------|---------------------------|
 | Assembled    | yes                       |
 | Painted      | yes                       |
-| Bases        | 32 mm - but needs redoing |
+| Bases        | 32 mm                     |
 | Paint recipe | unknown                   |
 | Count        | 12 st                     |
 | AoS          | [Wahapedia AoS](https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/Pink-Horrors) |
