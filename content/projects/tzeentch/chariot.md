@@ -34,12 +34,11 @@ Pulled from the existing [screamers](screamers-paint) batch — each chariot get
 Each chariot's crew:
 
 - **Chariot 1** — [Herald Of Tzeentch](herald-of-tzeentch) → Fateskimmer
-- **Chariot 2** — [Exalted Flamer](exalted-flamer) → Burning Chariot
+- **Chariot 2** — uncrewed, waiting on a second Herald to be printed. Exalted Flamers were never an option here — all 3 are foot models.
 
 | Rider / Crew                             | Warscroll          | 40k                                                                        | AoS                                                                                                                |
 |-------------------------------------------|---------------------|-------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
 | [Herald Of Tzeentch](herald-of-tzeentch) | Fateskimmer         | [40k](https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Fateskimmer)     | [AoS](https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/Fateskimmer-Herald-of-Tzeentch-on-Burning-Chariot)   |
-| [Exalted Flamer](exalted-flamer)         | Burning Chariot     | *(no standalone 40k datasheet)*                                               | [AoS](https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/Fateskimmer-Herald-of-Tzeentch-on-Burning-Chariot)   |
 
 ---
 
@@ -47,7 +46,6 @@ Each chariot's crew:
 
 - **Screamer** — follow the [Screamer scheme](screamers-paint)
 - **Chariot** — follow the [Disc scheme](disc)
-- **Exalted Flamer crew** (Burning Chariot config) — follow the [Flamers scheme](flamers)
 - **Herald rider** (Fateskimmer config) — follow the [Herald of Tzeentch scheme](herald-of-tzeentch)
 
 ## Build Notes

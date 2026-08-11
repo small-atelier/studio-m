@@ -4,7 +4,7 @@ date: 2026-05-30
 draft: false
 ---
 
-An upgraded Flamer of Tzeentch — larger, more chaotic, and on foot rather than grouped in a unit. Using an older retro-style sculpt (no attached flame effect). One crews a [chariot](chariot) (Burning Chariot), two stand on foot (Exalted Flamer).
+An upgraded Flamer of Tzeentch — larger, more chaotic, and on foot rather than grouped in a unit. Using an older retro-style sculpt (no attached flame effect). All 3 stand on foot.
 
 ## Status
 
@@ -14,7 +14,7 @@ An upgraded Flamer of Tzeentch — larger, more chaotic, and on foot rather than
 | Painted      | yes                           |
 | Bases        | 75 x 42mm                     |
 | Paint recipe | yes                           |
-| Count        | 3 st — 1 chariot, 2 foot     |
+| Count        | 3 st — all on foot           |
 | AoS          | [Wahapedia AoS](https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/Exalted-Flamer-of-Tzeentch) |
 | 40k          | [Wahapedia 40k](https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Exalted-Flamer) |
 | GW           | [GW model](https://www.warhammer.com/en-WW/shop/herald-of-tzeentch-on-burning-chariot-2016) *(shared multi-build kit — also builds Changecaster and the Burning Chariot)* |

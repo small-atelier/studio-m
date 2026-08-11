@@ -19,10 +19,10 @@ Tested 3D printed proxies — airbrushed and experimented with a few different b
 ## Units
 - [Lord Of Change](lord-of-change)
 - [Kairos Fateweaver](kairos-fateweaver) 
-- [Flamers of Tzeentch](flamers) — legacy, STL prints, needs rebasing
+- [Flamers of Tzeentch](flamers) — legacy, STL prints
 - [Exalted Flamer](exalted-flamer) 
-- Burning Chariot / Fateskimmer — via [Chariot platform](chariot)
-- [Pink Horrors of Tzeentch](pink-horrors) — legacy, needs rebasing
+- Fateskimmer — via [Chariot platform](chariot)
+- [Pink Horrors of Tzeentch](pink-horrors) — legacy
 - [Blue Horrors](blue-horrors) 
 - [Brimstone Horrors with paint scheme](brimstone-paint)
 - [Screamers with paint scheme](screamers-paint)
@@ -31,12 +31,11 @@ Tested 3D printed proxies — airbrushed and experimented with a few different b
 
 ## Techniques
 - [Basing](base/)
-- [Magnetization — Modular Bases](magnetization)
 
 ## Platforms
-- [Chariot Platform](chariot) — 2 × 120×92mm, magnetized crew
-- [Disc Platform](disc) — 3 × 60mm, magnetized rider
-- [Heralds of Tzeentch](herald-of-tzeentch) — 3 bodies, interchangeable across platforms
+- [Chariot Platform](chariot) — 2 × 120×92mm
+- [Disc Platform](disc) — 1 × 60mm
+- [Heralds of Tzeentch](herald-of-tzeentch) — 3 bodies, 1 each on foot, disc, and chariot
 
 ## Photos
 
