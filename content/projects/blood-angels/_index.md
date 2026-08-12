@@ -6,10 +6,6 @@ categories: ["Projects"]
 tags: []
 ---
 
-{{< lead >}}
-A growing Necron army focused on weathered metallics and desert basing.
-{{< /lead >}}
-
 ![Army](gallery/studio-m-logo.png)
 
 ## Overview
