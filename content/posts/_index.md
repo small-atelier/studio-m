@@ -8,6 +8,7 @@ Longer write-ups on painting projects, techniques, and lessons learned. Think of
 
 - [Generating Miniature Bases with Blender](blender-bases)
 - [A Business-Card Stand for the Neighbours](card-stand)
+- [Two Small Terrain Boards](terrain-boards)
 
 ---
 
