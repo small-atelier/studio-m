@@ -11,6 +11,8 @@ A Blender Python script that generates a complete set of plain bases across all 
 Built and tested in Blender 5.1.2. No plugins required — paste into the Script Editor and run.
 {{< /lead >}}
 
+{{< figure src="gallery/IMG_1509.webp" caption="Printed set — magnet sockets and size labels visible on the underside" >}}
+
 ---
 
 ## What it generates
