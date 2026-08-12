@@ -4,6 +4,8 @@ date: 2026-05-30
 draft: false
 ---
 
+![Chariot](../gallery/IMG_1717.jpeg "Chariot")
+
 Two chariot frames, same paint batch as the [Disc platform](disc).
 
 ## Status
@@ -29,12 +31,7 @@ Pulled from the existing [screamers](screamers-paint) batch — each chariot get
 
 ---
 
-## Crew / Warscroll
-
-Each chariot's crew:
-
-- **Chariot 1** — [Herald Of Tzeentch](herald-of-tzeentch) → Fateskimmer
-- **Chariot 2** — uncrewed, waiting on a second Herald to be printed. Exalted Flamers were never an option here — all 3 are foot models.
+## Configuration / Warscroll
 
 | Rider / Crew                             | Warscroll          | 40k                                                                        | AoS                                                                                                                |
 |-------------------------------------------|---------------------|-------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
@@ -50,4 +47,4 @@ Each chariot's crew:
 
 ## Build Notes
 
-Flying base is the 70mm disc printed earlier, with the Herald mounted on it and a few screamers pulling the chariot
+Flying base is the 50mm disc printed earlier, with the Herald mounted on it and a few screamers pulling the chariot

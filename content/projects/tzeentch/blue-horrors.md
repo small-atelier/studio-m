@@ -4,19 +4,19 @@ date: 2026-05-30
 draft: false
 ---
 
-The smaller, grumbling daemons that replace a Pink Horror when it's slain. 38 printed — needs post-processing and bases before painting.
+The smaller, grumbling daemons that replace a Pink Horror when it's slain.
 
 ## Status
 
-|              |                              |
-|--------------|------------------------------|
-| Assembled    | no — post-processing needed  |
-| Painted      | no                           |
-| Bases        | 25 mm                        |
-| Paint recipe | planned — see below          |
-| Count        | 38 st                        |
-| AoS          | [Wahapedia AoS](https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/Blue-Horrors-and-Brimstone-Horrors) |
-| 40k          | [Wahapedia 40k](https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Blue-Horrors) |
+|              |                                                                                                                                  |
+|--------------|----------------------------------------------------------------------------------------------------------------------------------|
+| Assembled    | yes                                                                                                                              |
+| Painted      | no                                                                                                                               |
+| Bases        | 25 mm                                                                                                                            |
+| Paint recipe | planned — see below                                                                                                              |
+| Count        | 38 st                                                                                                                            |
+| AoS          | [Wahapedia AoS](https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/Blue-Horrors-and-Brimstone-Horrors)                     |
+| 40k          | [Wahapedia 40k](https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Blue-Horrors)                                              |
 | GW           | [GW model](https://www.warhammer.com/en-WW/shop/blue-horrors-2016) *(same box also builds [Brimstone Horrors](brimstone-paint))* |
 
 ---

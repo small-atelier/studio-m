@@ -4,6 +4,8 @@ date: 2026-05-30
 draft: false
 ---
 
+![Heralds of Tzeentch](../gallery/IMG_1515.jpeg "Heralds of Tzeentch")
+
 Three Herald of Tzeentch bodies. One crews a [chariot](chariot) (Fateskimmer), one rides a [disc](disc) (Fluxmaster), one stands on foot (Changecaster).
 
 ## Status
@@ -19,15 +21,17 @@ Three Herald of Tzeentch bodies. One crews a [chariot](chariot) (Fateskimmer), o
 
 > First print rejected — large Tzeentch symbol's being clipped off from the staff and saved for some future use !?
 
+I think I will print, paint and build one more set ...
+
 ---
 
 ## Mount Options
 
-| Base               | Warscroll    | Count | 40k                                                                            | AoS                                                                                                     |
-|--------------------|--------------|-------|---------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|
-| Plain 32mm         | Changecaster | 1     | [40k](https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Changecaster)      | [AoS](https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/Changecaster-Herald-of-Tzeentch)             |
-| [Disc](disc)       | Fluxmaster   | 1     | [40k](https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Fluxmaster)        | [AoS](https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/Fluxmaster-Herald-of-Tzeentch-on-Disc) *(Legends)* |
-| [Chariot](chariot) | Fateskimmer  | 1     | [40k](https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Fateskimmer)       | [AoS](https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/Fateskimmer-Herald-of-Tzeentch-on-Burning-Chariot) |
+| Base               | Warscroll    | Count | 40k                                                                       | AoS                                                                                                               |
+|--------------------|--------------|-------|---------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
+| Plain 32mm         | Changecaster | 1     | [40k](https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Changecaster) | [AoS](https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/Changecaster-Herald-of-Tzeentch)                   |
+| [Disc](disc)       | Fluxmaster   | 1     | [40k](https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Fluxmaster)   | [AoS](https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/Fluxmaster-Herald-of-Tzeentch-on-Disc) *(Legends)* |
+| [Chariot](chariot) | Fateskimmer  | 1     | [40k](https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Fateskimmer)  | [AoS](https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/Fateskimmer-Herald-of-Tzeentch-on-Burning-Chariot) |
 
 ---
 

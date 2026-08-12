@@ -8,15 +8,15 @@ P'tarix and Xirat'p — two Blue Horrors riding a Disc of Tzeentch, frantically 
 
 ## Status
 
-|              |                    |
-|--------------|--------------------|
-| Assembled    | no — model printed |
-| Painted      | no                 |
-| Bases        | oversized 70mm display disc on a 50/60mm base (true edge for measuring: 60mm) |
-| Paint recipe | not planned        |
-| Count        | 1 st               |
-| AoS          | [Wahapedia AoS](https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/The-Blue-Scribes) *(AoS Legends)* |
-| 40k          | *(no current datasheet — Legends removed in 11th ed)* |
+|              |                                                                                                                                   |
+|--------------|-----------------------------------------------------------------------------------------------------------------------------------|
+| Assembled    | yes                                                                                                                               |
+| Painted      | no                                                                                                                                |
+| Bases        | oversized 70mm display disc on a 50/60mm base (true edge for measuring: 60mm)                                                     |
+| Paint recipe | not planned                                                                                                                       |
+| Count        | 1 st                                                                                                                              |
+| AoS          | [Wahapedia AoS](https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/The-Blue-Scribes) *(AoS Legends)*                        |
+| 40k          | *(no current datasheet — Legends removed in 11th ed)*                                                                             |
 | GW           | [GW model](https://warhammer.com/en-CA/shop/Daemons-of-Tzeentch-Blue-Scribes) *(regional/legacy listing — check before trusting)* |
 
 ---
@@ -28,7 +28,7 @@ A unique model with two sub-schemes: the [Blue Horror](blue-horrors) riders (blu
 ## Build Notes
 
 - Printed an oversized 70mm disc for extra room — books/paraphernalia mounted alongside the scribes
-- Disc puttied and glued onto a 50/60mm base underneath
+- Oversized disc puttied and glued onto a 50/60mm base underneath
 - Official base is 60mm — mark/measure from that true edge for charges, engagement range, and auras (bigger display base isn't a rules advantage, see Roster/army page notes)
 
 

@@ -4,7 +4,7 @@ date: 2026-05-30
 draft: false
 ---
 
-One disc model — a 60mm base, same paint batch as the [Chariot platform](chariot). Carries a [Herald Of Tzeentch](herald-of-tzeentch) glued on, making it a Fluxmaster.
+![Disc](../gallery/IMG_1616.jpeg "Disc")
 
 ## Status
 
@@ -18,17 +18,11 @@ One disc model — a 60mm base, same paint batch as the [Chariot platform](chari
 
 ---
 
-## Configuration
+## Configuration / Warscroll
 
 | Rider       | Warscroll                  | 40k                                                                       | AoS                                                                                                     |
 |-------------|-----------------------------|------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
 | [Herald of Tzeentch](herald-of-tzeentch) | Fluxmaster | [40k](https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Fluxmaster) | [AoS](https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/Fluxmaster-Herald-of-Tzeentch-on-Disc) *(Legends)* |
-
----
-
-## Build Notes
-
-- Herald of Tzeentch mounted on a disc on 60mm base using the same [dark stone scheme](base/) as the rest of the force
 
 ---
 
@@ -44,3 +38,9 @@ Same recipe as the [Screamers](screamers-paint), plus a white drybrush underpain
 4. **Alien Purple** airbrush from above
 5. **Daemonic Yellow** glow on the nose/front
 6. Ink glazes — **blue** on the underside, **magenta** on the back
+
+---
+
+## Build Notes
+
+One disc model — a 60mm base using the same [dark stone scheme](base/) as the rest of the force, same paint batch as the [Chariot platform](chariot). Carries a [Herald Of Tzeentch](herald-of-tzeentch) glued on, making it a Fluxmaster.

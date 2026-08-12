@@ -4,6 +4,8 @@ date: 2026-05-30
 draft: false
 ---
 
+![The Changeling](../gallery/IMG_1313.jpeg "The Changeling")
+
 Tzeentch's greatest trickster — a unique daemon that impersonates others perfectly.
 
 ## Status
