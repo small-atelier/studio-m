@@ -19,3 +19,4 @@ draft: false
 
 ## Misc
 - [Tools & Accessories](misc/tools/)
+- [Modular Drawers & Stick/Wire Organizer](misc/drawers/)

@@ -15,9 +15,9 @@ Built and tested in Blender 5.1.2. No plugins required — paste into the Script
 
 ## What it generates
 
-**Round** — 20 · 25 · 28.5 · 32 · 40 · 50 · 65 · 80 · 90 · 100 · 130 · 160 mm
+**Round** — 25 · 28.5 · 32 · 40 · 50 · 65 · 80 · 90 · 100 · 130 · 160 mm
 
-**Oval** — 60×35 · 70×25 · 75×42 · 90×52 · 95×40 · 105×70 · 120×92 · 150×95 · 170×109 mm
+**Oval** — 60×35 · 75×42 · 90×52 · 105×70 · 120×92 · 150×95 · 170×109 mm
 
 **Square** — 20 · 25 · 40 · 50 · 60 · 100 mm
 
@@ -39,6 +39,28 @@ All bases are:
 - Slotted bases omit the label (the slot cutter would intersect it)
 
 Bases are bin-packed to fit a 220 × 220 mm print bed (Anycubic Kobra X), flipped flat-top-down for printing.
+
+---
+
+## Downloads
+
+Pre-generated STLs for everything above, if you just want the files rather than running the script yourself.
+
+**Round** — [25](round_25mm.stl) · [28.5](round_28.5mm.stl) · [32](round_32mm.stl) · [40](round_40mm.stl) · [50](round_50mm.stl) · [65](round_65mm.stl) · [80](round_80mm.stl) · [90](round_90mm.stl) · [100](round_100mm.stl) · [130](round_130mm.stl) · [160](round_160mm.stl) mm
+
+**Oval** — [60×35](oval_60x35.stl) · [75×42](oval_75x42.stl) · [90×52](oval_90x52.stl) · [105×70](oval_105x70.stl) · [120×92](oval_120x92.stl) · [150×95](oval_150x95.stl) · [170×109](oval_170x109.stl) mm
+
+**Square** — [20](square_20mm.stl) · [25](square_25mm.stl) · [40](square_40mm.stl) · [50](square_50mm.stl) · [60](square_60mm.stl) · [100](square_100mm.stl) mm
+
+**Rectangular** — [25×50](rect_25x50.stl) · [40×60](rect_40x60.stl) · [50×75](rect_50x75.stl) · [50×100](rect_50x100.stl) mm
+
+**Pill** — [70×25](pill_70x25.stl) · [95×40](pill_95x40.stl) mm
+
+**Slotted round** — [20](slot_round_20mm.stl) · [25](slot_round_25mm.stl) mm
+
+**Slotted square** — [20](slot_square_20mm.stl) · [20 diagonal](slot_square_20mm_diag.stl) · [25](slot_square_25mm.stl) · [25 diagonal](slot_square_25mm_diag.stl) mm
+
+**Slotted rect (cavalry)** — [20×40](slot_rect_20x40.stl) · [25×50](slot_rect_25x50.stl) mm
 
 ---
 
@@ -139,4 +161,4 @@ Bases are placed **flat top face down** — the model platform goes on the bed, 
 
 ## The script
 
-{{< include-code path="blender/base/bases.py" lang="python" >}}
+{{< include-code path="blender/bases/bases.py" lang="python" >}}
