@@ -10,7 +10,12 @@ tags: []
 
 ## Overview
 
-A swarm-focused Tyranid collection, still being built out — synapse creatures backing up gaunt swarms and a few monsters, with more on the wishlist. Theme/paint scheme not locked in yet.
+A swarm-focused Tyranid collection, still being built out — synapse creatures backing up gaunt swarms and a few monsters, with more on the wishlist.
+
+Theme/paint scheme not locked in yet. But focus is experimenting with underpaint with inks and glazes 
+
+With 3d printed bases with tyranid creep on them ...
+
 
 ## Progress
 
@@ -19,7 +24,7 @@ Most units are assembled and based; painting is mostly still at the undercoat st
 Build/paint priority order: [Winged Tyranid Prime](winged-tyranid-prime) and [Neurotyrant](neurotyrant) painted first to unlock basic synapse play, then [Tyranid Warriors](tyranid-warriors), then fast attack ([Von Ryan's Leapers](von-ryans-leapers), [Barbgaunts](barbgaunts), [Broodlord](broodlord)), then monster support ([Screamer-Killer](screamer-killer)), then the rest of the swarm ([Neurogaunts](neurogaunts), [Ripper Swarm](ripper-swarm)).
 
 - [Roster](roster) — everything owned, build/paint status, current datasheet links
-- [40k Army List](army-40k) — points reference and list sketches (Tyranids has no Age of Sigmar faction)
+- [40k Army List](army-40k) — points reference and list sketches.
 
 ## Units
 

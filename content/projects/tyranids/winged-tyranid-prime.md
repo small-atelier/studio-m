@@ -4,6 +4,8 @@ date: 2026-08-12
 draft: false
 ---
 
+Leader — can attach to [Tyranid Warriors](tyranid-warriors) (melee or ranged) or Gargoyles (not owned).
+
 ## Status
 
 | | |
@@ -13,6 +15,6 @@ draft: false
 | Bases | printed & painted |
 | Paint recipe | not yet defined |
 | Count | 1 st |
-| 40k | *(no current datasheet — see note below)* |
-
-No standalone 11th-edition datasheet. In the current codex, the Tyranid Prime is a leader model bundled into the [Tyranid Warriors](tyranid-warriors) datasheets rather than a separate buy — the winged loadout may still be a legal wargear/conversion option there, worth checking against the current Warriors datasheet rules before fielding this model as-is.
+| Base size | 50mm |
+| Points | 65p |
+| 40k | [Wahapedia 40k](https://wahapedia.ru/wh40k11ed/factions/tyranids/Winged-Tyranid-Prime) |

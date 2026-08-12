@@ -4,6 +4,8 @@ date: 2026-08-12
 draft: false
 ---
 
+Fielded off the [Carnifexes](https://wahapedia.ru/wh40k11ed/factions/tyranids/Carnifexes) datasheet — Screamer-Killer isn't a separate rules document, but it *is* its own separately-priced, separately-named entry in the current points manual (a specific wargear loadout), not the same cost as a plain Carnifex.
+
 ## Status
 
 | | |
@@ -13,6 +15,6 @@ draft: false
 | Bases | printed, not painted |
 | Paint recipe | not yet defined |
 | Count | 1 st |
-| 40k | *(no current datasheet — see note below)* |
-
-No standalone 11th-edition datasheet. Merged into the unified [Carnifexes](https://wahapedia.ru/wh40k11ed/factions/tyranids/Carnifexes) datasheet (90p / 180p for 2, base 105×70mm) as a wargear loadout choice rather than a named unit — field this model as a Carnifex.
+| Base size | 105×70mm |
+| Points | 125p (1st–2nd unit) / 135p (3rd+) |
+| 40k | [Carnifexes datasheet](https://wahapedia.ru/wh40k11ed/factions/tyranids/Carnifexes) (Screamer-Killer loadout) |
