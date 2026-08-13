@@ -53,7 +53,10 @@ RENDER_RESOLUTION = (1600, 1200)
 # --- Text ---
 TEXT_FONT_PATH = "/System/Library/Fonts/Supplemental/Baskerville.ttc"
 TEXT_STRING = "MYTHOS"
-TEXT_SIZE = 18.0          # up from v5's 15 - bigger overall, proportionally thickens every stroke
+TEXT_SIZE = 18.0          # keep at 18 - dropping to 15 makes TEXT_BOLD_OFFSET proportionally too
+                          # aggressive for the glyphs and collapses the union (verified: "MY" and
+                          # part of the O disappeared, non-manifold fraction spiked to 12%). Shrink
+                          # the plate via PLATE_MARGIN_X instead - doesn't touch text geometry.
 TEXT_BOLD_OFFSET = 0.12  # curve outline offset - pushes every stroke edge out this much, the
                           # fix for O's ring / S's curve reading too thin. Tested 0.08-0.22: past
                           # ~0.13 the offset self-intersects O/S's tight inner curves and the
@@ -67,7 +70,8 @@ TEXT_EMBED = 1.2          # how far into the plate the text volume also extends,
 
 # --- Backing plate ---
 PLATE_T = 2.0             # requested: 2mm thick backing plate
-PLATE_MARGIN_X = 6.0      # margin around the measured text bounding box
+PLATE_MARGIN_X = 1.5      # margin around the measured text bounding box - trimmed from 6.0 so the
+                          # plate (was 73mm) fits inside the 70mm backplate it glues onto
 PLATE_MARGIN_Z = 5.0
 PLATE_BEVEL_W = 0.6
 
