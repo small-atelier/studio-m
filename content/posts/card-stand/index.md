@@ -37,9 +37,13 @@ Flat-plateau-with-sharp-edges turned out to be the better call anyway, independe
 
 ## Technique 2: zero-support printing
 
-Earlier versions stood the backplate on edge to fit the printer's bed, which meant supports under the overhanging relief. v5 instead prints it flat on its back — every raised feature (the logo, the wordmark, the decorative ridge) projects in the same direction, straight up off the plate, so nothing overhangs and nothing needs support material at all. The tradeoff is bed footprint: flat-on-back only works because the backplate was already narrow enough (70 × 138mm) to fit the Photon Mono 2's 89.6 × 143.4mm bed directly.
+Earlier versions stood the backplate on edge to fit the printer's bed, which meant supports under the overhanging relief. It's printed flat on its back instead — every raised feature (the logo, the wordmark, the decorative frame) projects in the same direction, straight up off the plate, so nothing overhangs and nothing needs support material at all. The tradeoff is bed footprint: flat-on-back only works because the backplate is narrow enough (86 × 138mm) to fit the Photon Mono 2's 89.6 × 143.4mm bed directly.
 
-{{< include-code path="blender/card-stand/card_stand_v5_flat_sharp_logo.py" lang="python" label="backplate_and_holder.py" >}}
+The holder is its own separate script — same zero-support flat-printing idea, just on a different axis of the part.
+
+{{< include-code path="blender/card-stand/card_stand_v8_holder_return.py" lang="python" label="backplate.py" >}}
+
+{{< include-code path="blender/card-stand/card_stand_v8_holder_piece.py" lang="python" label="card_holder.py" >}}
 
 ---
 
@@ -59,8 +63,9 @@ The Mythos logo makes these specific to that store, but figured I'd host the fil
 
 - [Backplate](backplate.stl)
 - [Card holder](card-holder.stl)
-- [Text plate](text-plate.stl) — the bolder-lettered replacement, see above
-- [Backplate + holder script](backplate_and_holder.py) — builds both STLs above
+- [Text plate](text-plate.stl) — the bolder-lettered replacement, see above (for anyone patching an earlier print rather than starting fresh)
+- [Backplate script](backplate.py)
+- [Card holder script](card_holder.py)
 - [Text plate script](text_plate.py)
 - [Logo preprocessing script](preprocess_logo.py)
 - [Logo contour extraction script](extract_logo_contours.py)
