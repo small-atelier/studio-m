@@ -62,7 +62,10 @@ import os
 # CONFIG (all mm)
 # ============================================================
 
-EXPORT_DIR = "/Users/mannil/pfn/projects/mjnet/studio-m/blender/card-stand/output_v7"
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+BLENDER_DIR = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "..", "..", "blender", "card-stand"))
+
+EXPORT_DIR = os.path.join(BLENDER_DIR, "output_v7")
 EXPORT_STL = True
 
 RENDER_IMAGES = True
@@ -193,7 +196,7 @@ RELEASE_CHAMFER_W = 1.0
 # thicker in absolute mm - some of that detail was among what
 # delaminated in the print test, and this is the icon's version of the
 # same "thicken it" fix as the text's bold-offset bumps below. ---
-LOGO_CONTOURS_PATH = "/Users/mannil/pfn/projects/mjnet/studio-m/blender/card-stand/logo_contours_v5.json"
+LOGO_CONTOURS_PATH = os.path.join(BLENDER_DIR, "logo_contours_v5.json")
 LOGO_W = 85.0                # pushed to PANEL_W's own ceiling (68 - 2*LOGO_SIDE_MARGIN) - wanted
                              # 70, but that needs a thinner frame border to fit (declined - keeping
                              # the frame as designed), so this is as big as it goes without that
@@ -210,7 +213,7 @@ LOGO_TOP_MARGIN = 12.0      # bumped back up from 8 - the bigger icon sat too cl
 # (18mm) which measured wider than PANEL_W and touched the recessed
 # panel's own edge; see the width assert in build_logo_text for the
 # actual measured check. ---
-TEXT_FONT_PATH = "/Users/mannil/pfn/projects/mjnet/studio-m/blender/card-stand/BaskervilleBold.ttf"
+TEXT_FONT_PATH = os.path.join(BLENDER_DIR, "BaskervilleBold.ttf")
                             # genuine Bold face, extracted from Baskerville.ttc's face index 1 via
                             # fontTools (Blender's font loader can't address a face within a .ttc
                             # directly) - real drawn-bold strokes instead of the curve_data.offset
@@ -245,7 +248,7 @@ TROPHY_MIN_BOTTOM_MARGIN = 10.0     # sanity floor - see assert below (needs roo
 # classic subtitle-hierarchy convention. Same genuine-bold-face
 # reasoning as TEXT_FONT_PATH above - no self-intersection risk since
 # it's not a synthetic offset. ---
-SUBTITLE_FONT_PATH = "/Users/mannil/pfn/projects/mjnet/studio-m/blender/card-stand/BaskervilleBoldItalic.ttf"
+SUBTITLE_FONT_PATH = os.path.join(BLENDER_DIR, "BaskervilleBoldItalic.ttf")
 SUBTITLE_LINE1 = "Warhammer 40k"
 SUBTITLE_LINE2 = "Escalation League"
 SUBTITLE_LINE3 = "Season 2"

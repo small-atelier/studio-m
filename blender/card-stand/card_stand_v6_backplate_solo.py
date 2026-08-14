@@ -32,7 +32,9 @@ import os
 # CONFIG (all mm)
 # ============================================================
 
-EXPORT_DIR = "/Users/mannil/pfn/projects/mjnet/studio-m/blender/card-stand/output_v6"
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+EXPORT_DIR = os.path.join(SCRIPT_DIR, "output_v6")
 EXPORT_STL = True
 
 RENDER_IMAGES = True
@@ -86,7 +88,7 @@ RIDGE_WIDTH = 2.5
 RIDGE_HEIGHT = 2.0
 
 # --- Logo icon (vector contours, see extract_logo_contours.py) ---
-LOGO_CONTOURS_PATH = "/Users/mannil/pfn/projects/mjnet/studio-m/blender/card-stand/logo_contours_v5.json"
+LOGO_CONTOURS_PATH = os.path.join(SCRIPT_DIR, "logo_contours_v5.json")
 LOGO_W = 58.0
 LOGO_ASPECT = 376.0 / 720.0
 LOGO_CENTER_X = 0.0

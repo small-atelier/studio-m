@@ -52,7 +52,9 @@ import os
 # CONFIG (all mm)
 # ============================================================
 
-EXPORT_DIR = "/Users/mannil/pfn/projects/mjnet/studio-m/blender/card-stand/output_v8"
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+EXPORT_DIR = os.path.join(SCRIPT_DIR, "output_v8")
 EXPORT_STL = True
 
 RENDER_IMAGES = True
@@ -132,7 +134,7 @@ TEXT_FRONT_Y = CENTER_FRONT_Y + (EMBOSS_EMBED - EMBOSS_H) / 2.0
 RELEASE_CHAMFER_W = 1.0
 
 # --- Logo icon ---
-LOGO_CONTOURS_PATH = "/Users/mannil/pfn/projects/mjnet/studio-m/blender/card-stand/logo_contours_v5.json"
+LOGO_CONTOURS_PATH = os.path.join(SCRIPT_DIR, "logo_contours_v5.json")
 LOGO_W = 58.0                # back to a size that comfortably fits PANEL_W with real margin - v7
                               # pushed this to the panel's own ceiling for a standalone plaque with
                               # nothing else competing for width; this one shares the plate with a
@@ -143,7 +145,7 @@ LOGO_CENTER_X = 0.0
 LOGO_TOP_MARGIN = 12.0
 
 # --- MYTHOS wordmark ---
-TEXT_FONT_PATH = "/Users/mannil/pfn/projects/mjnet/studio-m/blender/card-stand/BaskervilleBold.ttf"
+TEXT_FONT_PATH = os.path.join(SCRIPT_DIR, "BaskervilleBold.ttf")
                             # genuine Bold face (extracted from Baskerville.ttc via fontTools,
                             # since Blender's font loader can't address a face within a .ttc
                             # directly) - real drawn-bold strokes, no self-intersection risk since

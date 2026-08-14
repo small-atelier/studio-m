@@ -40,7 +40,7 @@ import os
 # CONFIG (all mm)
 # ============================================================
 
-EXPORT_DIR = "/Users/mannil/pfn/projects/mjnet/studio-m/content/projects/card-stand/output_v5"
+EXPORT_DIR = "/Users/mannil/studio-m/content/projects/card-stand/output_v5"
 EXPORT_STL = True
 
 RENDER_IMAGES = True
@@ -138,7 +138,7 @@ RIDGE_WIDTH = 2.5
 RIDGE_HEIGHT = 2.0
 
 # --- Logo icon (vector contours, see extract_logo_contours.py) ---
-LOGO_CONTOURS_PATH = "/Users/mannil/pfn/projects/mjnet/studio-m/content/projects/card-stand/logo_contours_v5.json"
+LOGO_CONTOURS_PATH = "/Users/mannil/studio-m/content/projects/card-stand/logo_contours_v5.json"
 LOGO_W = 58.0                       # narrower than v3's 122mm - constrained by the 70mm plate
 LOGO_ASPECT = 376.0 / 720.0          # logo_mask_v5.png's h:w - already cropped icon-only, so
                                      # (unlike the original 499-tall mask) there's no blank text

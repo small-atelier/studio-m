@@ -49,7 +49,9 @@ import os
 # CONFIG (all mm)
 # ============================================================
 
-EXPORT_DIR = "/Users/mannil/pfn/projects/mjnet/studio-m/blender/card-stand/output_v8"
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+EXPORT_DIR = os.path.join(SCRIPT_DIR, "output_v8")
 EXPORT_STL = True
 
 RENDER_IMAGES = True
