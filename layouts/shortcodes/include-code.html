@@ -1,3 +1,7 @@
 {{ $path := .Get "path" }}
 {{ $lang := .Get "lang" | default "python" }}
+{{ $label := .Get "label" | default (path.Base $path) }}
+<details>
+<summary>{{ $label }}</summary>
 {{ highlight (readFile $path) $lang "" }}
+</details>

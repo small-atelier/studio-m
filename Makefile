@@ -70,23 +70,6 @@ new-post:
 	$(IMAGE) \
 	new content/posts/$(name).md
 
-## Create new content
-## Example: make new type=posts name=my-post
-new:
-	@if [ -z "$(type)" ]; then \
-		echo "Error: You must specify a type, e.g. make new-project type=post name=ork-killteam"; \
-		exit 1; \
-	fi	@if [ -z "$(name)" ]; then \
-		echo "Error: You must specify a project name, e.g. make new-project name=ork-killteam"; \
-		exit 1; \
-	fi
-	@mkdir -p content/$(type)/$(name)
-	docker run --rm \
-	-v $(PWD):$(SITE) \
-	-w $(SITE) \
-	$(IMAGE) \
-	new content/$(type)/$(name).md
-
 ## Create new project bundle (better for images)
 ## Example: make new-project name=ork-killteam
 new-project:
@@ -117,9 +100,6 @@ help:
 	@echo "make serve               Start development server"
 	@echo ""
 	@echo "Content creation:"
-	@echo "make new type=posts name=my-post"
-	@echo "make new type=notes name=my-note"
-	@echo "make new type=inventory name=my-unit"
 	@echo "make new-project name=my-project"
 	@echo ""
 

@@ -20,11 +20,11 @@ make clean               # Remove public/ and resources/
 
 **Create content:**
 ```bash
-make new-project name=my-army          # New project bundle (preferred — creates content + image folder)
-make new type=posts name=my-post       # New post
-make new type=notes name=my-note       # New note
-make new type=inventory name=my-item   # New inventory item
+make new-project name=my-army          # New project bundle (creates content + image folder)
 ```
+
+Posts, notes, and inventory items are written directly (no scaffolding command) — copy an existing
+page's frontmatter shape as a starting point.
 
 ## Architecture
 
