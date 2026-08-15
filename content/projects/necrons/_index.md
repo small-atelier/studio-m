@@ -27,6 +27,10 @@ Document steps, build stages, and painting progress.
 - [Color schemes](paint/)
 - Notes for future reference
 
+## Army Building
+- [Roster](roster/) — owned, assembled, and wishlist models
+- [40k Army List](army-40k/) — list sketches by points bracket
+
 ## Photos
 
 {{< carousel images="gallery/*" aspectRatio="21-9" interval="2500" >}}
