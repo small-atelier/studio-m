@@ -19,6 +19,10 @@ Document steps, build stages, and painting progress.
 - Techniques used
 - Notes for future reference
 
+## Army Building
+- [Roster](roster/) — owned, assembled, and wishlist models
+- [40k Army List](army-40k/) — list sketches by points bracket
+
 ## Terrain — Prospero Board
 
 Iconic Prospero themes — crystal spires, stepped pyramids, arcane obelisks, marble ruins, floating psychic islands — built as a collection of playable pieces rather than one static diorama, so each piece can be repositioned between missions.
