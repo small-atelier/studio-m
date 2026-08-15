@@ -10,7 +10,8 @@ Unit names link out to their [Wahapedia](https://wahapedia.ru/wh40k11ed/factions
 
 | Unit         | Model / Options | Qty | Notes |
 |--------------|-----------------|-----|-------|
-| *(none yet)* |                 |     |       |
+| Chaos Rhino |                 | 4   |       |
+
 
 ## Assembled — WIP, Unpainted
 
@@ -26,12 +27,6 @@ Unit names link out to their [Wahapedia](https://wahapedia.ru/wh40k11ed/factions
 ## Wishlist
 
 Actual shopping list, grouped by which [40k Army List](army-40k) bracket needs it. Points from the current [Munitorum Field Manual](https://mfm.warhammer-community.com/en/thousand-sons).
-
-### For 1000p
-
-| Unit         | Qty | Pts |
-|--------------|----:|----:|
-| Chaos Rhino  |   2 |  80 |
 
 ### For 1500p
 
