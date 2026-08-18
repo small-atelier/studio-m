@@ -41,7 +41,7 @@ Army-list ideas for Age of Sigmar (4th Edition), Disciples of Tzeentch. Same phy
 - [Screamers](screamers-paint) and [Flamers](flamers)/[Exalted Flamer](exalted-flamer) fill the fast-attack/objective-harass role, same as in 40k.
 - Heralds — [Changecaster](herald-of-tzeentch), [Fluxmaster on Disc](herald-of-tzeentch) (Legends), [Fateskimmer on chariot](chariot) — worth checking which are currently matched-play legal vs. Legends-only in AoS 4th before relying on them.
 - [The Changeling](the-changeling) is a normal warscroll; [The Blue Scribes](blue-scribes) is AoS Legends — same caveat as the Fluxmaster.
-- **"Burning Chariot" isn't a real warscroll** — the only chariot in AoS is the Herald-mounted Fateskimmer. You currently have 1 usable chariot; the second is uncrewed, waiting on a spare Herald to be printed. All 3 Exalted Flamers are foot models — mounting one on a chariot was never actually an option.
+- **"Burning Chariot" isn't a real warscroll** — the only chariot in AoS is the Herald-mounted Fateskimmer. All 3 Exalted Flamers are foot models — mounting one on a chariot was never actually an option.
 
 *(Needs a real playtested list and allegiance choice before taking this to a table. Points below use the verified values from the table above — a couple were adjusted from my working notes: Lord of Change is 380p not 390p, Changecaster is 140p not 130p.)*
 
@@ -153,7 +153,7 @@ Regiment 3:
 
 **Total: 2,000p** 
 
-Note that it needs 4 Herald bodies (2 foot Changecaster, 2 chariot Fateskimmer) — you already own 1 usable foot and 1 usable chariot Herald, so it's 2 more to print, not 3. Bases already on hand (32mm foot / 60mm disc / chariot deck); just need printing and painting.
+Needs 4 Herald bodies (2 foot Changecaster, 2 chariot Fateskimmer). Bases already on hand (32mm foot / 60mm disc / chariot deck).
 
 ### 3,000 points — Disciples of Tzeentch "Onslaught" (built list)
 
@@ -193,4 +193,4 @@ Regiment 4:
 - Blue Horrors and Brimstone Horrors — 120p
 - Screamers of Tzeentch — 80p
 
-**Total: 3,000p** — needs the same 2 extra Herald bodies as "Monster Mash" (1 more foot Changecaster, 1 more chariot Fateskimmer). Uses every loose Screamer (9), all 3 Exalted Flamers, 3 of 38 Blue Horrors units (30 models, 8 spare held back as Pink Horrors' split reserve), and 10 of 12 Pink Horrors.
+**Total: 3,000p** — Herald bodies same as "Monster Mash." Uses every loose Screamer (9), all 3 Exalted Flamers, 3 of 38 Blue Horrors units (30 models, 8 spare held back as Pink Horrors' split reserve), and 10 of 12 Pink Horrors.

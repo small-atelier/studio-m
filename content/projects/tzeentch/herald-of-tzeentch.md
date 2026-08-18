@@ -6,7 +6,7 @@ draft: false
 
 ![Heralds of Tzeentch](../gallery/IMG_1515.jpeg "Heralds of Tzeentch")
 
-Three Herald of Tzeentch bodies. One crews a [chariot](chariot) (Fateskimmer), one rides a [disc](disc) (Fluxmaster), one stands on foot (Changecaster).
+Six Herald of Tzeentch bodies. Two crew [chariots](chariot) (Fateskimmer), two ride [discs](disc) (Fluxmaster), two stand on foot (Changecaster).
 
 ## Status
 
@@ -16,12 +16,10 @@ Three Herald of Tzeentch bodies. One crews a [chariot](chariot) (Fateskimmer), o
 | Painted      | yes                  |
 | Bases        | 32mm (foot) / 60mm (disc) / chariot deck |
 | Paint recipe | yes                  |
-| Count        | 3 st — 1 chariot, 1 disc, 1 foot |
+| Count        | 6 st — 2 chariot, 2 disc, 2 foot |
 | GW           | [GW model](https://www.warhammer.com/en-WW/shop/herald-of-tzeentch-on-burning-chariot-2016) *(multi-build kit — also builds the Exalted Flamer and unmanned Burning Chariot)* |
 
 > First print rejected — large Tzeentch symbol's being clipped off from the staff and saved for some future use !?
-
-I think I will print, paint and build one more set ...
 
 ---
 

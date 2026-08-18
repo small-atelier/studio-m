@@ -41,7 +41,7 @@ And also since it is a pure daemon force they are playable in both AoS and 40k s
 ## Platforms
 - [Chariot Platform](chariot) — 2 × 120×92mm
 - [Disc Platform](disc) — 1 × 60mm
-- [Heralds of Tzeentch](herald-of-tzeentch) — 3 bodies, 1 each on foot, disc, and chariot
+- [Heralds of Tzeentch](herald-of-tzeentch) — 6 bodies, 2 each on foot, disc, and chariot
 
 ## Photos
 

@@ -96,7 +96,7 @@ Detachments: **Lords of the Warp + Warptide + Cavalcade of Chaos** (3/3 Detachme
 - Screamers ×3 — 80p
 - Screamers ×3 — 80p
 
-**Total: 2,000p**, exact — 10 characters (62% of points), 8 non-character units. Three detachments stacking: Lords of the Warp buffs the characters, Warptide buffs the Horrors, Cavalcade of Chaos buffs both Fateskimmers. Needs a 2nd Fateskimmer body (1 more Herald to print) beyond what's currently built.
+**Total: 2,000p**, exact — 10 characters (62% of points), 8 non-character units. Three detachments stacking: Lords of the Warp buffs the characters, Warptide buffs the Horrors, Cavalcade of Chaos buffs both Fateskimmers.
 
 ### Onslaught — 3000p (everything owned)
 
@@ -123,7 +123,7 @@ Detachments: **Lords of the Warp + Warptide + Cavalcade of Chaos** (3/3 Detachme
 
 **Total: 2,410p** — 590p short of the 3,000p cap. This is the honest "everything currently owned or already planned" list; the collection doesn't stretch to 3,000p without new purchases.
 
-Needs **6 Herald bodies** (2 each of Changecaster, Fateskimmer, Fluxmaster) — 3 more than the 3 currently owned, and this is the first list that doubles up the disc Herald too.
+Needs **6 Herald bodies** (2 each of Changecaster, Fateskimmer, Fluxmaster) — this is the first list that doubles up the disc Herald too.
 
 **Cheap top-ups, if built:**
 - **+2 Flamers** (own 10, need 12) unlocks a 4th Flamers unit — +65p
