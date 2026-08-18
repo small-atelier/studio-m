@@ -14,7 +14,7 @@ draft: false
 | Painted      | yes   |
 | Bases        | 25 mm |
 | Paint recipe | yes   |
-| Count        | 15 st |
+| Count        | 18 st |
 | AoS          | [Wahapedia AoS](https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/Blue-Horrors-and-Brimstone-Horrors) |
 | 40k          | *(no standalone datasheet — spawned via [Blue Horrors](https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Blue-Horrors) split)* |
 | GW           | [GW model](https://www.warhammer.com/en-WW/shop/blue-horrors-2016) *(same box as [Blue Horrors](blue-horrors))* |
