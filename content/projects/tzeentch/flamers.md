@@ -16,7 +16,7 @@ Older models — STL prints from the web, painted before this project. Paint rec
 | Painted      | yes                   |
 | Bases        | 32 mm                 |
 | Paint recipe | unknown               |
-| Count        | 10 st                 |
+| Count        | 16 st                 |
 | AoS          | [Wahapedia AoS](https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/Flamers-of-Tzeentch) |
 | 40k          | [Wahapedia 40k](https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Flamers) |
 | GW           | [GW model](https://www.warhammer.com/en-US/shop/flamers-of-tzeentch-2017) |

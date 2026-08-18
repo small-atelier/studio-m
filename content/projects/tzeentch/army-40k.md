@@ -13,25 +13,25 @@ Army-list ideas for Warhammer 40,000 (11th Edition), Chaos Daemons. Model roster
 | Combat Patrol  | 500 points  | [NewRecruit — 500 Deamons](https://www.newrecruit.eu/app/list/L3JZn) |
 | Incursion      | 1000 points | [NewRecruit — 1000 Deamons](https://www.newrecruit.eu/app/list/wT5Mk) |
 | Strike Force   | 2000 points | [NewRecruit — 2000 Deamons](https://www.newrecruit.eu/app/list/kKC8p) |
-| Onslaught      | 3000 points | [NewRecruit — 2410 Deamons](https://www.newrecruit.eu/app/list/YDRv1) |
+| Onslaught      | 3000 points | [NewRecruit — 2540 Deamons](https://www.newrecruit.eu/app/list/YDRv1) |
 
 ## Points (11th ed)
 
-| Unit                                     |                                     Points | Notes |
-|-------------------------------------------|-------------------------------------------:|-------|
-| [Kairos Fateweaver](kairos-fateweaver)   |                                       305p |       |
-| [Lord of Change](lord-of-change)         |                                       320p |       |
-| [Flamers of Tzeentch](flamers)           |                                 130p / 65p | 6 / 3 models |
-| [Pink Horrors of Tzeentch](pink-horrors) |                                       150p |       |
-| [Blue Horrors](blue-horrors)             |                                       125p | 10 models — also gained free from Pink Horrors' split |
-| [Brimstone Horrors](brimstone-paint)     |                                       free | spawned from Blue Horrors split — no standalone datasheet |
-| [Screamers of Tzeentch](screamers-paint) |                                 160p / 80p | 6 / 3 models |
-| Fateskimmer ([Herald](herald-of-tzeentch) on [chariot](chariot)) |                                        95p | |
-| Fluxmaster ([Herald](herald-of-tzeentch) on [disc](disc))        |                                        70p | |
-| Changecaster ([Herald](herald-of-tzeentch) on foot)              |                                       60p | |
-| [Exalted Flamer](exalted-flamer)         |                                        65p |       |
-| [The Changeling](the-changeling)         |                                        90p |       |
-| [The Blue Scribes](blue-scribes)         | *(no current datasheet — Legends removed)* | last known value 75p, not currently playable |
+| Unit                                                             |                                     Points | Notes                                                     |
+|------------------------------------------------------------------|-------------------------------------------:|-----------------------------------------------------------|
+| [Kairos Fateweaver](kairos-fateweaver)                           |                                       305p |                                                           |
+| [Lord of Change](lord-of-change)                                 |                                       320p |                                                           |
+| [Flamers of Tzeentch](flamers)                                   |                                 130p / 65p | 6 / 3 models                                              |
+| [Pink Horrors of Tzeentch](pink-horrors)                         |                                       150p |                                                           |
+| [Blue Horrors](blue-horrors)                                     |                                       125p | 10 models — also gained free from Pink Horrors' split     |
+| [Brimstone Horrors](brimstone-paint)                             |                                       free | spawned from Blue Horrors split — no standalone datasheet |
+| [Screamers of Tzeentch](screamers-paint)                         |                                 160p / 80p | 6 / 3 models                                              |
+| Fateskimmer ([Herald](herald-of-tzeentch) on [chariot](chariot)) |                                        95p |                                                           |
+| Fluxmaster ([Herald](herald-of-tzeentch) on [disc](disc))        |                                        70p |                                                           |
+| Changecaster ([Herald](herald-of-tzeentch) on foot)              |                                        60p |                                                           |
+| [Exalted Flamer](exalted-flamer)                                 |                                        65p |                                                           |
+| [The Changeling](the-changeling)                                 |                                        90p |                                                           |
+| [The Blue Scribes](blue-scribes)                                 | *(no current datasheet — Legends removed)* | last known value 75p, not currently playable              |
 
 ## Notes / Ideas
 
@@ -114,21 +114,17 @@ Detachments: **Lords of the Warp + Warptide + Cavalcade of Chaos** (3/3 Detachme
 - Blue Horrors ×10 — 125p
 - Blue Horrors ×10 — 125p
 - Pink Horrors ×10 — 150p — *1 Musician, 1 Standard Bearer*
-- Flamers ×3 — 65p
-- Flamers ×3 — 65p
+- Flamers ×6 — 130p
+- Flamers ×6 — 130p
 - Flamers ×3 — 65p
 - Screamers ×3 — 80p
 - Screamers ×3 — 80p
 - Screamers ×3 — 80p
 
-**Total: 2,410p** — 590p short of the 3,000p cap. This is the honest "everything currently owned or already planned" list; the collection doesn't stretch to 3,000p without new purchases.
-
-Needs **6 Herald bodies** (2 each of Changecaster, Fateskimmer, Fluxmaster) — this is the first list that doubles up the disc Herald too.
+**Total: 2,540p** — 460p short of the 3,000p cap. This is the honest "everything currently owned or already planned" list; the collection doesn't stretch to 3,000p without new purchases.
 
 **Cheap top-ups, if built:**
-- **+2 Flamers** (own 10, need 12) unlocks a 4th Flamers unit — +65p
 - **+2 Blue Horrors** (own 38, need 40) unlocks a 4th Blue Horrors unit — +125p
-- Both together: +190p, landing around 2,600p — still short of the cap
 
 **Bigger asks** to close the rest of the gap:
 - **+8 Pink Horrors** (own 12, need 20) for a 2nd Pink Horrors unit — +150p
