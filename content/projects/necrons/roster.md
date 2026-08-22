@@ -14,8 +14,8 @@ Playable list sketches by points bracket live on the [40k Army List](army-40k) p
 
 | Unit                   | Model / Options | Qty | Notes                             |
 |------------------------|-----------------|-----|-----------------------------------|
-| Necron Warriors        | Gauss Flayer    | 15  |                                   |
-| Necron Warriors        | Gauss Reaper    | 15  |                                   |
+| Necron Warriors        | Gauss Flayer    | 16  |                                   |
+| Necron Warriors        | Gauss Reaper    | 16  |                                   |
 | Ophydian Destroyers    |                 | 3   |                                   |
 | Lychguard              |                 | 10  |                                   |
 | Immortals              |                 | 5   |                                   |
@@ -34,12 +34,10 @@ Playable list sketches by points bracket live on the [40k Army List](army-40k) p
 
 Everything below assumed unpainted for now since it's freshly pooled from three boxes for the league — move rows up to Owned as things get finished.
 
-| Unit                | Model / Options                  | Qty | Notes                                  |
-|---------------------|----------------------------------|----:|----------------------------------------|
-| Necron Warriors     | Gauss Flayer                     |   5 |                                        |
-| Necron Warriors     | Gauss Reaper                     |   5 |                                        |
-| Tomb Blades         |                                  |   3 | Combat Patrol (2021 ed.)           WIP |
-| Night Scythe        | buildable as Doom Scythe instead |   1 | Combat Patrol (2021 ed.)           WIP |
+| Unit            | Model / Options                  | Qty | Notes                                                    |
+|-----------------|----------------------------------|----:|----------------------------------------------------------|
+| Night Scythe    | buildable as Doom Scythe instead |   1 | Combat Patrol (2021 ed.)                                 |
+| Tomb Blades     |                                  |   3 | Combat Patrol (2021 ed.) — still on sprue, not assembled |
 
 ## Wishlist
 
@@ -56,9 +54,9 @@ Actual shopping list, grouped by which [40k Army List](army-40k) bracket needs i
 
 ### For 3000p
 
-| Unit                            | Qty | Pts |
-|----------------------------------|----:|----:|
-| Immortals more                   |   5 |  70 |
-| C'tan Shard of the Void Dragon   |   1 | 345 |
-| Transcendent C'tan               |   1 | 340 |
-| Monolith                         |   1 | 420 |
+| Unit                           | Qty | Pts |
+|--------------------------------|----:|----:|
+| Immortals more                 |   5 |  70 |
+| C'tan Shard of the Void Dragon |   1 | 345 |
+| Transcendent C'tan             |   1 | 340 |
+| Monolith                       |   1 | 420 |

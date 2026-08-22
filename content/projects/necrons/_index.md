@@ -30,6 +30,7 @@ Document steps, build stages, and painting progress.
 ## Army Building
 - [Roster](roster/) — owned, assembled, and wishlist models
 - [40k Army List](army-40k/) — list sketches by points bracket
+- [Escalation League](escalation-league/) — Mythos league schedule and per-round lists
 
 ## Photos
 
