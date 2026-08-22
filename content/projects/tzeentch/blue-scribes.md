@@ -4,6 +4,8 @@ date: 2026-05-30
 draft: false
 ---
 
+![The Blue Scribes](../gallery/IMG_1818.jpeg "The Blue Scribes")
+
 P'tarix and Xirat'p — two Blue Horrors riding a Disc of Tzeentch, frantically writing down every spell cast around them.
 
 ## Status
@@ -11,7 +13,7 @@ P'tarix and Xirat'p — two Blue Horrors riding a Disc of Tzeentch, frantically 
 |              |                                                                                                                                   |
 |--------------|-----------------------------------------------------------------------------------------------------------------------------------|
 | Assembled    | yes                                                                                                                               |
-| Painted      | no                                                                                                                                |
+| Painted      | yes                                                                                                                               |
 | Bases        | oversized 70mm display disc on a 50/60mm base (true edge for measuring: 60mm)                                                     |
 | Paint recipe | not planned                                                                                                                       |
 | Count        | 1 st                                                                                                                              |
