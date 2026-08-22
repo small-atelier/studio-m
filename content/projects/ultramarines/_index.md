@@ -9,7 +9,9 @@ tags: []
 # Ultramarines
 
 ## Overview
-Describe your project goals, concept, and inspiration.
+Vanilla Gladius-style combined arms — no chapter-specific gimmick, just a solid Intercessor /
+Hellblaster / armour core. Nothing built yet; see the [40k Army List](army-40k/) for the planned
+progression from Captain up to Roboute Guilliman at 3000p.
 
 ## Progress
 Document steps, build stages, and painting progress.
@@ -18,6 +20,10 @@ Document steps, build stages, and painting progress.
 - Color schemes
 - Techniques used
 - Notes for future reference
+
+## Army Building
+- [Roster](roster/) — owned, assembled, and wishlist models
+- [40k Army List](army-40k/) — list sketches by points bracket
 
 ## Photos
 

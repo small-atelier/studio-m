@@ -9,7 +9,10 @@ tags: []
 ![Army](gallery/studio-m-logo.png)
 
 ## Overview
-Describe your project goals, concept, and inspiration.
+Death Company and Sanguinary Guard-led aggressive melee army — jump-pack units racing up the board
+while Assault Intercessors hold the objectives behind them. Nothing built yet; see the
+[40k Army List](army-40k/) for the planned progression from Chaplain up to Mephiston/The Sanguinor
+at 3000p.
 
 ## Progress
 Document steps, build stages, and painting progress.
@@ -18,6 +21,10 @@ Document steps, build stages, and painting progress.
 - Color schemes
 - Techniques used
 - Notes for future reference
+
+## Army Building
+- [Roster](roster/) — owned, assembled, and wishlist models
+- [40k Army List](army-40k/) — list sketches by points bracket
 
 ## Photos
 
