@@ -47,8 +47,11 @@ Also: EMBOSS_H/EMBOSS_EMBED and RIDGE_HEIGHT bumped up - relief reads
 too flat at v6's height, wanted everything (icon, wordmark, ridge, #1)
 standing proud more.
 
-Run:
+Run (single #1/Season 2, matching the original published trophy):
   /Applications/Blender.app/Contents/MacOS/Blender --background --python card_stand_v7_trophy.py
+
+Run a specific placement/season/game/league (batch generation for the full league table):
+  /Applications/Blender.app/Contents/MacOS/Blender --background --python card_stand_v7_trophy.py -- --place 2 --season 3 --game aos --league spearhead --no-render
 """
 
 import bpy
@@ -57,6 +60,39 @@ import json
 import math
 import mathutils
 import os
+import sys
+
+# ============================================================
+# CLI ARGS (place/season override + render toggle, for batch runs
+# across the whole league table - see docstring above)
+# ============================================================
+
+GAME_TEXT = {"40k": "Warhammer 40k", "aos": "Age of Sigmar"}
+LEAGUE_TEXT = {"escalation": "Escalation League", "spearhead": "Spearhead League"}
+
+
+def _parse_args():
+    argv = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
+    place, season, game, league, render = 1, 2, "40k", "escalation", True
+    i = 0
+    while i < len(argv):
+        if argv[i] == "--place":
+            place = int(argv[i + 1]); i += 2
+        elif argv[i] == "--season":
+            season = int(argv[i + 1]); i += 2
+        elif argv[i] == "--game":
+            game = argv[i + 1]; i += 2
+        elif argv[i] == "--league":
+            league = argv[i + 1]; i += 2
+        elif argv[i] == "--no-render":
+            render = False; i += 1
+        else:
+            i += 1
+    assert game in GAME_TEXT, f"unknown --game {game!r} (expected one of {list(GAME_TEXT)})"
+    assert league in LEAGUE_TEXT, f"unknown --league {league!r} (expected one of {list(LEAGUE_TEXT)})"
+    return place, season, game, league, render
+
+PLACE, SEASON, GAME, LEAGUE, RENDER_IMAGES_ARG = _parse_args()
 
 # ============================================================
 # CONFIG (all mm)
@@ -67,8 +103,9 @@ BLENDER_DIR = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "..", "..", "blend
 
 EXPORT_DIR = os.path.join(BLENDER_DIR, "output_v7")
 EXPORT_STL = True
+EXPORT_FILENAME = f"trophy_{GAME}_{LEAGUE}_s{SEASON}_{PLACE}.stl"
 
-RENDER_IMAGES = True
+RENDER_IMAGES = RENDER_IMAGES_ARG
 RENDER_DIR = os.path.join(EXPORT_DIR, "renders")
 RENDER_RESOLUTION = (1600, 1200)
 RENDER_ANGLES = {
@@ -235,7 +272,7 @@ TEXT_SIDE_MARGIN = 4.0      # back up from a trimmed 1.0 - MYTHOS gets its own m
 # away. Baskerville again, for the same family resemblance as the
 # wordmark. Sized to leave room below it for the subtitle - see
 # SUBTITLE_* - not just to fit on its own. ---
-TROPHY_TEXT = "#1"
+TROPHY_TEXT = f"#{PLACE}"
 TROPHY_SIZE = 46.0          # bumped again - same reasoning as TEXT_SIZE above, bigger instead of
                             # bolder
 TROPHY_GAP_BELOW_TEXT = 3.0  # trimmed further from 4
@@ -249,9 +286,9 @@ TROPHY_MIN_BOTTOM_MARGIN = 10.0     # sanity floor - see assert below (needs roo
 # reasoning as TEXT_FONT_PATH above - no self-intersection risk since
 # it's not a synthetic offset. ---
 SUBTITLE_FONT_PATH = os.path.join(BLENDER_DIR, "BaskervilleBoldItalic.ttf")
-SUBTITLE_LINE1 = "Warhammer 40k"
-SUBTITLE_LINE2 = "Escalation League"
-SUBTITLE_LINE3 = "Season 2"
+SUBTITLE_LINE1 = GAME_TEXT[GAME]
+SUBTITLE_LINE2 = LEAGUE_TEXT[LEAGUE]
+SUBTITLE_LINE3 = f"Season {SEASON}"
 SUBTITLE_SIZE = 10.5        # bumped from 10 - same reasoning as TEXT_SIZE above, bigger instead of
                             # bolder. See SUBTITLE_SIDE_MARGIN below for why it gets its own
                             # (tighter) margin instead of sharing TEXT_SIDE_MARGIN
@@ -752,7 +789,7 @@ def main():
     assert vol > 0.0, "backplate has zero/negative volume - a boolean likely emptied it"
 
     if EXPORT_STL:
-        export_stl(backplate, "backplate.stl")
+        export_stl(backplate, EXPORT_FILENAME)
 
     if RENDER_IMAGES:
         center_pt, size = compute_scene_bounds()

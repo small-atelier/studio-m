@@ -40,4 +40,28 @@ Both are extracted straight out of Baskerville's own font-collection file, which
 
 ---
 
+## The full league table
+
+Same plaque, same script — placement, season, game system, and league name are all just parameters now, so every trophy Mythos needs prints off the one design.
+
+**40K Escalation League**
+
+| | Season 1 | Season 2 | Season 3 |
+|---|---|---|---|
+| **#1** | [STL](trophies/trophy_40k_escalation_s1_1.stl) | [STL](trophies/trophy_40k_escalation_s2_1.stl) | [STL](trophies/trophy_40k_escalation_s3_1.stl) |
+| **#2** | [STL](trophies/trophy_40k_escalation_s1_2.stl) | [STL](trophies/trophy_40k_escalation_s2_2.stl) | [STL](trophies/trophy_40k_escalation_s3_2.stl) |
+| **#3** | [STL](trophies/trophy_40k_escalation_s1_3.stl) | [STL](trophies/trophy_40k_escalation_s2_3.stl) | [STL](trophies/trophy_40k_escalation_s3_3.stl) |
+
+The Season 2 / #1 file is the same piece pictured above.
+
+**AoS Spearhead League**
+
+| | Season 1 | Season 2 | Season 3 |
+|---|---|---|---|
+| **#1** | [STL](trophies/trophy_aos_spearhead_s1_1.stl) | [STL](trophies/trophy_aos_spearhead_s2_1.stl) | [STL](trophies/trophy_aos_spearhead_s3_1.stl) |
+| **#2** | [STL](trophies/trophy_aos_spearhead_s1_2.stl) | [STL](trophies/trophy_aos_spearhead_s2_2.stl) | [STL](trophies/trophy_aos_spearhead_s3_2.stl) |
+| **#3** | [STL](trophies/trophy_aos_spearhead_s1_3.stl) | [STL](trophies/trophy_aos_spearhead_s2_3.stl) | [STL](trophies/trophy_aos_spearhead_s3_3.stl) |
+
+---
+
 Took a couple of print passes to get the relief surviving cleanly, but it's holding up now — off to the store to award to whoever tops the league table.
