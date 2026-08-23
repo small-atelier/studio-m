@@ -21,3 +21,6 @@ Thumbs.db
 tmp/
 
 .hugo_build.lock
+
+# Script scratch output (published copies live in the post's own page bundle)
+blender/terrain-templates/output/
