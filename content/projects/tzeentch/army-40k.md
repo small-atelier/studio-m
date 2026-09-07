@@ -100,7 +100,7 @@ Detachments: **Lords of the Warp + Warptide + Cavalcade of Chaos** (3/3 Detachme
 
 ### Onslaught — 3000p (everything owned)
 
-Detachments: **Lords of the Warp + Warptide + Cavalcade of Chaos** (3/3 Detachment Points). Warlord: Kairos Fateweaver. Secondary: Bring It Down, Assassination (13 Characters). 23 units — [NewRecruit link](https://www.newrecruit.eu/app/list/YDRv1).
+Detachments: **Lords of the Warp + Warptide + Cavalcade of Chaos** (3/3 Detachment Points). Warlord: Kairos Fateweaver. Secondary: Bring It Down, Assassination (13 Characters). 24 units — [NewRecruit link](https://www.newrecruit.eu/app/list/YDRv1).
 
 - Kairos Fateweaver, Warlord — 305p
 - Lord of Change — 320p
@@ -113,6 +113,7 @@ Detachments: **Lords of the Warp + Warptide + Cavalcade of Chaos** (3/3 Detachme
 - Blue Horrors ×10 — 125p
 - Blue Horrors ×10 — 125p
 - Blue Horrors ×10 — 125p
+- Blue Horrors ×10 — 125p
 - Pink Horrors ×10 — 150p — *1 Musician, 1 Standard Bearer*
 - Flamers ×6 — 130p
 - Flamers ×6 — 130p
@@ -121,10 +122,7 @@ Detachments: **Lords of the Warp + Warptide + Cavalcade of Chaos** (3/3 Detachme
 - Screamers ×3 — 80p
 - Screamers ×3 — 80p
 
-**Total: 2,540p** — 460p short of the 3,000p cap. This is the honest "everything currently owned or already planned" list; the collection doesn't stretch to 3,000p without new purchases.
-
-**Cheap top-ups, if built:**
-- **+2 Blue Horrors** (own 38, need 40) unlocks a 4th Blue Horrors unit — +125p
+**Total: 2,665p** — 335p short of the 3,000p cap. This is the honest "everything currently owned or already planned" list; the collection doesn't stretch to 3,000p without new purchases.
 
 **Bigger asks** to close the rest of the gap:
 - **+8 Pink Horrors** (own 12, need 20) for a 2nd Pink Horrors unit — +150p

@@ -193,4 +193,4 @@ Regiment 4:
 - Blue Horrors and Brimstone Horrors — 120p
 - Screamers of Tzeentch — 80p
 
-**Total: 3,000p** — Herald bodies same as "Monster Mash." Uses every loose Screamer (9), all 3 Exalted Flamers, 3 of 38 Blue Horrors units (30 models, 8 spare held back as Pink Horrors' split reserve), and 10 of 12 Pink Horrors.
+**Total: 3,000p** — Herald bodies same as "Monster Mash." Uses every loose Screamer (9), all 3 Exalted Flamers, 3 of 50 Blue Horrors units (30 models, 20 spare held back as Pink Horrors' split reserve), and 10 of 12 Pink Horrors.
