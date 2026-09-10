@@ -11,6 +11,7 @@ Longer write-ups on painting projects, techniques, and lessons learned. Think of
 - [A #1 Trophy for the Escalation League](escalation-league-trophy)
 - [Two Small Terrain Boards](terrain-boards)
 - [Clear-PLA Terrain Footprint Templates for 11th Edition](terrain-footprint-templates)
+- [Measuring Gauges](measuring-gauges)
 
 ---
 
