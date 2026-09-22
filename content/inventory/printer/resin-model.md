@@ -22,6 +22,18 @@ draft: false
     - Main mini printer
     - Screen protectors required: Photon Mono 2 size
 
+|                 |                                       |
+|-----------------|---------------------------------------|
+| Build volume    | 143 × 89 × 165 mm                    |
+| Screen          | 6.6" Mono LCD, 4096 × 2560, ~2000 hrs |
+| XY resolution   | 34 μm                                |
+| Z accuracy      | 10 μm (single linear rail)            |
+| Print speed     | ≤ 50 mm/hr                            |
+| Leveling        | 4-point manual                        |
+| Light source    | Parallel matrix                       |
+| Build platform  | Laser-engraved aluminium alloy        |
+| Data input      | USB Type-A 2.0                        |
+
 ---
 
 ### Wash & Cure — Wash & Cure 3
@@ -32,4 +44,10 @@ draft: false
 - Notes:
     - Basket fits Mono 2 plate
     - UV LED replacement eventually
+
+|               |                         |
+|---------------|-------------------------|
+| Wash capacity | Fits Mono 2 build plate |
+| UV wavelength | 405 nm                  |
+| Cure time     | ~2–3 min                |
 
