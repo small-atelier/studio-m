@@ -12,6 +12,8 @@ Longer write-ups on painting projects, techniques, and lessons learned. Think of
 - [Two Small Terrain Boards](terrain-boards)
 - [Clear-PLA Terrain Footprint Templates for 11th Edition](terrain-footprint-templates)
 - [Measuring Gauges](measuring-gauges)
+- [Helsmiths of Hashut Tokens & Box](hashut-game-tokens)
+- [Blades of Khorne Spearhead Tokens & Box](khorne-tokens)
 
 ---
 
