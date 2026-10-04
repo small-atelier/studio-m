@@ -25,6 +25,8 @@ The pocket is sized for a set of free downloaded objective-marker coins — 40mm
 
 The four Spearhead boards have their objectives printed on them as stone rings, and those rings aren't control-range circles: they come in 5", 6" and 7", all smaller than the 3" range around a 40mm marker. The Spearhead variants are sized to cover the printed ring exactly and get glued down onto the board, so each board needs its own full set:
 
+{{< carousel images="boards/*" aspectRatio="4-3" interval="3000" >}}
+
 | Board | Objectives | Pieces |
 |---|---|---|
 | Aqshy | 5 × 6" | 5 × 6" |
