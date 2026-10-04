@@ -39,6 +39,8 @@ Ghryan's two side objectives run off the board, with their centres about ¾" in 
 
 Control range is still measured from the marker, so these discs mark the objective, not the 3".
 
+For a home-built board, the full-size disc sets into the tile mosaic instead — see the [22×30 Spearhead Board]({{< ref "/posts/spearhead-board" >}}).
+
 ## Design
 
 **Sizing** — outer radius = marker radius (20mm) + 3" (76.2mm) = 96.2mm, so 192.4mm across total. Still fits a single 220×220mm FDM plate. The Spearhead variants override the outer diameter (`--diameter`, in inches) and keep the same 40mm pocket; the edge piece adds one straight boolean cut (`--edge-cut`, mm from centre) after the tiles are on, which refuses to cut into the pocket.

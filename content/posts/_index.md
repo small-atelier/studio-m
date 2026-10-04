@@ -16,6 +16,7 @@ Longer write-ups on painting projects, techniques, and lessons learned. Think of
 - [Measuring Gauges](measuring-gauges)
 - [Dice Tower & Tray Set — Mythos Edition](dice-tower)
 - [Objective Marker Tiles](objective-marker-tiles)
+- [22×30 Spearhead Board](spearhead-board)
 - [Magnet Storage Bar](magnet-storage)
 - [Helsmiths of Hashut Tokens & Box](hashut-game-tokens)
 - [Blades of Khorne Spearhead Tokens & Box](khorne-tokens)
