@@ -34,14 +34,24 @@ Playable list sketches by points bracket live on the [40k Army List](army-40k) p
 
 Everything below assumed unpainted for now since it's freshly pooled from three boxes for the league — move rows up to Owned as things get finished.
 
-| Unit            | Model / Options                  | Qty | Notes                                                    |
-|-----------------|----------------------------------|----:|----------------------------------------------------------|
-| Night Scythe    | buildable as Doom Scythe instead |   1 | Combat Patrol (2021 ed.)                                 |
-| Tomb Blades     |                                  |   3 | Combat Patrol (2021 ed.) — still on sprue, not assembled |
+| Unit         | Model / Options                  | Qty | Notes                                                    |
+|--------------|----------------------------------|----:|----------------------------------------------------------|
+| Night Scythe | buildable as Doom Scythe instead |   1 | Combat Patrol (2021 ed.)                                 |
+| Tomb Blades  |                                  |   3 | Combat Patrol (2021 ed.) — still on sprue, not assembled |
+| DeathMarks   |                                  |   5 | Combat Patrol (2021 ed.) — still on sprue, not assembled |
 
 ## Wishlist
 
 Actual shopping list, grouped by which [40k Army List](army-40k) bracket needs it.
+
+
+### For 1000p
+
+| Unit                   | Model / Options | Qty | Notes                             |
+|------------------------|-----------------|-----|-----------------------------------|
+| Necron Warriors        | Gauss Flayer    | 4   |                                   |
+| Necron Warriors        | Gauss Reaper    | 4   |                                   |
+
 
 ### For 2000p
 

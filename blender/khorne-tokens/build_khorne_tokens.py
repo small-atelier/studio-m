@@ -32,11 +32,14 @@ Print x6.
 
 Icons are traced by extract_icon_contours.py (khorne_contours.json).
 
-Run (all hex tokens + the tray):
+Plain tray (damage_tray_plain): same arrow and die pocket, no rune - single-
+colour, base STL only.
+
+Run (all hex tokens + both trays):
   /Applications/Blender.app/Contents/MacOS/Blender --background --python build_khorne_tokens.py
 
 Run one piece only:
-  /Applications/Blender.app/Contents/MacOS/Blender --background --python build_khorne_tokens.py -- --only tray   (or: --only hex)
+  /Applications/Blender.app/Contents/MacOS/Blender --background --python build_khorne_tokens.py -- --only tray   (or: --only hex, --only tray_plain)
 """
 
 import bpy
@@ -55,7 +58,7 @@ import zipfile
 
 def _parse_args():
     argv = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
-    pieces, render = ["hex", "tray"], True
+    pieces, render = ["hex", "tray", "tray_plain"], True
     i = 0
     while i < len(argv):
         if argv[i] == "--only":
@@ -946,7 +949,7 @@ def arrowhead_width_at_z(z):
     return TRAY_BODY_W * max(0.0, TRAY_TIP_Z - z) / TRAY_HEAD_L
 
 
-def build_damage_tray():
+def build_damage_tray(plain=False):
     shell = _extrude_profile(arrow_points(), 'XZ', 0.0, TRAY_T, "tray_shell")
     apply_bevel(shell, BEVEL_W)
 
@@ -958,6 +961,8 @@ def build_damage_tray():
     apply_boolean(shell, pocket, 'DIFFERENCE')
     vol = mesh_volume(shell)
     assert 0.0 < vol < prev_vol, f"tray: die pocket cut corrupted the shell ({prev_vol:.1f} -> {vol:.1f}mm3)"
+    if plain:
+        return shell, None
 
     rune_contours, rune_aspect = load_contours(KHORNE_CONTOURS_PATH)
     rune_h = TRAY_RUNE_W * rune_aspect
@@ -1001,11 +1006,20 @@ def export_piece(name, base, inlay, thickness, render_back):
     """Sanity-check both parts, color and render (still in build orientation,
     for the render camera), then reorient flat for printing and export
     base.stl + inlay.stl plus the combined 3MFs."""
-    base_vol, inlay_vol = mesh_volume(base), mesh_volume(inlay)
-    base_nm, inlay_nm = nonmanifold_fraction(base), nonmanifold_fraction(inlay)
-    print(f"{name}: base volume={base_vol:.1f}mm3 (non-manifold {base_nm:.4f})  "
-          f"inlay volume={inlay_vol:.1f}mm3 (non-manifold {inlay_nm:.4f})")
+    base_vol, base_nm = mesh_volume(base), nonmanifold_fraction(base)
+    print(f"{name}: base volume={base_vol:.1f}mm3 (non-manifold {base_nm:.4f})")
     assert base_vol > 0.0, f"{name}: base has zero/negative volume - a boolean likely emptied it"
+    if inlay is None:
+        # Single-colour piece (damage_tray_plain): base STL only.
+        apply_color(base, "base_black", BASE_COLOR)
+        if RENDER_IMAGES:
+            render_face(f"{name}_front", from_back=False)
+        reorient_for_print(base, thickness)
+        if EXPORT_STL:
+            export_stl(base, f"{name}.stl")
+        return
+    inlay_vol, inlay_nm = mesh_volume(inlay), nonmanifold_fraction(inlay)
+    print(f"{name}: inlay volume={inlay_vol:.1f}mm3 (non-manifold {inlay_nm:.4f})")
     assert inlay_vol > 0.0, f"{name}: inlay has zero/negative volume - a boolean likely emptied it"
 
     apply_color(base, "base_black", BASE_COLOR)
@@ -1048,6 +1062,11 @@ def main():
         clear_scene()
         base, inlay = build_damage_tray()
         export_piece("damage_tray", base, inlay, TRAY_T, render_back=False)
+
+    if "tray_plain" in PIECES:
+        clear_scene()
+        base, _ = build_damage_tray(plain=True)
+        export_piece("damage_tray_plain", base, None, TRAY_T, render_back=False)
 
     print("Done.")
 

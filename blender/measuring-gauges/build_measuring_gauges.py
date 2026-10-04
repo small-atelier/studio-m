@@ -99,6 +99,9 @@ TEXT_FONT_PATH = os.path.join(SCRIPT_DIR, "ArialBlack.ttf")   # bold numerals, b
 # genuinely-bold serif) replaces this later.
 MYTHOS_FONT_PATH = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "card-stand", "BaskervilleBold.ttf"))
 MYTHOS_CONTOURS_PATH = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "mythos-logo", "logo_contours_v7.json"))
+# Khorne rune - same trace as blender/khorne-tokens (its own {"aspect", "polygons"}
+# format, same (u, v) convention as the Mythos contours).
+KHORNE_CONTOURS_PATH = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "khorne-tokens", "khorne_contours.json"))
 
 EXPORT_DIR = os.path.join(SCRIPT_DIR, "output")
 RENDER_DIR = os.path.join(EXPORT_DIR, "renders")
@@ -106,6 +109,7 @@ RENDER_RESOLUTION = (1600, 700)
 
 BASE_COLOR = (0.05, 0.05, 0.05, 1.0)   # preview only - black plate
 INLAY_COLOR = (1.0, 1.0, 1.0, 1.0)     # preview only - white ticks/numerals/badge
+KHORNE_INLAY_COLOR = (0.65, 0.03, 0.03, 1.0)   # preview only - red, matches khorne-tokens
 
 BASE_EXTRUDER_SLOT = 1    # edit to match your AMS loadout on the day you slice
 INLAY_EXTRUDER_SLOT = 2
@@ -615,32 +619,61 @@ def render_face(name, from_back=False):
     bpy.data.objects.remove(light, do_unlink=True)
 
 
-def build_mythos_badge(cx, cz, mirror, tag):
-    contours, content_aspect = crop_contours_to_content(load_contours(MYTHOS_CONTOURS_PATH))
-    icon_h = MYTHOS_ICON_H
-    icon_w = icon_h / content_aspect
-    text_h_est = MYTHOS_TEXT_SIZE * 0.7
-    inner_gap = 1.0
-    content_h = icon_h + inner_gap + text_h_est
-    top_z = cz + content_h / 2.0
+def build_mythos_badge(cx, cz, mirror, tag, include_icon=True, text_size=None,
+                        text_font_path=TEXT_FONT_PATH, icon_scale=1.0):
+    """include_icon=False drops the traced icon entirely and just centers the
+    wordmark on cz (no icon means no top-anchored offset to compute) - used by
+    small_v2, which wants MYTHOS alone, bigger, nothing else on the piece.
+    text_size/text_font_path/icon_scale default to the family's usual values
+    (MYTHOS_TEXT_SIZE, TEXT_FONT_PATH, unscaled icon) - medium_v2 overrides all
+    three (bigger text, bigger icon, BaskervilleBold - the original brand font,
+    see MYTHOS_FONT_PATH's own docstring)."""
+    text_size = MYTHOS_TEXT_SIZE if text_size is None else text_size
+    text_h_est = text_size * 0.7
 
     inserts, cutters = [], []
-    # build_icon_solid is top-anchored (icon_z0 = top_z - icon_h) - pass the badge's
-    # own content top directly, NOT a center z (that mismatch overlapped the icon
-    # into the text below it and corrupted the combined cutter boolean).
-    for poke, bucket in ((0.0, inserts), (POCKET_POKE, cutters)):
-        bucket.append(build_icon_solid(contours, icon_w, icon_h, cx, top_z,
-                                        mirror, f"mythos_icon_{tag}", poke=poke))
 
-    text_center_z = top_z - icon_h - inner_gap - text_h_est / 2.0
+    if include_icon:
+        contours, content_aspect = crop_contours_to_content(load_contours(MYTHOS_CONTOURS_PATH))
+        icon_h = MYTHOS_ICON_H * icon_scale
+        icon_w = icon_h / content_aspect
+        inner_gap = 1.0
+        content_h = icon_h + inner_gap + text_h_est
+        top_z = cz + content_h / 2.0
+
+        # build_icon_solid is top-anchored (icon_z0 = top_z - icon_h) - pass the badge's
+        # own content top directly, NOT a center z (that mismatch overlapped the icon
+        # into the text below it and corrupted the combined cutter boolean).
+        for poke, bucket in ((0.0, inserts), (POCKET_POKE, cutters)):
+            bucket.append(build_icon_solid(contours, icon_w, icon_h, cx, top_z,
+                                            mirror, f"mythos_icon_{tag}", poke=poke))
+
+        text_center_z = top_z - icon_h - inner_gap - text_h_est / 2.0
+    else:
+        text_center_z = cz - text_h_est / 2.0
+
     for poke, bucket in ((0.0, inserts), (POCKET_POKE, cutters)):
-        bucket.append(build_text_solid("MYTHOS", MYTHOS_TEXT_SIZE, cx, text_center_z + text_h_est / 2.0,
-                                        mirror, poke=poke, font_path=TEXT_FONT_PATH)[0])
+        bucket.append(build_text_solid("MYTHOS", text_size, cx, text_center_z + text_h_est / 2.0,
+                                        mirror, poke=poke, font_path=text_font_path)[0])
 
     return inserts, cutters
 
 
-def export_piece(name, base, inlay):
+def build_khorne_badge(cx, cz, mirror, tag, icon_h):
+    """The Khorne rune alone (no wordmark), centered on (cx, cz), sized by
+    height like the Mythos icon."""
+    with open(KHORNE_CONTOURS_PATH) as f:
+        polygons = json.load(f)["polygons"]
+    contours, content_aspect = crop_contours_to_content(polygons)
+    icon_w = icon_h / content_aspect
+    inserts, cutters = [], []
+    for poke, bucket in ((0.0, inserts), (POCKET_POKE, cutters)):
+        bucket.append(build_icon_solid(contours, icon_w, icon_h, cx, cz + icon_h / 2.0,
+                                        mirror, f"khorne_rune_{tag}", poke=poke))
+    return inserts, cutters
+
+
+def export_piece(name, base, inlay, inlay_color=INLAY_COLOR):
     base_vol, inlay_vol = mesh_volume(base), mesh_volume(inlay)
     base_nm, inlay_nm = nonmanifold_fraction(base), nonmanifold_fraction(inlay)
     print(f"{name}: base volume={base_vol:.1f}mm3 (non-manifold {base_nm:.4f})  "
@@ -649,7 +682,7 @@ def export_piece(name, base, inlay):
     assert inlay_vol > 0.0, f"{name}: inlay has zero/negative volume - a boolean likely emptied it"
 
     apply_color(base, "base_black", BASE_COLOR)
-    apply_color(inlay, "inlay_white", INLAY_COLOR)
+    apply_color(inlay, "inlay_white" if inlay_color == INLAY_COLOR else "inlay_red", inlay_color)
 
     # Render BEFORE reorienting - the render camera uses the build orientation
     # (Y = thickness), same as every other project's render step in this repo.
@@ -707,7 +740,7 @@ SIDE_LABEL_INSET = 2.5      # tighter inset for "1"/"1/2" only, closer to their 
 
 def configure_gauge(long_in, long_label, top_label_cx=None, long_label_cx=None, cut_top_remain_in=2.0,
                      width_in=1.0, left_remain_in=0.5, label_size=10.0, badge_text_size=10.0,
-                     left_label_cx=None):
+                     left_label_cx=None, inches_mark=False):
     """Set every geometry global that depends on the long edge's length. Called
     once per gauge in GAUGES, right before building it.
 
@@ -817,6 +850,15 @@ def configure_gauge(long_in, long_label, top_label_cx=None, long_label_cx=None, 
              + [("top", i) for i in range(1, int(cut_top_remain_in))]
              + [("right", i) for i in range(1, int(width_in))])
 
+    # medium_v2 experiment: read as an actual inch value ("9\"") instead of a bare
+    # digit - every edge label gets it, not just the long one, since all four are
+    # equally real usable edges (see this function's own docstring).
+    if inches_mark:
+        LONG_LABEL += '"'
+        TOP_LABEL += '"'
+        SHORT_LABEL += '"'
+        LEFT_LABEL += '"'
+
 
 GAUGES = [
     # "2"/"3"/"1/2" nudged ~5mm (a bit under 1/4") toward their own edges, away from
@@ -840,6 +882,69 @@ GAUGES = [
     {"name": "medium", "long_in": 9.0, "long_label": "9",
      "top_label_cx": None, "long_label_cx": None, "cut_top_remain_in": 6.0, "width_in": 3.0,
      "left_remain_in": 1.0, "label_size": RULER_NUM_SIZE},
+]
+
+# Experimental restyle of small/medium - NEW pieces (small_v2/medium_v2), the
+# originals above stay exactly as published. Both share the "raised inlay"
+# print experiment (tick_raise_mm, threaded through build_gauge to build_ticks
+# - see that function's own docstring): scoped to the small graduation marks
+# ONLY, never the edge numerals or the Mythos badge - those two stay flush on
+# both faces. Back face (bed side when printed - reorient_for_print's
+# docstring explains the y/z convention) stays flush either way; only the
+# front face's tick inserts stand proud (1.0mm - 2.0mm read as too much stick-
+# out once test-fit).
+GAUGES_V2 = [
+    # small_v2: same 3"/1" body as "small", edge numerals dropped
+    # (include_labels=False - "not the numbers") but the tick marks kept
+    # ("but the marks") and raised on the front face. Icon dropped too
+    # (badge_include_icon=False) - MYTHOS alone, in BaskervilleBold (the
+    # family's original brand font, see MYTHOS_FONT_PATH), centered on the
+    # piece's own flat "2\"" zone (the top edge's remaining straight run,
+    # same non-tapered strip cut_top_remain_in carves out on every gauge) -
+    # 12.7mm is that zone's own midpoint, same formula as medium_v2's 38.1
+    # (-half_l+(RECT_LENGTH-CUT_TOP_REMAIN) to +half_l), NOT the whole
+    # plate's center (0.0 - the first pass's mistake, which let the word
+    # spill leftward into the tapered corner instead of sitting inside the
+    # zone it now shares with the ticks).
+    {"name": "small_v2", "long_in": 3.0, "long_label": "3",
+     "top_label_cx": LONG_LABEL_CX_3IN + 5.0, "long_label_cx": LONG_LABEL_CX_3IN + 5.0,
+     "cut_top_remain_in": 2.0, "left_label_cx": -38.1 + SIDE_LABEL_INSET + 10.0 - 5.0,
+     "include_labels": False, "include_ticks": True, "tick_raise_mm": 1.0,
+     "badge_cx": 12.7, "badge_cz": 0.0, "badge_include_icon": False,
+     # Once re-centered on the 50.8mm-wide "2\"" zone (instead of the whole
+     # 76.2mm plate) and sharing that zone with the tick marks, 18.0 crowded
+     # the ticks (confirmed by isolated render at 10/12/14) - 10.0 cleared
+     # every tick with real margin, 13.0 nudges back up while still clearing
+     # (confirmed by isolated render).
+     "badge_text_size": 13.0, "badge_font_path": MYTHOS_FONT_PATH},
+    # medium_v2: same 9"/6"/3"/1" body as "medium", every edge label gets its
+    # inch mark (inches_mark=True - "9\"" not just "9"), wordmark back on
+    # BaskervilleBold too. Badge moved off the original tucked-by-the-edge
+    # BADGE_CX/BADGE_CZ (that spot only existed to dodge the "3\"" label) to
+    # the CENTER of the open 6" flat zone instead - 38.1mm is that zone's own
+    # midpoint (-half_l+(RECT_LENGTH-CUT_TOP_REMAIN) to +half_l, same formula
+    # configure_gauge uses internally for flat_zone_x0), (0.0 z, the plate's
+    # own vertical center) - with the badge no longer wedged into a corner,
+    # text/icon could go a further +50% up from the already-bumped first pass
+    # (14.0/1.4) with clean margin on every side (confirmed by isolated render
+    # - 21.0/2.1 still clears every edge label and the plate boundary). Ticks
+    # raised on the front face same as small_v2; labels/badge stay flush.
+    {"name": "medium_v2", "long_in": 9.0, "long_label": "9",
+     "top_label_cx": None, "long_label_cx": None, "cut_top_remain_in": 6.0, "width_in": 3.0,
+     "left_remain_in": 1.0, "label_size": RULER_NUM_SIZE, "inches_mark": True,
+     "tick_raise_mm": 1.0, "badge_cx": 38.1, "badge_cz": 0.0,
+     "badge_text_size": 21.0, "badge_font_path": MYTHOS_FONT_PATH, "badge_icon_scale": 2.1},
+]
+
+# Khorne editions of small_v2/medium_v2 - identical bodies, ticks, labels and
+# back-face Mythos badge; the front face's badge is the Khorne rune instead
+# (front_khorne_icon_h), and the whole inlay prints red (2-colour, red on black).
+# small: the 2" zone's ticks reach 3mm in from top and bottom at the badge's own
+# x (12.7), leaving 19.4mm - 16.0 keeps ~1.7mm clear each side. medium: the 6"
+# zone is 76.2mm tall with nothing but edge ticks in it.
+GAUGES_KHORNE = [
+    {**GAUGES_V2[0], "name": "small_khorne", "front_khorne_icon_h": 16.0},
+    {**GAUGES_V2[1], "name": "medium_khorne", "front_khorne_icon_h": 48.0},
 ]
 
 
@@ -906,7 +1011,7 @@ def build_edge_labels(mirror, tag):
     return inserts, cutters
 
 
-def build_ticks(mirror, tag):
+def build_ticks(mirror, tag, raise_mm=0.0):
     """Small in-between graduation marks per TICKS - each one starts right at its
     edge and extends inward by TICK_LEN, same physical (x, z) on both faces (a
     plain rectangle has no "reading direction" to mirror, unlike the numerals).
@@ -915,11 +1020,22 @@ def build_ticks(mirror, tag):
     range_gauge_369's 3" edge) run the other way from "bottom"/"top": fixed near
     x=+half_l, spaced in z counting up from the bottom-right corner - a 90°
     rotation of the same construction, since that edge is graduated top-to-bottom
-    instead of left-to-right."""
+    instead of left-to-right.
+
+    raise_mm: small_v2/medium_v2's raised-inlay experiment, scoped to ticks
+    ONLY (not build_edge_labels' numerals, not the Mythos badge - those stay
+    flush even when this is set) and only on the FRONT face's real insert
+    (mirror=False, poke=0) - the side facing up once reorient_for_print puts
+    the back face on the bed (see that function's own docstring). The pocket
+    CUTTER is untouched, so the recess stays the same depth; the insert alone
+    grows past y=0 into open air, a proud boss instead of a flush tick."""
     inserts, cutters = [], []
     for edge, inches in TICKS:
         for poke, bucket in ((0.0, inserts), (POCKET_POKE, cutters)):
             offset, thickness = face_span(mirror, INSERT_DEPTH, poke)
+            if poke == 0.0 and not mirror and raise_mm:
+                offset -= raise_mm
+                thickness += raise_mm
             if edge == "right":
                 x = _half_l - TICK_LEN / 2.0
                 z = -_half_w + inches * 25.4
@@ -932,17 +1048,47 @@ def build_ticks(mirror, tag):
     return inserts, cutters
 
 
-def build_gauge():
+def build_gauge(include_labels=True, include_ticks=True, tick_raise_mm=0.0,
+                 badge_cx=None, badge_cz=None, badge_include_icon=True,
+                 badge_text_size=None, badge_font_path=TEXT_FONT_PATH, badge_icon_scale=1.0,
+                 front_khorne_icon_h=None):
+    """front_khorne_icon_h set swaps the FRONT face's Mythos badge for the
+    Khorne rune (build_khorne_badge) at that height, same badge center; the
+    back face keeps the Mythos badge. include_labels=False drops the edge numerals (build_edge_labels)
+    entirely - small_v2's "lose the numbers" (the logo half of that is
+    badge_include_icon=False instead, since the badge is built separately from
+    the edge content). include_ticks independently controls the small
+    graduation marks (build_ticks) - small_v2 keeps these even with labels
+    off ("not the numbers but the marks"). tick_raise_mm threads straight
+    through to build_ticks - see that function's own docstring for exactly
+    what it does and doesn't affect. badge_cx/badge_cz default to the family's
+    usual BADGE_CX/BADGE_CZ (tucked near the right edge, clear of the
+    numerals) - small_v2/medium_v2 instead center the badge on their own flat
+    (non-tapered) edge zone now that it doesn't have to dodge a numeral
+    layout that's gone or moved."""
     shell = _extrude_profile(gauge_outline_points(), 0.0, PLATE_T, "gauge_shell")
     apply_bevel(shell, BEVEL_W, BEVEL_SEGMENTS)
+    bcx = BADGE_CX if badge_cx is None else badge_cx
+    bcz = BADGE_CZ if badge_cz is None else badge_cz
 
     inserts, cutters = [], []
     for mirror, tag in ((False, "front"), (True, "back")):
-        label_ins, label_cut = build_edge_labels(mirror, tag)
-        tick_ins, tick_cut = build_ticks(mirror, tag)
-        badge_ins, badge_cut = build_mythos_badge(BADGE_CX, BADGE_CZ, mirror, tag)
-        inserts += label_ins + tick_ins + badge_ins
-        cutters += label_cut + tick_cut + badge_cut
+        if include_labels:
+            label_ins, label_cut = build_edge_labels(mirror, tag)
+            inserts += label_ins
+            cutters += label_cut
+        if include_ticks:
+            tick_ins, tick_cut = build_ticks(mirror, tag, raise_mm=tick_raise_mm)
+            inserts += tick_ins
+            cutters += tick_cut
+        if front_khorne_icon_h and not mirror:
+            badge_ins, badge_cut = build_khorne_badge(bcx, bcz, mirror, tag, front_khorne_icon_h)
+        else:
+            badge_ins, badge_cut = build_mythos_badge(
+                bcx, bcz, mirror, tag, include_icon=badge_include_icon,
+                text_size=badge_text_size, text_font_path=badge_font_path, icon_scale=badge_icon_scale)
+        inserts += badge_ins
+        cutters += badge_cut
 
     return carve_and_collect_inlay(shell, inserts, cutters, "engagement_gauge")
 
@@ -1618,6 +1764,27 @@ def render_charge_stick_tri(name, base, inlay):
 # ============================================================
 
 
+def build_gauges_v2(specs, inlay_color=INLAY_COLOR):
+    for spec in specs:
+        configure_gauge(spec["long_in"], spec["long_label"], spec["top_label_cx"], spec["long_label_cx"],
+                         spec.get("cut_top_remain_in", 2.0), spec.get("width_in", 1.0),
+                         spec.get("left_remain_in", 0.5), spec.get("label_size", 10.0),
+                         spec.get("badge_text_size", 10.0), spec.get("left_label_cx", None),
+                         spec.get("inches_mark", False))
+        clear_scene()
+        base, inlay = build_gauge(
+            include_labels=spec.get("include_labels", True),
+            include_ticks=spec.get("include_ticks", True),
+            tick_raise_mm=spec.get("tick_raise_mm", 0.0),
+            badge_cx=spec.get("badge_cx"), badge_cz=spec.get("badge_cz"),
+            badge_include_icon=spec.get("badge_include_icon", True),
+            badge_text_size=spec.get("badge_text_size"),
+            badge_font_path=spec.get("badge_font_path", TEXT_FONT_PATH),
+            badge_icon_scale=spec.get("badge_icon_scale", 1.0),
+            front_khorne_icon_h=spec.get("front_khorne_icon_h"))
+        export_piece(spec["name"], base, inlay, inlay_color=inlay_color)
+
+
 def main():
     os.makedirs(EXPORT_DIR, exist_ok=True)
     os.makedirs(RENDER_DIR, exist_ok=True)
@@ -1631,6 +1798,26 @@ def main():
         clear_scene()
         base, inlay = build_gauge()
         export_piece(spec["name"], base, inlay)
+
+    # Phase 1b: small_v2/medium_v2 - experimental restyle, see GAUGES_V2's own
+    # docstring.
+    build_gauges_v2(GAUGES_V2)
+
+    # Phase 1c: Khorne editions of the v2 pieces, red inlay.
+    build_gauges_v2(GAUGES_KHORNE, inlay_color=KHORNE_INLAY_COLOR)
+
+    # configure_gauge's badge_text_size param reassigns the module-level
+    # MYTHOS_TEXT_SIZE global (see that function's own docstring) - GAUGES_V2's
+    # own sizes (10.0/21.0) would otherwise leak into Phase 2/3/4, which read
+    # that same global directly (build_mythos_badge_face0 has no text_size
+    # param of its own) instead of the family's usual 10.0. Confirmed this
+    # was live, not hypothetical: leaving MYTHOS_TEXT_SIZE at medium_v2's 21.0
+    # changed the shooting stick's badge geometry enough to trip the EXACT
+    # boolean solver into a genuine non-manifold corruption on segment B
+    # (shift_to_bed_z's own manifold assert caught it) - reproduced twice in a
+    # row before this reset was added.
+    global MYTHOS_TEXT_SIZE
+    MYTHOS_TEXT_SIZE = 10.0
 
     # Phase 2: the 12.5"/13" charge-measurement sticks.
     for spec in STICKS:

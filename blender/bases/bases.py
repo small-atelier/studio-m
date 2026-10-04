@@ -44,8 +44,8 @@ WALL             = 1.6   # wall thickness
 BOTTOM_THICKNESS = 1.2   # solid floor at top (model platform)
 
 MAGNET_CONFIGS = [
-    {"diam": 5.2, "offset_deg":  0},   # 5x2mm — big
-    {"diam": 3.2, "offset_deg": 60},   # 3x1mm — small
+    {"diam": 5.2, "offset_deg":  55},   # 5x2mm — big (rotated clear of centre label on small bases)
+    {"diam": 3.2, "offset_deg": 115},   # 3x1mm — small
 ]
 MAGNET_RING  = 0.55   # socket ring radius as fraction of base radius
 SOCKET_WALL  = 0.8    # socket tube wall thickness

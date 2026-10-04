@@ -8,21 +8,33 @@ Unit names link out to their [Wahapedia](https://wahapedia.ru/wh40k11ed/factions
 
 ## Owned — Painted & Battle Ready
 
-| Unit         | Model / Options | Qty | Notes |
-|--------------|-----------------|-----|-------|
-| Chaos Rhino |                 | 4   |       |
+| Unit        | Model / Options           | Qty | Notes |
+|-------------|---------------------------|-----|-------|
+| Chaos Rhino |                           | 4   |       |
+| Helldrake   |                           | 1   |       |
+| Cultist     | CC                        | 10  |       |
+| Cultist     | Guns                      | 10  |       |
+| Tzaangors   | Pistol & Chainsowrd       | 10  |       |
+| Tzaangors   | Meele                     | 7   |       |
+| Tzaangors   | Banner, Musican, BrayHorn | 3   |       |
 
 
-## Assembled — WIP, Unpainted
+## Assembled — Unpainted
 
-| Unit                        | Model / Options                | Qty | Notes                                        |
-|-----------------------------|---------------------------------|----:|-----------------------------------------------|
-| Ahriman                     | on Disc of Tzeentch             |   1 | Start Collecting! Thousand Sons                |
-| Tzaangors                   |                                  |  20 | 10 Start Collecting + 10 Combat Patrol (old)   |
-| Rubric Marines              |                                  |  40 | 10 Start Collecting + 10 Combat Patrol (old) + 20 Boarding Patrol (2 buildable as Aspiring Sorcerers) |
-| Infernal Master              |                                  |   1 | Combat Patrol (old)                            |
-| Scarab Occult Terminators   |                                  |   5 | Combat Patrol (old)                            |
-| Chaos Spawn                 |                                  |   2 | Boarding Patrol                                |
+| Unit                      | Model / Options     | Qty | Notes                           |
+|---------------------------|---------------------|----:|---------------------------------|
+| Rubric Marines            | Aspiring Sorcerer   |   2 |                                 |
+| Rubric Marines            |                     |  18 |                                 |
+| Infernal Master           |                     |   1 |                                 |
+| Hellbrute                 |                     |   1 |                                 |
+| Scarab Occult Terminators |                     |   5 |                                 |
+| Chaos Spawn               |                     |   2 | Boarding Patrol                 |
+
+## WIP - Unpainted
+
+| Unit                      | Model / Options     | Qty | Notes                           |
+|---------------------------|---------------------|----:|---------------------------------|
+| Ahriman                   | on Disc of Tzeentch |   1 | Start Collecting! Thousand Sons |
 
 ## Wishlist
 

@@ -35,3 +35,13 @@ Other people's models worth printing eventually — saved here so the links don'
 
 **Dice**
 - [Dice Dispenser, Sorter and Travel Vault (12mm D6)](https://makerworld.com/en/models/1379711-dice-dispencer-sorter-and-travel-vault-12mm-d6?from=search#profileId-1427840) — MakerWorld
+
+---
+
+## Printed
+
+Other people's models already printed — kept here so it's easy to tell what's done and go back for more.
+
+**Gaming Accessories**
+- [Age of Sigmar Spearhead Objective Control Token](https://makerworld.com/en/models/830545-age-of-sigmar-spearhead-objective-control-token#profileId-774818) — MakerWorld
+- [Age of Sigmar Reminder Tokens and Travel Box](https://makerworld.com/en/models/1383295-age-of-sigmar-reminder-tokens-and-travel-box#profileId-1432187) — MakerWorld
