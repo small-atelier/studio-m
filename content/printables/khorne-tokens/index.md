@@ -6,7 +6,7 @@ tags: ["3d-printing", "warhammer", "age-of-sigmar", "multi-material"]
 ---
 
 {{< lead >}}
-A full token kit for the Blades of Khorne *Gore Pilgrims* Spearhead: ability-reminder hex tokens, arrow-shaped damage trays, and a carry box with a built-in Blood Tithe counter. The same kit exists for [Helsmiths of Hashut]({{< ref "/printables/hashut-game-tokens" >}}).
+A full token kit for the Blades of Khorne *Gore Pilgrims* Spearhead: ability-reminder hex tokens, arrow-shaped damage trays, a carry box with a built-in Blood Tithe counter, and Khorne-badged measuring gauges. The same kit exists for [Helsmiths of Hashut]({{< ref "/printables/hashut-game-tokens" >}}).
 {{< /lead >}}
 
 {{< figure src="gallery/box_assembled_open.png" caption="Box open: hex-token wells on the left, card slot up front, damage trays and the two Blood Tithe wheels at the back" >}}
@@ -46,6 +46,14 @@ The box has the same footprint as the Hashut box (165.5×131.2×24.5mm) and uses
 
 {{< figure src="gallery/box_lid_as_dice_tray.png" caption="Lid flipped over as a dice tray" >}}
 
+## Measuring gauges
+
+The Small (½", 1", 2", 3") and Medium (1", 3", 6", 9") gauges from the [Measuring Gauges]({{< ref "/printables/measuring-gauges" >}}) set, with the Khorne rune as the front badge. The back keeps the Mythos badge. Both colours as the tokens: black base, red inlay.
+
+{{< figure src="gallery/small_khorne_front.png" caption="Small, Khorne front" >}}
+
+{{< figure src="gallery/medium_khorne_front.png" caption="Medium, Khorne front" >}}
+
 ## Downloads
 
 Each piece comes as a base + inlay STL pair, an `_anycubic.3mf` (Anycubic Slicer Next's own per-part filament metadata) and a plain `.3mf`. Everything prints in two colors (default: black in slot 1, red in slot 2). Set `BASE_EXTRUDER_SLOT`/`INLAY_EXTRUDER_SLOT` in the scripts to whatever's loaded. Print the tithe wheel test coupon first to check the wheel's fit on your printer.
@@ -64,5 +72,12 @@ Each piece comes as a base + inlay STL pair, an `_anycubic.3mf` (Anycubic Slicer
 - Lid — [base](downloads/box_lid_base.stl) · [inlay](downloads/box_lid_inlay.stl) · [Anycubic 3MF](downloads/box_lid_anycubic.3mf) · [plain 3MF](downloads/box_lid.3mf)
 - Tithe wheel (×2) — [base](downloads/tithe_wheel_base.stl) · [inlay](downloads/tithe_wheel_inlay.stl) · [Anycubic 3MF](downloads/tithe_wheel_anycubic.3mf) · [plain 3MF](downloads/tithe_wheel.3mf)
 - Tithe wheel test coupon — [base](downloads/tithe_wheel_test_coupon_base.stl) · [inlay](downloads/tithe_wheel_test_coupon_inlay.stl) · [Anycubic 3MF](downloads/tithe_wheel_test_coupon_anycubic.3mf) · [plain 3MF](downloads/tithe_wheel_test_coupon.3mf)
+
+**Measuring gauges:**
+
+- Small — [base](downloads/small_khorne_base.stl) · [inlay](downloads/small_khorne_inlay.stl) · [Anycubic 3MF](downloads/small_khorne_anycubic.3mf)
+- Medium — [base](downloads/medium_khorne_base.stl) · [inlay](downloads/medium_khorne_inlay.stl) · [Anycubic 3MF](downloads/medium_khorne_anycubic.3mf)
+
+The gauge script lives with the [Measuring Gauges]({{< ref "/printables/measuring-gauges" >}}) post.
 
 **Scripts** (Blender, headless) for adjusting sizes or counts: [build_khorne_tokens.py](downloads/build_khorne_tokens.py) · [build_khorne_token_box.py](downloads/build_khorne_token_box.py) · [extract_icon_contours.py](downloads/extract_icon_contours.py)

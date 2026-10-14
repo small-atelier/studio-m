@@ -27,9 +27,9 @@ Command models scale 1-per-10: each Cohort unit carries its own Musician (Gong C
 
 **Daemonsmith / Ashen Elder** is a single dual-build kit — one model per box, alternate build, not two-in-one. Plan: buy one box, build it as whichever one is needed first (see the 1,250-point bracket in the [AoS Army List](army-aos/)), then convert the spare 2nd War Despot into the other as a kitbash/counts-as instead of buying a second box.
 
-## Spearhead-legal subset
+## Spearhead
 
-For actual Spearhead games, only one specific loadout is legal: War Despot, Dominator Engine with Immolation Cannons, Tormentor Bombard (standard), Infernal Cohort with Hashutite Spears + Gong-bearer (one 10-model unit only — the 2nd Cohort, 2nd Dominator, and Deathshrieker aren't part of the fixed Spearhead composition). See [AoS Army List](army-aos/) for full matched-play games where everything above comes into play.
+The Spearhead force uses a subset of these models: see [Helforge Host]({{< ref "/spearhead/hashut" >}}).
 
 ## Beyond the Spearhead
 

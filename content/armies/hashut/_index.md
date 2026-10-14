@@ -7,7 +7,7 @@ tags: ["Helsmiths of Hashut", "Chaos Dwarfs", "Age of Sigmar", "Spearhead"]
 ---
 
 {{< lead >}}
-Helforge Host Spearhead box — Chaos Dwarfs of Hashut, one box build-and-paint.
+Chaos Dwarfs of Hashut for Age of Sigmar, built from the Helforge Host Spearhead box and the Army Set. The Spearhead force has its own page: [Helforge Host]({{< ref "/spearhead/hashut" >}}).
 {{< /lead >}}
 
 ## Overview
@@ -20,8 +20,7 @@ Related build: **The Portable Hellforge** (`content/projects/portable-hellforge`
 
 ## Rules
 
-- [Core Rules, Advanced Rules, Spearhead Rules & Terrain Rules (PDF)](https://www.warhammer-community.com/wp-content/uploads/2024/07/XDIu1usQa07ohgwj.pdf) — free from Games Workshop
-- [Spearhead Reference Sheet (PDF)](https://www.warhammer-community.com/wp-content/uploads/2024/07/jGK80Jjjq4u0PaSR.pdf)
+- [Warhammer Community AoS downloads](https://www.warhammer-community.com/en-gb/downloads/warhammer-age-of-sigmar/) — core and advanced rules, free from Games Workshop
 - [Helsmiths of Hashut Battle Profiles / points, Sept 2025 (PDF)](https://assets.warhammer-community.com/eng_24-09_aos_faction_packs_helsmiths_of_hashut_battle_profiles-bepgz5nsit-maydrw1qzi.pdf)
 - [Wahapedia — Helsmiths of Hashut warscrolls](https://wahapedia.ru/aos4/factions/helsmiths-of-hashut/) — unofficial, full ability text
 
@@ -33,5 +32,5 @@ Full warscrolls aren't a standalone free GW PDF — they're in the (paid) Battle
 
 ## Army Building
 
-- [Roster](roster/) — the fixed 14-model Spearhead composition, build/paint status
+- [Roster](roster/) — both boxes, build/paint status
 - [AoS Army List](army-aos/) — points-budget sketch for 750 / 1,000 / 1,250 / 2,000 points
