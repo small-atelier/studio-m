@@ -85,6 +85,8 @@ blender --background --python objective_markers_v1.py -- --diameter 6 --edge-cut
 
 - [objective_markers_v1.py]({{< script "objective-markers/objective_markers_v1.py" >}})
 
+**Icon contours** (the scripts read them by relative path, so keep the folder layout from these URLs): [logo_contours_v5.json]({{< script "card-stand/logo_contours_v5.json" >}})
+
 ## Status
 
 Verified in Blender — clean unions, no non-manifold geometry, marker sits flush per the flush-height invariant above. **Not yet printed** — floor thicknesses, bevel/jitter amounts, and the logo pocket depth are informed guesses, not print-confirmed.

@@ -103,3 +103,5 @@ Two segments, glue together at the tenon/socket joint before use.
 Run headless in Blender 5.1.2 (`blender --background --python build_measuring_gauges.py`) builds the whole family in one pass, no extra Python packages needed. Needs the bundled Arial Black font alongside it (every numeral and the wordmark); the Mythos badge's own icon data lives in a `mythos-logo` folder alongside this project's own, referenced by relative path:
 
 - [build_measuring_gauges.py]({{< script "measuring-gauges/build_measuring_gauges.py" >}}) · [ArialBlack.ttf](downloads/ArialBlack.ttf)
+
+**Icon contours** (the scripts read them by relative path, so keep the folder layout from these URLs): [logo_contours_v7.json]({{< script "mythos-logo/logo_contours_v7.json" >}}) · [khorne_contours.json]({{< script "khorne-tokens/khorne_contours.json" >}})

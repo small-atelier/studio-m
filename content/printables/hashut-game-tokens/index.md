@@ -70,3 +70,5 @@ Every two-color piece comes as a base + inlay STL pair, an `_anycubic.3mf` (Anyc
 - Lid — [base](downloads/box_lid_base.stl) · [inlay](downloads/box_lid_inlay.stl) · [Anycubic 3MF](downloads/box_lid_anycubic.3mf) · [plain 3MF](downloads/box_lid.3mf)
 
 **Scripts** (Blender, headless) for adjusting sizes or counts: [build_tokens.py]({{< script "tokens/build_tokens.py" >}}) · [build_token_card_box.py]({{< script "token-card-box/build_token_card_box.py" >}}) · [extract_icon_contours.py]({{< script "tokens/extract_icon_contours.py" >}})
+
+**Icon contours** (the scripts read them by relative path, so keep the folder layout from these URLs): [bull_contours.json]({{< script "tokens/bull_contours.json" >}}) · [rune_contours.json]({{< script "tokens/rune_contours.json" >}})

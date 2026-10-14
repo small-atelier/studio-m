@@ -75,3 +75,5 @@ Same workflow as the Hashut set: STL pairs work with any multi-material setup th
 **Script** — run headless in Blender 5.1.2 (`blender --background --python build_modifier_tokens.py`), no extra Python packages needed:
 
 - [build_modifier_tokens.py]({{< script "combat-modifiers/build_modifier_tokens.py" >}})
+
+**Icon contours** (the scripts read them by relative path, so keep the folder layout from these URLs): [logo_contours_v5.json]({{< script "card-stand/logo_contours_v5.json" >}})

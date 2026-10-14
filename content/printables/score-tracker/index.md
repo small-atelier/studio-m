@@ -54,3 +54,5 @@ STL pairs (base + inlay) work with any multi-material setup that lets you assign
 **Script** — run headless in Blender 5.1.2 (`blender --background --python build_score_tracker.py`), no extra Python packages needed. Needs the bundled Arial Black font alongside it (used for the digits and labels — chosen over a serif font specifically because its thick, uniform strokes hold up at small print scale):
 
 - [build_score_tracker.py]({{< script "score-tracker/build_score_tracker_v2.py" >}}) · [ArialBlack.ttf](downloads/ArialBlack.ttf)
+
+**Icon contours** (the scripts read them by relative path, so keep the folder layout from these URLs): [logo_contours_v5.json]({{< script "card-stand/logo_contours_v5.json" >}})

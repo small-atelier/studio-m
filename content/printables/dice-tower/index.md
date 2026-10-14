@@ -58,6 +58,8 @@ Plain tray only - the castle tray and tree tower aren't built yet, and even once
 
 **Script** - run headless in Blender 5.1.2 (`blender --background --python build_dice_tray.py`): [build_dice_tray.py]({{< script "dice-tower/build_dice_tray.py" >}})
 
+**Icon contours** (the scripts read them by relative path, so keep the folder layout from these URLs): [logo_contours_v5.json]({{< script "card-stand/logo_contours_v5.json" >}})
+
 ## Status
 
 Plain tray only, verified in Blender - all three parts manifold, sane volumes, both faces render correct. **Not yet printed** - a real multi-material test print is next, checking the two pockets actually hold their inserts flush and the color swap behaves the way the per-layer-depth math above assumes. Castle tray and tree tower are next after that.

@@ -81,3 +81,5 @@ Each piece comes as a base + inlay STL pair, an `_anycubic.3mf` (Anycubic Slicer
 The gauge script lives with the [Measuring Gauges]({{< ref "/printables/measuring-gauges" >}}) post.
 
 **Scripts** (Blender, headless) for adjusting sizes or counts: [build_khorne_tokens.py]({{< script "khorne-tokens/build_khorne_tokens.py" >}}) · [build_khorne_token_box.py]({{< script "khorne-token-box/build_khorne_token_box.py" >}}) · [extract_icon_contours.py]({{< script "khorne-tokens/extract_icon_contours.py" >}})
+
+**Icon contours** (the scripts read them by relative path, so keep the folder layout from these URLs): [khorne_contours.json]({{< script "khorne-tokens/khorne_contours.json" >}}) · [dice_roll_contours.json]({{< script "khorne-tokens/dice_roll_contours.json" >}}) · [cards_contours.json]({{< script "khorne-tokens/cards_contours.json" >}}) · [die_five_contours.json]({{< script "khorne-tokens/die_five_contours.json" >}})
