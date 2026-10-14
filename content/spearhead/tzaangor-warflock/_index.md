@@ -2,7 +2,8 @@
 title: "Tzaangor Warflock"
 date: 2026-10-14
 draft: false
-tags: ["Disciples of Tzeentch", "Age of Sigmar", "Spearhead"]
+categories: ["Age of Sigmar"]
+tags: ["Disciples of Tzeentch", "Spearhead"]
 ---
 
 {{< lead >}}

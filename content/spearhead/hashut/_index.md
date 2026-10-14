@@ -2,7 +2,8 @@
 title: "Helforge Host"
 date: 2026-10-14
 draft: false
-tags: ["Helsmiths of Hashut", "Age of Sigmar", "Spearhead"]
+categories: ["Age of Sigmar"]
+tags: ["Helsmiths of Hashut", "Spearhead"]
 ---
 
 {{< lead >}}

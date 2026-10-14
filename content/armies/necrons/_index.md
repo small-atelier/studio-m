@@ -2,7 +2,7 @@
 title: "Necrons"
 date: 2026-03-29T11:43:48Z
 draft: false
-categories: ["Projects"]
+categories: ["40K"]
 tags: ["Necrons", "Army"]
 featured: "thumbnail.png"
 images:

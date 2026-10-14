@@ -2,7 +2,8 @@
 title: "Gore Pilgrims"
 date: 2026-10-14
 draft: false
-tags: ["Blades of Khorne", "Age of Sigmar", "Spearhead"]
+categories: ["Age of Sigmar"]
+tags: ["Blades of Khorne", "Spearhead"]
 ---
 
 {{< lead >}}

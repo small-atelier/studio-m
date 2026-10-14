@@ -2,7 +2,7 @@
 title: "Thousand Sons"
 date: 2026-03-29T11:43:36Z
 draft: false
-categories: ["Projects"]
+categories: ["40K"]
 tags: []
 ---
 

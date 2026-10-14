@@ -2,7 +2,7 @@
 title: "Ultramarines"
 date: 2026-03-29T11:44:44Z
 draft: false
-categories: ["Projects"]
+categories: ["40K"]
 tags: []
 ---
 

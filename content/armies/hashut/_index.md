@@ -2,8 +2,8 @@
 title: "Helsmiths of Hashut"
 date: 2026-09-06
 draft: false
-categories: ["Projects"]
-tags: ["Helsmiths of Hashut", "Chaos Dwarfs", "Age of Sigmar", "Spearhead"]
+categories: ["Age of Sigmar"]
+tags: ["Helsmiths of Hashut", "Chaos Dwarfs", "Spearhead"]
 ---
 
 {{< lead >}}

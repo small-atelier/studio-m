@@ -2,7 +2,7 @@
 title: "Dark Angels"
 date: 2026-03-29T11:44:16Z
 draft: false
-categories: ["Projects"]
+categories: ["40K"]
 tags: []
 ---
 
