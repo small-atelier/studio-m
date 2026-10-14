@@ -3,7 +3,7 @@ title: "Necrons"
 date: 2026-03-29T11:43:48Z
 draft: false
 categories: ["40K"]
-tags: ["Necrons", "Army"]
+tags: ["Necrons"]
 featured: "thumbnail.png"
 images:
   - "thumbnail.png"

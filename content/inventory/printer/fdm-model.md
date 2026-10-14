@@ -1,11 +1,7 @@
 ---
-title: "Printer FDM"
+title: "FDM Printers"
 date: 2026-03-30
 draft: false
----
-
-# 3D Printing Inventory & Compatibility Log
-
 ---
 
 ## Hardware
