@@ -1,7 +1,7 @@
 ---
 title: "Lava Terrain for Mythos"
 date: 2026-10-14
-draft: true
+draft: false
 tags: ["terrain", "3d-printing", "age-of-sigmar", "mythos"]
 ---
 
@@ -19,7 +19,7 @@ Terrain pieces sit on hardboard bases.
 
 ## Finishing
 
-Sealed and textured with the acrylic floor-primer mixes from the floor primer note.
+Sealed and textured with the acrylic floor-primer mixes from the [floor primer note]({{< ref "/notes/floor-primer-as-hobby-medium" >}}).
 
 ## Status
 

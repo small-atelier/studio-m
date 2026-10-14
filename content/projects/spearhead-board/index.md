@@ -26,7 +26,7 @@ Each ring is a 6" [objective marker tile]({{< ref "/printables/objective-marker-
 
 ## Terrain
 
-2 large + 2 small features, per the Spearhead rules. FDM-printed, 0.4mm nozzle, 1.2mm layer height: [AOS 4 Skaventide Terrain Equivalent](https://www.thingiverse.com/thing:6724571) by ChickenFPV, CC BY-SA.
+2 large + 2 small features, per the Spearhead rules. The pieces and their print status are tracked in [AoS Terrain]({{< ref "/projects/aos-terrain" >}}).
 
 ## Status
 
