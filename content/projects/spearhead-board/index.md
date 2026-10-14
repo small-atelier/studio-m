@@ -42,7 +42,7 @@ FDM-printed caps glued onto the four frame corners. Each one wraps the corner on
 
 **Printing:** flat on a lip, as it sits on the table. The top lip needs supports inside the pocket: paint them under the lip only (not "build plate only" — they land on the bottom lip), ~0.2mm Z-gap. Support marks end up on the faces against the board, so sand them lightly if the fit is tight.
 
-**Downloads:** [STL](downloads/board_corner_v2.stl) (print ×4, same part for every corner) · [script](downloads/board_corner_v2.py) (Blender, headless). Set `BOARD_THICKNESS` to your own board's edge thickness.
+**Downloads:** [STL](downloads/board_corner_v2.stl) (print ×4, same part for every corner) · [script]({{< script "spearhead-board/board_corner_v2.py" >}}) (Blender, headless). Set `BOARD_THICKNESS` to your own board's edge thickness.
 
 ## Status
 

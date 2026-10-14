@@ -56,7 +56,7 @@ Plain tray only - the castle tray and tree tower aren't built yet, and even once
 
 **Combined plate** - [Anycubic 3MF](downloads/dice_tray_anycubic.3mf) - carries Anycubic Slicer Next's per-part filament-slot metadata; check `BASE_EXTRUDER_SLOT`/`INLAY_EXTRUDER_SLOT` in the script match whatever's actually loaded if you're running a different multi-material setup.
 
-**Script** - run headless in Blender 5.1.2 (`blender --background --python build_dice_tray.py`): [build_dice_tray.py](downloads/build_dice_tray.py)
+**Script** - run headless in Blender 5.1.2 (`blender --background --python build_dice_tray.py`): [build_dice_tray.py]({{< script "dice-tower/build_dice_tray.py" >}})
 
 ## Status
 

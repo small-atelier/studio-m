@@ -49,7 +49,7 @@ A printed bar that stores the whole magnet stock as stacks. Every well sits agai
 
 **Boolean-light.** The wells don't touch each other, so they're joined into one cutter and removed with a single boolean. The slots are joined into a second cutter and removed with a second pass. That's two boolean ops in total.
 
-{{< include-code path="blender/magnet-storage/build_magnet_storage.py" lang="python" >}}
+{{< include-code path="blender/magnet-storage/build_magnet_storage_v1.py" lang="python" >}}
 
 ---
 
@@ -58,7 +58,7 @@ A printed bar that stores the whole magnet stock as stacks. Every well sits agai
 Own design, share and remix freely.
 
 - [magnet_storage.stl](downloads/magnet_storage.stl) — print two
-- [build_magnet_storage.py](downloads/build_magnet_storage.py)
+- [build_magnet_storage.py]({{< script "magnet-storage/build_magnet_storage_v1.py" >}})
 
 Run headless in Blender 5.1.2:
 

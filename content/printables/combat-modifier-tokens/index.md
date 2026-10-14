@@ -74,4 +74,4 @@ Same workflow as the Hashut set: STL pairs work with any multi-material setup th
 
 **Script** — run headless in Blender 5.1.2 (`blender --background --python build_modifier_tokens.py`), no extra Python packages needed:
 
-- [build_modifier_tokens.py](downloads/build_modifier_tokens.py)
+- [build_modifier_tokens.py]({{< script "combat-modifiers/build_modifier_tokens.py" >}})

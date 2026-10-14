@@ -80,4 +80,4 @@ Each piece comes as a base + inlay STL pair, an `_anycubic.3mf` (Anycubic Slicer
 
 The gauge script lives with the [Measuring Gauges]({{< ref "/printables/measuring-gauges" >}}) post.
 
-**Scripts** (Blender, headless) for adjusting sizes or counts: [build_khorne_tokens.py](downloads/build_khorne_tokens.py) · [build_khorne_token_box.py](downloads/build_khorne_token_box.py) · [extract_icon_contours.py](downloads/extract_icon_contours.py)
+**Scripts** (Blender, headless) for adjusting sizes or counts: [build_khorne_tokens.py]({{< script "khorne-tokens/build_khorne_tokens.py" >}}) · [build_khorne_token_box.py]({{< script "khorne-token-box/build_khorne_token_box.py" >}}) · [extract_icon_contours.py]({{< script "khorne-tokens/extract_icon_contours.py" >}})

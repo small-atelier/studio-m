@@ -83,7 +83,7 @@ blender --background --python objective_markers_v1.py -- --seed 7 --logo
 blender --background --python objective_markers_v1.py -- --diameter 6 --edge-cut 21
 ```
 
-- [objective_markers_v1.py](downloads/objective_markers_v1.py)
+- [objective_markers_v1.py]({{< script "objective-markers/objective_markers_v1.py" >}})
 
 ## Status
 
