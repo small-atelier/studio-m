@@ -5,6 +5,9 @@ languageCode = "en-us"
 canonifyURLs = true
 relativeURLs = false
 
+# Commercial fonts in bundles are build inputs, never published
+ignoreFiles = ['\.ttf$']
+
 [[module.imports]]
 path = "github.com/nunocoracao/blowfish/v2"
 
