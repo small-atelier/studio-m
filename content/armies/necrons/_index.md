@@ -19,13 +19,9 @@ A growing Necron army focused on weathered metallics and desert basing.
 
 A very, very cool Necron Army.
 
-## Progress
-Document steps, build stages, and painting progress.
-
 ## Paint Recipes / Techniques
 - [Basing](base/)
 - [Color schemes](paint/)
-- Notes for future reference
 
 ## Army Building
 - [Roster](roster/) — owned, assembled, and wishlist models

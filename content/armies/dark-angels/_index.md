@@ -11,14 +11,8 @@ Deathwing and Ravenwing combo — Terminator-armoured elites backed by a fast bi
 Inner Circle one-two punch. Nothing built yet; see the [40k Army List](army-40k/) for the planned
 progression from Interrogator-Chaplain up to Azrael at 3000p.
 
-## Progress
-Document steps, build stages, and painting progress.
-
 ## Paint Recipes / Techniques
 - [Rhino Airbrush Repaint Workflow](rhino-workflow/)
-- Color schemes
-- Techniques used
-- Notes for future reference
 
 ## Army Building
 - [Roster](roster/) — owned, assembled, and wishlist models

@@ -14,14 +14,6 @@ while Assault Intercessors hold the objectives behind them. Nothing built yet; s
 [40k Army List](army-40k/) for the planned progression from Chaplain up to Mephiston/The Sanguinor
 at 3000p.
 
-## Progress
-Document steps, build stages, and painting progress.
-
-## Paint Recipes / Techniques
-- Color schemes
-- Techniques used
-- Notes for future reference
-
 ## Army Building
 - [Roster](roster/) — owned, assembled, and wishlist models
 - [40k Army List](army-40k/) — list sketches by points bracket

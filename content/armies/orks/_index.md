@@ -15,11 +15,6 @@ An old Ork collection, built up over years — plus whatever gets added (and pai
 - [Full Roster](roster) — everything owned, painted status, notes
 - [11th Edition Army Plans](army-plans) — wanted/to build/to paint, suggested army builds
 
-## Paint Recipes / Techniques
-- Color schemes
-- Techniques used
-- Notes for future reference
-
 ## Photos
 
 {{< carousel images="gallery/*" aspectRatio="21-9" interval="2500" >}}
