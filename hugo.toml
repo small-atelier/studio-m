@@ -8,6 +8,17 @@ relativeURLs = false
 [[module.imports]]
 path = "github.com/nunocoracao/blowfish/v2"
 
+# Declaring any assets mount replaces the default, so assets/ is re-mounted explicitly.
+[[module.mounts]]
+source = "assets"
+target = "assets"
+
+# Blender scripts, published via the {{< script >}} shortcode
+[[module.mounts]]
+source = "blender"
+target = "assets/blender"
+files = ["! **/output*/**", "! **/__pycache__/**"]
+
 [params]
 subtitle = "Models and Minatures"
 description = "Models and Minatures"

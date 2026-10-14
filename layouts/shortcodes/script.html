@@ -1,0 +1,7 @@
+{{- /* URL of a file under blender/, published as-is: [name.py]({{< script "dir/name.py" >}}) */ -}}
+{{- $path := .Get 0 -}}
+{{- with resources.Get (printf "blender/%s" $path) -}}
+{{- .RelPermalink -}}
+{{- else -}}
+{{- errorf "script shortcode: blender/%s not found (%s)" $path .Position -}}
+{{- end -}}
