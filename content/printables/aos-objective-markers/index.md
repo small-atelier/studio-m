@@ -15,7 +15,7 @@ Full-size objective markers for Age of Sigmar matched play: a paved-tile disc wh
 
 ## The idea
 
-An objective is a 40mm marker with a control zone reaching 3" from it. A tile disc sized to exactly that radius beyond the marker's edge does double duty: decoration and a genuine ruler. 3" is the control range in 40K too, so the same disc works there.
+An objective is a 40mm marker with a control zone reaching 3" from it. A tile disc sized to exactly that radius beyond the marker's edge does double duty: decoration and a genuine ruler. In 40K the same disc works for objectives that aren't in a terrain area, which use a 40mm marker with 3" range; see the [40K battlefield reference]({{< ref "/notes/40k-battlefield-reference#objectives" >}}).
 
 ## The set
 

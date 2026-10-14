@@ -20,9 +20,9 @@ A home-built, double-sided 22" × 30" Spearhead board, the size the Spearhead ru
 
 ## Objectives
 
-The objectives follow the official ring layouts: Aqshy has five 6" rings, Ghryan three 6" rings plus two that run off the side edges. Layouts and board photos are in the [battlefield reference]({{< ref "/notes/aos-battlefield-reference#official-realm-battlefields" >}}).
+The objectives follow the official ring layouts: Aqshy has five 6" rings, Ghryan three 6" rings plus two that run off the side edges. Layouts and board photos are in the [battlefield reference]({{< ref "/notes/spearhead-battlefield-reference#official-realm-battlefields" >}}).
 
-Each ring is a 6" [objective marker tile]({{< ref "/printables/objective-marker-tiles" >}}) set into the foam mosaic at the same top height, with Ghryan's two side objectives as edge pieces. A resin-printed 40mm coin is glued flush into each tile's pocket: seven variants from the **Spearhead Objective Markers (FDM-friendly)** set (simple, bigger simple, crane, snake, phoenix, dragon face, dragon side).
+Each ring is a 6" [objective marker tile]({{< ref "/printables/objective-marker-tiles" >}}) set into the foam mosaic at the same top height, with Ghryan's two side objectives as edge pieces. A resin-printed 40mm coin is glued flush into each tile's pocket: five designs from the **Spearhead Objective Markers (FDM-friendly)** set, one per godbeast (dragon face, dragon side, phoenix, snake, skull). Which coin goes where is in the [battlefield reference]({{< ref "/notes/spearhead-battlefield-reference#official-realm-battlefields" >}}).
 
 ## Terrain
 
