@@ -23,8 +23,8 @@ target = "assets/blender"
 files = ["! **/output*/**", "! **/__pycache__/**"]
 
 [params]
-subtitle = "Models and Minatures"
-description = "Models and Minatures"
+subtitle = "Miniatures & Models"
+description = "Miniatures & Models"
 
 [params.sidebar]
 emoji = "🎨"
