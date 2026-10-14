@@ -6,8 +6,6 @@ categories: ["Projects"]
 tags: []
 ---
 
-# Tyranids
-
 ## Overview
 
 A swarm-focused Tyranid collection, still being built out — synapse creatures backing up gaunt swarms and a few monsters, with more on the wishlist.

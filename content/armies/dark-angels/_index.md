@@ -6,8 +6,6 @@ categories: ["Projects"]
 tags: []
 ---
 
-# Dark Angels
-
 ## Overview
 Deathwing and Ravenwing combo — Terminator-armoured elites backed by a fast bike screen, the classic
 Inner Circle one-two punch. Nothing built yet; see the [40k Army List](army-40k/) for the planned

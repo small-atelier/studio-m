@@ -6,8 +6,6 @@ categories: ["Projects"]
 tags: []
 ---
 
-# Orks
-
 ## Overview
 
 An old Ork collection, built up over years — plus whatever gets added (and painted) from here on.

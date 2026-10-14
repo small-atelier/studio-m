@@ -4,10 +4,6 @@ date: 2026-03-30
 draft: true
 ---
 
-# Tyranid Army Progress Tracker
-
----
-
 ## Legend
 - **☐** = Not done / missing  
 - **x** = Done / completed  

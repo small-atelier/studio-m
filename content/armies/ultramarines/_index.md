@@ -6,8 +6,6 @@ categories: ["Projects"]
 tags: []
 ---
 
-# Ultramarines
-
 ## Overview
 Vanilla Gladius-style combined arms — no chapter-specific gimmick, just a solid Intercessor /
 Hellblaster / armour core. Nothing built yet; see the [40k Army List](army-40k/) for the planned
