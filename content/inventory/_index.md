@@ -3,7 +3,7 @@ title: "Inventory"
 date: 2026-03-29
 draft: false
 ---
-# Studio M Inventory
+Paint, resin and filament stock, plus the printers and tools they're used with.
 
 ## 3D Printers (Resin)
 - [Resin Printers](printer/resin-model)
