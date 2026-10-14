@@ -22,5 +22,8 @@ tmp/
 
 .hugo_build.lock
 
-# Script scratch output (published copies live in the post's own page bundle)
-blender/terrain-templates/output/
+# Raw source material (third-party STLs, references, rulebooks)
+/input/
+
+# Blender script output (published copies live in the page bundles)
+/blender/**/output*/
