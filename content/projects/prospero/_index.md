@@ -1,29 +1,11 @@
 ---
-title: "Thousands Sons"
-date: 2026-03-29T11:43:36Z
+title: "Prospero Board"
+date: 2026-07-21T12:00:00Z
 draft: false
-categories: ["Projects"]
-tags: []
+tags: ["terrain", "40k", "Thousand Sons"]
 ---
 
-# Thousands Sons
-
-## Overview
-The Thousand Sons army, plus a matching **Prospero-themed terrain board** — their ruined homeworld, rendered as a set of modular, gameplay-first terrain pieces.
-
-## Progress
-Document steps, build stages, and painting progress.
-
-## Paint Recipes / Techniques
-- Color schemes
-- Techniques used
-- Notes for future reference
-
-## Army Building
-- [Roster](roster/) — owned, assembled, and wishlist models
-- [40k Army List](army-40k/) — list sketches by points bracket
-
-## Terrain — Prospero Board
+A Prospero-themed terrain board for the [Thousand Sons]({{< ref "/armies/thousand-sons" >}}): their ruined homeworld, built as a set of modular, gameplay-first terrain pieces.
 
 Iconic Prospero themes — crystal spires, stepped pyramids, arcane obelisks, marble ruins, floating psychic islands — built as a collection of playable pieces rather than one static diorama, so each piece can be repositioned between missions.
 
@@ -38,6 +20,3 @@ Iconic Prospero themes — crystal spires, stepped pyramids, arcane obelisks, ma
 - [Brazier](brazier) — flame finial attachment piece
 - [Rune Panels](runes) — engraved cladding panels
 
-## Photos
-
-{{< carousel images="gallery/*" aspectRatio="21-9" interval="2500" >}}

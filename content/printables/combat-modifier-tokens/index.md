@@ -6,7 +6,7 @@ tags: ["3d-printing", "blender", "python", "warhammer", "age-of-sigmar", "40k", 
 ---
 
 {{< lead >}}
-Generic combat-modifier tokens for 40k or AoS — not tied to any army, unlike the [Hashut DPP/Desolation tokens]({{< ref "/posts/hashut-game-tokens" >}}) that share their build pipeline. Each stat gets its own token *shape*, not just a label, so they're sortable by touch in a dice bag, not only by reading them.
+Generic combat-modifier tokens for 40k or AoS — not tied to any army, unlike the [Hashut DPP/Desolation tokens]({{< ref "/printables/hashut-game-tokens" >}}) that share their build pipeline. Each stat gets its own token *shape*, not just a label, so they're sortable by touch in a dice bag, not only by reading them.
 {{< /lead >}}
 
 {{< carousel images="gallery/*" aspectRatio="1-1" interval="3000" >}}
@@ -32,7 +32,7 @@ Every numeric one is a **flip token** — front and back show opposite states of
 
 ## Bonus: a Mythos token
 
-Thrown in for free — the sun/mountain/moon relief from the [Mythos business-card stand]({{< ref "/posts/card-stand" >}}), re-cut as a square token with the same border treatment as the rest of the set. Reused the already-traced icon contours directly rather than re-tracing from the source image.
+Thrown in for free — the sun/mountain/moon relief from the [Mythos business-card stand]({{< ref "/printables/card-stand" >}}), re-cut as a square token with the same border treatment as the rest of the set. Reused the already-traced icon contours directly rather than re-tracing from the source image.
 
 ## Design
 
@@ -42,9 +42,9 @@ Three build details worth remembering for the next project like this:
 
 - **Booleaning a border ring and a text/icon pocket into one combined cutter can corrupt the model**, even when each is clean on its own — found it on the skull's concave notch. Fix: cut the border and the content as two separate sequential differences, not one joined cutter.
 - **A uniform scaled-copy "border" isn't a real constant-width offset** — fine on regular shapes (circle, square, hexagon) and gentle curves (shield, drop), but on the sword and arrow it visibly stopped hugging the outline right at the crossguard/shaft step. Fixed by computing a genuine polygon offset instead ([shapely](https://shapely.readthedocs.io/)'s `buffer()`, round joins so concave corners like a crossguard's inner step don't spike into a point) and baking the result in as fixed coordinates. The sword needed a noticeably *thinner* ring than the arrow for this to work — a uniform mm offset eats the same amount off every edge, and the sword's short axis can't afford to lose as much as its long axis can.
-- **The first test print's text looked weak** — same lesson as the [score tracker]({{< ref "/posts/score-tracker" >}}) before it: a thin serif at small recessed size just doesn't resolve on an FDM nozzle, no matter how big the nominal curve size is. Swapped the label font from BaskervilleBold to Arial Black — uniform heavy strokes, no fine detail to lose — and it prints crisp. The Mythos wordmark keeps BaskervilleBold on purpose, for brand consistency with the card-stand piece it's borrowed from; everything meant to be *read fast at a glance* gets the bold sans instead.
+- **The first test print's text looked weak** — same lesson as the [score tracker]({{< ref "/printables/score-tracker" >}}) before it: a thin serif at small recessed size just doesn't resolve on an FDM nozzle, no matter how big the nominal curve size is. Swapped the label font from BaskervilleBold to Arial Black — uniform heavy strokes, no fine detail to lose — and it prints crisp. The Mythos wordmark keeps BaskervilleBold on purpose, for brand consistency with the card-stand piece it's borrowed from; everything meant to be *read fast at a glance* gets the bold sans instead.
 
-Full build script below — one file, no separate contour-extraction step needed since the only traced icon (Mythos) reuses contours already produced for the card-stand project. Same technique again in the [measuring gauges]({{< ref "/posts/measuring-gauges" >}}), including the Arial Black lesson above.
+Full build script below — one file, no separate contour-extraction step needed since the only traced icon (Mythos) reuses contours already produced for the card-stand project. Same technique again in the [measuring gauges]({{< ref "/printables/measuring-gauges" >}}), including the Arial Black lesson above.
 
 {{< include-code path="blender/combat-modifiers/build_modifier_tokens.py" lang="python" >}}
 

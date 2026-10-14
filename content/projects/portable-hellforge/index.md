@@ -6,7 +6,7 @@ tags: ["3d-printing", "design", "python", "warhammer", "age-of-sigmar"]
 ---
 
 {{< lead >}}
-Design note for a themed transport/diorama box for the Helsmiths of Hashut Spearhead (Age of Sigmar, Chaos Dwarfs) — a wooden chest that carries the 14-model force and doubles as a one-piece forge-floor diorama when opened. Separate idea from the [modular magnetic storage box]({{< ref "/posts/modular-magnetic-storage-box" >}}) — no shared parts, just a shared corner-bracket mechanism worth reusing.
+Design note for a themed transport/diorama box for the Helsmiths of Hashut Spearhead (Age of Sigmar, Chaos Dwarfs) — a wooden chest that carries the 14-model force and doubles as a one-piece forge-floor diorama when opened. Separate idea from the [modular magnetic storage box]({{< ref "/projects/modular-magnetic-storage-box" >}}) — no shared parts, just a shared corner-bracket mechanism worth reusing.
 {{< /lead >}}
 
 {{< figure src="gallery/box-exterior-sketch.png" caption="Exterior concept — stained wood, iron corner brackets, Hashut icon, HELFORGE HOST plate" >}}
@@ -27,7 +27,7 @@ Don't have the Helforge Host box yet — this is pre-purchase planning, worked o
 
 No electronics. Passive box, no lighting.
 
-Separate project, same army: [Daemonic Power & Desolation Tokens]({{< ref "/posts/hashut-game-tokens" >}}) — the game-mechanic tokens this army spends the whole match shuffling around the table, not part of the box itself.
+Separate project, same army: [Daemonic Power & Desolation Tokens]({{< ref "/printables/hashut-game-tokens" >}}) — the game-mechanic tokens this army spends the whole match shuffling around the table, not part of the box itself.
 
 ## Box contents (verified)
 

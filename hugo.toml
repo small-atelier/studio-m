@@ -20,26 +20,26 @@ subtitle = "Miniatures & Models"
 [menu]
 
 [[menu.main]]
-name = "Posts"
-url = "/posts/"
+name = "Armies"
+url = "/armies/"
 weight = 10
 
 [[menu.main]]
 name = "Projects"
 url = "/projects/"
-weight = 20
+weight = 30
 
 [[menu.main]]
-name = "About"
-url = "/about/"
+name = "Printables"
+url = "/printables/"
 weight = 40
-
-[[menu.main]]
-name = "Notes"
-url = "/notes/"
-weight = 50
 
 [[menu.main]]
 name = "Inventory"
 url = "/inventory/"
+weight = 50
+
+[[menu.main]]
+name = "About"
+url = "/about/"
 weight = 60

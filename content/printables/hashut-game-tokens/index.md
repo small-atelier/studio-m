@@ -6,7 +6,7 @@ tags: ["3d-printing", "warhammer", "age-of-sigmar", "multi-material"]
 ---
 
 {{< lead >}}
-Daemonic Power and Desolation tokens for the [Helforge Host]({{< ref "/projects/hashut/roster" >}}), plus a carry box that holds them alongside the warscroll cards. The same kit exists for [Blades of Khorne]({{< ref "/posts/khorne-tokens" >}}).
+Daemonic Power and Desolation tokens for the [Helforge Host]({{< ref "/armies/hashut/roster" >}}), plus a carry box that holds them alongside the warscroll cards. The same kit exists for [Blades of Khorne]({{< ref "/printables/khorne-tokens" >}}).
 {{< /lead >}}
 
 {{< figure src="gallery/box_assembled_open.png" caption="Box open: DPP wells on the left, card slot up front, two Desolation stacks at the back" >}}

@@ -31,7 +31,7 @@ Concept: black-iron industrial forge with worn bronze fittings and a daemonfire 
 - Pick out rivets/chains/eyes in **Greedy Gold** or **Shining Silver**
 - Wash recesses with **Strong Tone** or **Dark Tone** Quickshade
 - Apply the Hashut icon and ziggurat transfers from the included transfer sheet
-- Optional: translucent resin + LED glow on furnace/molten-crack details, matching the Portable Hellforge build (`content/posts/portable-hellforge`, still draft)
+- Optional: translucent resin + LED glow on furnace/molten-crack details, matching the Portable Hellforge build (`content/projects/portable-hellforge`, still draft)
 
 ## Materials Used
 

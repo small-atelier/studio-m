@@ -4,7 +4,7 @@ date: 2026-09-09
 draft: false
 ---
 
-Two boxes owned: the **Spearhead: Helforge Host** and the **Helsmiths of Hashut Army Set**. Same 14 miniatures both times — the Army Set just bundles in the Battletome book and 32 warscroll cards, no extra models. So the case holds **two full copies** of everything: 2× War Despot, 2× Dominator Engine sprue, 2× Tormentor Bombard/Deathshrieker sprue, 22× Infernal Cohort. Base sizes verified against the **Portable Hellforge** build notes (`content/posts/portable-hellforge`, still draft).
+Two boxes owned: the **Spearhead: Helforge Host** and the **Helsmiths of Hashut Army Set**. Same 14 miniatures both times — the Army Set just bundles in the Battletome book and 32 warscroll cards, no extra models. So the case holds **two full copies** of everything: 2× War Despot, 2× Dominator Engine sprue, 2× Tormentor Bombard/Deathshrieker sprue, 22× Infernal Cohort. Base sizes verified against the **Portable Hellforge** build notes (`content/projects/portable-hellforge`, still draft).
 
 ## Build plan
 

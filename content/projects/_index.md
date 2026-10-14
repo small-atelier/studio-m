@@ -1,5 +1,5 @@
 ---
 title: "Projects"
-description: "All projects in Studio M"
+description: "Boards, terrain and workshop builds"
 ---
-Welcome to the Studio M Projects page! Here you can explore all our miniature projects.
+Bigger physical builds that take more than one session: gaming boards, terrain sets and workshop gear.

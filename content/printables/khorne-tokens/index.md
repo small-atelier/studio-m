@@ -6,7 +6,7 @@ tags: ["3d-printing", "warhammer", "age-of-sigmar", "multi-material"]
 ---
 
 {{< lead >}}
-A full token kit for the Blades of Khorne *Gore Pilgrims* Spearhead: ability-reminder hex tokens, arrow-shaped damage trays, and a carry box with a built-in Blood Tithe counter. The same kit exists for [Helsmiths of Hashut]({{< ref "/posts/hashut-game-tokens" >}}).
+A full token kit for the Blades of Khorne *Gore Pilgrims* Spearhead: ability-reminder hex tokens, arrow-shaped damage trays, and a carry box with a built-in Blood Tithe counter. The same kit exists for [Helsmiths of Hashut]({{< ref "/printables/hashut-game-tokens" >}}).
 {{< /lead >}}
 
 {{< figure src="gallery/box_assembled_open.png" caption="Box open: hex-token wells on the left, card slot up front, damage trays and the two Blood Tithe wheels at the back" >}}

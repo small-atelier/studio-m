@@ -15,7 +15,7 @@ Build plan for a dedicated 22" × 30" Spearhead board — Spearhead's quarter-of
 
 Resin-printed, 40mm coins. Seven variants from the **Spearhead Objective Markers (FDM-friendly)** set: simple, bigger simple, crane, snake, phoenix, dragon face, dragon side.
 
-Each coin sits flush in an FDM-printed [objective marker tile]({{< ref "/posts/objective-marker-tiles" >}}) — a paved disc with a blind 40mm pocket, set into the board's tile mosaic at the same top height.
+Each coin sits flush in an FDM-printed [objective marker tile]({{< ref "/printables/objective-marker-tiles" >}}) — a paved disc with a blind 40mm pocket, set into the board's tile mosaic at the same top height.
 
 ## Terrain (FDM)
 

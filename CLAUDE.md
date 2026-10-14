@@ -20,22 +20,26 @@ make clean               # Remove public/ and resources/
 
 **Create content:**
 ```bash
-make new-project name=my-army          # New project bundle (creates content + image folder)
+make new-army name=my-army             # New army section (creates _index.md + gallery folder)
+make new-printable name=my-printable   # New printable bundle
 ```
 
-Posts, notes, and inventory items are written directly (no scaffolding command) — copy an existing
-page's frontmatter shape as a starting point.
+Projects, spearhead forces, notes, and inventory items are written directly (no scaffolding command) —
+copy an existing page's frontmatter shape as a starting point.
 
 ## Architecture
 
 **Content** lives entirely in `content/` as Markdown with TOML/YAML frontmatter. Hugo builds it into a static site — no code compilation.
 
 **Content types and their locations:**
-- `content/projects/[name]/index.md` — Army/build projects; page bundles so images can live alongside content
+- `content/armies/[name]/_index.md` — Armies (40K and AoS): roster, army lists, unit pages, paint
+- `content/spearhead/[name]/` — Spearhead forces: list, rules PDFs, links to their printables
+- `content/projects/[name]/` — Multi-session physical builds (boards, terrain sets, workshop gear), each with a Status list
+- `content/printables/[name]/index.md` — Single downloadable designs (STL + Blender/Python script)
 - `content/inventory/[category]/[name].md` — Paint, resin, FDM printer stock tracking
-- `content/posts/` and `content/notes/` — Blog-style entries
+- `content/notes/` — Quick reference notes (hidden from the menu until one is published)
 
-**Images** for projects go in `static/images/[project-name]/`. The `make new-project` target creates both `content/projects/[name]/` and `static/images/[name]/` together.
+**Images** live in the page bundle (`gallery/` for carousels, alongside `index.md` otherwise).
 
 **Theme** is Blowfish v2, loaded as a Go module (not a git submodule). Theme layouts are not overridden — `layouts/` is empty. Theme shortcodes used in content include `{{< carousel >}}`, `{{< lead >}}`, and `{{< figure >}}`.
 

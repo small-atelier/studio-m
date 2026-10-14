@@ -23,7 +23,7 @@ This is a single physical answer to all five numbers at once. Spin a wheel, the 
 
 Each of the nine wheels — Round up top, then Attacker CP/VP and Defender CP/VP stacked below it — sits on its own peg between a front and back plate, with a knurled rim you spin with a fingertip through a cutout at the wheel's edge. The digit lined up with the square window on the front is the current value. Command Points and Victory Points both run two wheels deep (00–99), so a long game never runs out of road.
 
-A little branding along the way: the [Mythos]({{< ref "/posts/card-stand" >}}) sun/mountain/moon mark sits at the top of the board, and a plain divider line splits the Attacker half from the Defender half so it reads at a glance which column is whose.
+A little branding along the way: the [Mythos]({{< ref "/printables/card-stand" >}}) sun/mountain/moon mark sits at the top of the board, and a plain divider line splits the Attacker half from the Defender half so it reads at a glance which column is whose.
 
 ## Design
 

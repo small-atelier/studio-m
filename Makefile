@@ -63,26 +63,26 @@ docker-serve:
 	--buildDrafts \
 	--buildFuture
 
-new-post:
+new-printable:
 	docker run --rm \
 	-v $(PWD):$(SITE) \
 	-w $(SITE) \
 	$(IMAGE) \
-	new content/posts/$(name).md
+	new content/printables/$(name)/index.md
 
-## Create new project bundle (better for images)
-## Example: make new-project name=ork-killteam
-new-project:
+## Create new army section (with gallery folder)
+## Example: make new-army name=ork-killteam
+new-army:
 	@if [ -z "$(name)" ]; then \
-		echo "Error: You must specify a project name, e.g. make new-project name=ork-killteam"; \
+		echo "Error: You must specify an army name, e.g. make new-army name=ork-killteam"; \
 		exit 1; \
 	fi
-	@mkdir -p content/projects/$(name)/gallery
+	@mkdir -p content/armies/$(name)/gallery
 	docker run --rm \
 	-v $(PWD):$(SITE) \
 	-w $(SITE) \
 	$(IMAGE) \
-	new content/projects/$(name)/index.md
+	new content/armies/$(name)/_index.md
 
 ## Clean generated files
 clean:
@@ -100,12 +100,13 @@ help:
 	@echo "make serve               Start development server"
 	@echo ""
 	@echo "Content creation:"
-	@echo "make new-project name=my-project"
+	@echo "make new-army name=my-army"
+	@echo "make new-printable name=my-printable"
 	@echo ""
 
-# batch add initial backlog of projects ...
+# batch add initial backlog of armies ...
 armys:
 	@for name in $(subst ',', ' ', $(names)); do \
-		echo "Creating project $$name..."; \
-		$(MAKE) new-project name=$$name; \
+		echo "Creating army $$name..."; \
+		$(MAKE) new-army name=$$name; \
 	done

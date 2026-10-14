@@ -39,7 +39,7 @@ Ghryan's two side objectives run off the board, with their centres about ¾" in 
 
 Control range is still measured from the marker, so these discs mark the objective, not the 3".
 
-For a home-built board, the full-size disc sets into the tile mosaic instead — see the [22×30 Spearhead Board]({{< ref "/posts/spearhead-board" >}}).
+For a home-built board, the full-size disc sets into the tile mosaic instead — see the [22×30 Spearhead Board]({{< ref "/projects/spearhead-board" >}}).
 
 ## Design
 
@@ -51,9 +51,9 @@ For a home-built board, the full-size disc sets into the tile mosaic instead —
 
 **Restrained stone texture** — each tile gets a beveled top edge, a small random height offset (±0.15mm), and a poked-and-nudged center vertex for a subtle dome or dish (±0.15mm). Deliberately kept to what an FDM nozzle can actually resolve; finer surface noise would just get smoothed away in slicing.
 
-**Mythos logo, underside only, as a real second material** — engraved as a genuine recess+insert pair (base on filament slot 1, insert on slot 2), the same multi-material technique as the [combat-modifier tokens]({{< ref "/posts/combat-modifier-tokens" >}}) and [dice tray]({{< ref "/posts/dice-tower" >}}), not a same-color engraving. Bottom-only and behind a `--logo` flag, for the full-size disc only — the Spearhead variants get glued down, so they never carry one. The icon+wordmark mirror (X-flip + `reverse_faces`, not `recalc_face_normals` — see the fragility notes below) so it reads correct viewed from underneath rather than backwards.
+**Mythos logo, underside only, as a real second material** — engraved as a genuine recess+insert pair (base on filament slot 1, insert on slot 2), the same multi-material technique as the [combat-modifier tokens]({{< ref "/printables/combat-modifier-tokens" >}}) and [dice tray]({{< ref "/printables/dice-tower" >}}), not a same-color engraving. Bottom-only and behind a `--logo` flag, for the full-size disc only — the Spearhead variants get glued down, so they never carry one. The icon+wordmark mirror (X-flip + `reverse_faces`, not `recalc_face_normals` — see the fragility notes below) so it reads correct viewed from underneath rather than backwards.
 
-**Boolean-light by construction** — the whole plain print is two isolated boolean ops total: the floor's thickness-step union, and one union joining every tile (built as pure mesh prisms, no per-tile booleans) onto the floor. The logo variant adds exactly one more difference for the pocket cut. Every union that joins two parts together does it with real overlapping volume at the seam (the repo's `EMBED` pattern), never a flush/coincident face — see [[feedback_blender_boolean_fragility]] and the [combat-modifier tokens]({{< ref "/posts/combat-modifier-tokens" >}}) post for why that solver is fussy about long chains and touching faces.
+**Boolean-light by construction** — the whole plain print is two isolated boolean ops total: the floor's thickness-step union, and one union joining every tile (built as pure mesh prisms, no per-tile booleans) onto the floor. The logo variant adds exactly one more difference for the pocket cut. Every union that joins two parts together does it with real overlapping volume at the seam (the repo's `EMBED` pattern), never a flush/coincident face — see [[feedback_blender_boolean_fragility]] and the [combat-modifier tokens]({{< ref "/printables/combat-modifier-tokens" >}}) post for why that solver is fussy about long chains and touching faces.
 
 {{< include-code path="blender/objective-markers/objective_markers_v1.py" lang="python" >}}
 

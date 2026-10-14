@@ -25,7 +25,7 @@ The castle tray and the tree tower are both published under MakerWorld's Standar
 
 ## Mythos, top and bottom
 
-Same recess + insert technique as the [combat-modifier tokens]({{< ref "/posts/combat-modifier-tokens" >}}) and the [measuring gauges]({{< ref "/posts/measuring-gauges" >}}) - a shallow pocket cut into the print, a matching insert dropped in for the second color - just aimed at someone else's mesh instead of one built from scratch here, and doubled up: one pocket cut into the top of the main basin floor, a second cut into the underside, with a 1mm solid membrane left between them in the 3mm floor. The base tray stays a complete, structurally sound single-color part on its own, before either insert goes in.
+Same recess + insert technique as the [combat-modifier tokens]({{< ref "/printables/combat-modifier-tokens" >}}) and the [measuring gauges]({{< ref "/printables/measuring-gauges" >}}) - a shallow pocket cut into the print, a matching insert dropped in for the second color - just aimed at someone else's mesh instead of one built from scratch here, and doubled up: one pocket cut into the top of the main basin floor, a second cut into the underside, with a 1mm solid membrane left between them in the 3mm floor. The base tray stays a complete, structurally sound single-color part on its own, before either insert goes in.
 
 The bottom pocket's icon and wordmark are built from a **mirrored** contour - the same trick the tokens' two faces use - so the design un-mirrors and reads correct, not backwards, once you're looking at it from underneath rather than through it.
 
