@@ -6,49 +6,38 @@ tags: ["terrain", "3d-printing", "resin", "spearhead"]
 ---
 
 {{< lead >}}
-Build plan for a dedicated 22" × 30" Spearhead board — Spearhead's quarter-of-a-standard-table footprint. Objectives and terrain are printed, the frame is built and capped with printed corner protectors; the foam surface is still to come.
+A home-built, double-sided 22" × 30" Spearhead board, the size the Spearhead rules give. One face copies Aqshy and the other Ghryan, the two sides of the Fire and Jade realm battlefield.
 {{< /lead >}}
 
 {{< figure src="board_layers.png" alt="Exploded concept sketch of the board layers" caption="Concept sketch of the layer stack — double-sided hardboard core, carved foam, flush tile mosaic with objective discs." >}}
 
-## Objectives
-
-Resin-printed, 40mm coins. Seven variants from the **Spearhead Objective Markers (FDM-friendly)** set: simple, bigger simple, crane, snake, phoenix, dragon face, dragon side.
-
-Each coin sits flush in an FDM-printed [objective marker tile]({{< ref "/printables/objective-marker-tiles" >}}) — a paved disc with a blind 40mm pocket, set into the board's tile mosaic at the same top height.
-
-## Terrain (FDM)
-
-Printed at 0.4mm nozzle, 1.2mm layer height.
-
-[AOS 4 Skaventide Terrain Equivalent](https://www.thingiverse.com/thing:6724571) by ChickenFPV, CC BY-SA — `small_AOS_terrain.stl` + `big_AOS_terrain.stl`.
-
 ## The board
 
 - Hardboard base, framed edge.
-- Double-sided — a different terrain layout on each face.
-- Foam glued on top: terrain detail (cracks, etc.) cut downward into the foam, separate foam tiles + objectives set on top, kept flush with the surrounding surface.
+- Double-sided: Aqshy on one face, Ghryan on the other.
+- Foam glued on top: terrain detail (cracks, etc.) cut downward into the foam, separate foam tiles + objectives set on top, kept flush with the surrounding surface. Sealed with acrylic floor primer, see [on XPS foam]({{< ref "/notes/floor-primer-as-hobby-medium#on-xps-foam" >}}).
+- Corners capped with printed [corner protectors]({{< ref "/printables/board-corner-protectors" >}}).
 
-## Corner protectors
+## Objectives
 
-{{< figure src="board_corner.png" alt="Render of the corner protector: triangular cap with a plate border and rivet rings engraved on each side wall" caption="Corner protector — engraved plate border and rivet rings, tapered lip edges." >}}
+The objectives follow the official ring layouts: Aqshy has five 6" rings, Ghryan three 6" rings plus two that run off the side edges. Layouts and board photos are in the [battlefield reference]({{< ref "/notes/aos-battlefield-reference#official-realm-battlefields" >}}).
 
-FDM-printed caps glued onto the four frame corners. Each one wraps the corner on both side faces and laps 2mm over both board faces, so it works whichever side is up. The bottom lips double as feet, keeping the board off the table, and the corners stop it scratching the table or getting dinged in storage.
+Each ring is a 6" [objective marker tile]({{< ref "/printables/objective-marker-tiles" >}}) set into the foam mosaic at the same top height, with Ghryan's two side objectives as edge pieces. A resin-printed 40mm coin is glued flush into each tile's pocket: seven variants from the **Spearhead Objective Markers (FDM-friendly)** set (simple, bigger simple, crane, snake, phoenix, dragon face, dragon side).
 
-- Fits a 45mm board edge (0.4mm clearance in the pocket).
-- 40mm along each frame edge; the lip reaches ~26mm in at the corner and tapers out toward the arm ends.
-- Lip edges are tapered on the play side, so minis and terrain slide over the step instead of catching.
-- All decoration is engraved, nothing stands proud on the play surface.
+## Terrain
 
-**Printing:** flat on a lip, as it sits on the table. The top lip needs supports inside the pocket: paint them under the lip only (not "build plate only" — they land on the bottom lip), ~0.2mm Z-gap. Support marks end up on the faces against the board, so sand them lightly if the fit is tight.
-
-**Downloads:** [STL](downloads/board_corner_v2.stl) (print ×4, same part for every corner) · [script]({{< script "spearhead-board/board_corner_v2.py" >}}) (Blender, headless). Set `BOARD_THICKNESS` to your own board's edge thickness.
+2 large + 2 small features, per the Spearhead rules. FDM-printed, 0.4mm nozzle, 1.2mm layer height: [AOS 4 Skaventide Terrain Equivalent](https://www.thingiverse.com/thing:6724571) by ChickenFPV, CC BY-SA.
 
 ## Status
 
-- Objective coins — printed (resin).
-- Objective tiles — designed, not yet printed.
-- Terrain — printed (FDM).
-- Frame — built.
-- Corner protectors — printed (FDM).
-- Foam surface — not started.
+| Part                      | Needed | Printed | Done |
+|---------------------------|-------:|--------:|-----:|
+| Frame                     | 1      | —       |      |
+| Corner protectors         | 4      | 4       |      |
+| Objective tiles, 6"       | 8      |         |      |
+| Objective tiles, 6" edge  | 2      |         |      |
+| Objective coins (resin)   | 10     |         |      |
+| Terrain, large            | 2      |         |      |
+| Terrain, small            | 2      |         |      |
+| Foam surface, Aqshy       | 1      | —       |      |
+| Foam surface, Ghryan      | 1      | —       |      |

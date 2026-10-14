@@ -1,7 +1,7 @@
 ---
 title: "Floor Primer as a Terrain Medium"
 date: 2026-10-04
-draft: true
+draft: false
 tags: ["terrain", "basing", "materials"]
 ---
 
