@@ -14,11 +14,11 @@ The Disciples of Tzeentch Spearhead: a Magister on Disc leading Flamers, Screame
 - **General:** Magister on Disc of Tzeentch
 - 3 Flamers of Tzeentch: from the [Tzeentch]({{< ref "/armies/tzeentch/flamers" >}}) daemons
 - 3 Screamers of Tzeentch: from the [Tzeentch]({{< ref "/armies/tzeentch/screamers-paint" >}}) daemons
-- 5 Tzaangors
-- 5 Tzaangors
+- 5 Tzaangors: from the [Thousand Sons]({{< ref "/armies/thousand-sons/roster" >}})
+- 5 Tzaangors: from the [Thousand Sons]({{< ref "/armies/thousand-sons/roster" >}})
 - 10 Kairic Acolytes
 
-The Tzaangors are shared with the [Thousand Sons]({{< ref "/armies/thousand-sons/roster" >}}). The Spearhead warscroll has a single melee profile, so the 40K pistol/chainsword builds work as they are.
+Tzaangors are Disciples of Tzeentch in Age of Sigmar and Thousand Sons in 40K, so the force draws on both the [Tzeentch]({{< ref "/armies/tzeentch" >}}) and [Thousand Sons]({{< ref "/armies/thousand-sons" >}}) armies.
 
 ## Rules
 
