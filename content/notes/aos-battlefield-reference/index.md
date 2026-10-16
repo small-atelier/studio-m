@@ -18,9 +18,40 @@ Board sizes, terrain and objectives for Age of Sigmar 4 matched play: what to bu
 
 ## Terrain
 
-- **Set:** 4 small + 4 medium features.
-- **Footprints:** small fits in 7" × 7", medium in 7" × 12". A feature built from several pieces counts as one, and all of them must fit that area.
+- **Set:** 8 features per game: 4 small + 4 medium by default, or the mix shown on the battleplan's terrain map.
 - **Height:** models can't stand on any part taller than 1", so only tops at 1" or lower are playable.
+
+### Sizes
+
+| Size   | Footprint                  | In mm     |
+|--------|----------------------------|-----------|
+| Small  | fits 7" × 7"               | 178 × 178 |
+| Medium | not small, fits 7" × 12"   | 178 × 305 |
+| Large  | too big for 7" × 12"       | —         |
+
+A feature built from several pieces counts as one, and all of them must fit its footprint. Battleplan terrain maps only use small and medium features, so large terrain doesn't fit a matched-play table.
+
+### Terrain per battleplan
+
+What each General's Handbook 2026-27 battleplan's terrain map asks for:
+
+| Battleplan | Small forest | Medium forest | Small Place of Power | Medium Place of Power | Small obstacle | Medium obstacle |
+|-----------:|-------------:|--------------:|---------------------:|----------------------:|---------------:|----------------:|
+| 1          | 2            | 0             | 0                    | 2                     | 0              | 4               |
+| 2          | 1            | 3             | 1                    | 1                     | 0              | 2               |
+| 3          | 2            | 2             | 2                    | 0                     | 0              | 2               |
+| 4          | 2            | 2             | 2                    | 0                     | 0              | 2               |
+| 5          | 1            | 3             | 1                    | 1                     | 0              | 2               |
+| 6          | 2            | 0             | 0                    | 2                     | 0              | 4               |
+| 7          | 1            | 3             | 1                    | 1                     | 0              | 2               |
+| 8          | 2            | 0             | 0                    | 2                     | 0              | 4               |
+| 9          | 2            | 2             | 2                    | 0                     | 0              | 2               |
+| 10         | 2            | 2             | 2                    | 0                     | 0              | 2               |
+| 11         | 1            | 3             | 1                    | 1                     | 0              | 2               |
+| 12         | 3            | 0             | 0                    | 2                     | 0              | 2               |
+| **Set**    | **3**        | **3**         | **2**                | **2**                 | **0**          | **4**           |
+
+A table set that can lay out any battleplan holds the highest count of each type, the **Set** row: 5 small + 9 medium = 14 features, of which a game uses 8.
 
 ## Objectives
 

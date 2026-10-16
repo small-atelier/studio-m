@@ -29,6 +29,35 @@ html.dark .thumbnail_card {
   padding: 8px;
 }
 
+/* table thumbnails (e.g. part renders) — keep them from collapsing in wide tables */
+.article-content td img {
+  width: 120px;
+  min-width: 120px;
+}
+
+.article-content td figure {
+  margin: 0;
+}
+
+.article-content td {
+  vertical-align: middle;
+}
+
+/* tables wider than the text column scroll sideways instead of being clipped */
+.article-content table {
+  display: block;
+  overflow-x: auto;
+}
+
+/* desktop: wide tables extend past the text column into the empty right-hand space */
+@media (min-width: 1024px) {
+  .article-content table {
+    display: table;
+    width: max-content;
+    max-width: 64rem;
+  }
+}
+
 /* ── Print recipe button ─────────────────────────────────────────── */
 .recipe-print-btn {
   display: flex;
