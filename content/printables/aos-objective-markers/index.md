@@ -19,7 +19,7 @@ An objective is a 40mm marker with a control zone reaching 3" from it. A tile di
 
 ## The set
 
-The General's Handbook 2026-27 battleplans use six objectives, so a set is six discs. Board and objective rules are in the [battlefield reference]({{< ref "/notes/aos-battlefield-reference#objectives" >}}).
+The General's Handbook 2026-27 battleplans use six objectives, so a set is six discs and six [Mythos coins]({{< ref "/printables/mythos-coin" >}}). Board and objective rules are in the [battlefield reference]({{< ref "/notes/aos-battlefield-reference#objectives" >}}).
 
 The disc design, the marker coin it's built around, and the script are on the [Objective Marker Tiles]({{< ref "/printables/objective-marker-tiles" >}}) page.
 
@@ -38,4 +38,3 @@ The Anycubic 3MF carries Anycubic Slicer Next's own per-part filament-slot metad
 | Part                     | Needed | Designed | Printed |
 |--------------------------|-------:|---------:|--------:|
 | Disc with Mythos logo    | 6      | yes      | 0       |
-| Mythos coin              | 6      | no       | 0       |
