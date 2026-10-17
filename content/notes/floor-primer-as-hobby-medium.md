@@ -54,6 +54,42 @@ It mixes with acrylic paint like any acrylic medium:
 
 More primer means less opacity and more sheen. Use it with craft paint, not mini paints. Mix a small test cup first, because the odd pairing of acrylic dispersions curdles.
 
+### Leftover exterior paint
+
+Leftover water-based exterior acrylic (*akrylatfärg*, e.g. trim or cladding paint) beats craft paint here: heavier pigment, and made to stand weather. *Skall ej spädas* on the can is about hiding power on its intended job, not compatibility. These paints contain isothiazolinone preservatives, which are skin sensitisers, so wear gloves.
+
+Two premixes cover most jobs:
+
+| Bottle | Paint : primer | For |
+|---|---|---|
+| **SEALER** | 2 : 1 | Base coat and foam sealing in one pass |
+| **BINDER** | 1 : 2 | Liquid base for sludge and texture paste |
+
+- The paint alone already seals XPS. The primer in SEALER stretches it and makes the film more flexible.
+- Add grit and powder to BINDER in a cup per session, never in the bottle.
+- Flytspackel and gypsum lighten BINDER to dark grey. A splash of SEALER in the cup brings it back to black.
+- Semi-matt paint with satin primer dries shinier than either one alone.
+
+## Storing mixes
+
+Empty 1 l resin bottles (opaque HDPE, tight cap) suit the liquid premixes. The narrow neck rules out anything with grit or setting powder.
+
+**Cleaning:**
+
+1. Drain upside down, then wipe the neck and cap thread.
+2. Rinse with used IPA. Collect it in a waste bottle labelled "IPA + resin waste, flammable", not filled to the top, and hand it in as *farligt avfall*.
+3. Rinse with fresh IPA, including the cap and its seal. Pour this rinse into the used-IPA bottle afterwards.
+4. Air out with the cap off until there's no IPA smell, then rinse with water.
+
+Wear gloves throughout, because resin dissolved in IPA gets through skin more easily.
+
+**Labelling and filling:**
+
+- Peel off the resin label so the bottle doesn't read as resin next to the printer.
+- On both bottle and cap, write SEALER or BINDER, the ratio, the mix date and **NOT RESIN**. Use permanent marker or tape over the label so drips don't smudge it.
+- Fill to 80–90 % and squeeze the air out before capping to slow skinning. Add 2–3 stainless nuts as shaker balls, because plain steel rusts.
+- Store frost-free.
+
 ## On XPS foam
 
 - **Safe.** It's water-based with no solvents, so it won't melt the foam.
