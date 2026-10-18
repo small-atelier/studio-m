@@ -15,9 +15,9 @@ The STLs come from a friend and need repair before they print. Printed on the An
 
 | Render | Terrain | STL file | Scale | Printed size (mm, X×Y×Z) | Needed | Printed | Notes |
 |--------|---------|----------|------:|--------------------------|-------:|--------:|-------|
-| ![Volcano 02](render-volcano-02.png) | Medium obstacle | `21_01_Volcano_02_fixed.stl` | 100% | 167×190×151 | 2 | 1 |  |
+| ![Volcano 02](render-volcano-02.png) | Medium obstacle | `21_01_Volcano_02_fixed.stl` | 100% | 167×190×151 | 2 | 2 |  |
 | ![Volcano 04](render-volcano-04.png) | Medium obstacle | `21_01_Volcano_04_fixed.stl` | 88% | 174×170×158 | 2 | 0 |  |
-| ![Volcano 05](render-volcano-05.png) | Medium Place of Power | `21_01_Volcano_05_fixed.stl` | 100% | 164×185×156 | 2 | 1 |  |
+| ![Volcano 05](render-volcano-05.png) | Medium Place of Power | `21_01_Volcano_05_fixed.stl` | 100% | 164×185×156 | 2 | 2 |  |
 | ![Lava piece 1](render-lava-piece-1.png) | Small Place of Power | `lavaPiece1correction.stl` | 100% | 37×40×54 | 2 | 0 |  |
 | ![Volcano 03](render-volcano-03.png) | Medium forest | `21_01_Volcano_03.stl` | 100% | 154×135×16 | 3 | 0 | Floating geometry |
 | ![Rocks](render-rocks.png) | Medium forest | `rocks.stl` | 100% | 99×53×52 | 2 | 2 |  |
