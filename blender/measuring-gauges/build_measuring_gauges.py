@@ -102,6 +102,8 @@ MYTHOS_CONTOURS_PATH = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "mythos-l
 # Khorne rune - same trace as blender/khorne-tokens (its own {"aspect", "polygons"}
 # format, same (u, v) convention as the Mythos contours).
 KHORNE_CONTOURS_PATH = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "khorne-tokens", "khorne_contours.json"))
+# Horned Rat rune - same trace as blender/skaven-tokens.
+SKAVEN_CONTOURS_PATH = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "skaven-tokens", "rat_rune_contours.json"))
 
 EXPORT_DIR = os.path.join(SCRIPT_DIR, "output")
 RENDER_DIR = os.path.join(EXPORT_DIR, "renders")
@@ -110,6 +112,7 @@ RENDER_RESOLUTION = (1600, 700)
 BASE_COLOR = (0.05, 0.05, 0.05, 1.0)   # preview only - black plate
 INLAY_COLOR = (1.0, 1.0, 1.0, 1.0)     # preview only - white ticks/numerals/badge
 KHORNE_INLAY_COLOR = (0.65, 0.03, 0.03, 1.0)   # preview only - red, matches khorne-tokens
+SKAVEN_INLAY_COLOR = (0.30, 0.80, 0.10, 1.0)   # preview only - warpstone green, matches skaven-tokens
 
 BASE_EXTRUDER_SLOT = 1    # edit to match your AMS loadout on the day you slice
 INLAY_EXTRUDER_SLOT = 2
@@ -659,17 +662,17 @@ def build_mythos_badge(cx, cz, mirror, tag, include_icon=True, text_size=None,
     return inserts, cutters
 
 
-def build_khorne_badge(cx, cz, mirror, tag, icon_h):
-    """The Khorne rune alone (no wordmark), centered on (cx, cz), sized by
+def build_rune_badge(cx, cz, mirror, tag, icon_h, contours_path):
+    """A faction rune alone (no wordmark), centered on (cx, cz), sized by
     height like the Mythos icon."""
-    with open(KHORNE_CONTOURS_PATH) as f:
+    with open(contours_path) as f:
         polygons = json.load(f)["polygons"]
     contours, content_aspect = crop_contours_to_content(polygons)
     icon_w = icon_h / content_aspect
     inserts, cutters = [], []
     for poke, bucket in ((0.0, inserts), (POCKET_POKE, cutters)):
         bucket.append(build_icon_solid(contours, icon_w, icon_h, cx, cz + icon_h / 2.0,
-                                        mirror, f"khorne_rune_{tag}", poke=poke))
+                                        mirror, f"faction_rune_{tag}", poke=poke))
     return inserts, cutters
 
 
@@ -682,7 +685,7 @@ def export_piece(name, base, inlay, inlay_color=INLAY_COLOR):
     assert inlay_vol > 0.0, f"{name}: inlay has zero/negative volume - a boolean likely emptied it"
 
     apply_color(base, "base_black", BASE_COLOR)
-    apply_color(inlay, "inlay_white" if inlay_color == INLAY_COLOR else "inlay_red", inlay_color)
+    apply_color(inlay, f"inlay_{'_'.join(f'{c:.2f}' for c in inlay_color)}", inlay_color)
 
     # Render BEFORE reorienting - the render camera uses the build orientation
     # (Y = thickness), same as every other project's render step in this repo.
@@ -938,13 +941,20 @@ GAUGES_V2 = [
 
 # Khorne editions of small_v2/medium_v2 - identical bodies, ticks, labels and
 # back-face Mythos badge; the front face's badge is the Khorne rune instead
-# (front_khorne_icon_h), and the whole inlay prints red (2-colour, red on black).
+# (front_icon_h/front_icon_path), and the whole inlay prints red (2-colour, red on black).
 # small: the 2" zone's ticks reach 3mm in from top and bottom at the badge's own
 # x (12.7), leaving 19.4mm - 16.0 keeps ~1.7mm clear each side. medium: the 6"
 # zone is 76.2mm tall with nothing but edge ticks in it.
 GAUGES_KHORNE = [
-    {**GAUGES_V2[0], "name": "small_khorne", "front_khorne_icon_h": 16.0},
-    {**GAUGES_V2[1], "name": "medium_khorne", "front_khorne_icon_h": 48.0},
+    {**GAUGES_V2[0], "name": "small_khorne", "front_icon_h": 16.0, "front_icon_path": KHORNE_CONTOURS_PATH},
+    {**GAUGES_V2[1], "name": "medium_khorne", "front_icon_h": 48.0, "front_icon_path": KHORNE_CONTOURS_PATH},
+]
+
+# Skaven editions - same as the Khorne ones with the Horned Rat rune (near-square,
+# like the Khorne rune, so the same heights fit), green inlay.
+GAUGES_SKAVEN = [
+    {**GAUGES_V2[0], "name": "small_skaven", "front_icon_h": 16.0, "front_icon_path": SKAVEN_CONTOURS_PATH},
+    {**GAUGES_V2[1], "name": "medium_skaven", "front_icon_h": 48.0, "front_icon_path": SKAVEN_CONTOURS_PATH},
 ]
 
 
@@ -1051,9 +1061,9 @@ def build_ticks(mirror, tag, raise_mm=0.0):
 def build_gauge(include_labels=True, include_ticks=True, tick_raise_mm=0.0,
                  badge_cx=None, badge_cz=None, badge_include_icon=True,
                  badge_text_size=None, badge_font_path=TEXT_FONT_PATH, badge_icon_scale=1.0,
-                 front_khorne_icon_h=None):
-    """front_khorne_icon_h set swaps the FRONT face's Mythos badge for the
-    Khorne rune (build_khorne_badge) at that height, same badge center; the
+                 front_icon_h=None, front_icon_path=None):
+    """front_icon_h set swaps the FRONT face's Mythos badge for the faction
+    rune at front_icon_path (build_rune_badge) at that height, same badge center; the
     back face keeps the Mythos badge. include_labels=False drops the edge numerals (build_edge_labels)
     entirely - small_v2's "lose the numbers" (the logo half of that is
     badge_include_icon=False instead, since the badge is built separately from
@@ -1081,8 +1091,8 @@ def build_gauge(include_labels=True, include_ticks=True, tick_raise_mm=0.0,
             tick_ins, tick_cut = build_ticks(mirror, tag, raise_mm=tick_raise_mm)
             inserts += tick_ins
             cutters += tick_cut
-        if front_khorne_icon_h and not mirror:
-            badge_ins, badge_cut = build_khorne_badge(bcx, bcz, mirror, tag, front_khorne_icon_h)
+        if front_icon_h and not mirror:
+            badge_ins, badge_cut = build_rune_badge(bcx, bcz, mirror, tag, front_icon_h, front_icon_path)
         else:
             badge_ins, badge_cut = build_mythos_badge(
                 bcx, bcz, mirror, tag, include_icon=badge_include_icon,
@@ -1781,7 +1791,7 @@ def build_gauges_v2(specs, inlay_color=INLAY_COLOR):
             badge_text_size=spec.get("badge_text_size"),
             badge_font_path=spec.get("badge_font_path", TEXT_FONT_PATH),
             badge_icon_scale=spec.get("badge_icon_scale", 1.0),
-            front_khorne_icon_h=spec.get("front_khorne_icon_h"))
+            front_icon_h=spec.get("front_icon_h"), front_icon_path=spec.get("front_icon_path"))
         export_piece(spec["name"], base, inlay, inlay_color=inlay_color)
 
 
@@ -1805,6 +1815,7 @@ def main():
 
     # Phase 1c: Khorne editions of the v2 pieces, red inlay.
     build_gauges_v2(GAUGES_KHORNE, inlay_color=KHORNE_INLAY_COLOR)
+    build_gauges_v2(GAUGES_SKAVEN, inlay_color=SKAVEN_INLAY_COLOR)
 
     # configure_gauge's badge_text_size param reassigns the module-level
     # MYTHOS_TEXT_SIZE global (see that function's own docstring) - GAUGES_V2's
