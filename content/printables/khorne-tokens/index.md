@@ -46,7 +46,7 @@ The underside carries the Mythos logo, inlaid flush.
 
 {{< figure src="gallery/box_base_underside.png" caption="Underside: Mythos logo" >}}
 
-**Lid:** it slips over the base with a full-height skirt, with the Khorne rune on top. The inside face carries a dice icon: flip the lid over and it's a dice tray.
+**Lid:** it slips over the base with a full-height skirt, with the Khorne rune on top and a Chaos star in each corner. The inside face carries a dice icon: flip the lid over and it's a dice tray.
 
 {{< figure src="gallery/box_lid_as_dice_tray.png" caption="Lid flipped over as a dice tray" >}}
 
@@ -86,4 +86,4 @@ The gauge script lives with the [Measuring Gauges]({{< ref "/printables/measurin
 
 **Scripts** (Blender, headless) for adjusting sizes or counts: [build_khorne_tokens.py]({{< script "khorne-tokens/build_khorne_tokens.py" >}}) · [build_spearhead_box.py]({{< script "spearhead-box/build_spearhead_box.py" >}}) (`-- --force khorne`) · [extract_icon_contours.py]({{< script "khorne-tokens/extract_icon_contours.py" >}})
 
-**Icon contours** (the scripts read them by relative path, so keep the folder layout from these URLs): [khorne_contours.json]({{< script "khorne-tokens/khorne_contours.json" >}}) · [dice_roll_contours.json]({{< script "spearhead-box/icons/dice_roll_contours.json" >}}) · [cards_contours.json]({{< script "spearhead-box/icons/cards_contours.json" >}}) · [die_five_contours.json]({{< script "spearhead-box/icons/die_five_contours.json" >}}) · [logo_contours_v5.json]({{< script "card-stand/logo_contours_v5.json" >}})
+**Icon contours** (the scripts read them by relative path, so keep the folder layout from these URLs): [khorne_contours.json]({{< script "khorne-tokens/khorne_contours.json" >}}) · [chaos_star_contours.json]({{< script "khorne-tokens/chaos_star_contours.json" >}}) · [dice_roll_contours.json]({{< script "spearhead-box/icons/dice_roll_contours.json" >}}) · [cards_contours.json]({{< script "spearhead-box/icons/cards_contours.json" >}}) · [die_five_contours.json]({{< script "spearhead-box/icons/die_five_contours.json" >}}) · [logo_contours_v5.json]({{< script "card-stand/logo_contours_v5.json" >}})

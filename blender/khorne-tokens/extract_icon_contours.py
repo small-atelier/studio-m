@@ -8,6 +8,7 @@ containment rather than trusting find_contours' winding convention).
 Traces the main icons:
   - khorn_icon.jpg -> the Khorne rune (lid top, Rend tokens, damage trays)
   - dice_roll.png  -> two tumbling dice (lid inside face - dice-tray hint)
+  - chaos_star.jpeg -> the eight-pointed Chaos star (lid corners)
 
 Also traces the card-well floor labels (cards.png, one face cropped from
 dice.png) - see SOURCES.
@@ -32,6 +33,7 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 # filled - drops the speckle left when growth closes up cards.png's crosshatch cells).
 SOURCES = {
     "khorne": {"path": "khorn_icon.jpg"},
+    "chaos_star": {"path": "chaos_star.jpeg"},
     "dice_roll": {"path": "dice_roll.png", "grow_px": 3},
     "cards": {"path": "cards.png", "upscale": 4, "grow_px": 2, "min_hole_px": 6400.0},
     "die_five": {"path": "dice.png", "crop": (118, 8, 217, 108), "upscale": 4, "grow_px": 2},

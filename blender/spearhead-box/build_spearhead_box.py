@@ -72,9 +72,9 @@ INLAY_EXTRUDER_SLOT = 2
 #   ("wheel",)                      Blood Tithe wheel pocket + peg + pointer (label under the pair)
 # back_row_spread: True spreads the items across the full width with equal gaps instead of
 # packing them DIV_T apart.
-# lid_center / lid_corners: {"contours", "w", optional "rot" (deg), optional "aspect" (only for
-# raw-list contour files, which don't carry their own)}. Corner icons sit LID_CORNER_MARGIN in
-# from each lid edge.
+# lid_center: {"contours", "w", optional "rot" (deg), optional "aspect" (only for raw-list
+# contour files, which don't carry their own)}. lid_corners: {"contours", optional "aspect"} -
+# LID_CORNER_W wide, LID_CORNER_MARGIN in from each lid edge.
 # ============================================================
 
 FORCES = {
@@ -87,7 +87,7 @@ FORCES = {
         "lid_center": {"contours": os.path.join(_BLENDER_DIR, "tokens", "bull_contours.json"),
                        "aspect": 1.0, "w": 46.0},
         "lid_corners": {"contours": os.path.join(_BLENDER_DIR, "tokens", "rune_contours.json"),
-                        "aspect": 1.0, "w": 18.0},
+                        "aspect": 1.0},
     },
     # Blades of Khorne - hex tokens + damage trays, ../khorne-tokens/build_khorne_tokens.py
     "khorne": {
@@ -97,7 +97,7 @@ FORCES = {
         "back_row_spread": True,
         "lid_center": {"contours": os.path.join(_BLENDER_DIR, "khorne-tokens", "khorne_contours.json"),
                        "w": 50.0},
-        "lid_corners": None,
+        "lid_corners": {"contours": os.path.join(_BLENDER_DIR, "khorne-tokens", "chaos_star_contours.json")},
     },
     # Skaven - hex tokens + single/double damage trays, ../skaven-tokens/build_skaven_tokens.py
     "skaven": {
@@ -108,8 +108,7 @@ FORCES = {
         "back_row_spread": False,
         "lid_center": {"contours": os.path.join(_BLENDER_DIR, "skaven-tokens", "rat_head_contours.json"),
                        "w": 90.0, "rot": 90.0},   # turned to run along the lid's long side, top toward -X
-        "lid_corners": {"contours": os.path.join(_BLENDER_DIR, "skaven-tokens", "rat_rune_contours.json"),
-                        "w": 18.0},
+        "lid_corners": {"contours": os.path.join(_BLENDER_DIR, "skaven-tokens", "rat_rune_contours.json")},
     },
 }
 
@@ -163,6 +162,7 @@ LID_SKIRT = FLOOR_T + DEEP_DEPTH     # full height - the skirt reaches the table
 LID_CLEARANCE = 0.3       # per-side slip-fit clearance between the skirt and the base's outer wall
 LID_WALL_T = 2.0          # skirt wall thickness
 LID_CORNER_MARGIN = 16.0  # inset from each lid edge to a corner icon's center
+LID_CORNER_W = 22.0       # the Chaos star's ring and arrow shafts drop to ~0.75mm any smaller
 DICE_ROLL_W = 70.0        # inside face, centered
 
 # --- card slot floor icons --- side by side, centered on the slot floor
@@ -1008,7 +1008,7 @@ def build_lid(force):
     corner = force["lid_corners"]
     if corner:
         rune, rune_aspect = load_contours(corner["contours"], corner.get("aspect"))
-        rune_w, rune_h = corner["w"], corner["w"] * rune_aspect
+        rune_w, rune_h = LID_CORNER_W, LID_CORNER_W * rune_aspect
         x0, x1 = cx - lid_ext_w / 2.0 + LID_CORNER_MARGIN, cx + lid_ext_w / 2.0 - LID_CORNER_MARGIN
         y0, y1 = cy - lid_ext_d / 2.0 + LID_CORNER_MARGIN, cy + lid_ext_d / 2.0 - LID_CORNER_MARGIN
         assert x1 - rune_w / 2.0 > cx + icon_ext_x / 2.0 + 5.0 or y1 - rune_h / 2.0 > cy + icon_ext_y / 2.0 + 5.0, \
