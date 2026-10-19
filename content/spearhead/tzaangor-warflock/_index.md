@@ -23,3 +23,7 @@ Tzaangors are Disciples of Tzeentch in Age of Sigmar and Thousand Sons in 40K, s
 
 - [Spearhead: Tzaangor Warflock (PDF)](https://assets.warhammer-community.com/eng_04-02_aos_spearhead_disciples_of_tzeentch-4mldohmkit-qcunidsq7c.pdf): force, regiment abilities, enhancements, warscrolls
 - [Warhammer Community AoS downloads](https://www.warhammer-community.com/en-gb/downloads/warhammer-age-of-sigmar/): core rules, Spearhead rules and reference sheets
+
+## Kit
+
+- [Disciples of Tzeentch Spearhead Tokens & Box]({{< ref "/printables/tzeentch-tokens" >}}): ability and lingering-effect hex tokens, damage trays, and a carry box with a Destiny Dice rack
