@@ -1,17 +1,27 @@
 """
 Vector-contour extraction (system python3 + skimage, NOT Blender) for the
-Khorne token/box icons - same marching-squares-on-binary-mask approach as
-card-stand/extract_logo_contours_v5.py (see that file's docstring for why:
-clean closed polygons directly from a mask, holes handled by centroid-
-containment rather than trusting find_contours' winding convention).
+traced icons used by the token and box scripts - marching squares on a
+binary mask, same approach as card-stand/extract_logo_contours_v5.py (see
+that file's docstring for why: clean closed polygons directly from a mask,
+holes handled by centroid-containment rather than trusting find_contours'
+winding convention).
 
-Traces the main icons:
-  - khorn_icon.jpg -> the Khorne rune (lid top, Rend tokens, damage trays)
-  - dice_roll.png  -> two tumbling dice (lid inside face - dice-tray hint)
-  - chaos_star.jpeg -> the eight-pointed Chaos star (lid corners)
+Run on an icon folder:
+  python3 extract_icon_contours.py ../spearhead-box/icons
 
-Also traces the card-well floor labels (cards.png, one face cropped from
-dice.png) - see SOURCES.
+The folder holds icon_sources.json and a source/ dir of images; one
+<name>_contours.json is written into the folder per entry. icon_sources.json
+maps each icon name to:
+  path         image file in source/
+  crop         optional [l, t, r, b] box in source px
+  upscale      optional factor - small sources trace too coarse (circles
+               come out as polygons)
+  grow_px      optional ink growth in source px - dilates dark ink before
+               tracing; line-art strokes of ~2px land at ~0.3mm at print
+               size, under a 0.4mm nozzle
+  min_hole_px  optional - holes smaller than this (in traced px) are
+               filled, dropping speckle in textured or distressed sources
+  note         optional free text, ignored
 
 Output per icon is {"aspect": h/w, "polygons": [...]}, points normalized to
 the icon's own bounding box (0..1, v flipped so it increases upward) - the
@@ -20,28 +30,16 @@ build scripts scale each into whatever footprint they need.
 
 import json
 import os
+import sys
 import numpy as np
 from PIL import Image, ImageFilter
 from skimage import measure, morphology
 from shapely.geometry import Polygon
 
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-# Per icon: source file, optional crop box (l, t, r, b) in source px, upscale factor (small
-# sources trace too coarse - circles come out as polygons), ink growth in source px
-# (dilates the dark ink before tracing - line-art strokes of ~2px land at ~0.3mm at print
-# size, under a 0.4mm nozzle), and a min hole area in traced px (holes smaller than this are
-# filled - drops the speckle left when growth closes up cards.png's crosshatch cells).
-SOURCES = {
-    "khorne": {"path": "khorn_icon.jpg"},
-    "chaos_star": {"path": "chaos_star.jpeg"},
-    "dice_roll": {"path": "dice_roll.png", "grow_px": 3},
-    "cards": {"path": "cards.png", "upscale": 4, "grow_px": 2, "min_hole_px": 6400.0},
-    "die_five": {"path": "dice.png", "crop": (118, 8, 217, 108), "upscale": 4, "grow_px": 2},
-}
-OUT_DIR = SCRIPT_DIR
+SOURCES_FILE = "icon_sources.json"
 
 BLUR_RADIUS = 0.5
-SIMPLIFY_TOL = 0.6      # in source pixels - sub-pixel on the 1440px rune, keeps dice_roll's
+SIMPLIFY_TOL = 0.6      # in source pixels - sub-pixel on the ~1000px+ sources, keeps dice_roll's
                          # (447px) thin motion-line strokes from collapsing
 MIN_AREA_PX = 3.0
 
@@ -178,10 +176,14 @@ def trace(src_path, crop=None, upscale=1, grow_px=0, min_hole_px=0.0):
 
 
 def main():
-    for name, cfg in SOURCES.items():
-        contours = trace(os.path.join(SCRIPT_DIR, "source", cfg["path"]), cfg.get("crop"),
+    icon_dir = os.path.abspath(sys.argv[1])
+    with open(os.path.join(icon_dir, SOURCES_FILE)) as f:
+        sources = json.load(f)
+    for name, cfg in sources.items():
+        crop = tuple(cfg["crop"]) if "crop" in cfg else None
+        contours = trace(os.path.join(icon_dir, "source", cfg["path"]), crop,
                          cfg.get("upscale", 1), cfg.get("grow_px", 0), cfg.get("min_hole_px", 0.0))
-        out_path = os.path.join(OUT_DIR, f"{name}_contours.json")
+        out_path = os.path.join(icon_dir, f"{name}_contours.json")
         with open(out_path, "w") as f:
             json.dump(contours, f)
         n_holes = sum(1 for p in contours["polygons"] if p["hole"])

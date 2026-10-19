@@ -30,7 +30,8 @@ showing the damage on the unit's current wounded model; the arrow points
 at the unit. Single-sided - Khorne rune on the arrowhead's top face only.
 Print x6.
 
-Icons are traced by extract_icon_contours.py (khorne_contours.json).
+Icons are traced by ../icon-trace/extract_icon_contours.py from icon_sources.json
+(khorne_contours.json).
 
 Plain tray (damage_tray_plain): same arrow and die pocket, no rune - single-
 colour, base STL only.
@@ -601,7 +602,7 @@ def export_project_3mf(parts, path):
 
 
 def load_contours(path):
-    """Returns (polygons, aspect h/w) - see extract_icon_contours.py."""
+    """Returns (polygons, aspect h/w) - see ../icon-trace/extract_icon_contours.py."""
     with open(path) as f:
         data = json.load(f)
     return data["polygons"], data["aspect"]

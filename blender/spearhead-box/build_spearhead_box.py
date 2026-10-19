@@ -23,8 +23,9 @@ Boolean safety (EXACT solver):
 - Structural and decorative cuts are separate sequential differences, each with a volume assert.
 - Every boolean happens before the bevel - an EXACT cut into a beveled shell corrupts it.
 
-Icons: each force's own icons come from its tokens dir; the box's dice/card icons are in icons/
-(traced by ../khorne-tokens/extract_icon_contours.py); the Mythos logo from ../card-stand/.
+Icons: each force's own icons come from its tokens dir, the box's dice/card icons from icons/ -
+all traced by ../icon-trace/extract_icon_contours.py from each folder's icon_sources.json. The
+Mythos logo comes from ../card-stand/.
 
 Run (every force, or one):
   /Applications/Blender.app/Contents/MacOS/Blender --background --python build_spearhead_box.py
@@ -492,8 +493,8 @@ def back_notch_points(center_x, width, well_center_y):
 
 
 def load_contours(path, aspect=None):
-    """Returns (polygons, aspect h/w). extract_icon_contours.py output carries its own aspect;
-    the older raw-list files (the Hashut icons) need it passed in."""
+    """Returns (polygons, aspect h/w). ../icon-trace/extract_icon_contours.py output carries its
+    own aspect; the older raw-list files (the Hashut icons) need it passed in."""
     with open(path) as f:
         data = json.load(f)
     if isinstance(data, list):

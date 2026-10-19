@@ -30,8 +30,8 @@ at the unit. Single-sided - rune on the arrowhead's top face only. Print x4.
 Double tray: same arrow, twice as wide, two die pockets side by side - for
 the Warp Lightning Cannon (8 Health, can carry 7 damage). Print x1.
 
-Icons are traced by extract_icon_contours.py (rat_rune_contours.json,
-rat_head_contours.json).
+Icons are traced by ../icon-trace/extract_icon_contours.py from icon_sources.json
+(rat_rune_contours.json, rat_head_contours.json).
 
 Plain tray (damage_tray_plain): same arrow and die pocket, no rune - single-
 colour, base STL only.
@@ -620,7 +620,7 @@ def export_project_3mf(parts, path):
 
 
 def load_contours(path):
-    """Returns (polygons, aspect h/w) - see extract_icon_contours.py."""
+    """Returns (polygons, aspect h/w) - see ../icon-trace/extract_icon_contours.py."""
     with open(path) as f:
         data = json.load(f)
     return data["polygons"], data["aspect"]
