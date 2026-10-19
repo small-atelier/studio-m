@@ -110,6 +110,16 @@ FORCES = {
                        "w": 90.0, "rot": 90.0},   # turned to run along the lid's long side, top toward -X
         "lid_corners": {"contours": os.path.join(_BLENDER_DIR, "skaven-tokens", "rat_rune_contours.json")},
     },
+    # Disciples of Tzeentch - tokens not designed yet, back row copied from Skaven for now
+    "tzeentch": {
+        "base_color": (1.0, 1.0, 1.0, 1.0),       # white
+        "inlay_color": (0.05, 0.20, 0.55, 1.0),   # blue
+        "back_row": [("tray", 22.0, 16.0), ("tray", 22.0, 16.0), ("tray", 41.4, 32.0), ("dice",)],
+        "back_row_spread": False,
+        "lid_center": {"contours": os.path.join(_BLENDER_DIR, "tzeentch-tokens", "tzeentch_flame_contours.json"),
+                       "w": 70.0},
+        "lid_corners": {"contours": os.path.join(_BLENDER_DIR, "khorne-tokens", "chaos_star_contours.json")},
+    },
 }
 
 # ============================================================
@@ -1221,6 +1231,16 @@ def build_wheel_test(force_name, force, out_dir, render_dir):
     export_two_color(out_dir, "tithe_wheel_test_coupon", coupon, pointer, force)
 
 
+def flip_lid_for_print(lid_parts):
+    """Printed skirt-up, the top slab is the flat first layer - no bridging. This is also the
+    dice-tray orientation, so a render from above checks that the inside dice_roll icon reads
+    correctly (not mirrored) when the lid is used that way."""
+    lid_cy, lid_cz = EXT_D / 2.0, (LID_Z0 + LID_Z1) / 2.0
+    for o in lid_parts:
+        reorient_lid_for_print(o, lid_cy, lid_cz)
+    bpy.context.view_layer.update()   # obj.bound_box is cached - refresh before framing
+
+
 def build_force(force_name, force, out_dir, render_dir):
     clear_scene()
     base, base_inlay, wheel_centers = build_base(force)
@@ -1261,13 +1281,7 @@ def build_force(force_name, force, out_dir, render_dir):
     for o in lid_parts:
         o.location.z -= 60.0
 
-    # Flip the lid for export: printed skirt-up, the top slab is the flat first layer - no
-    # bridging. This is also the dice-tray orientation, so the render from above checks that the
-    # inside dice_roll icon reads correctly (not mirrored) when the lid is used that way.
-    lid_cy, lid_cz = EXT_D / 2.0, (LID_Z0 + LID_Z1) / 2.0
-    for o in lid_parts:
-        reorient_lid_for_print(o, lid_cy, lid_cz)
-    bpy.context.view_layer.update()   # obj.bound_box is cached - refresh before framing
+    flip_lid_for_print(lid_parts)
 
     for o in base_parts:
         o.hide_render = True
