@@ -61,6 +61,10 @@ The box has the same footprint as the Hashut and Khorne boxes (165.5×131.2×24.
 - **Right column, front:** a 123×73mm slot for the warscroll cards, with a notch through the front wall. The floor carries a cards + die icon.
 - **Right column, back:** 2 arrow-shaped wells holding 3 single trays each, a double-tray well, and a closed dice well (24×51mm, 3 spare d6 in a row). The tray wells are notched through the back wall.
 
+The underside carries the Mythos logo, inlaid flush.
+
+{{< figure src="gallery/box_base_underside.png" caption="Underside: Mythos logo" >}}
+
 **Lid:** it slips over the base with a full-height skirt. The top carries the Horned Rat head with the rune in each corner. The inside face carries a dice icon: flip the lid over and it's a dice tray.
 
 {{< figure src="gallery/box_lid_top_face.png" caption="Lid top: Horned Rat head and corner runes" >}}
@@ -118,4 +122,4 @@ The gauge script lives with the [Measuring Gauges]({{< ref "/printables/measurin
 
 **Scripts** (Blender, headless) for adjusting sizes or counts: [build_skaven_tokens.py]({{< script "skaven-tokens/build_skaven_tokens.py" >}}) · [build_skaven_token_box.py]({{< script "skaven-token-box/build_skaven_token_box.py" >}}) · [extract_icon_contours.py]({{< script "skaven-tokens/extract_icon_contours.py" >}})
 
-**Icon contours** (the scripts read them by relative path, so keep the folder layout from these URLs): [rat_rune_contours.json]({{< script "skaven-tokens/rat_rune_contours.json" >}}) · [rat_head_contours.json]({{< script "skaven-tokens/rat_head_contours.json" >}}) · [dice_roll_contours.json]({{< script "skaven-tokens/dice_roll_contours.json" >}}) · [cards_contours.json]({{< script "skaven-tokens/cards_contours.json" >}}) · [die_five_contours.json]({{< script "skaven-tokens/die_five_contours.json" >}})
+**Icon contours** (the scripts read them by relative path, so keep the folder layout from these URLs): [rat_rune_contours.json]({{< script "skaven-tokens/rat_rune_contours.json" >}}) · [rat_head_contours.json]({{< script "skaven-tokens/rat_head_contours.json" >}}) · [dice_roll_contours.json]({{< script "skaven-tokens/dice_roll_contours.json" >}}) · [cards_contours.json]({{< script "skaven-tokens/cards_contours.json" >}}) · [die_five_contours.json]({{< script "skaven-tokens/die_five_contours.json" >}}) · [logo_contours_v5.json]({{< script "card-stand/logo_contours_v5.json" >}})

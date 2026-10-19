@@ -27,12 +27,16 @@ prints backwards.
   against - left for the hexes, front for the card slot, back for
   Desolation (deliberately the OPPOSITE long side from the card slot's
   notch) - a token/card sitting flush in a 22mm-deep pocket is hard to
-  pinch from directly above alone. Mono-color, no inlay.
+  pinch from directly above alone. The card slot floor carries a cards + die
+  icon inlay, and the Mythos logo (icon + wordmark) is inlaid flush into the
+  underside - same recess/insert two-color technique as the lid.
 - box_lid: a flat-top slab with a hollow skirt hanging down that slides
   over the base's outer walls (friction-fit, no magnets/hinges - same
   "proven over novel" reasoning as everywhere else in this army's kit),
   plus a recessed bull icon (center) and a Hashut rune in each of the 4
-  corners, all as one joined inlay insert - same recess/insert two-color
+  corners, plus the dice_roll icon on the INSIDE face (flipped over, the
+  lid is a dice-rolling tray; that icon is mirrored to read correctly that
+  way), all as one joined inlay insert - same recess/insert two-color
   technique as every other piece (build_tokens.py, build_modifier_tokens.py):
   base_shell (color A) + icon insert (color B).
 
@@ -67,13 +71,21 @@ import zipfile
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 BULL_CONTOURS_PATH = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "tokens", "bull_contours.json"))
 RUNE_CONTOURS_PATH = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "tokens", "rune_contours.json"))
+# Dice/card icons shared with the Khorne and Skaven boxes, traced by ../khorne-tokens/extract_icon_contours.py
+_BOX_ICON_DIR = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "khorne-tokens"))
+DICE_ROLL_CONTOURS_PATH = os.path.join(_BOX_ICON_DIR, "dice_roll_contours.json")
+CARDS_CONTOURS_PATH = os.path.join(_BOX_ICON_DIR, "cards_contours.json")
+DIE_FIVE_CONTOURS_PATH = os.path.join(_BOX_ICON_DIR, "die_five_contours.json")
+# Mythos logo - same traced contours + font as ../objective-markers/objective_markers_v1.py
+MYTHOS_CONTOURS_PATH = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "card-stand", "logo_contours_v5.json"))
+MYTHOS_FONT_PATH = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "card-stand", "BaskervilleBold.ttf"))
 
 EXPORT_DIR = os.path.join(SCRIPT_DIR, "output")
 RENDER_DIR = os.path.join(EXPORT_DIR, "renders")
 RENDER_RESOLUTION = (1400, 1000)
 
 BASE_COLOR = (1.0, 1.0, 1.0, 1.0)      # white - same convention as build_tokens.py
-INLAY_COLOR = (0.06, 0.45, 0.12, 1.0)  # green - the lid's bull icon insert only
+INLAY_COLOR = (0.06, 0.45, 0.12, 1.0)  # green - every icon inlay
 
 # ============================================================
 # CONFIG (all mm)
@@ -137,6 +149,21 @@ RUNE_W = 18.0             # smaller than the bull - a corner accent, not a secon
 RUNE_ASPECT = 1.0         # source rune_hashut.jpeg is 192x192, square (see build_tokens.py)
 RUNE_MARGIN = 16.0        # inset from each edge to the rune's own center - keeps it well clear
                           # of both the outer edge and the bull icon at the lid's center
+
+# --- dice_roll icon, inside face of the lid --- (same as the Khorne/Skaven boxes)
+DICE_ROLL_W = 70.0
+
+# --- card slot floor icons --- side by side, centered on the slot floor
+CARDS_ICON_W = 30.0
+DIE_ICON_W = 30.0
+FLOOR_ICON_GAP = 12.0
+
+# --- Mythos logo --- underside of the base, centered: icon above the wordmark, same width
+MYTHOS_LOGO_W = 100.0
+MYTHOS_ASPECT = 376.0 / 720.0   # h/w of the traced icon, 720x720 source
+MYTHOS_TEXT = "MYTHOS"
+MYTHOS_TEXT_SPACING = 1.1       # touching glyphs corrupt the EXACT solver
+MYTHOS_GAP_FRAC = 0.15          # icon-to-text gap, as a fraction of the icon height
 
 # --- lid ---
 LID_T = 3.0               # top slab thickness
@@ -404,29 +431,47 @@ def load_contours(path):
         return json.load(f)
 
 
-def build_icon_solid_xy(contours, icon_w, icon_h, center_x, center_y, z0, thickness, name_prefix):
+def load_traced_icon(path):
+    """Returns (polygons, aspect h/w) - the ../khorne-tokens/extract_icon_contours.py format."""
+    with open(path) as f:
+        data = json.load(f)
+    return data["polygons"], data["aspect"]
+
+
+def build_icon_solid_xy(contours, icon_w, icon_h, center_x, center_y, z0, thickness, name_prefix,
+                        mirror_y=False):
     """XY-plane counterpart of build_tokens.py's build_icon_solid - same
     per-contour chained union/difference pattern (proven there), just
-    footprint-oriented and single-orientation (the lid is only ever
-    viewed from directly above, so no mirrored back-face pass needed).
-    u -> x, v -> y (v=0 is the icon's own bottom edge)."""
+    footprint-oriented. u -> x, v -> y (v=0 is the icon's own bottom
+    edge); mirror_y flips v for a face that's read from the other side."""
     icon_x0 = center_x - icon_w / 2.0
     icon_y0 = center_y - icon_h / 2.0
 
-    outer_pts, hole_pts = [], []
+    rings = []
     for c in contours:
-        pts = [(icon_x0 + u * icon_w, icon_y0 + v * icon_h) for u, v in c["points"]]
+        pts = [(icon_x0 + u * icon_w, icon_y0 + ((1.0 - v) if mirror_y else v) * icon_h)
+               for u, v in c["points"]]
         pts = dedupe_closed_loop(pts)
-        (hole_pts if c["hole"] else outer_pts).append(pts)
-    assert outer_pts, f"{name_prefix}: traced icon has no outer contours"
+        area = 0.5 * abs(sum(pts[i][0] * pts[(i + 1) % len(pts)][1] - pts[(i + 1) % len(pts)][0] * pts[i][1]
+                             for i in range(len(pts))))
+        rings.append((area, c["hole"], pts))
+    assert any(not hole for _, hole, _ in rings), f"{name_prefix}: traced icon has no outer contours"
 
-    solid = extrude_xy(outer_pts[0], z0, thickness, f"{name_prefix}_0")
-    for i, pts in enumerate(outer_pts[1:], start=1):
-        union_onto(solid, extrude_xy(pts, z0, thickness, f"{name_prefix}_{i}"))
-    for i, pts in enumerate(hole_pts):
-        cutter = extrude_xy(pts, z0 - HOLE_OVERSHOOT, thickness + 2 * HOLE_OVERSHOOT,
-                             f"{name_prefix}_hole_{i}")
-        apply_boolean(solid, cutter, 'DIFFERENCE')
+    # Largest ring first: an enclosing ring is always bigger than anything nested inside it, so
+    # applying union/difference in descending-area order builds any nesting depth correctly - an
+    # island inside a hole (a die's pips, the filled card back) is re-added after its hole is
+    # cut. All-outers-then-all-holes would cut those islands away with their enclosing hole.
+    rings.sort(key=lambda r: -r[0])
+    area0, hole0, pts0 = rings[0]
+    assert not hole0, f"{name_prefix}: largest contour is a hole"
+    solid = extrude_xy(pts0, z0, thickness, f"{name_prefix}_0")
+    for i, (_, hole, pts) in enumerate(rings[1:], start=1):
+        if hole:
+            cutter = extrude_xy(pts, z0 - HOLE_OVERSHOOT, thickness + 2 * HOLE_OVERSHOOT,
+                                f"{name_prefix}_hole_{i}")
+            apply_boolean(solid, cutter, 'DIFFERENCE')
+        else:
+            union_onto(solid, extrude_xy(pts, z0, thickness, f"{name_prefix}_{i}"))
 
     return solid
 
@@ -637,6 +682,71 @@ def export_project_3mf(parts, path):
 
 
 # ============================================================
+# MYTHOS LOGO
+# ============================================================
+
+
+def build_wordmark_xy(text, width, center_x, z0, thickness, name):
+    """Text prism read from above, scaled to `width`, its bounding box centered on (center_x, 0).
+    Returns (obj, height)."""
+    curve = bpy.data.curves.new(f"{name}_curve", type='FONT')
+    curve.body = text
+    curve.font = bpy.data.fonts.load(MYTHOS_FONT_PATH, check_existing=True)
+    curve.size = 10.0
+    curve.space_character = MYTHOS_TEXT_SPACING
+    curve.extrude = thickness / 2.0
+    obj = bpy.data.objects.new(name, curve)
+    bpy.context.collection.objects.link(obj)
+    bpy.ops.object.select_all(action='DESELECT')
+    obj.select_set(True)
+    bpy.context.view_layer.objects.active = obj
+    bpy.ops.object.convert(target='MESH')
+
+    bm = bmesh.new()
+    bm.from_mesh(obj.data)
+    bmesh.ops.remove_doubles(bm, verts=bm.verts, dist=1e-3)
+    xs = [v.co.x for v in bm.verts]
+    ys = [v.co.y for v in bm.verts]
+    scale = width / (max(xs) - min(xs))
+    mid_x, mid_y = (max(xs) + min(xs)) / 2.0, (max(ys) + min(ys)) / 2.0
+    for v in bm.verts:
+        v.co.x = center_x + (v.co.x - mid_x) * scale
+        v.co.y = (v.co.y - mid_y) * scale
+        v.co.z += z0 + thickness / 2.0   # the curve's own extrude is centered on z=0
+    bm.normal_update()
+    bm.to_mesh(obj.data)
+    bm.free()
+    return obj, (max(ys) - min(ys)) * scale
+
+
+def build_mythos_logo(center_x, center_y, z0, thickness, name):
+    """Icon above the MYTHOS wordmark, both MYTHOS_LOGO_W wide, for the base's underside: mirrored
+    (y-flip + reverse_faces, not recalc_face_normals - that can invert one shell of a multi-shell
+    mesh) so it reads correctly with the box turned over its front edge."""
+    icon_h = MYTHOS_LOGO_W * MYTHOS_ASPECT
+    gap = MYTHOS_GAP_FRAC * icon_h
+    text, text_h = build_wordmark_xy(MYTHOS_TEXT, MYTHOS_LOGO_W, center_x, z0, thickness, f"{name}_text")
+    total_h = icon_h + gap + text_h
+    assert total_h < EXT_D - 2.0 * WALL_T and MYTHOS_LOGO_W < EXT_W - 2.0 * WALL_T, "Mythos logo too big"
+    text.data.transform(mathutils.Matrix.Translation((0.0, center_y - total_h / 2.0 + text_h / 2.0, 0.0)))
+    with open(MYTHOS_CONTOURS_PATH) as f:
+        contours = json.load(f)
+    icon = build_icon_solid_xy(contours, MYTHOS_LOGO_W, icon_h, center_x, center_y + total_h / 2.0 - icon_h / 2.0,
+                               z0, thickness, f"{name}_icon")
+    logo = join_objects([icon, text], name)
+
+    bm = bmesh.new()
+    bm.from_mesh(logo.data)
+    for v in bm.verts:
+        v.co.y = 2.0 * center_y - v.co.y
+    bmesh.ops.reverse_faces(bm, faces=bm.faces)
+    bm.normal_update()
+    bm.to_mesh(logo.data)
+    bm.free()
+    return logo
+
+
+# ============================================================
 # BASE
 # ============================================================
 
@@ -674,8 +784,37 @@ def build_base():
     vol = mesh_volume(shell)
     assert 0.0 < vol < prev_vol, f"base: well cut corrupted the shell ({prev_vol:.1f} -> {vol:.1f}mm3)"
 
+    # Card slot floor icons + underside logo - decorative class, own sequential cut after the
+    # structural wells. Floor icon cutters poke up out of the floor into the (already empty) slot.
+    inserts, icon_cutters = [], []
+    cards, cards_aspect = load_traced_icon(CARDS_CONTOURS_PATH)
+    die, die_aspect = load_traced_icon(DIE_FIVE_CONTOURS_PATH)
+    cards_x = ccx - FLOOR_ICON_GAP / 2.0 - CARDS_ICON_W / 2.0
+    die_x = ccx + FLOOR_ICON_GAP / 2.0 + DIE_ICON_W / 2.0
+    for contours, w, aspect, x, tag in ((cards, CARDS_ICON_W, cards_aspect, cards_x, "cards"),
+                                         (die, DIE_ICON_W, die_aspect, die_x, "die")):
+        inserts.append(build_icon_solid_xy(contours, w, w * aspect, x, ccy,
+                                           FLOOR_T - INSERT_DEPTH, INSERT_DEPTH, f"floor_{tag}_ins"))
+        icon_cutters.append(build_icon_solid_xy(contours, w, w * aspect, x, ccy,
+                                                FLOOR_T - INSERT_DEPTH, INSERT_DEPTH + HOLE_OVERSHOOT,
+                                                f"floor_{tag}_cut"))
+    assert max(CARDS_ICON_W * cards_aspect, DIE_ICON_W * die_aspect) < SLOT_CARD_D - 10.0, \
+        "floor icons too tall for the card slot"
+
+    # Mythos logo on the underside, flush with the bed face - well clear of the floor icons'
+    # pockets in Z, so it joins the same cut. Its cutter pokes down out of the bed face.
+    inserts.append(build_mythos_logo(EXT_W / 2.0, EXT_D / 2.0, 0.0, INSERT_DEPTH, "logo_ins"))
+    icon_cutters.append(build_mythos_logo(EXT_W / 2.0, EXT_D / 2.0, -HOLE_OVERSHOOT,
+                                          INSERT_DEPTH + HOLE_OVERSHOOT, "logo_cut"))
+    assert INSERT_DEPTH < FLOOR_T - INSERT_DEPTH - 1.0, "floor too thin for both inlay layers"
+
+    prev_vol = mesh_volume(shell)
+    apply_boolean(shell, join_objects(icon_cutters, "base_icon_cutters"), 'DIFFERENCE')
+    vol = mesh_volume(shell)
+    assert 0.0 < vol < prev_vol, f"base: icon pockets corrupted the shell ({prev_vol:.1f} -> {vol:.1f}mm3)"
+
     apply_bevel(shell, BEVEL_W)
-    return shell
+    return shell, join_objects(inserts, "base_inlay")
 
 
 # ============================================================
@@ -726,6 +865,16 @@ def build_lid():
         cutters.append(build_icon_solid_xy(rune_contours, RUNE_W, rune_h, rx, ry,
                                             lid_z1 - INSERT_DEPTH, INSERT_DEPTH + HOLE_OVERSHOOT, f"lid_rune_{i}_cut"))
 
+    # dice_roll icon on the INSIDE face (slab underside) - flipped over, the lid is a dice-rolling
+    # tray. Mirrored: read with the lid flipped over, which reverses its handedness.
+    dice, dice_aspect = load_traced_icon(DICE_ROLL_CONTOURS_PATH)
+    assert DICE_ROLL_W < cavity_w - 10.0, "dice_roll icon too wide for the lid"
+    inserts.append(build_icon_solid_xy(dice, DICE_ROLL_W, DICE_ROLL_W * dice_aspect, cx, cy,
+                                       BASE_EXT_H, INSERT_DEPTH, "lid_dice_ins", mirror_y=True))
+    cutters.append(build_icon_solid_xy(dice, DICE_ROLL_W, DICE_ROLL_W * dice_aspect, cx, cy,
+                                       BASE_EXT_H - HOLE_OVERSHOOT, INSERT_DEPTH + HOLE_OVERSHOOT,
+                                       "lid_dice_cut", mirror_y=True))
+
     prev_vol = mesh_volume(shell)
     apply_boolean(shell, join_objects(cutters, "lid_icon_cutters"), 'DIFFERENCE')
     vol = mesh_volume(shell)
@@ -747,19 +896,22 @@ def main():
     os.makedirs(RENDER_DIR, exist_ok=True)
 
     clear_scene()
-    base = build_base()
+    base, base_inlay = build_base()
     lid, icon_insert = build_lid()
 
     base_vol, base_nm = mesh_volume(base), nonmanifold_fraction(base)
+    base_inlay_vol, base_inlay_nm = mesh_volume(base_inlay), nonmanifold_fraction(base_inlay)
     lid_vol, lid_nm = mesh_volume(lid), nonmanifold_fraction(lid)
     icon_vol, icon_nm = mesh_volume(icon_insert), nonmanifold_fraction(icon_insert)
-    print(f"base: volume={base_vol:.1f}mm3 (non-manifold {base_nm:.4f})")
+    print(f"base: volume={base_vol:.1f}mm3 (non-manifold {base_nm:.4f})  "
+          f"base inlay: volume={base_inlay_vol:.1f}mm3 (non-manifold {base_inlay_nm:.4f})")
     print(f"lid: volume={lid_vol:.1f}mm3 (non-manifold {lid_nm:.4f})  "
           f"icon insert: volume={icon_vol:.1f}mm3 (non-manifold {icon_nm:.4f})")
 
     apply_color(base, "base_mat", BASE_COLOR)
     apply_color(lid, "base_mat", BASE_COLOR)
     apply_color(icon_insert, "inlay_mat", INLAY_COLOR)
+    apply_color(base_inlay, "inlay_mat", INLAY_COLOR)
 
     render_top("box_assembled_closed")
 
@@ -769,13 +921,16 @@ def main():
 
     lid.hide_render = True
     icon_insert.hide_render = True
-    render_top("box_base_only", elev_deg=80.0, bounds_objs=[base])
+    render_top("box_base_only", elev_deg=80.0, bounds_objs=[base, base_inlay])
+    render_top("box_base_underside", elev_deg=80.0, from_below=True, bounds_objs=[base, base_inlay])
     lid.hide_render = False
     icon_insert.hide_render = False
 
     base.hide_render = True
+    base_inlay.hide_render = True
     render_top("box_lid_underside", elev_deg=45.0, from_below=True, bounds_objs=[lid, icon_insert])
     base.hide_render = False
+    base_inlay.hide_render = False
 
     lid.location.z -= 60.0
     icon_insert.location.z -= 60.0
@@ -796,6 +951,7 @@ def main():
                                        # bounds_objs framing uses stale (pre-flip) extents
 
     base.hide_render = True
+    base_inlay.hide_render = True
     render_top("box_lid_print_orientation", elev_deg=55.0, bounds_objs=[lid, icon_insert])
     # The icon face is now DOWN against the print bed (correctly invisible from above, as it
     # should be in this orientation) - view from below instead to confirm the flip kept the
@@ -803,8 +959,14 @@ def main():
     render_top("box_lid_print_orientation_icon_face", elev_deg=55.0, from_below=True,
                bounds_objs=[lid, icon_insert])
     base.hide_render = False
+    base_inlay.hide_render = False
 
     export_stl(base, "box_base.stl")
+    export_stl(base_inlay, "box_base_inlay.stl")
+    export_3mf([(base, BASE_COLOR, "base"), (base_inlay, INLAY_COLOR, "base_inlay")],
+               os.path.join(EXPORT_DIR, "box_base.3mf"))
+    export_project_3mf([(base, "base", 1), (base_inlay, "base_inlay", 2)],
+                        os.path.join(EXPORT_DIR, "box_base_anycubic.3mf"))
     export_stl(lid, "box_lid_base.stl")
     export_stl(icon_insert, "box_lid_inlay.stl")
     export_3mf([(lid, BASE_COLOR, "lid_base"), (icon_insert, INLAY_COLOR, "lid_inlay")],

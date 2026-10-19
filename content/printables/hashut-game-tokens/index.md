@@ -45,14 +45,20 @@ Desolation Tokens have no hard cap. Matched-play missions typically run 5–7 ob
 One box for the whole army's game kit: 165.5×131.2×24.5mm, with all wells 22mm deep.
 
 - **Left column:** 3 stacked hex wells, one per DPP level, up to 7 tokens each. Each well has a notch through the left wall so you can pinch a token out from the side.
-- **Right column, front:** a slot for the 32 warscroll cards (a 120×70×20mm stack), with a notch through the front wall for lifting the stack out.
+- **Right column, front:** a slot for the 32 warscroll cards (a 120×70×20mm stack), with a notch through the front wall for lifting the stack out. The floor carries a cards + die icon.
 - **Right column, back:** 2 Desolation wells, up to 7 tokens each, notched through the back wall.
 
-The lid slides over the full height of the base, with the bull skull in the centre and a Hashut rune in each corner.
+The underside carries the Mythos logo, inlaid flush.
+
+{{< figure src="gallery/box_base_underside.png" caption="Underside: Mythos logo" >}}
+
+The lid slides over the full height of the base, with the bull skull in the centre and a Hashut rune in each corner. The inside face carries a dice icon: flip the lid over and it's a dice tray.
+
+{{< figure src="gallery/box_lid_underside.png" caption="Lid inside face: dice tray" >}}
 
 ## Downloads
 
-Every two-color piece comes as a base + inlay STL pair, an `_anycubic.3mf` (Anycubic Slicer Next reads only its own per-part filament metadata) and a plain `.3mf`. The box base is single-color, so it's just one STL. Set `BASE_EXTRUDER_SLOT`/`INLAY_EXTRUDER_SLOT` in the scripts to whatever's loaded.
+Every two-color piece comes as a base + inlay STL pair, an `_anycubic.3mf` (Anycubic Slicer Next reads only its own per-part filament metadata) and a plain `.3mf`. Set `BASE_EXTRUDER_SLOT`/`INLAY_EXTRUDER_SLOT` in the scripts to whatever's loaded.
 
 **DPP tokens** (33mm hex, print 2 of each):
 
@@ -66,9 +72,9 @@ Every two-color piece comes as a base + inlay STL pair, an `_anycubic.3mf` (Anyc
 
 **Box:**
 
-- Base — [STL](downloads/box_base.stl)
+- Base — [base](downloads/box_base.stl) · [inlay](downloads/box_base_inlay.stl) · [Anycubic 3MF](downloads/box_base_anycubic.3mf) · [plain 3MF](downloads/box_base.3mf)
 - Lid — [base](downloads/box_lid_base.stl) · [inlay](downloads/box_lid_inlay.stl) · [Anycubic 3MF](downloads/box_lid_anycubic.3mf) · [plain 3MF](downloads/box_lid.3mf)
 
 **Scripts** (Blender, headless) for adjusting sizes or counts: [build_tokens.py]({{< script "tokens/build_tokens.py" >}}) · [build_token_card_box.py]({{< script "token-card-box/build_token_card_box.py" >}}) · [extract_icon_contours.py]({{< script "tokens/extract_icon_contours.py" >}})
 
-**Icon contours** (the scripts read them by relative path, so keep the folder layout from these URLs): [bull_contours.json]({{< script "tokens/bull_contours.json" >}}) · [rune_contours.json]({{< script "tokens/rune_contours.json" >}})
+**Icon contours** (the scripts read them by relative path, so keep the folder layout from these URLs): [bull_contours.json]({{< script "tokens/bull_contours.json" >}}) · [rune_contours.json]({{< script "tokens/rune_contours.json" >}}) · [dice_roll_contours.json]({{< script "khorne-tokens/dice_roll_contours.json" >}}) · [cards_contours.json]({{< script "khorne-tokens/cards_contours.json" >}}) · [die_five_contours.json]({{< script "khorne-tokens/die_five_contours.json" >}}) · [logo_contours_v5.json]({{< script "card-stand/logo_contours_v5.json" >}})

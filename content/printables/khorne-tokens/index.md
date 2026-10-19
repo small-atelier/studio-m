@@ -42,6 +42,10 @@ The box has the same footprint as the Hashut box (165.5×131.2×24.5mm) and uses
 
 **Blood Tithe wheels:** two 30mm digit wheels (tens and units, 0–99), each spinning on a 6mm peg that's part of the floor. The digits read from the top, with a red pointer in front of each wheel and a **BLOOD TITHE** label under both. The wheels sit 0.5mm inside the back wall, and a 20mm slot cut through the wall at each wheel lets you thumb it round from outside the box. Each wheel sits 1mm below the rim, so the closed lid holds it in place.
 
+The underside carries the Mythos logo, inlaid flush.
+
+{{< figure src="gallery/box_base_underside.png" caption="Underside: Mythos logo" >}}
+
 **Lid:** it slips over the base with a full-height skirt, with the Khorne rune on top. The inside face carries a dice icon: flip the lid over and it's a dice tray.
 
 {{< figure src="gallery/box_lid_as_dice_tray.png" caption="Lid flipped over as a dice tray" >}}
@@ -82,4 +86,4 @@ The gauge script lives with the [Measuring Gauges]({{< ref "/printables/measurin
 
 **Scripts** (Blender, headless) for adjusting sizes or counts: [build_khorne_tokens.py]({{< script "khorne-tokens/build_khorne_tokens.py" >}}) · [build_khorne_token_box.py]({{< script "khorne-token-box/build_khorne_token_box.py" >}}) · [extract_icon_contours.py]({{< script "khorne-tokens/extract_icon_contours.py" >}})
 
-**Icon contours** (the scripts read them by relative path, so keep the folder layout from these URLs): [khorne_contours.json]({{< script "khorne-tokens/khorne_contours.json" >}}) · [dice_roll_contours.json]({{< script "khorne-tokens/dice_roll_contours.json" >}}) · [cards_contours.json]({{< script "khorne-tokens/cards_contours.json" >}}) · [die_five_contours.json]({{< script "khorne-tokens/die_five_contours.json" >}})
+**Icon contours** (the scripts read them by relative path, so keep the folder layout from these URLs): [khorne_contours.json]({{< script "khorne-tokens/khorne_contours.json" >}}) · [dice_roll_contours.json]({{< script "khorne-tokens/dice_roll_contours.json" >}}) · [cards_contours.json]({{< script "khorne-tokens/cards_contours.json" >}}) · [die_five_contours.json]({{< script "khorne-tokens/die_five_contours.json" >}}) · [logo_contours_v5.json]({{< script "card-stand/logo_contours_v5.json" >}})

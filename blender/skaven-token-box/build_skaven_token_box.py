@@ -18,7 +18,8 @@ boolean-safety patterns; see those scripts for the reasoning behind each.
   well but the dice well gets a lift notch through the exterior wall it's
   flush against - left for the hexes, front for the card slot, back for
   the tray wells.
-  Two-color: base + floor-icon inlay.
+  Mythos logo (icon + wordmark) inlaid flush into the underside.
+  Two-color: base + inlay (floor icons + logo).
 - box_lid: a flat-top slab with a full-height hollow skirt that slides over
   the base's outer walls. Horned Rat head centered on the outside top, the
   rune in each of the 4 corners; the dice_roll icon inlaid on the INSIDE
@@ -47,6 +48,9 @@ HEAD_CONTOURS_PATH = os.path.join(_ICON_DIR, "rat_head_contours.json")
 DICE_ROLL_CONTOURS_PATH = os.path.join(_ICON_DIR, "dice_roll_contours.json")
 CARDS_CONTOURS_PATH = os.path.join(_ICON_DIR, "cards_contours.json")
 DIE_FIVE_CONTOURS_PATH = os.path.join(_ICON_DIR, "die_five_contours.json")
+# Mythos logo - same traced contours + font as ../objective-markers/objective_markers_v1.py
+MYTHOS_CONTOURS_PATH = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "card-stand", "logo_contours_v5.json"))
+MYTHOS_FONT_PATH = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "card-stand", "BaskervilleBold.ttf"))
 
 EXPORT_DIR = os.path.join(SCRIPT_DIR, "output")
 RENDER_DIR = os.path.join(EXPORT_DIR, "renders")
@@ -125,6 +129,13 @@ LID_RUNE_MARGIN = 16.0    # inset from each lid edge to the rune's center
 CARDS_ICON_W = 30.0
 DIE_ICON_W = 30.0
 FLOOR_ICON_GAP = 12.0
+
+# --- Mythos logo --- underside of the base, centered: icon above the wordmark, same width
+MYTHOS_LOGO_W = 100.0
+MYTHOS_ASPECT = 376.0 / 720.0   # h/w of the traced icon, 720x720 source
+MYTHOS_TEXT = "MYTHOS"
+MYTHOS_TEXT_SPACING = 1.1       # touching glyphs corrupt the EXACT solver
+MYTHOS_GAP_FRAC = 0.15          # icon-to-text gap, as a fraction of the icon height
 
 # ============================================================
 # LAYOUT (derived) - same footprint and column layout as the Hashut box (v8)
@@ -656,6 +667,71 @@ def offset_convex_polygon(points, d):
 
 
 # ============================================================
+# MYTHOS LOGO
+# ============================================================
+
+
+def build_wordmark_xy(text, width, center_x, z0, thickness, name):
+    """Text prism read from above, scaled to `width`, its bounding box centered on (center_x, 0).
+    Returns (obj, height)."""
+    curve = bpy.data.curves.new(f"{name}_curve", type='FONT')
+    curve.body = text
+    curve.font = bpy.data.fonts.load(MYTHOS_FONT_PATH, check_existing=True)
+    curve.size = 10.0
+    curve.space_character = MYTHOS_TEXT_SPACING
+    curve.extrude = thickness / 2.0
+    obj = bpy.data.objects.new(name, curve)
+    bpy.context.collection.objects.link(obj)
+    bpy.ops.object.select_all(action='DESELECT')
+    obj.select_set(True)
+    bpy.context.view_layer.objects.active = obj
+    bpy.ops.object.convert(target='MESH')
+
+    bm = bmesh.new()
+    bm.from_mesh(obj.data)
+    bmesh.ops.remove_doubles(bm, verts=bm.verts, dist=1e-3)
+    xs = [v.co.x for v in bm.verts]
+    ys = [v.co.y for v in bm.verts]
+    scale = width / (max(xs) - min(xs))
+    mid_x, mid_y = (max(xs) + min(xs)) / 2.0, (max(ys) + min(ys)) / 2.0
+    for v in bm.verts:
+        v.co.x = center_x + (v.co.x - mid_x) * scale
+        v.co.y = (v.co.y - mid_y) * scale
+        v.co.z += z0 + thickness / 2.0   # the curve's own extrude is centered on z=0
+    bm.normal_update()
+    bm.to_mesh(obj.data)
+    bm.free()
+    return obj, (max(ys) - min(ys)) * scale
+
+
+def build_mythos_logo(center_x, center_y, z0, thickness, name):
+    """Icon above the MYTHOS wordmark, both MYTHOS_LOGO_W wide, for the base's underside: mirrored
+    (y-flip + reverse_faces, not recalc_face_normals - that can invert one shell of a multi-shell
+    mesh) so it reads correctly with the box turned over its front edge."""
+    icon_h = MYTHOS_LOGO_W * MYTHOS_ASPECT
+    gap = MYTHOS_GAP_FRAC * icon_h
+    text, text_h = build_wordmark_xy(MYTHOS_TEXT, MYTHOS_LOGO_W, center_x, z0, thickness, f"{name}_text")
+    total_h = icon_h + gap + text_h
+    assert total_h < EXT_D - 2.0 * WALL_T and MYTHOS_LOGO_W < EXT_W - 2.0 * WALL_T, "Mythos logo too big"
+    text.data.transform(mathutils.Matrix.Translation((0.0, center_y - total_h / 2.0 + text_h / 2.0, 0.0)))
+    with open(MYTHOS_CONTOURS_PATH) as f:
+        contours = json.load(f)
+    icon = build_icon_solid_xy(contours, MYTHOS_LOGO_W, icon_h, center_x, center_y + total_h / 2.0 - icon_h / 2.0,
+                               z0, thickness, f"{name}_icon")
+    logo = join_objects([icon, text], name)
+
+    bm = bmesh.new()
+    bm.from_mesh(logo.data)
+    for v in bm.verts:
+        v.co.y = 2.0 * center_y - v.co.y
+    bmesh.ops.reverse_faces(bm, faces=bm.faces)
+    bm.normal_update()
+    bm.to_mesh(logo.data)
+    bm.free()
+    return logo
+
+
+# ============================================================
 # BASE
 # ============================================================
 
@@ -699,8 +775,8 @@ def build_base():
     vol = mesh_volume(shell)
     assert 0.0 < vol < prev_vol, f"base: well cut corrupted the shell ({prev_vol:.1f} -> {vol:.1f}mm3)"
 
-    # 2) Card slot floor icons - decorative class, own sequential cut after the structural wells.
-    # Cutters poke up out of the floor into the (already empty) slot.
+    # 2) Card slot floor icons + underside logo - decorative class, own sequential cut after the
+    # structural wells. Floor icon cutters poke up out of the floor into the (already empty) slot.
     inserts, icon_cutters = [], []
     cards, cards_aspect = load_contours(CARDS_CONTOURS_PATH)
     die, die_aspect = load_contours(DIE_FIVE_CONTOURS_PATH)
@@ -716,10 +792,17 @@ def build_base():
     assert max(CARDS_ICON_W * cards_aspect, DIE_ICON_W * die_aspect) < SLOT_CARD_D - 10.0, \
         "floor icons too tall for the card slot"
 
+    # Mythos logo on the underside, flush with the bed face - well clear of the floor icons'
+    # pockets in Z, so it joins the same cut. Its cutter pokes down out of the bed face.
+    inserts.append(build_mythos_logo(EXT_W / 2.0, EXT_D / 2.0, 0.0, INSERT_DEPTH, "logo_ins"))
+    icon_cutters.append(build_mythos_logo(EXT_W / 2.0, EXT_D / 2.0, -HOLE_OVERSHOOT,
+                                          INSERT_DEPTH + HOLE_OVERSHOOT, "logo_cut"))
+    assert INSERT_DEPTH < FLOOR_T - INSERT_DEPTH - 1.0, "floor too thin for both inlay layers"
+
     prev_vol = mesh_volume(shell)
     apply_boolean(shell, join_objects(icon_cutters, "floor_icon_cutters"), 'DIFFERENCE')
     vol = mesh_volume(shell)
-    assert 0.0 < vol < prev_vol, f"base: floor icon pockets corrupted the shell ({prev_vol:.1f} -> {vol:.1f}mm3)"
+    assert 0.0 < vol < prev_vol, f"base: icon pockets corrupted the shell ({prev_vol:.1f} -> {vol:.1f}mm3)"
 
     apply_bevel(shell, BEVEL_W)
     return shell, join_objects(inserts, "base_inlay")
@@ -850,6 +933,7 @@ def main():
     for o in lid_parts:
         o.hide_render = True
     render_top("box_base_only", elev_deg=80.0, bounds_objs=base_parts)
+    render_top("box_base_underside", elev_deg=80.0, from_below=True, bounds_objs=base_parts)
     for o in lid_parts:
         o.hide_render = False
     for o in lid_parts:
