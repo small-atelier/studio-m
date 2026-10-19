@@ -14,6 +14,8 @@ what differs: colours, the back row of wells and the lid-top icons.
   correctly with the lid flipped over as a dice tray. Exported flipped, top slab on the bed.
 - Khorne only: the Blood Tithe counter - two 0-9 digit wheels on pegs in the back row, thumbed
   round through slots in the back wall (tithe_wheel, print x2).
+- Tzeentch only: the Destiny Dice rack - one fixed slot per 12mm die cut into the top face in the
+  back row, so each die keeps its rolled value and stands half proud to pick out (lid off).
 
 Every part is two-colour: base + one joined inlay object (flush recess/insert, INSERT_DEPTH deep).
 
@@ -71,6 +73,7 @@ INLAY_EXTRUDER_SLOT = 2
 #   ("rect", w, d, notch_w)         rectangular token well
 #   ("dice",)                       closed loose-dice well, takes whatever width is left
 #   ("wheel",)                      Blood Tithe wheel pocket + peg + pointer (label under the pair)
+#   ("rack", cols, rows)            Destiny Dice rack, cols x rows 12mm die slots
 # back_row_spread: True spreads the items across the full width with equal gaps instead of
 # packing them DIV_T apart.
 # lid_center: {"contours", "w", optional "rot" (deg), optional "aspect" (only for raw-list
@@ -111,11 +114,12 @@ FORCES = {
                        "w": 90.0, "rot": 90.0},   # turned to run along the lid's long side, top toward -X
         "lid_corners": {"contours": os.path.join(_BLENDER_DIR, "skaven-tokens", "rat_rune_contours.json")},
     },
-    # Disciples of Tzeentch - tokens not designed yet, back row copied from Skaven for now
+    # Disciples of Tzeentch - hex tokens + damage trays, ../tzeentch-tokens/build_tzeentch_tokens.py
     "tzeentch": {
         "base_color": (1.0, 1.0, 1.0, 1.0),       # white
         "inlay_color": (0.05, 0.20, 0.55, 1.0),   # blue
-        "back_row": [("tray", 22.0, 16.0), ("tray", 22.0, 16.0), ("tray", 41.4, 32.0), ("dice",)],
+        # 5 trays in 2 stacks, the 9 Destiny Dice, spare dice
+        "back_row": [("tray", 22.0, 16.0), ("tray", 22.0, 16.0), ("rack", 3, 3), ("dice",)],
         "back_row_spread": False,
         "lid_center": {"contours": os.path.join(_BLENDER_DIR, "tzeentch-tokens", "tzeentch_flame_contours.json"),
                        "w": 70.0},
@@ -162,6 +166,15 @@ TRAY_WELL_CLEARANCE = 1.0
 TRAY_WELL_D = TRAY_BODY_D + TRAY_HEAD_L + 2.0 * TRAY_WELL_CLEARANCE       # 42.0
 
 DIE_SIZE = 16.0         # loose-dice well must fit a 16mm d6
+
+# --- Destiny Dice rack (Tzeentch) --- one square slot per die, cut straight down from the rim into
+# solid base. A play-time piece: the dice stand half proud of the rim, so the lid only goes back on
+# once they're out.
+RACK_DIE = 12.0           # 12mm d6 - 16mm won't fit 3 rows in BACK_ROW_D
+RACK_SLOT_W = RACK_DIE + 2.0 * 0.4    # same per-side clearance as the damage tray pocket
+RACK_WALL = 3.0           # top face left between slots
+RACK_MARGIN = 1.5         # top face from the outer slots to the item's edge
+RACK_SLOT_DEPTH = RACK_DIE / 2.0      # half the die sunk, half to grip
 
 # --- lift notches --- through the exterior wall a well is flush against, down to the well floor
 CARD_NOTCH_W = 80.0
@@ -258,6 +271,7 @@ _col_b_x0 = IX0 + COL_A_W + DIV_T
 CARD_SLOT_CENTER = (_col_b_x0 + SLOT_CARD_W / 2.0, IY0 + SLOT_CARD_D / 2.0)
 
 WHEEL_FLOOR_Z = BASE_EXT_H - WHEEL_POCKET_DEPTH
+RACK_SLOT_FLOOR_Z = BASE_EXT_H - RACK_SLOT_DEPTH
 LID_Z0 = BASE_EXT_H - LID_SKIRT
 LID_Z1 = BASE_EXT_H + LID_T
 
@@ -274,6 +288,20 @@ def _tray_outline(body_w):
             (-hw, -TRAY_BODY_D)]
 
 
+def _rack_span(n):
+    """Rack recess width (or depth) for n slots in a row (or column)."""
+    return n * RACK_SLOT_W + (n - 1) * RACK_WALL + 2.0 * RACK_MARGIN
+
+
+def _rack_slot_centers(item, x, w):
+    """(x, y) of every slot in a ("rack", cols, rows) item placed at x0=x, width w."""
+    cols, rows = item[1], item[2]
+    cx, cy = x + w / 2.0, BACK_WALL_Y - _rack_span(rows) / 2.0
+    pitch = RACK_SLOT_W + RACK_WALL
+    return [(cx + (i - (cols - 1) / 2.0) * pitch, cy + (j - (rows - 1) / 2.0) * pitch)
+            for i in range(cols) for j in range(rows)]
+
+
 def _item_w(item):
     kind = item[0]
     if kind == "tray":
@@ -282,6 +310,8 @@ def _item_w(item):
         return item[1]
     if kind == "wheel":
         return WHEEL_POCKET_D
+    if kind == "rack":
+        return _rack_span(item[1])
     assert kind == "dice", f"unknown back-row item {item}"
     return None   # takes whatever column B has left
 
@@ -307,7 +337,8 @@ def back_row_layout(force):
         if item[0] == "dice":
             assert w >= DIE_SIZE + 4.0, f"dice well only {w:.1f}mm wide - back row too full"
         depth = {"tray": TRAY_WELL_D, "rect": item[2] if item[0] == "rect" else 0.0,
-                 "dice": BACK_ROW_D, "wheel": WHEEL_POCKET_D + POINTER_GAP + POINTER_H}[item[0]]
+                 "dice": BACK_ROW_D, "wheel": WHEEL_POCKET_D + POINTER_GAP + POINTER_H,
+                 "rack": _rack_span(item[2]) if item[0] == "rack" else 0.0}[item[0]]
         assert depth <= BACK_ROW_D, f"{item} too deep for the back row"
     return layout
 
@@ -887,6 +918,11 @@ def build_base(force):
             pts = [(cx + px, cy + py) for px, py in rect_points(w, BACK_ROW_D)]
             # No lift notch - loose dice would roll out through it; they tip out instead.
             cutters.append(extrude_xy(pts, FLOOR_T, DEEP_DEPTH + HOLE_OVERSHOOT, "dice_well_cut"))
+        elif kind == "rack":
+            # No lift notch - the dice stand half proud and are picked straight out.
+            for k, (sx, sy) in enumerate(_rack_slot_centers(item, x, w)):
+                cutters.append(extrude_xy([(sx + px, sy + py) for px, py in rect_points(RACK_SLOT_W, RACK_SLOT_W)],
+                                          RACK_SLOT_FLOOR_Z, RACK_SLOT_DEPTH + HOLE_OVERSHOOT, f"rack_slot_{k}_cut"))
     # Tithe wheel pockets - each breaks through the back wall, exposing the wheel rim for gripping
     for wx, wy in wheel_centers:
         cutters.append(wheel_pocket_cutter(wx, wy, BASE_EXT_H, EXT_D))
@@ -1262,11 +1298,26 @@ def build_force(force_name, force, out_dir, render_dir):
             o.location = (wx, wy, WHEEL_FLOOR_Z)
         wheels += [wheel, wheel_inlay]
 
+    # Destiny Dice: preview-only 12mm cubes seated in the rack slots, for the renders
+    destiny_dice = []
+    for item, x, w in back_row_layout(force):
+        if item[0] == "rack":
+            for sx, sy in _rack_slot_centers(item, x, w):
+                die = build_box(RACK_DIE, RACK_DIE, RACK_DIE,
+                                (sx, sy, RACK_SLOT_FLOOR_Z + RACK_DIE / 2.0), "destiny_die")
+                apply_bevel(die, 1.0)
+                destiny_dice.append(die)
+    colorize(force_name, force, [], destiny_dice)
+
     lid_parts = [lid, lid_inlay]
-    base_parts = [base, base_inlay] + wheels
+    base_parts = [base, base_inlay] + wheels + destiny_dice
 
     bpy.context.view_layer.update()   # obj.bound_box is cached - refresh before any render framing
+    for o in destiny_dice:
+        o.hide_render = True   # they stand above the rim - out of the box when it's closed
     render_top(render_dir, "box_assembled_closed")
+    for o in destiny_dice:
+        o.hide_render = False
 
     for o in lid_parts:
         o.location.z += 60.0   # lift the lid off for an "exploded" second shot
