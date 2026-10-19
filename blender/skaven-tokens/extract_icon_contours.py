@@ -8,10 +8,8 @@ containment rather than trusting find_contours' winding convention).
 Traces the main icons:
   - rat_rune.jpg   -> the Horned Rat rune (hex tokens, damage trays, lid corners)
   - rat_head.jpg   -> the Horned Rat head (lid top - too fine for token size)
-  - dice_roll.png  -> two tumbling dice (lid inside face - dice-tray hint)
 
-Also traces the card-well floor labels (cards.png, one face cropped from
-dice.png) - see SOURCES.
+The box's dice/card icons live in ../spearhead-box/icons/.
 
 Output per icon is {"aspect": h/w, "polygons": [...]}, points normalized to
 the icon's own bounding box (0..1, v flipped so it increases upward) - the
@@ -30,19 +28,15 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 # sources trace too coarse - circles come out as polygons), ink growth in source px
 # (dilates the dark ink before tracing - line-art strokes of ~2px land at ~0.3mm at print
 # size, under a 0.4mm nozzle), and a min hole area in traced px (holes smaller than this are
-# filled - drops the speckle left when growth closes up cards.png's crosshatch cells).
+# filled - drops speckle in textured sources).
 SOURCES = {
     "rat_rune": {"path": "rat_rune.jpg", "min_hole_px": 400.0},   # drops the distress specks
     "rat_head": {"path": "rat_head.jpg", "upscale": 2},
-    "dice_roll": {"path": "dice_roll.png", "grow_px": 3},
-    "cards": {"path": "cards.png", "upscale": 4, "grow_px": 2, "min_hole_px": 6400.0},
-    "die_five": {"path": "dice.png", "crop": (118, 8, 217, 108), "upscale": 4, "grow_px": 2},
 }
 OUT_DIR = SCRIPT_DIR
 
 BLUR_RADIUS = 0.5
-SIMPLIFY_TOL = 0.6      # in source pixels - sub-pixel on the 600px rune, keeps dice_roll's
-                         # (447px) thin motion-line strokes from collapsing
+SIMPLIFY_TOL = 0.6      # in source pixels - sub-pixel on the 600px rune
 MIN_AREA_PX = 3.0
 
 
