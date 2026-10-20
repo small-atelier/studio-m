@@ -1,7 +1,0 @@
-{
-  "dice_roll": {"path": "dice_roll.png", "grow_px": 3, "note": "lid inside face - dice-tray hint"},
-  "cards": {"path": "cards.png", "upscale": 4, "grow_px": 2, "min_hole_px": 6400.0,
-            "note": "card slot floor; min_hole_px drops the speckle left when growth closes the crosshatch cells"},
-  "die_five": {"path": "dice.png", "crop": [118, 8, 217, 108], "upscale": 4, "grow_px": 2,
-               "note": "card slot floor - one face cropped from dice.png"}
-}

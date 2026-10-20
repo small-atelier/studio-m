@@ -1,5 +1,0 @@
-{
-  "rat_rune": {"path": "rat_rune.jpg", "min_hole_px": 400.0,
-               "note": "the Horned Rat rune - hex tokens, damage trays, lid corners; min_hole_px drops the distress specks"},
-  "rat_head": {"path": "rat_head.jpg", "upscale": 2, "note": "the Horned Rat head - lid top, token backs"}
-}
