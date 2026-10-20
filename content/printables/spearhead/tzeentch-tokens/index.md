@@ -6,7 +6,7 @@ tags: ["3d-printing", "warhammer", "age-of-sigmar", "multi-material"]
 ---
 
 {{< lead >}}
-A token kit covering both Disciples of Tzeentch Spearheads, *Fluxblade Coven* and *Tzaangor Warflock*: hex tokens for regiment and enhancement picks and for lingering spell effects, damage trays, and a carry box with a Tzeentch flame lid and a rack for the Destiny Dice. The same kit exists for [Helsmiths of Hashut]({{< ref "/printables/hashut-game-tokens" >}}), [Blades of Khorne]({{< ref "/printables/khorne-tokens" >}}) and [Skaven]({{< ref "/printables/skaven-tokens" >}}).
+A token kit covering both Disciples of Tzeentch Spearheads, *Fluxblade Coven* and *Tzaangor Warflock*: hex tokens for regiment and enhancement picks and for lingering spell effects, damage trays, and a carry box with a Tzeentch flame lid and a rack for the Destiny Dice.
 {{< /lead >}}
 
 {{< figure src="gallery/box_base_only.png" caption="Base: hex-token wells on the left, card slot up front, tray wells, the Destiny Dice rack and a spare dice well at the back" >}}

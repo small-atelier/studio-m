@@ -6,7 +6,7 @@ tags: ["3d-printing", "warhammer", "age-of-sigmar", "multi-material"]
 ---
 
 {{< lead >}}
-A token kit covering both Skaven Spearheads, *Gnawfeast Clawpack* and *Warpspark Clawpack*: hex tokens for regiment and enhancement picks, damage trays (including a double tray for the Warp Lightning Cannon), a carry box with a Horned Rat lid, and Skaven-badged measuring gauges. The same kit exists for [Helsmiths of Hashut]({{< ref "/printables/hashut-game-tokens" >}}) and [Blades of Khorne]({{< ref "/printables/khorne-tokens" >}}).
+A token kit covering both Skaven Spearheads, *Gnawfeast Clawpack* and *Warpspark Clawpack*: hex tokens for regiment and enhancement picks, damage trays (including a double tray for the Warp Lightning Cannon), a carry box with a Horned Rat lid, and Skaven-badged measuring gauges.
 {{< /lead >}}
 
 {{< figure src="gallery/box_assembled_open.png" caption="Box open: hex-token wells on the left, card slot up front, tray wells and the dice well at the back" >}}

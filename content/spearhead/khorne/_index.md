@@ -25,5 +25,5 @@ The Blades of Khorne Spearhead: a Slaughterpriest leading a Bloodbound warband, 
 
 ## Kit
 
-- [Blades of Khorne Spearhead Tokens & Box]({{< ref "/printables/khorne-tokens" >}}): ability-reminder hex tokens, damage trays, and a carry box with a Blood Tithe counter
-- [Khorne measuring gauges]({{< ref "/printables/khorne-tokens#measuring-gauges" >}}): Small and Medium gauges with the Khorne rune badge
+- [Blades of Khorne Spearhead Tokens & Box]({{< ref "/printables/spearhead/khorne-tokens" >}}): ability-reminder hex tokens, damage trays, and a carry box with a Blood Tithe counter
+- [Khorne measuring gauges]({{< ref "/printables/spearhead/khorne-tokens#measuring-gauges" >}}): Small and Medium gauges with the Khorne rune badge

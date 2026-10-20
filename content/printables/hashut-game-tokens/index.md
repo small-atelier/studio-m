@@ -6,7 +6,7 @@ tags: ["3d-printing", "warhammer", "age-of-sigmar", "multi-material"]
 ---
 
 {{< lead >}}
-Daemonic Power and Desolation tokens for full Age of Sigmar games with the [Helsmiths of Hashut]({{< ref "/armies/hashut" >}}), plus a carry box that holds them alongside the warscroll cards. The same kind of kit exists for the [Blades of Khorne]({{< ref "/printables/khorne-tokens" >}}), [Skaven]({{< ref "/printables/skaven-tokens" >}}) and [Disciples of Tzeentch]({{< ref "/printables/tzeentch-tokens" >}}) Spearheads.
+Daemonic Power and Desolation tokens for full Age of Sigmar games with the [Helsmiths of Hashut]({{< ref "/armies/hashut" >}}), plus a carry box that holds them alongside the warscroll cards.
 {{< /lead >}}
 
 {{< figure src="gallery/box_assembled_open.png" caption="Box open: DPP wells on the left, card slot up front, two Desolation stacks at the back" >}}
