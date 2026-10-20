@@ -78,7 +78,7 @@ DPP_LEVELS, BUILD_DESOLATION, RENDER_IMAGES = _parse_args()
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 BULL_CONTOURS_PATH = os.path.join(SCRIPT_DIR, "bull_contours.json")
 RUNE_CONTOURS_PATH = os.path.join(SCRIPT_DIR, "rune_contours.json")
-TEXT_FONT_PATH = os.path.join(SCRIPT_DIR, "ArialBlack.ttf")   # swapped from BaskervilleBold after
+TEXT_FONT_PATH = os.path.join(SCRIPT_DIR, "..", "assets", "fonts", "ArialBlack.ttf")   # swapped from BaskervilleBold after
                              # combat-modifier-tokens' first test print showed the same lesson as
                              # feedback_blender_text_mesh_gotchas: thin serif strokes don't resolve
                              # on an FDM nozzle at small recessed size. No brand wordmark here (that

@@ -67,7 +67,7 @@ ONLY, RENDER_IMAGES = _parse_args()
 # ============================================================
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-TEXT_FONT_PATH = os.path.normpath(os.path.join(SCRIPT_DIR, "ArialBlack.ttf"))
+TEXT_FONT_PATH = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "assets", "fonts", "ArialBlack.ttf"))
 # Switched from BaskervilleBold (see score-tracker project) - a serif display font's thin
 # strokes/serifs don't resolve on an FDM nozzle at this scale, even at a big nominal size.
 # Arial Black's uniform heavy strokes print far crisper for small embossed/inlaid labels -

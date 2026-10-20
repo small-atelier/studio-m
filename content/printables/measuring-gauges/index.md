@@ -104,4 +104,4 @@ Run headless in Blender 5.1.2 (`blender --background --python build_measuring_ga
 
 - [build_measuring_gauges.py]({{< script "measuring-gauges/build_measuring_gauges.py" >}})
 
-**Icon contours** (the scripts read them by relative path, so keep the folder layout from these URLs): [logo_contours_v7.json]({{< script "mythos-logo/logo_contours_v7.json" >}}) · [khorne_contours.json]({{< script "khorne-tokens/khorne_contours.json" >}})
+**Icon contours** (the scripts read them by relative path, so keep the folder layout from these URLs): [logo_contours_v7.json]({{< script "mythos-logo/logo_contours_v7.json" >}}) · [khorne_contours.json]({{< script "assets/icons/khorne_contours.json" >}})

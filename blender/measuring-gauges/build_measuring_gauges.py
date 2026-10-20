@@ -88,7 +88,7 @@ import zipfile
 # ============================================================
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-TEXT_FONT_PATH = os.path.join(SCRIPT_DIR, "ArialBlack.ttf")   # bold numerals, both faces -
+TEXT_FONT_PATH = os.path.join(SCRIPT_DIR, "..", "assets", "fonts", "ArialBlack.ttf")   # bold numerals, both faces -
                                                                  # also now the MYTHOS wordmark's
                                                                  # font (see MYTHOS_FONT_PATH)
 # BaskervilleBold was the original brand font for the wordmark, but its thin serif strokes
@@ -99,11 +99,11 @@ TEXT_FONT_PATH = os.path.join(SCRIPT_DIR, "ArialBlack.ttf")   # bold numerals, b
 # genuinely-bold serif) replaces this later.
 MYTHOS_FONT_PATH = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "card-stand", "BaskervilleBold.ttf"))
 MYTHOS_CONTOURS_PATH = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "mythos-logo", "logo_contours_v7.json"))
-# Khorne rune - same trace as blender/khorne-tokens (its own {"aspect", "polygons"}
+# Khorne rune - the shared trace in blender/assets/icons (its own {"aspect", "polygons"}
 # format, same (u, v) convention as the Mythos contours).
-KHORNE_CONTOURS_PATH = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "khorne-tokens", "khorne_contours.json"))
-# Horned Rat rune - same trace as blender/skaven-tokens.
-SKAVEN_CONTOURS_PATH = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "skaven-tokens", "rat_rune_contours.json"))
+KHORNE_CONTOURS_PATH = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "assets", "icons", "khorne_contours.json"))
+# Horned Rat rune - the shared trace in blender/assets/icons.
+SKAVEN_CONTOURS_PATH = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "assets", "icons", "rat_rune_contours.json"))
 
 EXPORT_DIR = os.path.join(SCRIPT_DIR, "output")
 RENDER_DIR = os.path.join(EXPORT_DIR, "renders")

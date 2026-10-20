@@ -30,7 +30,7 @@ at the unit. Single-sided - rune on the arrowhead's top face only. Print x4.
 Double tray: same arrow, twice as wide, two die pockets side by side - for
 the Warp Lightning Cannon (8 Health, can carry 7 damage). Print x1.
 
-Icons are traced by ../icon-trace/extract_icon_contours.py from icon_sources.json
+Icons live in ../assets/icons/, traced by ../icon-trace/extract_icon_contours.py
 (rat_rune_contours.json, rat_head_contours.json).
 
 Plain tray (damage_tray_plain): same arrow and die pocket, no rune - single-
@@ -78,9 +78,9 @@ PIECES, RENDER_IMAGES = _parse_args()
 # ============================================================
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-RUNE_CONTOURS_PATH = os.path.join(SCRIPT_DIR, "rat_rune_contours.json")
-HEAD_CONTOURS_PATH = os.path.join(SCRIPT_DIR, "rat_head_contours.json")
-TEXT_FONT_PATH = os.path.join(SCRIPT_DIR, "ArialBlack.ttf")   # bold sans - thin serif strokes
+RUNE_CONTOURS_PATH = os.path.join(SCRIPT_DIR, "..", "assets", "icons", "rat_rune_contours.json")
+HEAD_CONTOURS_PATH = os.path.join(SCRIPT_DIR, "..", "assets", "icons", "rat_head_contours.json")
+TEXT_FONT_PATH = os.path.join(SCRIPT_DIR, "..", "assets", "fonts", "ArialBlack.ttf")   # bold sans - thin serif strokes
                              # don't resolve on an FDM nozzle at small recessed size
                              # (feedback_blender_text_mesh_gotchas)
 

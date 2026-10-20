@@ -26,7 +26,7 @@ Boolean safety (EXACT solver):
 - Every boolean happens before the bevel - an EXACT cut into a beveled shell corrupts it.
 
 Icons: each force's own icons come from its tokens dir, the box's dice/card icons from icons/ -
-all traced by ../icon-trace/extract_icon_contours.py from each folder's icon_sources.json. The
+all in ../assets/icons/, traced by ../icon-trace/extract_icon_contours.py. The
 Mythos logo comes from ../card-stand/.
 
 Run (every force, or one):
@@ -49,13 +49,14 @@ import zipfile
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 _BLENDER_DIR = os.path.normpath(os.path.join(SCRIPT_DIR, ".."))
-DICE_ROLL_CONTOURS_PATH = os.path.join(SCRIPT_DIR, "icons", "dice_roll_contours.json")
-CARDS_CONTOURS_PATH = os.path.join(SCRIPT_DIR, "icons", "cards_contours.json")
-DIE_FIVE_CONTOURS_PATH = os.path.join(SCRIPT_DIR, "icons", "die_five_contours.json")
+_ICONS_DIR = os.path.join(_BLENDER_DIR, "assets", "icons")
+DICE_ROLL_CONTOURS_PATH = os.path.join(_ICONS_DIR, "dice_roll_contours.json")
+CARDS_CONTOURS_PATH = os.path.join(_ICONS_DIR, "cards_contours.json")
+DIE_FIVE_CONTOURS_PATH = os.path.join(_ICONS_DIR, "die_five_contours.json")
 # Mythos logo - same traced contours + font as ../objective-markers/objective_markers_v1.py
 MYTHOS_CONTOURS_PATH = os.path.join(_BLENDER_DIR, "card-stand", "logo_contours_v5.json")
 MYTHOS_FONT_PATH = os.path.join(_BLENDER_DIR, "card-stand", "BaskervilleBold.ttf")
-FONT_PATH = os.path.join(_BLENDER_DIR, "khorne-tokens", "ArialBlack.ttf")   # Tithe wheel digits + label
+FONT_PATH = os.path.join(_BLENDER_DIR, "assets", "fonts", "ArialBlack.ttf")   # Tithe wheel digits + label
 
 EXPORT_DIR = os.path.join(SCRIPT_DIR, "output")
 RENDER_RESOLUTION = (1400, 1000)
@@ -100,9 +101,9 @@ FORCES = {
         "inlay_color": (0.65, 0.03, 0.03, 1.0),   # red
         "back_row": [("tray", 22.0, 16.0), ("tray", 22.0, 16.0), ("wheel",), ("wheel",)],
         "back_row_spread": True,
-        "lid_center": {"contours": os.path.join(_BLENDER_DIR, "khorne-tokens", "khorne_contours.json"),
+        "lid_center": {"contours": os.path.join(_ICONS_DIR, "khorne_contours.json"),
                        "w": 50.0},
-        "lid_corners": {"contours": os.path.join(_BLENDER_DIR, "khorne-tokens", "chaos_star_contours.json")},
+        "lid_corners": {"contours": os.path.join(_ICONS_DIR, "chaos_star_contours.json")},
     },
     # Skaven - hex tokens + single/double damage trays, ../skaven-tokens/build_skaven_tokens.py
     "skaven": {
@@ -111,9 +112,9 @@ FORCES = {
         # 4 single trays in 2 stacks, the Warp Lightning Cannon's double tray, spare dice
         "back_row": [("tray", 22.0, 16.0), ("tray", 22.0, 16.0), ("tray", 41.4, 32.0), ("dice",)],
         "back_row_spread": False,
-        "lid_center": {"contours": os.path.join(_BLENDER_DIR, "skaven-tokens", "rat_head_contours.json"),
+        "lid_center": {"contours": os.path.join(_ICONS_DIR, "rat_head_contours.json"),
                        "w": 90.0, "rot": 90.0},   # turned to run along the lid's long side, top toward -X
-        "lid_corners": {"contours": os.path.join(_BLENDER_DIR, "skaven-tokens", "rat_rune_contours.json")},
+        "lid_corners": {"contours": os.path.join(_ICONS_DIR, "rat_rune_contours.json")},
     },
     # Disciples of Tzeentch - hex tokens + damage trays, ../tzeentch-tokens/build_tzeentch_tokens.py
     "tzeentch": {
@@ -122,9 +123,9 @@ FORCES = {
         # 5 trays in 2 stacks, the 9 Destiny Dice, spare dice
         "back_row": [("tray", 22.0, 16.0), ("tray", 22.0, 16.0), ("rack", 3, 3), ("dice",)],
         "back_row_spread": False,
-        "lid_center": {"contours": os.path.join(_BLENDER_DIR, "tzeentch-tokens", "tzeentch_flame_contours.json"),
+        "lid_center": {"contours": os.path.join(_ICONS_DIR, "tzeentch_flame_contours.json"),
                        "w": 70.0},
-        "lid_corners": {"contours": os.path.join(_BLENDER_DIR, "khorne-tokens", "chaos_star_contours.json")},
+        "lid_corners": {"contours": os.path.join(_ICONS_DIR, "chaos_star_contours.json")},
     },
 }
 

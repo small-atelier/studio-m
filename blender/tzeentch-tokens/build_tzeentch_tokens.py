@@ -31,8 +31,8 @@ at the unit. Single-sided - flame on the arrowhead's top face only. Print
 x5 (Fluxblade Coven's 5 multi-Health units; no model has more than 6
 Health, so no double tray).
 
-Icons are traced by ../icon-trace/extract_icon_contours.py from icon_sources.json
-(tzeentch_flame_contours.json; the Chaos star is ../khorne-tokens/chaos_star_contours.json).
+Icons live in ../assets/icons/, traced by ../icon-trace/extract_icon_contours.py
+(tzeentch_flame_contours.json, chaos_star_contours.json).
 
 Plain tray (damage_tray_plain): same arrow and die pocket, no flame - single-
 colour, base STL only.
@@ -79,9 +79,9 @@ PIECES, RENDER_IMAGES = _parse_args()
 # ============================================================
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-RUNE_CONTOURS_PATH = os.path.join(SCRIPT_DIR, "tzeentch_flame_contours.json")
-HEAD_CONTOURS_PATH = os.path.join(SCRIPT_DIR, "..", "khorne-tokens", "chaos_star_contours.json")
-TEXT_FONT_PATH = os.path.join(SCRIPT_DIR, "ArialBlack.ttf")   # bold sans - thin serif strokes
+RUNE_CONTOURS_PATH = os.path.join(SCRIPT_DIR, "..", "assets", "icons", "tzeentch_flame_contours.json")
+HEAD_CONTOURS_PATH = os.path.join(SCRIPT_DIR, "..", "assets", "icons", "chaos_star_contours.json")
+TEXT_FONT_PATH = os.path.join(SCRIPT_DIR, "..", "assets", "fonts", "ArialBlack.ttf")   # bold sans - thin serif strokes
                              # don't resolve on an FDM nozzle at small recessed size
                              # (feedback_blender_text_mesh_gotchas)
 

@@ -65,7 +65,7 @@ import zipfile
 # ============================================================
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-TEXT_FONT_PATH = os.path.normpath(os.path.join(SCRIPT_DIR, "ArialBlack.ttf"))
+TEXT_FONT_PATH = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "assets", "fonts", "ArialBlack.ttf"))
 # v2 change: switched from BaskervilleBold (borrowed from the card-stand project, a
 # serif display font) - its thin strokes/serifs don't resolve on an FDM nozzle at this
 # scale, even at a big nominal size. Arial Black's uniform heavy strokes and lack of

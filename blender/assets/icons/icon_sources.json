@@ -1,0 +1,12 @@
+{
+  "dice_roll": {"path": "dice_roll.png", "grow_px": 3, "note": "lid inside face - dice-tray hint"},
+  "cards": {"path": "cards.png", "upscale": 4, "grow_px": 2, "min_hole_px": 6400.0, "note": "card slot floor; min_hole_px drops the speckle left when growth closes the crosshatch cells"},
+  "die_five": {"path": "dice.png", "crop": [118, 8, 217, 108], "upscale": 4, "grow_px": 2, "note": "card slot floor - one face cropped from dice.png"},
+  "hashut_rune": {"path": "rune_hashut.jpeg", "note": "the Hashut V/E rune - hex token fronts, damage trays, lid corners"},
+  "hashut_bull": {"path": "bull_hashut.png", "note": "the bull skull - once-per-battle token backs, lid top"},
+  "khorne": {"path": "khorn_icon.jpg", "note": "the Khorne rune - lid top, Rend tokens, damage trays"},
+  "chaos_star": {"path": "chaos_star.jpeg", "note": "the eight-pointed Chaos star - lid corners"},
+  "rat_rune": {"path": "rat_rune.jpg", "min_hole_px": 400.0, "note": "the Horned Rat rune - hex tokens, damage trays, lid corners; min_hole_px drops the distress specks"},
+  "rat_head": {"path": "rat_head.jpg", "upscale": 2, "note": "the Horned Rat head - lid top, token backs"},
+  "tzeentch_flame": {"path": "tzeentch_flame.jpg", "note": "the Tzeentch flame and orb - lid top"}
+}

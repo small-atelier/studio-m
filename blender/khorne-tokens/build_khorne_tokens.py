@@ -30,7 +30,7 @@ showing the damage on the unit's current wounded model; the arrow points
 at the unit. Single-sided - Khorne rune on the arrowhead's top face only.
 Print x6.
 
-Icons are traced by ../icon-trace/extract_icon_contours.py from icon_sources.json
+Icons live in ../assets/icons/, traced by ../icon-trace/extract_icon_contours.py
 (khorne_contours.json).
 
 Plain tray (damage_tray_plain): same arrow and die pocket, no rune - single-
@@ -78,8 +78,8 @@ PIECES, RENDER_IMAGES = _parse_args()
 # ============================================================
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-KHORNE_CONTOURS_PATH = os.path.join(SCRIPT_DIR, "khorne_contours.json")
-TEXT_FONT_PATH = os.path.join(SCRIPT_DIR, "ArialBlack.ttf")   # bold sans - thin serif strokes
+KHORNE_CONTOURS_PATH = os.path.join(SCRIPT_DIR, "..", "assets", "icons", "khorne_contours.json")
+TEXT_FONT_PATH = os.path.join(SCRIPT_DIR, "..", "assets", "fonts", "ArialBlack.ttf")   # bold sans - thin serif strokes
                              # don't resolve on an FDM nozzle at small recessed size
                              # (feedback_blender_text_mesh_gotchas)
 
