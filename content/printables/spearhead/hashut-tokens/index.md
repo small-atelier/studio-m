@@ -6,7 +6,7 @@ tags: ["3d-printing", "warhammer", "age-of-sigmar", "multi-material"]
 ---
 
 {{< lead >}}
-A token kit for the Helsmiths of Hashut Spearhead, *Helforge Host*: Daemonic Power tokens, hex tokens for regiment and enhancement picks, damage trays for the daemon engines, and a carry box with the bull skull on the lid. The full Age of Sigmar kit, with Desolation Tokens, is [Helsmiths of Hashut Tokens & Box]({{< ref "/printables/hashut-game-tokens" >}}).
+A token kit for the Helsmiths of Hashut Spearhead, *Helforge Host*: Daemonic Power tokens, hex tokens for regiment and enhancement picks, damage trays for the daemon engines, and a carry box with the bull skull on the lid. The full Age of Sigmar kit, with Desolation Tokens, is [Helsmiths of Hashut Tokens & Box]({{< ref "/printables/aos/hashut-game-tokens" >}}).
 {{< /lead >}}
 
 ---
@@ -19,7 +19,7 @@ What gets forgotten mid-game: each unit's current power level, which regiment ab
 
 ## What's in the kit
 
-**Daemonic Power tokens** (33mm hex): the DPP 1/2/3 tokens from the [full Age of Sigmar kit]({{< ref "/printables/hashut-game-tokens" >}}). One token per level, swapped when a unit's level changes. 2 of each covers a Spearhead game: 5 points at most per turn, and the Despot's aura makes spreading single points pointless.
+**Daemonic Power tokens** (33mm hex): the DPP 1/2/3 tokens from the [full Age of Sigmar kit]({{< ref "/printables/aos/hashut-game-tokens" >}}). One token per level, swapped when a unit's level changes. 2 of each covers a Spearhead game: 5 points at most per turn, and the Despot's aura makes spreading single points pointless.
 
 **Hex tokens** (33mm, pointy-top): the front shows the effect (Hashut rune, a big value and a short label). The back shows the ability's name. Once-per-battle abilities have the bull skull on the back instead: flip the token when the ability is spent.
 

@@ -27,4 +27,4 @@ Models come from the [Helsmiths of Hashut]({{< ref "/armies/hashut" >}}) army. S
 
 ## Kit
 
-- [Helsmiths of Hashut Tokens & Box]({{< ref "/printables/hashut-game-tokens" >}}): DPP and Desolation tokens, plus a carry box for them and the warscroll cards
+- [Helsmiths of Hashut Tokens & Box]({{< ref "/printables/aos/hashut-game-tokens" >}}): DPP and Desolation tokens, plus a carry box for them and the warscroll cards

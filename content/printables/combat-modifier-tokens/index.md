@@ -6,7 +6,7 @@ tags: ["3d-printing", "blender", "python", "warhammer", "age-of-sigmar", "40k", 
 ---
 
 {{< lead >}}
-Generic combat-modifier tokens for 40k or AoS — not tied to any army, unlike the [Hashut DPP/Desolation tokens]({{< ref "/printables/hashut-game-tokens" >}}) that share their build pipeline. Each stat gets its own token *shape*, not just a label, so they're sortable by touch in a dice bag, not only by reading them.
+Generic combat-modifier tokens for 40k or AoS — not tied to any army, unlike the [Hashut DPP/Desolation tokens]({{< ref "/printables/aos/hashut-game-tokens" >}}) that share their build pipeline. Each stat gets its own token *shape*, not just a label, so they're sortable by touch in a dice bag, not only by reading them.
 {{< /lead >}}
 
 {{< carousel images="gallery/*" aspectRatio="1-1" interval="3000" >}}

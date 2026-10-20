@@ -27,7 +27,7 @@ Don't have the Helforge Host box yet — this is pre-purchase planning, worked o
 
 No electronics. Passive box, no lighting.
 
-Separate project, same army: [Daemonic Power & Desolation Tokens]({{< ref "/printables/hashut-game-tokens" >}}) — the game-mechanic tokens this army spends the whole match shuffling around the table, not part of the box itself.
+Separate project, same army: [Daemonic Power & Desolation Tokens]({{< ref "/printables/aos/hashut-game-tokens" >}}) — the game-mechanic tokens this army spends the whole match shuffling around the table, not part of the box itself.
 
 ## Box contents (verified)
 
