@@ -9,7 +9,7 @@ tags: ["3d-printing", "warhammer", "age-of-sigmar", "multi-material"]
 A token kit covering both Skaven Spearheads, *Gnawfeast Clawpack* and *Warpspark Clawpack*: ability tokens for regiment and enhancement picks, damage trays (including a double tray for the Warp Lightning Cannon), a carry box with a Horned Rat lid, and Skaven-badged measuring gauges.
 {{< /lead >}}
 
-{{< figure src="gallery/box_assembled_open.png" caption="Box open: hex-token wells on the left, card slot up front, tray wells and the dice well at the back" >}}
+{{< figure src="gallery/box_assembled_open.png" caption="Box open: ability-token wells on the left, card slot up front, tray wells and the dice well at the back" >}}
 
 ---
 
@@ -88,7 +88,7 @@ A single tray also works for *Will of the Horned Rat*: set the die to the roll a
 
 The box has the same footprint as the Hashut and Khorne boxes (165.5×131.2×24.5mm) and uses the same column layout. Every well is 22mm deep:
 
-- **Left column:** 3 stacked hex wells, 7 tokens each: Gnawfeast picks, Warpspark picks, spares. Each well has a lift notch through the left wall.
+- **Left column:** 2 ability-token wells, long side front to back, 7 tokens each: one per Spearhead. Each well has a lift notch through the left wall.
 - **Right column, front:** a 123×73mm slot for the warscroll cards, with a notch through the front wall. The floor carries a cards + die icon.
 - **Right column, back:** 2 arrow-shaped wells holding 3 single trays each, a double-tray well, and a closed dice well (24×51mm, 3 spare d6 in a row). The tray wells are notched through the back wall.
 

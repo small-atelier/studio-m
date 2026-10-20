@@ -5,7 +5,7 @@ footprint (165.5 x 131.2 x 24.5mm base), the well layout, the lid and the decora
 what differs: colours, the back row of wells and the lid-top icons.
 
 - box_base: an open-top tray, every pocket cut to the same DEEP_DEPTH (22mm) floor. Left column:
-  3 hex-token wells stacked, lift notches through the left wall. Right column: the card slot
+  3 hex-token wells stacked (or a force's rectangle-token wells), lift notches through the left wall. Right column: the card slot
   (123x73, front-wall notch) up front, its floor carrying a cards + die icon inlay; behind it the
   force's back row, flush against the back wall (back-wall notches, except the dice well - loose
   dice would roll out). Mythos logo (icon + wordmark) inlaid flush into the underside.
@@ -75,6 +75,8 @@ INLAY_EXTRUDER_SLOT = 2
 #   ("dice",)                       closed loose-dice well, takes whatever width is left
 #   ("wheel",)                      Blood Tithe wheel pocket + peg + pointer (label under the pair)
 #   ("rack", cols, rows)            Destiny Dice rack, cols x rows 12mm die slots
+# left_column (optional): ("rect", count) swaps the 3 hex wells for count rectangle-token wells,
+# long side front-to-back, spread over the column's depth. The footprint stays the same.
 # back_row_spread: True spreads the items across the full width with equal gaps instead of
 # packing them DIV_T apart.
 # lid_center: {"contours", "w", optional "rot" (deg)}. lid_corners: {"contours"} - LID_CORNER_W
@@ -106,6 +108,8 @@ FORCES = {
     "skaven": {
         "base_color": (0.04, 0.04, 0.04, 1.0),    # black
         "inlay_color": (0.30, 0.80, 0.10, 1.0),   # warpstone green
+        # 13 ability tokens in 2 stacks of 7
+        "left_column": ("rect", 2),
         # 4 single trays in 2 stacks, the Warp Lightning Cannon's double tray, spare dice
         "back_row": [("tray", 22.0, 16.0), ("tray", 22.0, 16.0), ("tray", 41.4, 32.0), ("dice",)],
         "back_row_spread": False,
@@ -178,6 +182,15 @@ RACK_SLOT_DEPTH = RACK_DIE / 2.0      # half the die sunk, half to grip
 # --- lift notches --- through the exterior wall a well is flush against, down to the well floor
 CARD_NOTCH_W = 80.0
 HEX_NOTCH_W = 32.0     # through the left wall, across the hex's flat side
+
+# --- rectangle token wells --- (56x30mm ability tokens, ../skaven-tokens/build_skaven_tokens.py's
+# TOKEN_W/TOKEN_H - keep in sync); stand in the left column long side front-to-back
+RECT_TOKEN_W = 56.0
+RECT_TOKEN_H = 30.0
+RECT_WELL_CLEARANCE = 1.0
+RECT_WELL_LONG = RECT_TOKEN_W + 2.0 * RECT_WELL_CLEARANCE     # 58.0, along Y
+RECT_WELL_SHORT = RECT_TOKEN_H + 2.0 * RECT_WELL_CLEARANCE    # 32.0, along X
+RECT_NOTCH_W = 40.0    # through the left wall, along the well's long side
 
 # --- lid ---
 LID_T = 3.0               # top slab thickness
@@ -313,6 +326,26 @@ def _item_w(item):
         return _rack_span(item[1])
     assert kind == "dice", f"unknown back-row item {item}"
     return None   # takes whatever column B has left
+
+
+def left_column_wells(force):
+    """The left column's wells: [(outline points, center_x, center_y, notch_w)], each flush against
+    the left wall. The default is the 3 stacked hex wells the footprint is sized by."""
+    col = force.get("left_column", "hex")
+    if col == "hex":
+        return [([(cx + x, cy + y) for x, y in hex_points(HEX_WELL_FLAT_TO_FLAT)], cx, cy, HEX_NOTCH_W)
+                for cx, cy in HEX_WELL_CENTERS]
+    kind, count = col
+    assert kind == "rect", f"unknown left column {col}"
+    assert RECT_WELL_SHORT <= COL_A_W, "rectangle wells wider than the left column"
+    gap = (INT_FOOT_D - count * RECT_WELL_LONG) / (count - 1) if count > 1 else 0.0
+    assert gap >= DIV_T, f"{count} rectangle wells don't fit the left column's depth"
+    cx = IX0 + RECT_WELL_SHORT / 2.0
+    wells = []
+    for i in range(count):
+        cy = IY0 + RECT_WELL_LONG / 2.0 + i * (RECT_WELL_LONG + gap)
+        wells.append(([(cx + x, cy + y) for x, y in rect_points(RECT_WELL_SHORT, RECT_WELL_LONG)], cx, cy, RECT_NOTCH_W))
+    return wells
 
 
 def back_row_layout(force):
@@ -886,10 +919,9 @@ def build_base(force):
     card_notch = extrude_xy(front_notch_points(ccx, CARD_NOTCH_W, ccy), FLOOR_T, DEEP_DEPTH, "card_notch_cut")
     cutters.append(union_onto(card_pocket, card_notch))
 
-    for cx, cy in HEX_WELL_CENTERS:
-        pts = [(cx + x, cy + y) for x, y in hex_points(HEX_WELL_FLAT_TO_FLAT)]
-        pocket = extrude_xy(pts, FLOOR_T, DEEP_DEPTH + HOLE_OVERSHOOT, "hex_well_cut")
-        notch = extrude_xy(left_notch_points(cy, HEX_NOTCH_W, cx), FLOOR_T, DEEP_DEPTH, "hex_notch_cut")
+    for pts, cx, cy, notch_w in left_column_wells(force):
+        pocket = extrude_xy(pts, FLOOR_T, DEEP_DEPTH + HOLE_OVERSHOOT, "token_well_cut")
+        notch = extrude_xy(left_notch_points(cy, notch_w, cx), FLOOR_T, DEEP_DEPTH, "token_notch_cut")
         cutters.append(union_onto(pocket, notch))
 
     for item, x, w in layout:
