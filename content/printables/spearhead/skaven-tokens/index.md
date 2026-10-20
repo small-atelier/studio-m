@@ -6,7 +6,7 @@ tags: ["3d-printing", "warhammer", "age-of-sigmar", "multi-material"]
 ---
 
 {{< lead >}}
-A token kit covering both Skaven Spearheads, *Gnawfeast Clawpack* and *Warpspark Clawpack*: hex tokens for regiment and enhancement picks, damage trays (including a double tray for the Warp Lightning Cannon), a carry box with a Horned Rat lid, and Skaven-badged measuring gauges.
+A token kit covering both Skaven Spearheads, *Gnawfeast Clawpack* and *Warpspark Clawpack*: ability tokens for regiment and enhancement picks, damage trays (including a double tray for the Warp Lightning Cannon), a carry box with a Horned Rat lid, and Skaven-badged measuring gauges.
 {{< /lead >}}
 
 {{< figure src="gallery/box_assembled_open.png" caption="Box open: hex-token wells on the left, card slot up front, tray wells and the dice well at the back" >}}
@@ -22,27 +22,58 @@ Skaven have no token resource of their own, like the Blood Tithe or Daemonic Pow
 
 ## What's in the kit
 
-**Hex tokens** (33mm, pointy-top): the front shows the effect (Horned Rat rune, a big value and a short label). The back shows the ability's name. Once-per-battle abilities have the Horned Rat head on the back instead: flip the token when the ability is spent.
+**Ability tokens** (56×30mm, the plate of the Hashut Desolation token): one per regiment ability and enhancement across both Spearheads, plus the Rat Ogors' *Unleashed Warp-Fury*. Text only, in a condensed font that keeps letters open at small size.
 
-| Spearhead | Token | Kind | Front | Back |
-|---|---|---|---|---|
-| Gnawfeast | Unleashed Warp-Fury | Rat Ogors, once per battle | +1 ATK | Horned Rat |
-| Gnawfeast | Warpstone-Laced Bullets | regiment, once per battle | MW CRIT | Horned Rat |
-| Gnawfeast | Too Quick to Hit-hit | regiment | NO MW | TOO QUICK |
-| Gnawfeast | Lead the Seething Horde | enhancement | 13" REINF | LEAD THE HORDE |
-| Gnawfeast | Skryre Connections | enhancement | 2D6 PISTOL | SKRYRE |
-| Gnawfeast | Warpstone Charm | enhancement | -1 SAVE | WARP CHARM |
-| Gnawfeast | Cloak of Stitched Victories | enhancement | 5+ WARD | CLOAK |
-| Warpspark | Warpstone-Laced Armour | regiment, once per battle | 5+ WARD | Horned Rat |
-| Warpspark | Endless Swarm of Rats | regiment | D6 RETURN | ENDLESS SWARM |
-| Warpspark | Skilled Manipulator | enhancement | 4+ WARD | SKILLED |
-| Warpspark | Skitterleap | enhancement | 6+ LEAP | SKITTER LEAP |
-| Warpspark | Cage of Warp Lightning | enhancement, once per battle | 2+ CAGE | Horned Rat |
-| Warpspark | Scurry Away | enhancement | 3+ FLEE | SCURRY AWAY |
+- **Front:** the ability's name on the first two rows, a short version of the rule on the third. It prints against the bed, where small text comes out crispest.
+- **Back:** who it applies to (GENERAL, ARMY or RAT OGORS), then when it's used.
 
-Before the game, pull the regiment token and the enhancement token for the chosen picks and put them beside the general. The Warp-Fury token goes beside the Rat Ogors.
+Before the game, pull the regiment and enhancement tokens for the chosen picks and keep them with the warscroll cards. The Warp-Fury token goes beside the Rat Ogors. Flip a once-per-battle token when it's used.
 
-**Damage trays:** an arrow-shaped plate, 22×40×6.5mm, with a pocket for one 16mm d6. The die shows the damage on the unit's currently wounded model, and the arrow points at the unit. The Warp Lightning Cannon has 8 Health and can carry 7 damage, so it gets a **double tray** (41×40mm) with two die pockets side by side.
+### Gnawfeast Clawpack
+
+Regiment abilities, back reads ARMY:
+
+| Ability | Rule (front) | When (back) |
+|---|---|---|
+| Warpstone-Laced Bullets | 1 GUN: CRIT (MORTAL) | ONCE PER BATTLE · SHOOTING PHASE |
+| Too Quick to Hit-hit | RETREAT: NO MW | PASSIVE |
+
+Enhancements, back reads GENERAL:
+
+| Enhancement | Rule (front) | When (back) |
+|---|---|---|
+| Lead the Seething Horde | REINFORCE WITHIN 13" | REACTION · REINFORCEMENTS |
+| Skryre Connections | PISTOL: 2D6 ATTACKS | PASSIVE |
+| Warpstone Charm | -1 SAVE IN COMBAT | PASSIVE |
+| Cloak of Stitched Victories | GENERAL: WARD 5+ | PASSIVE |
+
+Rat Ogors warscroll, back reads RAT OGORS:
+
+| Ability | Rule (front) | When (back) |
+|---|---|---|
+| Unleashed Warp-Fury | D3 MW SELF, +1 ATK | ONCE PER BATTLE · COMBAT PHASE |
+
+### Warpspark Clawpack
+
+Regiment abilities, back reads ARMY:
+
+| Ability | Rule (front) | When (back) |
+|---|---|---|
+| Warpstone-Laced Armour | STORMFIENDS: WARD 5+ | ONCE PER BATTLE · REACTION |
+| Endless Swarm of Rats | SEETHING SWARM: D6 | PASSIVE |
+
+Enhancements, back reads GENERAL:
+
+| Enhancement | Rule (front) | When (back) |
+|---|---|---|
+| Skilled Manipulator | WARD 4+ BY CLANRATS | PASSIVE |
+| Skitterleap | CAST 6+: REDEPLOY >6" | HERO PHASE |
+| Cage of Warp Lightning | 6": 2+ STRIKE-LAST | ONCE PER BATTLE · COMBAT PHASE |
+| Scurry Away | 3+: RETREAT, NO MW | COMBAT PHASE |
+
+### Damage trays
+
+An arrow-shaped plate, 22×40×6.5mm, with a pocket for one 16mm d6. The die shows the damage on the unit's currently wounded model, and the arrow points at the unit. The Warp Lightning Cannon has 8 Health and can carry 7 damage, so it gets a **double tray** (41×40mm) with two die pockets side by side.
 
 | Tray | Used by | Print |
 |---|---|---|
@@ -90,7 +121,7 @@ Each piece comes as a base + inlay STL pair and an `_anycubic.3mf` (Anycubic Sli
 - Too Quick to Hit-hit — [base](downloads/gnawfeast_too_quick_base.stl) · [inlay](downloads/gnawfeast_too_quick_inlay.stl) · [Anycubic 3MF](downloads/gnawfeast_too_quick_anycubic.3mf) · [plain 3MF](downloads/gnawfeast_too_quick.3mf)
 - Lead the Seething Horde — [base](downloads/gnawfeast_seething_horde_base.stl) · [inlay](downloads/gnawfeast_seething_horde_inlay.stl) · [Anycubic 3MF](downloads/gnawfeast_seething_horde_anycubic.3mf) · [plain 3MF](downloads/gnawfeast_seething_horde.3mf)
 - Skryre Connections — [base](downloads/gnawfeast_skryre_base.stl) · [inlay](downloads/gnawfeast_skryre_inlay.stl) · [Anycubic 3MF](downloads/gnawfeast_skryre_anycubic.3mf) · [plain 3MF](downloads/gnawfeast_skryre.3mf)
-- Warpstone Charm — [base](downloads/gnawfeast_warp_charm_base.stl) · [inlay](downloads/gnawfeast_warp_charm_inlay.stl) · [Anycubic 3MF](downloads/gnawfeast_warp_charm_anycubic.3mf) · [plain 3MF](downloads/gnawfeast_warp_charm.3mf
+- Warpstone Charm — [base](downloads/gnawfeast_warp_charm_base.stl) · [inlay](downloads/gnawfeast_warp_charm_inlay.stl) · [Anycubic 3MF](downloads/gnawfeast_warp_charm_anycubic.3mf) · [plain 3MF](downloads/gnawfeast_warp_charm.3mf)
 - Cloak of Stitched Victories — [base](downloads/gnawfeast_cloak_base.stl) · [inlay](downloads/gnawfeast_cloak_inlay.stl) · [Anycubic 3MF](downloads/gnawfeast_cloak_anycubic.3mf) · [plain 3MF](downloads/gnawfeast_cloak.3mf)
 
 **Tokens, Warpspark:**
@@ -104,7 +135,7 @@ Each piece comes as a base + inlay STL pair and an `_anycubic.3mf` (Anycubic Sli
 
 **Generic token and trays:**
 
-- Generic rune token — [base](downloads/skaven_token_base.stl) · [inlay](downloads/skaven_token_inlay.stl) · [Anycubic 3MF](downloads/skaven_token_anycubic.3mf) · [plain 3MF](downloads/skaven_token.3mf)
+- Generic hex rune token (spare, no ability) — [base](downloads/skaven_token_base.stl) · [inlay](downloads/skaven_token_inlay.stl) · [Anycubic 3MF](downloads/skaven_token_anycubic.3mf) · [plain 3MF](downloads/skaven_token.3mf)
 - Damage tray (×4) — [base](downloads/damage_tray_base.stl) · [inlay](downloads/damage_tray_inlay.stl) · [Anycubic 3MF](downloads/damage_tray_anycubic.3mf) · [plain 3MF](downloads/damage_tray.3mf)
 - Double damage tray (×1) — [base](downloads/damage_tray_double_base.stl) · [inlay](downloads/damage_tray_double_inlay.stl) · [Anycubic 3MF](downloads/damage_tray_double_anycubic.3mf) · [plain 3MF](downloads/damage_tray_double.3mf)
 
