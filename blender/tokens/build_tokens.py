@@ -17,9 +17,9 @@ original working reference this was adapted from.
 Double-sided: both faces carry the full design (icon + text), so either
 face reads correctly when the token is flipped on the table. Icon relief
 uses the same marching-squares contour approach as
-card-stand/card_stand_v7_trophy.py's build_logo_icon - see
-extract_icon_contours.py for how bull_contours.json / rune_contours.json
-were traced from the source images.
+card-stand/card_stand_v7_trophy.py's build_logo_icon - the icons are
+../assets/icons/hashut_bull_contours.json / hashut_rune_contours.json,
+traced by ../icon-trace/extract_icon_contours.py.
 
 Mirroring for the back face: a naive copy of the same (x, z) contour/text
 onto the back face reads MIRRORED when viewed from behind (looking in -Y,
@@ -76,8 +76,8 @@ DPP_LEVELS, BUILD_DESOLATION, RENDER_IMAGES = _parse_args()
 # ============================================================
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-BULL_CONTOURS_PATH = os.path.join(SCRIPT_DIR, "bull_contours.json")
-RUNE_CONTOURS_PATH = os.path.join(SCRIPT_DIR, "rune_contours.json")
+BULL_CONTOURS_PATH = os.path.join(SCRIPT_DIR, "..", "assets", "icons", "hashut_bull_contours.json")
+RUNE_CONTOURS_PATH = os.path.join(SCRIPT_DIR, "..", "assets", "icons", "hashut_rune_contours.json")
 TEXT_FONT_PATH = os.path.join(SCRIPT_DIR, "..", "assets", "fonts", "ArialBlack.ttf")   # swapped from BaskervilleBold after
                              # combat-modifier-tokens' first test print showed the same lesson as
                              # feedback_blender_text_mesh_gotchas: thin serif strokes don't resolve
@@ -162,7 +162,6 @@ DPP_BULL_W = 13.0            # v7: shrunk from v6's 15.0 (itself scaled down fro
                               # hex) - the bull icon is solid fill, prints fine smaller; freeing
                               # this room let the text/number grow, which is what actually needed
                               # the help (thin strokes at small size print weak/mushy on FDM)
-DPP_BULL_ASPECT = 1.0        # source bull_hashut.png is 215x215, square
 DPP_BULL_GAP_BELOW_TEXT = 1.0
 
 DPP_NUMBER_SIZE = 11.5               # v7: bumped again, same reasoning as DPP_TEXT_SIZE (v6 was
@@ -187,7 +186,6 @@ DESO_CONTENT_CLEARANCE = 1.0
 DESO_RUNE_W = 13.0           # v7: shrunk from v6's 15.0 - same reasoning as DPP_BULL_W, freeing
                               # vertical room below the icon for a bigger (more print-legible)
                               # text line
-DESO_RUNE_ASPECT = 1.0      # source rune_hashut.jpeg is 192x192, square
 DESO_RUNE_TOP_MARGIN = 2.0   # trimmed from 4.0 - the shorter plate has less vertical room to
                               # spare now that there's only one text line below the icon
 
@@ -648,8 +646,10 @@ def export_project_3mf(parts, path):
 
 
 def load_contours(path):
+    """Returns (polygons, aspect h/w) - see ../icon-trace/extract_icon_contours.py."""
     with open(path) as f:
-        return json.load(f)
+        data = json.load(f)
+    return data["polygons"], data["aspect"]
 
 
 def face_span(mirror, depth, poke):
@@ -862,8 +862,8 @@ def build_dpp_token(level):
     shell = _extrude_profile(hex_points(DPP_FLAT_TO_FLAT), 'XZ', 0.0, PLATE_T, "dpp_shell")
     apply_bevel(shell, BEVEL_W)
 
-    bull_contours = load_contours(BULL_CONTOURS_PATH)
-    bull_h = DPP_BULL_W * DPP_BULL_ASPECT
+    bull_contours, bull_aspect = load_contours(BULL_CONTOURS_PATH)
+    bull_h = DPP_BULL_W * bull_aspect
     top_z = DPP_POINT_TO_POINT / 2.0 - DPP_TEXT_TOP_MARGIN
 
     inserts, cutters, border_cutters = [], [], []
@@ -922,8 +922,8 @@ def build_desolation_token():
     shell = build_box(DESO_WIDTH, PLATE_T, DESO_HEIGHT, (0.0, PLATE_T / 2.0, 0.0), "deso_shell")
     apply_bevel(shell, BEVEL_W)
 
-    rune_contours = load_contours(RUNE_CONTOURS_PATH)
-    rune_h = DESO_RUNE_W * DESO_RUNE_ASPECT
+    rune_contours, rune_aspect = load_contours(RUNE_CONTOURS_PATH)
+    rune_h = DESO_RUNE_W * rune_aspect
     top_z = DESO_INNER_H / 2.0 - DESO_RUNE_TOP_MARGIN
     usable_w = DESO_INNER_W - 2 * DESO_CONTENT_CLEARANCE
 

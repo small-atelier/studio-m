@@ -6,7 +6,7 @@ tags: ["3d-printing", "warhammer", "age-of-sigmar", "multi-material"]
 ---
 
 {{< lead >}}
-Daemonic Power and Desolation tokens for the [Helforge Host]({{< ref "/armies/hashut/roster" >}}), plus a carry box that holds them alongside the warscroll cards. The same kit exists for [Blades of Khorne]({{< ref "/printables/khorne-tokens" >}}).
+Daemonic Power and Desolation tokens for full Age of Sigmar games with the [Helsmiths of Hashut]({{< ref "/armies/hashut" >}}), plus a carry box that holds them alongside the warscroll cards. The same kind of kit exists for the [Blades of Khorne]({{< ref "/printables/khorne-tokens" >}}), [Skaven]({{< ref "/printables/skaven-tokens" >}}) and [Disciples of Tzeentch]({{< ref "/printables/tzeentch-tokens" >}}) Spearheads.
 {{< /lead >}}
 
 {{< figure src="gallery/box_assembled_open.png" caption="Box open: DPP wells on the left, card slot up front, two Desolation stacks at the back" >}}
@@ -21,6 +21,8 @@ Helsmiths of Hashut (Age of Sigmar 4th Edition) runs on two linked resources ins
 - **Daemonic Power Points (DPP)** sit on units. Each of your turns, *Harness Daemonic Power* converts every Desolation Token on the battlefield into DPP, which you then allocate onto friendly units. The cap is 3 per unit, and every warscroll except the Hobgrots gets meaningfully better with each one.
 
 Nearly the whole gameplan runs through this loop, so both players read these tokens constantly, every turn. A set that's unambiguous from across the table beats a pile of generic glass gems.
+
+This is the Battletome rule set. The Helforge Host Spearhead uses a simpler Daemonic Power rule without Desolation Tokens.
 
 Sources: [Bell of Lost Souls — Powered By Daemons](https://www.belloflostsouls.net/2025/09/age-of-sigmar-helsmiths-of-hashut-rules-powered-by-daemons.html), [Goonhammer — Helsmiths of Hashut Battletome Review](https://www.goonhammer.com/goonhammer-reviews-helsmiths-of-hashut-fourth-edition-battletome).
 
@@ -75,6 +77,6 @@ Every two-color piece comes as a base + inlay STL pair, an `_anycubic.3mf` (Anyc
 - Base — [base](downloads/box_base_base.stl) · [inlay](downloads/box_base_inlay.stl) · [Anycubic 3MF](downloads/box_base_anycubic.3mf) · [plain 3MF](downloads/box_base.3mf)
 - Lid — [base](downloads/box_lid_base.stl) · [inlay](downloads/box_lid_inlay.stl) · [Anycubic 3MF](downloads/box_lid_anycubic.3mf) · [plain 3MF](downloads/box_lid.3mf)
 
-**Scripts** (Blender, headless) for adjusting sizes or counts: [build_tokens.py]({{< script "tokens/build_tokens.py" >}}) · [build_spearhead_box.py]({{< script "spearhead-box/build_spearhead_box.py" >}}) (`-- --force hashut_aos`) · [extract_icon_contours.py]({{< script "tokens/extract_icon_contours.py" >}})
+**Scripts** (Blender, headless) for adjusting sizes or counts: [build_tokens.py]({{< script "tokens/build_tokens.py" >}}) · [build_spearhead_box.py]({{< script "spearhead-box/build_spearhead_box.py" >}}) (`-- --force hashut_aos`) · [extract_icon_contours.py]({{< script "icon-trace/extract_icon_contours.py" >}})
 
-**Icon contours** (the scripts read them by relative path, so keep the folder layout from these URLs): [bull_contours.json]({{< script "tokens/bull_contours.json" >}}) · [rune_contours.json]({{< script "tokens/rune_contours.json" >}}) · [dice_roll_contours.json]({{< script "assets/icons/dice_roll_contours.json" >}}) · [cards_contours.json]({{< script "assets/icons/cards_contours.json" >}}) · [die_five_contours.json]({{< script "assets/icons/die_five_contours.json" >}}) · [logo_contours_v5.json]({{< script "card-stand/logo_contours_v5.json" >}})
+**Icon contours** (the scripts read them by relative path, so keep the folder layout from these URLs): [hashut_bull_contours.json]({{< script "assets/icons/hashut_bull_contours.json" >}}) · [hashut_rune_contours.json]({{< script "assets/icons/hashut_rune_contours.json" >}}) · [dice_roll_contours.json]({{< script "assets/icons/dice_roll_contours.json" >}}) · [cards_contours.json]({{< script "assets/icons/cards_contours.json" >}}) · [die_five_contours.json]({{< script "assets/icons/die_five_contours.json" >}}) · [logo_contours_v5.json]({{< script "card-stand/logo_contours_v5.json" >}})

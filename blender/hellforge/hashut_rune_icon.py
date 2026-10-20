@@ -5,8 +5,8 @@ Blender/bpy script - paste into the Script Editor and run (Alt+P), or:
   blender --background --python hashut_rune_icon.py
 
 Same idea as hashut_lid_icon.py (the bull skull) but the OTHER Hashut icon
-from the token project - the V/E rune (blender/tokens/rune_contours.json,
-traced from blender/tokens/source/rune_hashut.jpeg). Much simpler shape:
+from the token project - the V/E rune (blender/assets/icons/hashut_rune_contours.json,
+traced from blender/assets/icons/source/rune_hashut.jpeg). Much simpler shape:
 one contour, no holes, nearly perfectly square (aspect 1.00002) - so
 unlike the bull, sized to print in ONE piece, no cutting/splitting logic
 needed at all. RUNE_W just has to stay under the bed margin on both axes,
@@ -27,7 +27,7 @@ import os
 # ============================================================
 # CONFIG (all mm)
 # ============================================================
-CONTOURS_PATH = "/Users/mannil/studio-m/blender/tokens/rune_contours.json"
+CONTOURS_PATH = "/Users/mannil/studio-m/blender/assets/icons/hashut_rune_contours.json"
 EXPORT_DIR = "/Users/mannil/studio-m/blender/hellforge/output_lid_icon"
 EXPORT_STL = True
 
@@ -173,7 +173,7 @@ def dedupe_closed_loop(points, tol=1e-9):
 def main():
     clear_scene()
     with open(CONTOURS_PATH) as f:
-        contours = json.load(f)
+        contours = json.load(f)["polygons"]
     outer = [c for c in contours if not c["hole"]]
     assert len(outer) == 1 and not any(c["hole"] for c in contours), \
         "rune_contours.json is no longer a single holeless contour - this script assumed that, re-check"

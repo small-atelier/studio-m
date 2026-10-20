@@ -5,9 +5,9 @@ Blender/bpy script - paste into the Script Editor and run (Alt+P), or:
   blender --background --python hashut_lid_icon.py
 
 Not a new icon design - reuses the bull skull already traced for the
-Daemonic Power token project (blender/tokens/bull_contours.json, marching-
-squares contours from blender/tokens/source/bull_hashut.png, see
-extract_icon_contours.py there). Scaled way up and printed flat, 3mm
+Daemonic Power token project (blender/assets/icons/hashut_bull_contours.json, marching-
+squares contours from blender/assets/icons/source/bull_hashut.png, see
+../icon-trace/extract_icon_contours.py). Scaled way up and printed flat, 3mm
 thick, as a multi-part appliqué glued onto the box lid - a completely
 different physical object from the tokens, same source art.
 
@@ -43,7 +43,7 @@ import os
 # ============================================================
 # CONFIG (all mm)
 # ============================================================
-CONTOURS_PATH = "/Users/mannil/studio-m/blender/tokens/bull_contours.json"
+CONTOURS_PATH = "/Users/mannil/studio-m/blender/assets/icons/hashut_bull_contours.json"
 EXPORT_DIR = "/Users/mannil/studio-m/blender/hellforge/output_lid_icon"
 EXPORT_STL = True
 
@@ -226,8 +226,10 @@ def dedupe_closed_loop(points, tol=1e-9):
 
 
 def load_contours():
+    """Returns (polygons, aspect h/w) - see ../icon-trace/extract_icon_contours.py."""
     with open(CONTOURS_PATH) as f:
-        return json.load(f)
+        data = json.load(f)
+    return data["polygons"], data["aspect"]
 
 
 GAP_CONNECTOR_OVERLAP = 2.0   # how far the connector reaches past each real edge, for a real union overlap
@@ -337,13 +339,9 @@ def fit_to_bed(piece, name, depth=0):
 
 def main():
     clear_scene()
-    contours = load_contours()
-    outer = [c for c in contours if not c["hole"]]
-    xs = [p[0] for c in outer for p in c["points"]]
-    ys = [p[1] for c in outer for p in c["points"]]
-    aspect = (max(xs) - min(xs)) / (max(ys) - min(ys))
-    icon_h = ICON_W / aspect
-    print(f"Icon: {ICON_W:.1f}x{icon_h:.1f}mm (aspect {aspect:.4f} from the traced outline)")
+    contours, aspect = load_contours()
+    icon_h = ICON_W * aspect
+    print(f"Icon: {ICON_W:.1f}x{icon_h:.1f}mm (aspect h/w {aspect:.4f} from the trace)")
 
     real_outer, real_holes = [], []
     for c in contours:

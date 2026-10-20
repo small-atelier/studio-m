@@ -49,7 +49,7 @@ import zipfile
 # ============================================================
 # CONFIG (all mm)
 # ============================================================
-RUNE_CONTOURS_PATH = "/Users/mannil/studio-m/blender/tokens/rune_contours.json"
+RUNE_CONTOURS_PATH = "/Users/mannil/studio-m/blender/assets/icons/hashut_rune_contours.json"
 EXPORT_DIR = "/Users/mannil/studio-m/blender/hellforge/output_corner_trim"
 EXPORT_STL = True
 EXPORT_3MF = True
@@ -215,7 +215,7 @@ def _rune_points(compensate_deg=0.0):
     of the piece - it's baked into the cap's own geometry, not a separate
     rigid attachment."""
     with open(RUNE_CONTOURS_PATH) as f:
-        contours = json.load(f)
+        contours = json.load(f)["polygons"]
     outer = [c for c in contours if not c["hole"]]
     xs = [p[0] for p in outer[0]["points"]]
     ys = [p[1] for p in outer[0]["points"]]

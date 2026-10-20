@@ -77,9 +77,8 @@ INLAY_EXTRUDER_SLOT = 2
 #   ("rack", cols, rows)            Destiny Dice rack, cols x rows 12mm die slots
 # back_row_spread: True spreads the items across the full width with equal gaps instead of
 # packing them DIV_T apart.
-# lid_center: {"contours", "w", optional "rot" (deg), optional "aspect" (only for raw-list
-# contour files, which don't carry their own)}. lid_corners: {"contours", optional "aspect"} -
-# LID_CORNER_W wide, LID_CORNER_MARGIN in from each lid edge.
+# lid_center: {"contours", "w", optional "rot" (deg)}. lid_corners: {"contours"} - LID_CORNER_W
+# wide, LID_CORNER_MARGIN in from each lid edge.
 # ============================================================
 
 FORCES = {
@@ -90,10 +89,8 @@ FORCES = {
         "inlay_color": (0.06, 0.45, 0.12, 1.0),   # green
         "back_row": [("rect", 58.0, 32.0, 40.0), ("rect", 58.0, 32.0, 40.0)],   # 2 Desolation stacks
         "back_row_spread": False,
-        "lid_center": {"contours": os.path.join(_BLENDER_DIR, "tokens", "bull_contours.json"),
-                       "aspect": 1.0, "w": 46.0},
-        "lid_corners": {"contours": os.path.join(_BLENDER_DIR, "tokens", "rune_contours.json"),
-                        "aspect": 1.0},
+        "lid_center": {"contours": os.path.join(_ICONS_DIR, "hashut_bull_contours.json"), "w": 46.0},
+        "lid_corners": {"contours": os.path.join(_ICONS_DIR, "hashut_rune_contours.json")},
     },
     # Blades of Khorne - hex tokens + damage trays, ../khorne-tokens/build_khorne_tokens.py
     "khorne": {
@@ -525,14 +522,10 @@ def back_notch_points(center_x, width, well_center_y):
             (center_x + hw, EXT_D + HOLE_OVERSHOOT), (center_x - hw, EXT_D + HOLE_OVERSHOOT)]
 
 
-def load_contours(path, aspect=None):
-    """Returns (polygons, aspect h/w). ../icon-trace/extract_icon_contours.py output carries its
-    own aspect; the older raw-list files (the Hashut icons) need it passed in."""
+def load_contours(path):
+    """Returns (polygons, aspect h/w) - see ../icon-trace/extract_icon_contours.py."""
     with open(path) as f:
         data = json.load(f)
-    if isinstance(data, list):
-        assert aspect is not None, f"{path}: raw contour list needs an explicit aspect"
-        return data, aspect
     return data["polygons"], data["aspect"]
 
 
@@ -1023,7 +1016,7 @@ def build_lid(force):
     # decorative class, one combined cut (separate zones: 3mm slab, 0.6mm pockets from opposite
     # faces, corner icons well clear of the center one).
     center = force["lid_center"]
-    icon, icon_aspect = load_contours(center["contours"], center.get("aspect"))
+    icon, icon_aspect = load_contours(center["contours"])
     icon_w = center["w"]
     icon_h = icon_w * icon_aspect
     rot_deg = center.get("rot", 0.0)
@@ -1056,7 +1049,7 @@ def build_lid(force):
 
     corner = force["lid_corners"]
     if corner:
-        rune, rune_aspect = load_contours(corner["contours"], corner.get("aspect"))
+        rune, rune_aspect = load_contours(corner["contours"])
         rune_w, rune_h = LID_CORNER_W, LID_CORNER_W * rune_aspect
         x0, x1 = cx - lid_ext_w / 2.0 + LID_CORNER_MARGIN, cx + lid_ext_w / 2.0 - LID_CORNER_MARGIN
         y0, y1 = cy - lid_ext_d / 2.0 + LID_CORNER_MARGIN, cy + lid_ext_d / 2.0 - LID_CORNER_MARGIN
