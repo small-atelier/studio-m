@@ -35,7 +35,10 @@ copy an existing page's frontmatter shape as a starting point.
 - `content/armies/[name]/_index.md` — Armies (40K and AoS): roster, army lists, unit pages, paint
 - `content/spearhead/[name]/` — Spearhead forces: list, rules PDFs, links to their printables
 - `content/projects/[name]/` — Multi-session physical builds (boards, terrain sets, workshop gear), each with a Status list
-- `content/printables/[name]/index.md` — Single downloadable designs (STL + Blender/Python script)
+- `content/printables/[name]/index.md` — Single downloadable designs (STL + Blender/Python script).
+  Game-specific army kits (tokens + carry box) go in a per-game section: `printables/aos/`,
+  `printables/spearhead/`, `printables/40k/` (created with its first kit). Anything usable
+  across games, or not game-related, stays in `printables/` itself.
 - `content/inventory/[category]/[name].md` — Paint, resin, FDM printer stock tracking
 - `content/notes/` — Quick reference notes (hidden from the menu until one is published)
 
