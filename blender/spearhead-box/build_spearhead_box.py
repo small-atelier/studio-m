@@ -1,6 +1,6 @@
 """
-Spearhead carry box - one box per Spearhead force, holding the warscroll card stack and that
-force's game tokens, closed by a slip-fit lid that doubles as a dice tray. Every force shares the
+Spearhead carry box - one box per Spearhead force (plus hashut_aos, the full Age of Sigmar
+Hashut kit on the same footprint), holding the warscroll card stack and that force's game tokens, closed by a slip-fit lid that doubles as a dice tray. Every force shares the
 footprint (165.5 x 131.2 x 24.5mm base), the well layout, the lid and the decoration; FORCES holds
 what differs: colours, the back row of wells and the lid-top icons.
 
@@ -82,8 +82,9 @@ INLAY_EXTRUDER_SLOT = 2
 # ============================================================
 
 FORCES = {
-    # Helsmiths of Hashut - DPP hex tokens + Desolation tokens, ../tokens/build_tokens.py
-    "hashut": {
+    # Helsmiths of Hashut, full Age of Sigmar (Battletome) - DPP hex tokens + Desolation tokens,
+    # ../tokens/build_tokens.py
+    "hashut_aos": {
         "base_color": (1.0, 1.0, 1.0, 1.0),       # white
         "inlay_color": (0.06, 0.45, 0.12, 1.0),   # green
         "back_row": [("rect", 58.0, 32.0, 40.0), ("rect", 58.0, 32.0, 40.0)],   # 2 Desolation stacks
