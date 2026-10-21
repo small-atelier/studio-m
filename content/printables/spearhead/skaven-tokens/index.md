@@ -24,7 +24,7 @@ Skaven have no token resource of their own, like the Blood Tithe or Daemonic Pow
 
 **Ability tokens** (56×30mm, the plate of the Hashut Desolation token): one per regiment ability and enhancement across both Spearheads, plus the Rat Ogors' *Unleashed Warp-Fury*. Text only, in a condensed font that keeps letters open at small size.
 
-- **Front:** the ability's name on the first two rows, a short version of the rule on the third. It prints against the bed, where small text comes out crispest.
+- **Front:** the ability's name on the first two rows, a short version of the rule on the third. It prints on top.
 - **Back:** who it applies to (GENERAL, ARMY or RAT OGORS), then when it's used.
 
 Before the game, pull the regiment and enhancement tokens for the chosen picks and keep them with the warscroll cards. The Warp-Fury token goes beside the Rat Ogors. Flip a once-per-battle token when it's used.

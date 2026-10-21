@@ -18,10 +18,10 @@ are carried over unchanged; see those scripts' comments for the reasoning.
 Ability tokens: 56x30mm rectangles (the Hashut Desolation token's plate),
 one per regiment ability / enhancement pick across both Spearheads plus the
 Rat Ogors' once-per-battle Unleashed Warp-Fury (see TOKENS). Text only, no
-icon. Front: the name on rows 1-2 and a short rule on row 3; exported FRONT
-DOWN so it prints on the bed, where small inlay text comes out crispest.
-Back, mirrored so it reads when flipped: who it applies to (GENERAL / ARMY
-/ RAT OGORS), then the timing (PASSIVE, ONCE PER BATTLE, ...).
+icon. Front: the name on rows 1-2 and a short rule on row 3; the front prints on
+top, where the small inlay text comes out crisp. Back (on the bed),
+mirrored so it reads when flipped: who it applies to (GENERAL / ARMY / RAT
+OGORS), then the timing (PASSIVE, ONCE PER BATTLE, ...).
 
 Damage tray: arrow-shaped plate with a square pocket holding one 16mm d6
 showing the damage on the unit's current wounded model; the arrow points
@@ -832,8 +832,8 @@ def fit_text_size(lines, n_rows, gap):
 
 
 def build_ability_token(name_lines, rule, back_lines, front_size, back_size):
-    """Front (printed on the bed): the ability's name on rows 1-2, its rule on row 3 - three fixed
-    rows, so the rule is always in the same place. Back (printed on top, mirrored to read when
+    """Front (printed on top): the ability's name on rows 1-2, its rule on row 3 - three fixed
+    rows, so the rule is always in the same place. Back (printed on the bed, mirrored to read when
     flipped): who it applies to, then the timing, block centered."""
     assert 1 <= len(name_lines) <= 2, f"{name_lines}: names take one or two rows"
     shell = build_box(TOKEN_W, PLATE_T, TOKEN_H, (0.0, PLATE_T / 2.0, 0.0), "token_shell")
@@ -963,23 +963,7 @@ def reorient_for_print(obj, thickness):
     return obj
 
 
-def reorient_front_down(obj, thickness):
-    """Like reorient_for_print, but the front face (y=0) goes on the BED - the ability tokens'
-    small text prints crispest against the build plate. (x, y, z) -> (-x, z, y) is a proper
-    rotation (determinant +1), so nothing is mirrored."""
-    bm = bmesh.new()
-    bm.from_mesh(obj.data)
-    for v in bm.verts:
-        x, y, z = v.co
-        v.co = (-x, z, y)
-    bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
-    bm.normal_update()
-    bm.to_mesh(obj.data)
-    bm.free()
-    return obj
-
-
-def export_piece(name, base, inlay, thickness, render_back, front_down=False):
+def export_piece(name, base, inlay, thickness, render_back):
     """Sanity-check both parts, color and render (still in build orientation,
     for the render camera), then reorient flat for printing and export
     base.stl + inlay.stl plus the combined 3MFs."""
@@ -1006,9 +990,8 @@ def export_piece(name, base, inlay, thickness, render_back, front_down=False):
         if render_back:
             render_face(f"{name}_back", from_back=True)
 
-    reorient = reorient_front_down if front_down else reorient_for_print
-    reorient(base, thickness)
-    reorient(inlay, thickness)
+    reorient_for_print(base, thickness)
+    reorient_for_print(inlay, thickness)
 
     if EXPORT_STL:
         export_stl(base, f"{name}_base.stl")
@@ -1037,7 +1020,7 @@ def main():
         for name, (name_lines, rule, back_lines) in TOKENS.items():
             clear_scene()
             base, inlay = build_ability_token(name_lines, rule, back_lines, front_size, back_size)
-            export_piece(name, base, inlay, PLATE_T, render_back=True, front_down=True)
+            export_piece(name, base, inlay, PLATE_T, render_back=True)
 
     if "tray" in PIECES:
         clear_scene()
