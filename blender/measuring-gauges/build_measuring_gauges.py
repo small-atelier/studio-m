@@ -104,6 +104,8 @@ MYTHOS_CONTOURS_PATH = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "mythos-l
 KHORNE_CONTOURS_PATH = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "assets", "icons", "khorne_contours.json"))
 # Horned Rat rune - the shared trace in blender/assets/icons.
 SKAVEN_CONTOURS_PATH = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "assets", "icons", "rat_rune_contours.json"))
+# Hashut rune - the shared trace in blender/assets/icons.
+HASHUT_CONTOURS_PATH = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "assets", "icons", "hashut_rune_contours.json"))
 
 EXPORT_DIR = os.path.join(SCRIPT_DIR, "output")
 RENDER_DIR = os.path.join(EXPORT_DIR, "renders")
@@ -113,6 +115,7 @@ BASE_COLOR = (0.05, 0.05, 0.05, 1.0)   # preview only - black plate
 INLAY_COLOR = (1.0, 1.0, 1.0, 1.0)     # preview only - white ticks/numerals/badge
 KHORNE_INLAY_COLOR = (0.65, 0.03, 0.03, 1.0)   # preview only - red, matches khorne-tokens
 SKAVEN_INLAY_COLOR = (0.30, 0.80, 0.10, 1.0)   # preview only - warpstone green, matches skaven-tokens
+HASHUT_INLAY_COLOR = (0.06, 0.45, 0.12, 1.0)   # preview only - green, matches hashut-spearhead-tokens
 
 BASE_EXTRUDER_SLOT = 1    # edit to match your AMS loadout on the day you slice
 INLAY_EXTRUDER_SLOT = 2
@@ -955,6 +958,12 @@ GAUGES_KHORNE = [
 GAUGES_SKAVEN = [
     {**GAUGES_V2[0], "name": "small_skaven", "front_icon_h": 16.0, "front_icon_path": SKAVEN_CONTOURS_PATH},
     {**GAUGES_V2[1], "name": "medium_skaven", "front_icon_h": 48.0, "front_icon_path": SKAVEN_CONTOURS_PATH},
+]
+
+# Hashut editions - the Hashut rune (square, aspect 1.0), green inlay.
+GAUGES_HASHUT = [
+    {**GAUGES_V2[0], "name": "small_hashut", "front_icon_h": 16.0, "front_icon_path": HASHUT_CONTOURS_PATH},
+    {**GAUGES_V2[1], "name": "medium_hashut", "front_icon_h": 48.0, "front_icon_path": HASHUT_CONTOURS_PATH},
 ]
 
 
@@ -1816,6 +1825,7 @@ def main():
     # Phase 1c: Khorne editions of the v2 pieces, red inlay.
     build_gauges_v2(GAUGES_KHORNE, inlay_color=KHORNE_INLAY_COLOR)
     build_gauges_v2(GAUGES_SKAVEN, inlay_color=SKAVEN_INLAY_COLOR)
+    build_gauges_v2(GAUGES_HASHUT, inlay_color=HASHUT_INLAY_COLOR)
 
     # configure_gauge's badge_text_size param reassigns the module-level
     # MYTHOS_TEXT_SIZE global (see that function's own docstring) - GAUGES_V2's

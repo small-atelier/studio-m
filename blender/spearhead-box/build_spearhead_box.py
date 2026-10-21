@@ -94,6 +94,18 @@ FORCES = {
         "lid_center": {"contours": os.path.join(_ICONS_DIR, "hashut_bull_contours.json"), "w": 46.0},
         "lid_corners": {"contours": os.path.join(_ICONS_DIR, "hashut_rune_contours.json")},
     },
+    # Helsmiths of Hashut, Helforge Host Spearhead - hex DPP tokens (../tokens/build_tokens.py) and hex
+    # control tokens in the left column, ability tokens + damage trays from ../hashut-spearhead-tokens/
+    "hashut": {
+        "base_color": (1.0, 1.0, 1.0, 1.0),       # white
+        "inlay_color": (0.06, 0.45, 0.12, 1.0),   # green
+        # 7 ability tokens; both double trays with the single tray nested on top (its arrow fits
+        # inside the double's outline) - 3 trays, 19.5mm in the 22mm well
+        "back_row": [("rect", 58.0, 32.0, 40.0), ("tray", 41.4, 32.0)],
+        "back_row_spread": True,
+        "lid_center": {"contours": os.path.join(_ICONS_DIR, "hashut_bull_contours.json"), "w": 46.0},
+        "lid_corners": {"contours": os.path.join(_ICONS_DIR, "hashut_rune_contours.json")},
+    },
     # Blades of Khorne - hex tokens + damage trays, ../khorne-tokens/build_khorne_tokens.py
     "khorne": {
         "base_color": (0.04, 0.04, 0.04, 1.0),    # black
