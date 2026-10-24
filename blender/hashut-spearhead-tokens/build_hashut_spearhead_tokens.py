@@ -23,7 +23,7 @@ the bed), mirrored so it reads when flipped: who it applies to (GENERAL /
 ARMY / COHORT), then the timing. The Daemonic Power tokens are the hex DPP tokens
 from ../tokens/build_tokens.py, not built here.
 
-Damage tray: arrow-shaped plate with a square pocket holding one 16mm d6
+Damage tray: arrow-shaped plate with a square pocket holding one 12mm d6
 showing the damage on the unit's current wounded model; the arrow points
 at the unit. Single-sided - rune on the arrowhead's top face only. Print x1
 (War Despot). Double tray: same arrow, twice as wide, two die pockets side
@@ -165,18 +165,18 @@ CONTROL_GAP = 1.2
 CONTROL_BLOCK_SHIFT = 1.3   # block sits this far above center - the wide label needs the hex's full width
 
 # ---- Damage tray (arrow) ----
-DIE_SIZE = 16.0             # standard 16mm d6
+DIE_SIZE = 12.0             # small 12mm d6 - smaller trays, so the box fits a single and a double well
 DIE_CLEARANCE = 0.4         # per side - drops in and lifts out without sticking
-TRAY_POCKET_W = DIE_SIZE + 2.0 * DIE_CLEARANCE    # 16.8
+TRAY_POCKET_W = DIE_SIZE + 2.0 * DIE_CLEARANCE    # 12.8
 TRAY_POCKET_DEPTH = 5.0
 TRAY_FLOOR_T = 1.5
 TRAY_T = TRAY_POCKET_DEPTH + TRAY_FLOOR_T         # 6.5 - three stack to 19.5, inside a 22mm well
 TRAY_WALL = 2.6             # material around the pocket
-TRAY_BODY_W = TRAY_POCKET_W + 2.0 * TRAY_WALL     # 22.0 - square body, pocket centered on origin
-TRAY_DOUBLE_BODY_W = 2.0 * TRAY_POCKET_W + 3.0 * TRAY_WALL   # 41.4 - two pockets, wall between
+TRAY_BODY_W = TRAY_POCKET_W + 2.0 * TRAY_WALL     # 18.0 - square body, pocket centered on origin
+TRAY_DOUBLE_BODY_W = 2.0 * TRAY_POCKET_W + 3.0 * TRAY_WALL   # 33.4 - two pockets, wall between
 TRAY_HEAD_L = 18.0          # arrowhead length, base to tip - head is as wide as the body
-TRAY_RUNE_W = 9.0
-TRAY_RUNE_TOP_Z = 20.0      # on the arrowhead, clear of the pocket and the tapering sides
+TRAY_RUNE_W = 7.0
+TRAY_RUNE_TOP_Z = 17.0      # on the arrowhead, clear of the pocket and the tapering sides
 TRAY_CONTENT_CLEARANCE = 1.0
 
 # ============================================================

@@ -58,7 +58,7 @@ Infernal Cohort warscroll, back reads COHORT:
 
 **Control tokens** (33mm hex, ×4): the Hashut rune, *-3* and *CONTROL*, the same on both faces. *Ruinous Bombardment* on the Tormentor Bombard takes 3 off the control score of the unit it shot and up to one more unit within 6" per daemonic power point on the Bombard, on a 3+ each. Put a token beside every unit it lands on and clear them at the end of the turn.
 
-**Damage trays:** an arrow-shaped plate, 22×40×6.5mm, with a pocket for one 16mm d6. The die shows the damage on the unit's currently wounded model, and the arrow points at the unit. The engines get a **double tray** (41×40mm) with two die pockets side by side: the Dominator Engine has 10 Health and can carry 9 damage, the Tormentor Bombard 8 and 7.
+**Damage trays:** an arrow-shaped plate, 18×36×6.5mm, with a pocket for one 12mm d6. The die shows the damage on the unit's currently wounded model, and the arrow points at the unit. The engines get a **double tray** (33×36mm) with two die pockets side by side: the Dominator Engine has 10 Health and can carry 9 damage, the Tormentor Bombard 8 and 7.
 
 | Tray | Used by | Print |
 |---|---|---|
@@ -75,7 +75,7 @@ The box has the same footprint as the other Spearhead boxes (165.5×131.2×24.5m
 
 - **Left column:** 3 stacked hex wells for the 6 Daemonic Power and 4 control tokens, 7 tokens each at most. Each well has a lift notch through the left wall.
 - **Right column, front:** a 123×73mm slot for the warscroll cards, with a notch through the front wall. The floor carries a cards + die icon.
-- **Right column, back:** a well for the 7 ability tokens and an arrow-shaped well for the trays: both doubles, with the single tray nested on top inside the double's outline. Both are notched through the back wall.
+- **Right column, back:** a well for the 7 ability tokens, an arrow-shaped well for the single tray and one for the two double trays. All three are notched through the back wall.
 
 The underside carries the Mythos logo, inlaid flush.
 

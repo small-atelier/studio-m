@@ -77,6 +77,8 @@ INLAY_EXTRUDER_SLOT = 2
 #   ("rack", cols, rows)            Destiny Dice rack, cols x rows 12mm die slots
 # left_column (optional): ("rect", count) swaps the 3 hex wells for count rectangle-token wells,
 # long side front-to-back, spread over the column's depth. The footprint stays the same.
+# tray_body_d (optional): the trays' body depth front to back, TRAY_BODY_D by default - smaller for
+# trays sized to 12mm dice.
 # back_row_spread: True spreads the items across the full width with equal gaps instead of
 # packing them DIV_T apart.
 # lid_center: {"contours", "w", optional "rot" (deg)}. lid_corners: {"contours"} - LID_CORNER_W
@@ -99,9 +101,9 @@ FORCES = {
     "hashut": {
         "base_color": (1.0, 1.0, 1.0, 1.0),       # white
         "inlay_color": (0.06, 0.45, 0.12, 1.0),   # green
-        # 7 ability tokens; both double trays with the single tray nested on top (its arrow fits
-        # inside the double's outline) - 3 trays, 19.5mm in the 22mm well
-        "back_row": [("rect", 58.0, 32.0, 40.0), ("tray", 41.4, 32.0)],
+        # 7 ability tokens, the single tray, both double trays stacked - trays sized to 12mm dice
+        "back_row": [("rect", 58.0, 32.0, 40.0), ("tray", 18.0, 20.0), ("tray", 33.4, 32.0)],
+        "tray_body_d": 18.0,
         "back_row_spread": True,
         "lid_center": {"contours": os.path.join(_ICONS_DIR, "hashut_bull_contours.json"), "w": 46.0},
         "lid_corners": {"contours": os.path.join(_ICONS_DIR, "hashut_rune_contours.json")},
@@ -178,7 +180,6 @@ HEX_WELL_COUNT = 3              # stacks of up to 7 tokens
 TRAY_BODY_D = 22.0
 TRAY_HEAD_L = 18.0
 TRAY_WELL_CLEARANCE = 1.0
-TRAY_WELL_D = TRAY_BODY_D + TRAY_HEAD_L + 2.0 * TRAY_WELL_CLEARANCE       # 42.0
 
 DIE_SIZE = 16.0         # loose-dice well must fit a 16mm d6
 
@@ -303,13 +304,20 @@ print(f"Box exterior: {EXT_W:.1f} x {EXT_D:.1f} x {BASE_EXT_H:.1f}mm (base); "
       f"lid adds {LID_T:.1f}mm on top, {2*(LID_CLEARANCE+LID_WALL_T):.1f}mm on each footprint side")
 
 
-def _tray_outline(body_w):
+def _tray_body_d(force):
+    return force.get("tray_body_d", TRAY_BODY_D)
+
+
+def _tray_well_d(force):
+    return _tray_body_d(force) + TRAY_HEAD_L + 2.0 * TRAY_WELL_CLEARANCE    # 42.0 by default
+
+
+def _tray_outline(body_w, body_d):
     """Tray pentagon in its own frame: flat end at y=0, tip pointing -Y (tip-forward in the box,
-    so the flat end sits against the back wall where the lift notch is). The body is always
-    TRAY_BODY_D deep; body_w is its width (wider for a double tray)."""
+    so the flat end sits against the back wall where the lift notch is). The body is body_d deep
+    and body_w wide (wider for a double tray)."""
     hw = body_w / 2.0
-    return [(-hw, 0.0), (hw, 0.0), (hw, -TRAY_BODY_D), (0.0, -TRAY_BODY_D - TRAY_HEAD_L),
-            (-hw, -TRAY_BODY_D)]
+    return [(-hw, 0.0), (hw, 0.0), (hw, -body_d), (0.0, -body_d - TRAY_HEAD_L), (-hw, -body_d)]
 
 
 def _rack_span(n):
@@ -380,7 +388,7 @@ def back_row_layout(force):
     for item, _, w in layout:
         if item[0] == "dice":
             assert w >= DIE_SIZE + 4.0, f"dice well only {w:.1f}mm wide - back row too full"
-        depth = {"tray": TRAY_WELL_D, "rect": item[2] if item[0] == "rect" else 0.0,
+        depth = {"tray": _tray_well_d(force), "rect": item[2] if item[0] == "rect" else 0.0,
                  "dice": BACK_ROW_D, "wheel": WHEEL_POCKET_D + POINTER_GAP + POINTER_H,
                  "rack": _rack_span(item[2]) if item[0] == "rack" else 0.0}[item[0]]
         assert depth <= BACK_ROW_D, f"{item} too deep for the back row"
@@ -939,11 +947,11 @@ def build_base(force):
     for item, x, w in layout:
         kind, cx = item[0], x + w / 2.0
         if kind == "tray":
-            well_outline = offset_convex_polygon(_tray_outline(item[1]), TRAY_WELL_CLEARANCE)
+            well_outline = offset_convex_polygon(_tray_outline(item[1], _tray_body_d(force)), TRAY_WELL_CLEARANCE)
             # _tray_outline's flat end is at y=0; shift so the offset well's back edge lands on the wall
             pts = [(cx + px, BACK_WALL_Y - TRAY_WELL_CLEARANCE + py) for px, py in well_outline]
             pocket = extrude_xy(pts, FLOOR_T, DEEP_DEPTH + HOLE_OVERSHOOT, "tray_well_cut")
-            notch = extrude_xy(back_notch_points(cx, item[2], BACK_WALL_Y - TRAY_WELL_D / 2.0),
+            notch = extrude_xy(back_notch_points(cx, item[2], BACK_WALL_Y - _tray_well_d(force) / 2.0),
                                FLOOR_T, DEEP_DEPTH, "tray_notch_cut")
             cutters.append(union_onto(pocket, notch))
         elif kind == "rect":
