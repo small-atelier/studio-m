@@ -49,3 +49,10 @@ copy an existing page's frontmatter shape as a starting point.
 **Deployment** is automatic: pushing to `main` triggers `.github/workflows/build.yml`, which runs `hugo --minify` and deploys to GitHub Pages.
 
 **Archetypes** in `archetypes/` define frontmatter templates for each content type. Reference these when adding new frontmatter fields to understand the expected structure.
+
+**Kitbash** (`blender/kitbash/`) assembles posed variants of third-party miniature STLs from TOML
+recipes (`recipes/<name>.toml`). The repo holds code and recipes only: source meshes, prepped
+parts and results live under the recipe's `data` folder, and `.gitignore` blocks STLs under
+`blender/kitbash/`. Blender scripts run as
+`/Applications/Blender.app/Contents/MacOS/Blender --background --python <script> -- …`;
+`tools/fit_joint.py` needs `blender/kitbash/.venv` (python3.13 + `requirements.txt`).
