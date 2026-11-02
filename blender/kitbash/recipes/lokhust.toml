@@ -1,0 +1,282 @@
+# Necron Lokhust Destroyer - ball/cup joints, parts snap ball-centre to cup-centre.
+# Body frame: Z up, -Y forward, symmetry plane x = 0.86, model-right = -X.
+# Joint centres are in each file's own exported coordinates (found with Hough sphere fitting).
+# offset = rest correction in body-frame mm, applied after the snap.
+# rest_rot = rest orientation correction in degrees about the joint centre, applied before posing.
+# rot = +- pose range in degrees about the joint centre (pitch about X, yaw about Z, roll about Y).
+
+name   = "lokhust"
+source = "~/Documents/STL_WH40K/xenos_armies/necrons/Necron Lokhust Destroyer"
+body   = "Lokhust Body.stl"
+data   = "~/Documents/kitbash"        # parts/, input/, out/ live here, outside the repo
+
+# Cleaned-up parts (slicer repair) dropped into input/lokhust/, by part name; kitbash moves each
+# back onto the part it replaces.
+[input]
+body   = "body.stl"
+cannon = "cannon.stl"
+arm    = "hand.stl"
+head   = "head.stl"
+
+[pose]
+count           = 18
+seed            = 1
+clash_min_pairs = 100     # smaller overlap clusters are incidental contact
+max_tries       = 30
+
+# Glyph bands (band.py): a rounded niche along each carapace plate's outer edge, cut once into the
+# body (tools/glyph_proof.py -> parts/lokhust/), with a seeded set of raised line glyphs per plate
+# per variant. mm throughout.
+[glyphs]
+midline    = 0.86
+plate_y    = [20.0, 39.0]
+min_thick  = 1.0        # plate area counted as usable where it's at least this thick
+edge_clear = 0.6        # band kept this far inside the usable area
+width      = 4.0
+corner_r   = 1.0
+depth      = 0.4        # niche depth
+glyph_top  = 0.1        # glyph tops sit this far below the original surface
+stroke     = 0.3        # glyph line width
+margin     = 0.5        # band border around the glyph chain
+n_glyphs   = 6
+max_edge   = 0.08       # cut-surface triangle size; outline faces go to 0.02
+line_step  = 0.05       # band centre-line sample spacing
+
+# Vent boxes under the hull front, 3 per side (tools/vent_proof.py, run after glyph_proof): hollow
+# channels with 0.3mm walls. Inner wall faces move inward (even thickness), the back wall moves
+# forward, and a criss-cross grate sits on the back wall. Box regions: y band per box (both sides),
+# distance from the midline, z range. mm throughout.
+[vents]
+midline   = 0.86
+bands     = [[-2.6, 4.1], [4.6, 10.2], [10.4, 16.1]]
+out       = [8.44, 17.64]
+z         = [-16.5, -8.9]
+wall      = 0.3          # side/top/bottom walls 0.3 -> 0.6 (resin unsupported-wall minimum)
+back      = 0.0          # back wall is backed by solid hull (~2.6mm); the grate sits on it as is
+bar_w     = 0.4
+bar_pitch = 1.0
+bar_h     = 1.0          # bars stand this far off the back wall
+bar_sink  = 0.1          # and run this far into it
+
+[[part]]
+name        = "cannon"
+file        = "cannon.stl"
+part_joint  = [-4.854, -5.270, 15.381]   # ball r1.19
+body_joint  = [-2.91, -2.82, 3.10]       # right-shoulder cup r1.39
+joint_r     = 1.39
+offset      = [1.5, 1.0, 1.5]            # 1.5mm in (towards the midline), 1mm back, 1.5mm up
+fill_r      = 2.0                        # joint ball, same both shoulders
+joint_margin = 2.0                       # pushed in: upper arm grazes the ribs out to ~3.4mm from the pivot (inspected)
+rot         = { pitch = 10, yaw = 12 }
+
+# Gun rework (graft.py, tools/gun_proof.py) in the gun frame fitted from the gun shell:
+# along = towards the muzzle, up, side (+side = outer, -X). All values mm.
+[part.frame]
+fit      = "barrel"
+roll_fit = [7.1, 9.2]     # front collar slab: min-area rectangle of its outline sets the roll
+                          # (up/side square to the collar faces) and recentres the frame on it
+
+# The barrel housing between the collars is cut out of the gun shell (cuts capped) and the
+# muzzle piece moves back so the collar-to-collar gap = the shortest member - 2 x overlap.
+# Members are centred on the gap, so every one runs at least `overlap` into both collar faces.
+# long / face = donor axes laid along the gun / turned towards `toward`; at = [up, side] of
+# the anchor (bbox centre, or the donor origin for the tubes' axis).
+# A second rear box behind the butt (gun_proof extend_box): the inner half of the finned rear box
+# (clear of the hoses on the outer side), mirrored at the box's symmetry plane, moved back so the
+# two boxes' end bevels meet in a panel line. Gun frame mm.
+[part.extend]
+range   = [-27.62, -19.85]   # butt bevel to front bevel along the gun
+mirror  = -0.15              # box symmetry plane (side)
+half    = 4.11               # box half width (side)
+up      = [-3.45, 3.4]       # box floor to fin tops
+overlap = 0.05               # copy runs this far into the original's butt
+
+# Pocket with a criss-cross grate in each flat lower side wall of the copy (below the fins),
+# in the original box's coordinates (the copy moves back with it).
+[part.extend.recess]
+along     = [-26.6, -20.4]   # flat wall -27.12 .. -19.88: 0.52 either end
+up        = [-2.72, -1.07]  # centred in the flat wall band (chamfer edge -3.06 .. fin curls -0.74): 0.33 either side
+depth     = 0.8
+bar_w     = 0.4
+bar_pitch = 1.0
+bar_h     = 0.5          # bar tops 0.3 below the wall surface
+bar_sink  = 0.1
+
+[part.section]
+cut     = [-10.2, 7.75]   # front end: the collar's clean face (old barrel housing + bosses end at 7.66-7.74)
+overlap = 0.6
+trim    = true         # other shells (the forearm core inside the gun) cut flush at cut[0], capped
+
+[[part.section.member]]
+name   = "tube_top_outer"
+donor  = "~/Documents/STL_WH40K/xenos_armies/necrons/lokhust gauss cannon.stl"
+scale  = 1.0
+girth  = 1.3                 # cross-section only: r1.10 -> 1.43, 0.45mm between top/bottom tubes
+long   = "+X"
+face   = "+Z"                # the 3 bumps
+toward = [1, 1]              # bumps out along the corner diagonal
+anchor = "origin"
+at     = [1.815, 1.815]       # square layout on the collar centre: 0.77mm between tubes both ways
+
+[[part.section.member]]
+name   = "tube_top_inner"
+donor  = "~/Documents/STL_WH40K/xenos_armies/necrons/lokhust gauss cannon.stl"
+scale  = 1.0
+girth  = 1.3                 # cross-section only: r1.10 -> 1.43, 0.45mm between top/bottom tubes
+long   = "+X"
+face   = "+Z"
+toward = [1, -1]
+anchor = "origin"
+at     = [1.815, -1.815]
+
+[[part.section.member]]
+name   = "tube_bottom_outer"
+donor  = "~/Documents/STL_WH40K/xenos_armies/necrons/lokhust gauss cannon.stl"
+scale  = 1.0
+girth  = 1.3                 # cross-section only: r1.10 -> 1.43, 0.45mm between top/bottom tubes
+long   = "+X"
+face   = "+Z"
+toward = [-1, 1]
+anchor = "origin"
+at     = [-1.815, 1.815]
+
+[[part.section.member]]
+name   = "tube_bottom_inner"
+donor  = "~/Documents/STL_WH40K/xenos_armies/necrons/lokhust gauss cannon.stl"
+scale  = 1.0
+girth  = 1.3                 # cross-section only: r1.10 -> 1.43, 0.45mm between top/bottom tubes
+long   = "+X"
+face   = "+Z"
+toward = [-1, -1]
+anchor = "origin"
+at     = [-1.815, -1.815]
+
+[[part.section.member]]
+name   = "rail_top"
+donor  = "~/Documents/STL_WH40K/xenos_armies/necrons/LordKallsu/heavy-d-chan/Gauss Destructor v2.stl"
+crop   = { min = [-0.12, -60.3, 5.75], max = [0.80, -41.0, 7.25] }    # clean rail run, ends at the block; X band narrowed for 0.4mm tube clearance
+scale  = 0.85                 # 19.3mm donor rail spans the 16.4mm section
+long   = "+Y"
+face   = "+Z"
+toward = "+up"
+at     = [2.8625, -0.045]      # top face flush with the square, centred between the top tubes
+
+[[part.section.member]]
+name   = "rail_bottom"
+donor  = "~/Documents/STL_WH40K/xenos_armies/necrons/LordKallsu/heavy-d-chan/Gauss Destructor v2.stl"
+crop   = { min = [-0.46, -60.3, -2.6], max = [0.76, -41.0, -1.2] }    # clean rail run, ends at the hose; X band narrowed for 0.4mm tube clearance
+scale  = 0.85
+long   = "+Y"
+face   = "+Z"
+toward = "+up"
+at     = [-2.905, -0.04]       # bottom face flush with the square, centred between the bottom tubes
+
+# Proud-rail variant (gun_proof.py --variant proud): these replace the flush rails above, lying on
+# the outside of the collar square (inner face 0.3 into the outline); no top rail (sightline).
+# The bottom rail's clean run (Y -60.3..-40.0) is the longest: 17.26mm at 0.85; along_shift centres
+# it between the rear collar face and the front collar body past its bosses (~1.04mm onto each).
+[[part.section.proud]]
+enabled     = false
+name        = "rail_outer"
+donor       = "~/Documents/STL_WH40K/xenos_armies/necrons/LordKallsu/heavy-d-chan/Gauss Destructor v2.stl"
+crop        = { min = [-0.9, -60.3, -2.6], max = [1.2, -40.0, -1.2] }
+scale       = 0.85
+long        = "+Y"
+face        = "+Z"
+toward      = "+side"
+at          = [0.0, 3.795]
+along_shift = 0.335
+
+[[part.section.proud]]
+enabled     = false
+name        = "rail_inner"
+donor       = "~/Documents/STL_WH40K/xenos_armies/necrons/LordKallsu/heavy-d-chan/Gauss Destructor v2.stl"
+crop        = { min = [-0.9, -60.3, -2.6], max = [1.2, -40.0, -1.2] }
+scale       = 0.85
+long        = "+Y"
+face        = "+Z"
+toward      = "-side"
+at          = [0.0, -3.795]
+along_shift = 0.335
+
+[[part.section.proud]]
+enabled     = false
+name        = "rail_bottom"
+donor       = "~/Documents/STL_WH40K/xenos_armies/necrons/LordKallsu/heavy-d-chan/Gauss Destructor v2.stl"
+crop        = { min = [-0.9, -60.3, -2.6], max = [1.2, -40.0, -1.2] }
+scale       = 0.85
+long        = "+Y"
+face        = "+Z"
+toward      = "-up"
+at          = [-3.795, 0.0]
+along_shift = 0.335
+
+# Grafts seated on a face: outer/inner/top/bottom (at = [along, offset]) or back, the butt end
+# (at = [side, up], or "centre" for the middle of the face). enabled = false parks one.
+[[part.graft]]
+name    = "orb_exterminator"
+donor   = "~/Documents/STL_WH40K/xenos_armies/necrons/LordKallsu/heavy-d-chan/Enmitic Exterminator v2.stl"
+crop    = { min = [-5.0, -43.5, 1.5], max = [0.0, -36.5, 8.0] }
+scale   = 0.7
+out     = "+X"
+up      = "+Z"
+face    = "back"
+at      = "centre"
+overlap = 0.3
+
+[[part.graft]]
+enabled = false
+name    = "vent_destructor"
+donor   = "~/Documents/STL_WH40K/xenos_armies/necrons/LordKallsu/heavy-d-chan/Gauss Destructor v2.stl"
+crop    = { min = [0.85, -22.0, 2.0], max = [5.0, -12.6, 7.5] }
+scale   = 0.7
+out     = "+X"
+up      = "+Z"
+face    = "outer"
+at      = [2.5, 0.0]
+overlap = 0.3
+
+[[part.graft]]
+enabled = false
+name    = "lens_destructor"
+donor   = "~/Documents/STL_WH40K/xenos_armies/necrons/LordKallsu/heavy-d-chan/Gauss Destructor v2.stl"
+crop    = { min = [0.85, -40.0, 1.5], max = [5.0, -33.0, 8.5] }
+scale   = 0.7
+out     = "+X"
+up      = "+Z"
+face    = "back"
+at      = "centre"
+overlap = 0.3
+
+[[part.graft]]
+enabled = false
+name    = "vent_exterminator"
+donor   = "~/Documents/STL_WH40K/xenos_armies/necrons/LordKallsu/heavy-d-chan/Enmitic Exterminator v2.stl"
+crop    = { min = [-5.0, -26.0, -2.0], max = [0.0, -14.0, 6.0] }
+scale   = 0.7
+out     = "+X"
+up      = "+Z"
+face    = "inner"
+at      = [2.0, 0.0]
+overlap = 0.3
+
+[[part]]
+name        = "arm"
+file        = "hand.stl"
+part_joint  = [52.350, 28.834, 36.245]   # ball r1.16
+body_joint  = [4.63, -2.88, 3.09]        # left-shoulder cup r1.35
+joint_r     = 1.35
+offset      = [-1.5, 1.0, 1.5]           # 1.5mm in (towards the midline), 1mm back, 1.5mm up
+fill_r      = 2.0                        # joint ball, same both shoulders
+joint_margin = 2.0                       # pushed in: upper arm grazes the ribs out to ~3.4mm from the pivot (inspected)
+rot         = { pitch = 15, yaw = 10, roll = 10 }
+
+[[part]]
+name        = "head"
+file        = "Head.stl"
+part_joint  = [0.003, 1.467, 1.163]      # cranium ball r1.65
+body_joint  = [0.88, -5.61, 6.78]        # chest ring cup r2.03, opens forward (x on midline)
+joint_r     = 2.03
+offset      = [0.0, 1.0, 0.3]            # 1mm back, 0.3mm up: tucked into the collar
+rest_rot    = { yaw = 7.5, pitch = -1.7, roll = 4.6 }   # mirror-symmetry fit of the head about the midline
+rot         = { pitch = 10, yaw = 25, roll = 5 }

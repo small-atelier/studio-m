@@ -27,3 +27,11 @@ tmp/
 
 # Blender script output (published copies live in the page bundles)
 /blender/**/output*/
+
+# Kitbash: meshes and results live outside the repo (recipe `data`); local Python env
+/blender/kitbash/**/*.stl
+/blender/kitbash/parts/
+/blender/kitbash/input/
+/blender/kitbash/out/
+/blender/kitbash/.venv/
+__pycache__/
