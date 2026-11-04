@@ -39,7 +39,10 @@ file       = "Head.stl"
 part_joint = [1.356, 9.0, 43.5]          # head ball r2.0
 body_joint = [1.356, 10.737, 42.872]     # body ball r1.70
 joint_r    = 2.0
-rot        = { pitch = 10, yaw = 25, roll = 5 }
+joint_margin = 1.9                       # the body's piston rods enter the skull's underside out to 3.87 from the pivot (inspected)
+# Chin level to raised: tucking it (positive pitch), turning right past +6 or tilting right runs
+# the jaw into the right piston.
+rot        = { pitch = [-10, 0], yaw = [-25, 6], roll = [-2, 5] }
 
 # Gun rig: the three arms and the weapon as one rigid group, held by the arms' shoulder balls in
 # the torso's cups (ball and cup concentric). It pivots about the shoulder line - the HandR socket
