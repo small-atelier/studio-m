@@ -17,6 +17,8 @@ hand_r  = "hand_r.stl"
 hand_lu = "hand_lu.stl"
 hand_ld = "hand_ld.stl"
 gauss_destructor = "gauss_destructor.stl"
+enmitic_exterminator = "enmitic_exterminator.stl"
+cable     = "enmitic_cable.stl"
 shoulders = "shoulders.stl"
 shell_l   = "shell_l.stl"
 shell_r   = "shell_r.stl"
@@ -45,6 +47,7 @@ rot        = { pitch = 10, yaw = 25, roll = 5 }
 # LU/LD 0.03 mm/deg). Negative = barrel up; barrel down runs into ShellR and the platform by +5.
 [[part]]
 name       = "gun"
+option     = "gauss"
 files      = { hand_r = "HandR.stl", hand_lu = "HandLU.stl", hand_ld = "HandLD.stl", gauss_destructor = "GaussDestructor.stl" }
 part_joint = [-3.493, 13.525, 35.537]    # HandR ball r1.55
 body_joint = [-3.493, 13.525, 35.537]
@@ -63,6 +66,33 @@ sockets    = [
 ]
 axis       = [10.447, -5.196, -0.374]    # HandR socket -> HandLU/HandLD socket midpoint
 rot        = { axis = [-20, -9] }      # above -9 HandR's upper arm runs under the mantle's edge
+
+# The same rig holding the Enmitic Exterminator (same hands, same seats).
+[[part]]
+name       = "gun"
+option     = "enmitic"
+files      = { hand_r = "HandR.stl", hand_lu = "HandLU.stl", hand_ld = "HandLD.stl", enmitic_exterminator = "EnmiticExterminator.stl" }
+part_joint = [-3.493, 13.525, 35.537]
+body_joint = [-3.493, 13.525, 35.537]
+joint_r    = 1.55
+joint_margin = 0.75
+fill_r     = 1.86
+sockets    = [
+    { centre = [6.267, 7.387, 36.373], r = 1.22, margin = 0.75, fill_r = 1.53 },     # HandLU
+    { centre = [7.640, 9.270, 33.953], r = 1.55, margin = 0.75, fill_r = 1.86 },     # HandLD
+]
+axis       = [10.447, -5.196, -0.374]
+rot        = { axis = [-20, -9] }
+
+# The Enmitic's cable runs from the gun's rear port round the back of the torso into its lower back.
+# Rigid with the gun its body end would leave its plug (14.3 mm from the gun axis: 2.2-5.0 mm over
+# the range) and its loop drop into the platform, so it bends: the gun end follows the gun, the
+# body end stays. Ends = the plug centres (overlap with the exterminator / body), r their reach.
+[[part]]
+name       = "cable"
+option     = "enmitic"
+file       = "EnmiticCable.stl"
+hose       = { follow = "gun", ends = [{ at = [-11.4, 11.35, 34.35], r = 1.9 }, { at = [6.35, 23.2, 29.6], r = 1.5 }] }
 
 # Platform and its two side shells: the ground the torso turns on. The spine ends in a round peg
 # (r 1.87 -> 1.84, vertical, centre [0.02, 10.28]) seated 1.4 mm in the platform's tube (rim z 21),
