@@ -36,6 +36,19 @@ seed; variants are Latin-hypercube sampled over every angle so they spread out. 
 clashes is redrawn within its own Latin-hypercube cell for the first half of max_tries, then
 uniformly at random (logged as "left its cell").
 
+Hoses: a part with hose = {follow = "<part>", ends = [{at, r}, {at, r}]} (no joint keys) is a
+flexible cable plugged into that part at the first end and into the body at the second. Each pose
+moves its vertices by a blend of the followed part's move and none, weighted along the hose (see
+hose_weights), so both plugs stay seated. Each end is a clash-exempt zone of r + JOINT_MARGIN; the
+first moves with the followed part.
+
+Options: parts with option = "<name>" (e.g. two weapons for the same arms) are built only with
+--option <name>; parts without one are shared. A recipe with options needs --option; results go
+to out/<name>/<option>/ as <name>_<option>_NN.stl. All options draw from one sliced Latin
+hypercube of count x options variants (so they must sample the same angles) and each takes its
+slice: every option's set spreads over each range, and no two variants of any option share a
+stratum.
+
 Data: the recipe's `data` folder (default: this folder) holds parts/<name>/, input/<name>/ and
 out/<name>/ - meshes and results stay outside the code.
 
@@ -60,9 +73,11 @@ the socket has been inspected - it also hides real clashes within that radius.
 Usage:
   /Applications/Blender.app/Contents/MacOS/Blender --background --python kitbash.py -- --recipe recipes/lokhust.toml
   /Applications/Blender.app/Contents/MacOS/Blender --background --python kitbash.py -- --recipe recipes/lokhust.toml --pose --preview
+  /Applications/Blender.app/Contents/MacOS/Blender --background --python kitbash.py -- --recipe recipes/heavy_lokhust_destroyer.toml --option gauss --pose
   /Applications/Blender.app/Contents/MacOS/Blender --background --python kitbash.py -- --recipe recipes/lokhust.toml --pose
 """
 import argparse
+import heapq
 import math
 import os
 import random
@@ -82,6 +97,7 @@ JOINT_MARGIN = 0.6      # mm beyond joint_r still counted as joint contact
 INPUT_TOL = 0.05        # mm an input/ part may differ in size from the part it replaces
 DEBRIS_VERTS = 50       # shells smaller than this are stray fragments (a slicer repair drops them)
 CLUSTER_MM = 1.5        # clash points closer than this are reported as one cluster
+HOSE_SEED_R = 1.5      # mm around a hose end whose vertices start the geodesic
 AXES = ("pitch", "yaw", "roll")
 COLOURS = [(0.9, 0.2, 0.2, 1), (0.2, 0.4, 0.9, 1), (0.9, 0.8, 0.2, 1), (0.6, 0.3, 0.8, 1)]
 
@@ -92,6 +108,25 @@ def load_recipe(path):
     r["source"] = os.path.expanduser(r["source"])
     r["data"] = os.path.expanduser(r.get("data", HERE))
     return r
+
+
+def select_option(recipe, option):
+    """Keeps the shared parts (no option key) and those of `option`; sets recipe["stem"], the output
+    file stem (<name>_<option>). A recipe with options needs one picked."""
+    options = sorted({p["option"] for p in recipe["part"] if "option" in p})
+    if options and option not in options:
+        raise SystemExit(f"--option must be one of {options}")
+    if option and not options:
+        raise SystemExit(f"--option {option}: the recipe has no options")
+    def sampled(o):                  # the angles a build samples, in part order
+        return [(p["name"], k) for p in recipe["part"] if p.get("option", o) == o
+                for k in AXES + ("axis",) if p.get("rot", {}).get(k)]
+    if len({tuple(sampled(o)) for o in options}) > 1:
+        raise SystemExit("options share one pose design, so they must sample the same angles: "
+                         + "; ".join(f"{o}: {sampled(o)}" for o in options))
+    recipe["part"] = [p for p in recipe["part"] if p.get("option", option) == option]
+    recipe["stem"] = f"{recipe['name']}_{option}" if option else recipe["name"]
+    recipe["options"], recipe["option"] = options, option
 
 
 def data_dir(recipe, kind):
@@ -365,14 +400,42 @@ def latin_hypercube(n, dims, rng):
     return [list(row) for row in zip(*cols)]
 
 
+def sliced_latin_hypercube(n, k, dims, rng):
+    """k slices of n samples (sliced Latin hypercube, Qian 2012): each slice is a Latin hypercube
+    of n, and all n*k together are one of n*k - every one of the n*k fine strata per dimension is
+    used once. Returns k lists of n rows."""
+    slices = [[[] for _ in range(n)] for _ in range(k)]
+    for _ in range(dims):
+        fine = [[s * k + j for j in range(k)] for s in range(n)]     # fine strata per coarse one
+        for f in fine:
+            rng.shuffle(f)
+        for o in range(k):
+            order = list(range(n))
+            rng.shuffle(order)
+            for row, s in enumerate(order):
+                slices[o][row].append((fine[s][o] + rng.random()) / (n * k) * 2 - 1)
+    return slices
+
+
 def build_scene(recipe):
     bpy.ops.wm.read_factory_settings(use_empty=True)
     body = load_group(recipe, {"name": "body", "files": {"body": recipe["body"], **recipe.get("static", {})}})
     colour(body, (0.75, 0.75, 0.75, 1))
-    parts, joints = [], []
+    parts, joints = [], []          # joints: (centre, exempt radius, part it moves with or None)
     for i, p in enumerate(recipe["part"]):
         o = load_group(recipe, p)
         colour(o, COLOURS[i % len(COLOURS)])
+        if "hose" in p:
+            h = p["hose"]
+            (a, ra), (b, rb) = [(e["at"], e["r"]) for e in h["ends"]]
+            co = np.empty(len(o.data.vertices) * 3)
+            o.data.vertices.foreach_get("co", co)
+            parts.append({"name": p["name"], "obj": o, "centre": Vector(), "snap": Matrix(), "rot": {},
+                          "axis": None, "fills": [], "ground": False,
+                          "hose": {"follow": h["follow"], "co": co.reshape(-1, 3),
+                                   "w": hose_weights(o, a, b, h.get("seed_r", HOSE_SEED_R))}})
+            joints += [(np.array(a), ra + JOINT_MARGIN, h["follow"]), (np.array(b), rb + JOINT_MARGIN, None)]
+            continue
         centre = Vector(p["body_joint"]) + Vector(p.get("offset", (0, 0, 0)))
         snap = Matrix.Translation(centre - Vector(p["part_joint"]))
         c = Matrix.Translation(centre)
@@ -387,13 +450,13 @@ def build_scene(recipe):
             exempt = p["joint_r"] + p["joint_margin"]
         else:
             exempt = max(fill_r, p["joint_r"] + JOINT_MARGIN)
-        joints.append((np.array(centre), exempt))
+        joints.append((np.array(centre), exempt, None))
         for k, s in enumerate(p.get("sockets", [])):
             s_fill = s.get("fill_r", 0.0)
             if s_fill:
                 fills.append(fill_sphere(f"{p['name']}_socket{k}_fill", Vector(s["centre"]), s_fill,
                                          COLOURS[i % len(COLOURS)]))
-            joints.append((np.array(s["centre"]), max(s_fill, s["r"] + s.get("margin", JOINT_MARGIN))))
+            joints.append((np.array(s["centre"]), max(s_fill, s["r"] + s.get("margin", JOINT_MARGIN)), None))
         parts.append({"name": p["name"], "obj": o, "centre": centre, "snap": snap,
                       "rot": p.get("rot", {}), "axis": p.get("axis"), "fills": fills,
                       "ground": p.get("ground", False)})
@@ -425,11 +488,82 @@ def place(parts, angles):
     """angles: {part name: {pitch, yaw, roll, axis}}; rotates each part about its joint centre, in
     the body frame. The ground part turns the inverse way: its angles are the body's motion on it."""
     for p in parts:
+        if "hose" in p:
+            continue
         c = Matrix.Translation(p["centre"])
         R = rotation(angles.get(p["name"], {}), p["axis"])
         if p["ground"]:
             R = R.inverted()
         p["obj"].matrix_world = c @ R @ c.inverted() @ p["snap"]
+    by_name = {p["name"]: p for p in parts}
+    for p in parts:
+        if "hose" in p:                 # follow end moves with its part, body end stays, blended between
+            h = p["hose"]
+            M = np.array(pose_matrix(by_name[h["follow"]]))
+            moved = h["co"] @ M[:3, :3].T + M[:3, 3]
+            co = (1 - h["w"])[:, None] * moved + h["w"][:, None] * h["co"]
+            p["obj"].data.vertices.foreach_set("co", co.ravel())
+            p["obj"].data.update()
+            p["obj"].matrix_world = Matrix()
+
+
+def pose_matrix(p):
+    """A part's current pose move in the body frame (its world matrix without the snap)."""
+    return p["obj"].matrix_world @ p["snap"].inverted()
+
+
+def joint_zones(joints, parts):
+    """Clash-exempt zones (centre, radius) where they are now: zones that follow a part move with it."""
+    by_name = {p["name"]: p for p in parts}
+    zones = []
+    for c, r, follow in joints:
+        if follow:
+            c = np.array(pose_matrix(by_name[follow]) @ Vector(c))
+        zones.append((c, r))
+    return zones
+
+
+def hose_weights(o, a, b, seed_r):
+    """Per-vertex blend weight along a hose mesh, 0 at end a .. 1 at end b: t = geodesic distance
+    from a over the sum of both (mesh edges, so it follows the hose's curve), then smoothstep so the
+    ends move rigidly and the bend spreads over the middle."""
+    me = o.data
+    V = np.empty(len(me.vertices) * 3)
+    me.vertices.foreach_get("co", V)
+    V = V.reshape(-1, 3)
+    E = np.empty(len(me.edges) * 2, np.int64)
+    me.edges.foreach_get("vertices", E)
+    E = E.reshape(-1, 2)
+    L = np.linalg.norm(V[E[:, 0]] - V[E[:, 1]], axis=1)
+    adj = [[] for _ in range(len(V))]
+    for (i, j), ln in zip(E.tolist(), L.tolist()):
+        adj[i].append((j, ln))
+        adj[j].append((i, ln))
+
+    def geodesic(end):
+        seed = np.where(np.linalg.norm(V - np.array(end), axis=1) < seed_r)[0]
+        if not len(seed):
+            raise SystemExit(f"{o.name}: no hose vertex within {seed_r} mm of end {end}")
+        d = np.full(len(V), np.inf)
+        d[seed] = 0.0
+        heap = [(0.0, int(s)) for s in seed]
+        heapq.heapify(heap)
+        while heap:
+            dist, u = heapq.heappop(heap)
+            if dist > d[u]:
+                continue
+            for v, ln in adj[u]:
+                if dist + ln < d[v]:
+                    d[v] = dist + ln
+                    heapq.heappush(heap, (dist + ln, v))
+        return d
+    da, db = geodesic(a), geodesic(b)
+    lost = ~(np.isfinite(da) & np.isfinite(db))
+    if lost.any():
+        raise SystemExit(f"{o.name}: {lost.sum()} hose vertices not connected to both ends")
+    t = da / np.maximum(da + db, 1e-9)
+    print(f"HOSE {o.name}: {len(V)} verts, length {np.min(da + db):.1f}-{np.max(da + db):.1f} mm")
+    return t * t * (3 - 2 * t)
 
 
 def ground_matrix(parts):
@@ -473,7 +607,7 @@ def run_baseline(recipe, out_dir):
     trees = {"body": meshes["body"].tree(body.matrix_world),
              **{p["name"]: meshes[p["name"]].tree(p["obj"].matrix_world) for p in parts}}
     clash_pts = []
-    for a, b, groups in check_clashes(trees, joints, min_pairs):
+    for a, b, groups in check_clashes(trees, joint_zones(joints, parts), min_pairs):
         print(f"CLASH {a:>8s} x {b:<8s} " + ("ok" if not groups else f"{len(groups)} clash cluster(s)"))
         for g in groups:
             c = g["c"]
@@ -504,7 +638,7 @@ def run_baseline(recipe, out_dir):
     for m in markers:
         bpy.data.objects.remove(m)
 
-    stl = os.path.join(out_dir, f"{recipe['name']}_baseline.stl")
+    stl = os.path.join(out_dir, f"{recipe['stem']}_baseline.stl")
     export_stl(objs, stl)
     print(f"EXPORT {stl}")
 
@@ -527,29 +661,45 @@ def run_pose(recipe, out_dir, preview):
 
     def clashes(angles):
         place(parts, angles)
+        for p in parts:
+            if "hose" in p:             # deformed per pose
+                meshes[p["name"]] = CollisionMesh(p["obj"])
         trees = {"body": body_tree,
                  **{p["name"]: meshes[p["name"]].tree(p["obj"].matrix_world) for p in parts}}
-        return [(a, b, len(g)) for a, b, g in check_clashes(trees, joints, min_pairs) if g]
+        return [(a, b, len(g)) for a, b, g in check_clashes(trees, joint_zones(joints, parts), min_pairs) if g]
+
+    k = len(recipe["options"]) or 1     # options share one design, each takes its slice
+    cells = n * k
 
     def in_stratum(u):
         """A fresh point in the same Latin-hypercube cell as u, so a redraw keeps the spread."""
-        return [(min(int((x + 1) / 2 * n), n - 1) + rng.random()) / n * 2 - 1 for x in u]
+        return [(min(int((x + 1) / 2 * cells), cells - 1) + rng.random()) / cells * 2 - 1 for x in u]
+
+    if k > 1:
+        design = sliced_latin_hypercube(n, k, len(dims), rng)[recipe["options"].index(recipe["option"])]
+    else:
+        design = latin_hypercube(n, len(dims), rng)
 
     poses, log = [], []
-    for i, u in enumerate(latin_hypercube(n, len(dims), rng), 1):
+    for i, u in enumerate(design, 1):
         angles = to_angles(u)
+        cell_hits = {}                  # what the in-cell draws ran into, by part pair
         for attempt in range(max_tries):
             hits = clashes(angles)
             if not hits:
                 break
+            if attempt < max_tries // 2:
+                for a, b, _ in hits:
+                    cell_hits[f"{a}x{b}"] = cell_hits.get(f"{a}x{b}", 0) + 1
             if attempt + 1 < max_tries // 2:
                 angles = to_angles(in_stratum(u))
             else:
                 angles = to_angles([rng.uniform(-1, 1) for _ in dims])
         else:
             raise SystemExit(f"variant {i:02d}: still clashing after {max_tries} tries: {hits}")
-        cell = "" if attempt < max_tries // 2 else " (left its cell)"
-        line = f"{recipe['name']}_{i:02d}  redraws={attempt}{cell}  {fmt_angles(angles)}"
+        cell = "" if attempt < max_tries // 2 else \
+            " (left its cell: " + ", ".join(f"{k} {v}x" for k, v in cell_hits.items()) + ")"
+        line = f"{recipe['stem']}_{i:02d}  redraws={attempt}{cell}  {fmt_angles(angles)}"
         print("POSE", line)
         log.append(line)
         poses.append(angles)
@@ -571,7 +721,7 @@ def run_pose(recipe, out_dir, preview):
             files.append(cam.shoot(os.path.join(out_dir, f"pose_{i:02d}_{view}.png"), view, centre, scale,
                                    f"{i:02d}" if view == "box" else ""))
         if not preview:
-            stl = os.path.join(out_dir, f"{recipe['name']}_{i:02d}.stl")
+            stl = os.path.join(out_dir, f"{recipe['stem']}_{i:02d}.stl")
             export_stl(objs + (glyphs.objs if glyphs else []), stl)
             print(f"EXPORT {stl}")
         restore()
@@ -587,10 +737,14 @@ def main():
     ap.add_argument("--recipe", required=True)
     ap.add_argument("--pose", action="store_true", help="generate the [pose] variants instead of the baseline")
     ap.add_argument("--preview", action="store_true", help="with --pose: contact sheet + poses.txt only, no STLs")
+    ap.add_argument("--option", help="build option: parts with this option plus the shared ones")
     args = ap.parse_args(argv)
 
     recipe = load_recipe(args.recipe if os.path.isabs(args.recipe) else os.path.join(HERE, args.recipe))
+    select_option(recipe, args.option)
     out_dir = data_dir(recipe, "out")
+    if args.option:
+        out_dir = os.path.join(out_dir, args.option)
     os.makedirs(out_dir, exist_ok=True)
     if args.pose:
         run_pose(recipe, out_dir, args.preview)
