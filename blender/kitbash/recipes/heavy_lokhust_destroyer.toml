@@ -1,0 +1,199 @@
+# Necron Lokhust Heavy Destroyer (VirusesofDeath) - parts share one assembled frame, so they snap
+# without registration. Frame: Z up, -Y forward. mm throughout.
+
+name   = "heavy_lokhust_destroyer"
+source = "~/Documents/STL_WH40K/xenos_armies/necrons/Lokhust Heavy Destroyers (VirusesofDeath)"
+body   = "Body.stl"
+data   = "~/Documents/kitbash"        # parts/, input/, out/ live here, outside the repo
+
+# Fixed with the body: the back mantle plates (Shoulders.stl - armour, the arms plug into the torso).
+static = { shoulders = "Shoulders.stl" }
+
+# Cleaned-up parts (slicer repair) dropped into input/heavy_lokhust_destroyer/, by part name.
+[input]
+body = "body.stl"
+head = "head.stl"
+hand_r  = "hand_r.stl"
+hand_lu = "hand_lu.stl"
+hand_ld = "hand_ld.stl"
+gauss_destructor = "gauss_destructor.stl"
+shoulders = "shoulders.stl"
+shell_l   = "shell_l.stl"
+shell_r   = "shell_r.stl"
+platform  = "platform.stl"
+
+[pose]
+count           = 6
+seed            = 1
+clash_min_pairs = 100     # smaller overlap clusters are incidental contact
+max_tries       = 30
+
+# Head on its ball: same frame as the body, so part and body joint are the ball centre. Rotation
+# only (the body's own r1.70 ball sits inside the head's r1.75 one in every pose).
+[[part]]
+name       = "head"
+file       = "Head.stl"
+part_joint = [1.356, 10.737, 42.872]     # ball r1.75
+body_joint = [1.356, 10.737, 42.872]
+joint_r    = 1.75
+joint_margin = 1.45                      # both pistons pass through the skull underside out to 3.13 from the pivot (inspected)
+rot        = { pitch = 10, yaw = 25, roll = 5 }
+
+# Gun rig: the three arms and the weapon as one rigid group, held by the arms' shoulder balls in
+# the torso's cups (ball and cup concentric). It pivots about the shoulder line - the HandR socket
+# to the HandLU/HandLD socket midpoint - where the shoulder balls move least (R on the axis,
+# LU/LD 0.03 mm/deg). Negative = barrel up; barrel down runs into ShellR and the platform by +5.
+[[part]]
+name       = "gun"
+files      = { hand_r = "HandR.stl", hand_lu = "HandLU.stl", hand_ld = "HandLD.stl", gauss_destructor = "GaussDestructor.stl" }
+part_joint = [-3.493, 13.525, 35.537]    # HandR ball r1.55
+body_joint = [-3.493, 13.525, 35.537]
+joint_r    = 1.55
+# Behind each shoulder ball the arm continues into the torso as a small ball and a square cone
+# key, buried by design; body contact reaches 2.27 mm from the socket centres over the whole
+# pitch range, nothing beyond (inspected).
+joint_margin = 0.75
+# Each ball sits in its cup with a 0.01 shell (cup r = ball r + 0.01) and moves off it tangentially
+# when pitched (0.58 mm at -20), so a fill sphere fixed in the cup, cup r + 0.3, fuses ball and
+# cup in every pose and closes the crescent the moved ball leaves.
+fill_r     = 1.86
+sockets    = [
+    { centre = [6.267, 7.387, 36.373], r = 1.22, margin = 0.75, fill_r = 1.53 },     # HandLU
+    { centre = [7.640, 9.270, 33.953], r = 1.55, margin = 0.75, fill_r = 1.86 },     # HandLD
+]
+axis       = [10.447, -5.196, -0.374]    # HandR socket -> HandLU/HandLD socket midpoint
+rot        = { axis = [-20, -9] }      # above -9 HandR's upper arm runs under the mantle's edge
+
+# Platform and its two side shells: the ground the torso turns on. The spine ends in a round peg
+# (r 1.87 -> 1.84, vertical, centre [0.02, 10.28]) seated 1.4 mm in the platform's tube (rim z 21),
+# so the torso yaws about the peg axis and tilts about the rim point. rot is the torso's motion on
+# the platform: positive yaw turns it counter-clockwise seen from above. Below yaw -30 the gun's
+# barrel, pitched low, swings into ShellR.
+# The torso sits 2 mm lower than in the source (offset raises the platform in the body frame;
+# deeper, the torso meets ShellL at 3 mm). The platform's socket is a blind hole (r 1.85, floor
+# z 19.58, rim 20.9 in its own frame); the peg end now runs 2 mm through its floor and the first
+# spine collar (r 2.2) cuts into its wall, except at the collar's spiral notch, which comes back to
+# the hole radius. The fill cylinder (hole r + 0.3, from below the old floor to 0.1 under the rim)
+# closes that hairline; it is buried in the platform and the spine.
+[[part]]
+name       = "platform"
+files      = { platform = "Platform.stl", shell_l = "ShellL.stl", shell_r = "ShellR.stl" }
+part_joint = [0.02, 10.28, 21.0]
+body_joint = [0.02, 10.28, 21.0]
+offset     = [0, 0, 2.0]
+joint_r    = 1.87
+fill_cyl   = { r = 2.15, from = [0.02, 10.28, 21.0], to = [0.02, 10.28, 22.8] }
+ground     = true
+rot        = { yaw = [-30, 20], pitch = 3, roll = 3 }     # past +20 the lowered torso meets the hull
+
+# Prep (tools/prep.py), run in order, writes parts/heavy_lokhust_destroyer/.
+
+# Head off the body. The head is the skull, its loop ring and its ball (sculpted sphere at the
+# back of the skull); it poses by rotating about the ball centre only. It is joined to the body by
+# the ball's neck, the jaw and two hoses. Each `cuts` plane splits only the surface within `reach`
+# of `at`; the ball's faces are the seam to the neck. The jaw is cut where it meets the body; each
+# hose is cut twice - the body keeps its stub, the middle goes, the head keeps none.
+[[prep]]
+op        = "split"
+part      = "Body.stl"
+out       = "Head.stl"               # the piece containing `seed`
+seed      = [1.0, 6.0, 43.0]         # a point on the skull face
+rest_seed = [0.0, 18.0, 30.0]        # a point on the body
+ball      = { centre = [1.356, 10.737, 42.872], r = 1.75, tol = 0.015 }
+cuts      = [
+    { name = "jaw",             at = [1.15, 7.0, 38.3],   normal = [0, 0, 1],         reach = 1.45 },
+    { name = "hose left",       at = [-1.1, 9.83, 40.3],  normal = [1.1, -0.25, 2.0], reach = 0.8 },
+    { name = "hose right",      at = [2.8, 8.75, 40.3],   normal = [-1.05, 0.9, 2.0], reach = 0.7 },
+    { name = "hose left head",  at = [-0.311, 9.658, 41.853], normal = [1.1, -0.25, 2.0], reach = 0.8 },
+    { name = "hose right head", at = [2.52, 8.98, 40.8],  normal = [-1.05, 0.9, 2.0], reach = 0.7 },
+]
+
+# The body's own ball, inside the head's (same centre, 0.05 smaller - no coincident surfaces), so
+# the head is fused to the neck in every rotation.
+[[prep]]
+op     = "sphere"
+part   = "Body.stl"
+centre = [1.356, 10.737, 42.872]
+r      = 1.70
+
+# Pistons: sleeve r 0.77 where they leave the body, rod r 0.60 above it (centre lines fitted from
+# sections; at t = 0 the line passes the rod section near the old head-side join). The body's
+# pistons are stripped, from just above where the sleeve leaves the body to past the stub top,
+# and rebuilt from the same base points aimed at the ball centre: sleeve (original length, left
+# 1.0, right 1.7, sunk 0.4 into the body) and rod from 0.2 inside the sleeve to the centre.
+[[prep]]
+op    = "strip"
+part  = "Body.stl"
+name  = "piston left"
+seed  = [0.0, 18.0, 30.0]
+point = [-1.562, 9.957, 39.537]
+dir   = [0.4865, -0.1162, 0.8659]
+range = [-2.5, 1.3]
+r     = 0.77
+tol   = 0.15
+
+[[prep]]
+op    = "strip"
+part  = "Body.stl"
+name  = "piston right"
+seed  = [0.0, 18.0, 30.0]
+point = [3.132, 8.353, 39.56]
+dir   = [-0.3645, 0.3463, 0.8644]
+range = [-2.5, 1.3]
+r     = 0.77
+tol   = 0.15
+
+[[prep]]
+op    = "rod"
+part  = "Body.stl"
+name  = "piston left sleeve"
+start = [-3.042, 10.225, 37.010]
+end   = [-2.204, 10.323, 38.127]
+r     = 0.77
+
+[[prep]]
+op    = "rod"
+part  = "Body.stl"
+name  = "piston left rod"
+start = [-2.324, 10.309, 37.967]
+end   = [1.356, 10.737, 42.872]
+r     = 0.60
+
+[[prep]]
+op    = "rod"
+part  = "Body.stl"
+name  = "piston right sleeve"
+start = [4.217, 7.282, 37.039]
+end   = [3.401, 8.268, 38.703]
+r     = 0.77
+
+[[prep]]
+op    = "rod"
+part  = "Body.stl"
+name  = "piston right rod"
+start = [3.478, 8.174, 38.545]
+end   = [1.356, 10.737, 42.872]
+r     = 0.60
+
+# The head keeps none of the pistons: what is left above the head-side cuts is stripped.
+[[prep]]
+op    = "strip"
+part  = "Head.stl"
+name  = "piston left"
+seed  = [1.0, 6.0, 43.0]
+point = [-1.562, 9.957, 39.537]
+dir   = [0.4865, -0.1162, 0.8659]
+range = [2.4, 3.55]          # head-side cut .. where it runs into the skull
+r     = 0.60
+tol   = 0.15                 # takes the faces fanning out where it joins the skull
+
+[[prep]]
+op    = "strip"
+part  = "Head.stl"
+name  = "piston right"
+seed  = [1.0, 6.0, 43.0]
+point = [3.132, 8.353, 39.56]
+dir   = [-0.3645, 0.3463, 0.8644]
+range = [1.3, 2.75]
+r     = 0.60
+tol   = 0.15

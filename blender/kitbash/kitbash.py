@@ -12,12 +12,29 @@ Joint fill: a ball smaller than its cup, snapped centre to centre, leaves a gap 
 loose part. fill_r = <mm> on a part adds a sphere of that radius at the joint centre, exported
 with the model; make it bigger than joint_r so it runs into both the cup wall and the ball, and
 check it in a close-up render - on an exposed joint it shows. A sphere at the pivot is the same
-in every pose.
+in every pose. fill_cyl = {r, from, to} adds a capped cylinder (body frame) instead, for a peg
+seated in a hole - coaxial, it is the same under any turn about the peg axis.
 
-Posing: each part's rot = {pitch, yaw, roll} is a +- range in degrees about its joint centre,
-body-frame axes (pitch about X, roll about Y, yaw about Z). The [pose] block sets count and
-seed; variants are Latin-hypercube sampled over every angle so they spread out, and a variant
-that clashes is redrawn uniformly at random (max_tries).
+Rigid groups: files = {member = "File.stl", ...} instead of file loads each member (with its own
+[input] entry under the member name) and joins them into one part that snaps, poses and clashes
+as one. A group held by several joints lists the others as sockets = [{centre, r}, ...]: extra
+clash-exempt zones like the part's own joint (r + JOINT_MARGIN, or r + margin for an inspected
+socket, as joint_margin), fixed in the body frame. A socket's fill_r adds a joint fill there, as a
+part's fill_r does. Static parts: a top-level static = {member = "File.stl", ...} joins those
+files into the body the same way (base, armour plates) - they never move and clash as body.
+
+Ground part: ground = true on one part (the base the body stands on) turns it the inverse way, so
+its rot is the body's motion on it - the body, its parts and their joints keep the body frame for
+the clash check. Renders and exports then move everything so the ground part sits as in its
+source file.
+
+Posing: each part's rot = {pitch, yaw, roll} is a range in degrees about its joint centre,
+body-frame axes (pitch about X, roll about Y, yaw about Z). A part with axis = [x, y, z] also
+takes rot.axis, a rotation about that direction through its joint centre. A range is a number
+(+- that much) or [lo, hi]. The [pose] block sets count and
+seed; variants are Latin-hypercube sampled over every angle so they spread out. A variant that
+clashes is redrawn within its own Latin-hypercube cell for the first half of max_tries, then
+uniformly at random (logged as "left its cell").
 
 Data: the recipe's `data` folder (default: this folder) holds parts/<name>/, input/<name>/ and
 out/<name>/ - meshes and results stay outside the code.
@@ -307,11 +324,35 @@ def export_stl(objs, path):
     bpy.ops.wm.stl_export(filepath=path, export_selected_objects=True, apply_modifiers=True)
 
 
-def rotation(angles):
-    """Body-frame rotation from {pitch, yaw, roll} degrees: yaw, then pitch, then roll."""
-    a = {k: math.radians(angles.get(k, 0.0)) for k in AXES}
-    return (Matrix.Rotation(a["yaw"], 4, 'Z') @ Matrix.Rotation(a["pitch"], 4, 'X')
-            @ Matrix.Rotation(a["roll"], 4, 'Y'))
+def rotation(angles, axis=None):
+    """Body-frame rotation from {pitch, yaw, roll, axis} degrees: yaw, then pitch, then roll,
+    then axis (about the direction `axis`)."""
+    a = {k: math.radians(angles.get(k, 0.0)) for k in AXES + ("axis",)}
+    M = (Matrix.Rotation(a["yaw"], 4, 'Z') @ Matrix.Rotation(a["pitch"], 4, 'X')
+         @ Matrix.Rotation(a["roll"], 4, 'Y'))
+    if axis is not None:
+        M = M @ Matrix.Rotation(a["axis"], 4, Vector(axis).normalized())
+    return M
+
+
+def in_range(x, rng_deg):
+    """x in [-1, 1] onto a range: a number is +- that much, [lo, hi] is that interval."""
+    if isinstance(rng_deg, list):
+        lo, hi = rng_deg
+        return lo + (x + 1) / 2 * (hi - lo)
+    return x * rng_deg
+
+
+def load_group(recipe, p):
+    """The part's file, or its files members joined into one object named after the part."""
+    if "file" in p:
+        return load_part(recipe, p["file"], p["name"])
+    objs = [load_part(recipe, f, member) for member, f in p["files"].items()]
+    if len(objs) > 1:
+        with bpy.context.temp_override(active_object=objs[0], selected_editable_objects=objs):
+            bpy.ops.object.join()
+    objs[0].name = p["name"]
+    return objs[0]
 
 
 def latin_hypercube(n, dims, rng):
@@ -326,38 +367,89 @@ def latin_hypercube(n, dims, rng):
 
 def build_scene(recipe):
     bpy.ops.wm.read_factory_settings(use_empty=True)
-    body = load_part(recipe, recipe["body"], "body")
+    body = load_group(recipe, {"name": "body", "files": {"body": recipe["body"], **recipe.get("static", {})}})
     colour(body, (0.75, 0.75, 0.75, 1))
     parts, joints = [], []
     for i, p in enumerate(recipe["part"]):
-        o = load_part(recipe, p["file"], p["name"])
+        o = load_group(recipe, p)
         colour(o, COLOURS[i % len(COLOURS)])
         centre = Vector(p["body_joint"]) + Vector(p.get("offset", (0, 0, 0)))
         snap = Matrix.Translation(centre - Vector(p["part_joint"]))
         c = Matrix.Translation(centre)
         snap = c @ rotation(p.get("rest_rot", {})) @ c.inverted() @ snap
-        fill, fill_r = None, p.get("fill_r", 0.0)
-        if fill_r:
-            bpy.ops.mesh.primitive_uv_sphere_add(radius=fill_r, location=centre,
-                                                 segments=64, ring_count=32)
-            fill = bpy.context.object
-            fill.name = f"{p['name']}_fill"
-            colour(fill, COLOURS[i % len(COLOURS)])
-        parts.append({"name": p["name"], "obj": o, "centre": centre, "snap": snap,
-                      "rot": p.get("rot", {}), "fill": fill})
+        fill_r = p.get("fill_r", 0.0)
+        fills = [fill_sphere(f"{p['name']}_fill", centre, fill_r, COLOURS[i % len(COLOURS)])] if fill_r else []
+        if "fill_cyl" in p:
+            fc = p["fill_cyl"]
+            fills.append(fill_cylinder(f"{p['name']}_fill_cyl", Vector(fc["from"]), Vector(fc["to"]), fc["r"],
+                                       COLOURS[i % len(COLOURS)]))
         if "joint_margin" in p:
             exempt = p["joint_r"] + p["joint_margin"]
         else:
             exempt = max(fill_r, p["joint_r"] + JOINT_MARGIN)
         joints.append((np.array(centre), exempt))
+        for k, s in enumerate(p.get("sockets", [])):
+            s_fill = s.get("fill_r", 0.0)
+            if s_fill:
+                fills.append(fill_sphere(f"{p['name']}_socket{k}_fill", Vector(s["centre"]), s_fill,
+                                         COLOURS[i % len(COLOURS)]))
+            joints.append((np.array(s["centre"]), max(s_fill, s["r"] + s.get("margin", JOINT_MARGIN))))
+        parts.append({"name": p["name"], "obj": o, "centre": centre, "snap": snap,
+                      "rot": p.get("rot", {}), "axis": p.get("axis"), "fills": fills,
+                      "ground": p.get("ground", False)})
+    if sum(p["ground"] for p in parts) > 1:
+        raise SystemExit("only one part can be the ground")
     return body, parts, joints
 
 
+def fill_sphere(name, centre, r, rgba):
+    bpy.ops.mesh.primitive_uv_sphere_add(radius=r, location=centre, segments=64, ring_count=32)
+    o = bpy.context.object
+    o.name = name
+    colour(o, rgba)
+    return o
+
+
+def fill_cylinder(name, a, b, r, rgba):
+    """Capped cylinder of radius r from a to b (body frame)."""
+    d = b - a
+    bpy.ops.mesh.primitive_cylinder_add(vertices=96, radius=r, depth=d.length, location=(a + b) / 2,
+                                        rotation=Vector((0, 0, 1)).rotation_difference(d).to_euler())
+    o = bpy.context.object
+    o.name = name
+    colour(o, rgba)
+    return o
+
+
 def place(parts, angles):
-    """angles: {part name: {pitch, yaw, roll}}; rotates each part about its joint centre."""
+    """angles: {part name: {pitch, yaw, roll, axis}}; rotates each part about its joint centre, in
+    the body frame. The ground part turns the inverse way: its angles are the body's motion on it."""
     for p in parts:
         c = Matrix.Translation(p["centre"])
-        p["obj"].matrix_world = c @ rotation(angles.get(p["name"], {})) @ c.inverted() @ p["snap"]
+        R = rotation(angles.get(p["name"], {}), p["axis"])
+        if p["ground"]:
+            R = R.inverted()
+        p["obj"].matrix_world = c @ R @ c.inverted() @ p["snap"]
+
+
+def ground_matrix(parts):
+    """The move that puts the ground part (if any) back where its source file has it."""
+    g = next((p for p in parts if p["ground"]), None)
+    return g["obj"].matrix_world.inverted() if g else Matrix()
+
+
+def grounded(objs, parts):
+    """Moves objs so the ground part (if any) sits as in its source file - for renders and export,
+    after the clash check, which runs in the body frame. Returns a function that moves them back."""
+    G = ground_matrix(parts)
+    saved = [o.matrix_world.copy() for o in objs]
+    for o in objs:
+        o.matrix_world = G @ o.matrix_world
+
+    def restore():
+        for o, m in zip(objs, saved):
+            o.matrix_world = m
+    return restore
 
 
 def bounds(objs):
@@ -369,7 +461,8 @@ def bounds(objs):
 
 
 def fmt_angles(angles):
-    return "  ".join(f"{n}:" + "/".join(f"{angles[n].get(k, 0):+5.1f}" for k in AXES) for n in angles)
+    return "  ".join(f"{n}:" + "/".join(f"{angles[n].get(k, 0):+5.1f}" for k in AXES)
+                     + (f" axis{angles[n]['axis']:+5.1f}" if "axis" in angles[n] else "") for n in angles)
 
 
 def run_baseline(recipe, out_dir):
@@ -387,11 +480,14 @@ def run_baseline(recipe, out_dir):
             print(f"        at ({c[0]:6.2f},{c[1]:6.2f},{c[2]:6.2f})  {len(g['pts'])} tri pairs")
             clash_pts.append(Vector(c))
 
-    objs = [body] + [p["obj"] for p in parts] + [p["fill"] for p in parts if p["fill"]]
+    objs = [body] + [p["obj"] for p in parts] + [f for p in parts for f in p["fills"]]
     if "glyphs" in recipe:
         glyphs = Glyphs(recipe, body)
         print(f"GLYPHS {glyphs.make(0)}")
         objs += glyphs.objs
+    G = ground_matrix(parts)
+    grounded(objs, parts)
+    clash_pts = [G @ c for c in clash_pts]
     lo, hi = bounds(objs)
     size = hi - lo
     print(f"SIZE {size.x:.1f} x {size.y:.1f} x {size.z:.1f} mm")
@@ -418,12 +514,12 @@ def run_pose(recipe, out_dir, preview):
     n, min_pairs, max_tries = cfg["count"], cfg["clash_min_pairs"], cfg["max_tries"]
     rng = random.Random(cfg["seed"])
     body, parts, joints = build_scene(recipe)
-    dims = [(p["name"], k, p["rot"][k]) for p in parts for k in AXES if p["rot"].get(k)]
+    dims = [(p["name"], k, p["rot"][k]) for p in parts for k in AXES + ("axis",) if p["rot"].get(k)]
 
     def to_angles(u):
         angles = {p["name"]: {} for p in parts}
         for (name, k, rng_deg), x in zip(dims, u):
-            angles[name][k] = round(x * rng_deg, 1)
+            angles[name][k] = round(in_range(x, rng_deg), 1)
         return angles
 
     meshes = {p["name"]: CollisionMesh(p["obj"]) for p in parts}
@@ -435,6 +531,10 @@ def run_pose(recipe, out_dir, preview):
                  **{p["name"]: meshes[p["name"]].tree(p["obj"].matrix_world) for p in parts}}
         return [(a, b, len(g)) for a, b, g in check_clashes(trees, joints, min_pairs) if g]
 
+    def in_stratum(u):
+        """A fresh point in the same Latin-hypercube cell as u, so a redraw keeps the spread."""
+        return [(min(int((x + 1) / 2 * n), n - 1) + rng.random()) / n * 2 - 1 for x in u]
+
     poses, log = [], []
     for i, u in enumerate(latin_hypercube(n, len(dims), rng), 1):
         angles = to_angles(u)
@@ -442,16 +542,20 @@ def run_pose(recipe, out_dir, preview):
             hits = clashes(angles)
             if not hits:
                 break
-            angles = to_angles([rng.uniform(-1, 1) for _ in dims])
+            if attempt + 1 < max_tries // 2:
+                angles = to_angles(in_stratum(u))
+            else:
+                angles = to_angles([rng.uniform(-1, 1) for _ in dims])
         else:
             raise SystemExit(f"variant {i:02d}: still clashing after {max_tries} tries: {hits}")
-        line = f"{recipe['name']}_{i:02d}  redraws={attempt}  {fmt_angles(angles)}"
+        cell = "" if attempt < max_tries // 2 else " (left its cell)"
+        line = f"{recipe['name']}_{i:02d}  redraws={attempt}{cell}  {fmt_angles(angles)}"
         print("POSE", line)
         log.append(line)
         poses.append(angles)
 
     glyphs = Glyphs(recipe, body) if "glyphs" in recipe else None
-    objs = [body] + [p["obj"] for p in parts] + [p["fill"] for p in parts if p["fill"]]
+    objs = [body] + [p["obj"] for p in parts] + [f for p in parts for f in p["fills"]]
     place(parts, {})
     lo, hi = bounds(objs)
     centre, scale = (lo + hi) / 2, max(hi - lo) * 1.05
@@ -462,6 +566,7 @@ def run_pose(recipe, out_dir, preview):
         if glyphs:
             kinds = glyphs.make(i)
             log[i - 1] += "  glyphs L:" + ",".join(kinds[1]) + " R:" + ",".join(kinds[-1])
+        restore = grounded(objs + (glyphs.objs if glyphs else []), parts)
         for view in ("box", "right"):
             files.append(cam.shoot(os.path.join(out_dir, f"pose_{i:02d}_{view}.png"), view, centre, scale,
                                    f"{i:02d}" if view == "box" else ""))
@@ -469,6 +574,7 @@ def run_pose(recipe, out_dir, preview):
             stl = os.path.join(out_dir, f"{recipe['name']}_{i:02d}.stl")
             export_stl(objs + (glyphs.objs if glyphs else []), stl)
             print(f"EXPORT {stl}")
+        restore()
     with open(os.path.join(out_dir, "poses.txt"), "w") as f:
         f.write(f"# seed={cfg['seed']}  angles per part as pitch/yaw/roll degrees\n" + "\n".join(log) + "\n")
     contact_sheet(files, os.path.join(out_dir, "pose_sheet.png"), 6)     # 3 variants per row, box + side each
