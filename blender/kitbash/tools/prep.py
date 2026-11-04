@@ -16,9 +16,18 @@ Ops:
          from neither (a member cut at both ends) is dropped. Holes close per loop: a loop on the
          ball, on the piece side, gets a fill pushed out onto the sphere (so the ball stays round
          where the rest joined it); every other loop a fan fill.
+         Without a `ball` it only cuts; `fill = "flat"` closes the holes with straight triangles
+         instead (for planar cut outlines).
+  trim   Cut `part` with a whole plane {at, normal}, dropping the side the normal points to, keep
+         what is still connected to `seed` (islands go), close the cut flat.
+  merge  Add the prepped part `from` into `part` as an overlapping shell; `from` is not written.
+  carve  Subtract a cylinder of radius r from `start` to `end` (exact boolean, closed part): takes
+         a member off and leaves a round socket where it entered, nothing to fill.
   sphere A sphere of radius r at `centre`, added to `part` as an overlapping shell (the slicer
          fuses it).
   rod    A cylinder of radius r from `start` to `end`, added the same way.
+  unball Delete a ball: the faces whose vertices all lie on the sphere {centre, r, tol}, and the
+         slivers left on the hole's edge; the holes where it met the rest get a fan fill.
   strip  Delete a cylindrical member: the faces within radius r + tol of the line
          `point` + t*`dir`, t within `range` (end the range where the member meets the rest, or
          surface further along the line goes too), then whatever was connected to `seed` before
@@ -63,6 +72,16 @@ def boundary_loops(bm):
 
 def on_ball(v, ball):
     return abs((v.co - ball["c"]).length - ball["r"]) < ball["tol"]
+
+
+def close_flat(bm):
+    """Fill every open loop with straight triangles between its own vertices - for planar cut
+    outlines, which a fan's centre point and relaxing would only spoil."""
+    for loop in boundary_loops(bm):
+        faces = bmesh.ops.holes_fill(bm, edges=loop, sides=0)["faces"]
+        bmesh.ops.triangulate(bm, faces=faces, quad_method='BEAUTY', ngon_method='BEAUTY')
+        print(f"  fill {len(loop)}-edge loop (flat)")
+    bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
 
 
 def close_holes(bm, ball=None):
@@ -166,12 +185,12 @@ def flood(bm, seed, blocked):
 
 def op_split(recipe, parts, p):
     bm = load(recipe, parts, p["part"])
-    ball = {"c": Vector(p["ball"]["centre"]), "r": p["ball"]["r"], "tol": p["ball"]["tol"]}
+    ball = {"c": Vector(p["ball"]["centre"]), "r": p["ball"]["r"], "tol": p["ball"]["tol"]} if "ball" in p else None
     for c in p["cuts"]:
         cut_local(bm, c)
     bm.faces.ensure_lookup_table()
     bm.faces.index_update()
-    is_ball = [all(on_ball(v, ball) for v in f.verts) for f in bm.faces]
+    is_ball = [ball is not None and all(on_ball(v, ball) for v in f.verts) for f in bm.faces]
     piece = flood(bm, Vector(p["seed"]), is_ball) | {i for i, b in enumerate(is_ball) if b}
     rest = flood(bm, Vector(p["rest_seed"]), is_ball)
     if rest & piece:
@@ -185,9 +204,14 @@ def op_split(recipe, parts, p):
     bmesh.ops.delete(out, geom=[f for f in out.faces if f.index not in piece], context='FACES')
     bmesh.ops.delete(bm, geom=[f for f in bm.faces if f.index not in rest], context='FACES')
     print(f"  {p['out']}:")
-    close_holes(out, ball)
-    print(f"  {p['part']}:")
-    close_holes(bm)
+    if p.get("fill") == "flat":
+        close_flat(out)
+        print(f"  {p['part']}:")
+        close_flat(bm)
+    else:
+        close_holes(out, ball)
+        print(f"  {p['part']}:")
+        close_holes(bm)
     parts[p["out"]] = out
 
 
@@ -240,7 +264,81 @@ def op_strip(recipe, parts, p):
     close_holes(bm)
 
 
-OPS = {"split": op_split, "sphere": op_sphere, "rod": op_rod, "strip": op_strip}
+def op_unball(recipe, parts, p):
+    """Delete a ball (the faces on a sphere), close where it met the rest."""
+    bm = load(recipe, parts, p["part"])
+    ball = {"c": Vector(p["centre"]), "r": p["r"], "tol": p["tol"]}
+    gone = [f for f in bm.faces if all(on_ball(v, ball) for v in f.verts)]
+    bmesh.ops.delete(bm, geom=gone, context='FACES')
+    slivers = 0
+    while True:                                 # faces left hanging on the edge of the hole
+        ears = [f for f in bm.faces if sum(len(e.link_faces) == 1 for e in f.edges) >= 2]
+        if not ears:
+            break
+        slivers += len(ears)
+        bmesh.ops.delete(bm, geom=ears, context='FACES')
+    print(f"  unball r{p['r']} at {p['centre']}: {len(gone)} faces, {slivers} slivers removed")
+    close_holes(bm)
+
+
+def op_trim(recipe, parts, p):
+    """Cut a part with a whole plane, keep what is reachable from seed, close the cut flat."""
+    bm = load(recipe, parts, p["part"])
+    at, n = Vector(p["at"]), Vector(p["normal"]).normalized()
+    bmesh.ops.bisect_plane(bm, geom=bm.verts[:] + bm.edges[:] + bm.faces[:], dist=BISECT_DIST,
+                           plane_co=at, plane_no=n, clear_outer=True)
+    bm.faces.ensure_lookup_table()
+    bm.faces.index_update()
+    keep = flood(bm, Vector(p["seed"]), [False] * len(bm.faces))
+    loose = [f for f in bm.faces if f.index not in keep]
+    bmesh.ops.delete(bm, geom=loose, context='FACES')
+    bmesh.ops.delete(bm, geom=[v for v in bm.verts if not v.link_faces], context='VERTS')
+    print(f"  trim at {p['at']} normal {p['normal']}: {len(loose)} loose faces removed")
+    close_flat(bm)
+
+
+def op_merge(recipe, parts, p):
+    """Add another prepped part into this one as an overlapping shell (the slicer fuses it)."""
+    bm = load(recipe, parts, p["part"])
+    me = bpy.data.meshes.new("merge")
+    parts.pop(p["from"]).to_mesh(me)
+    bm.from_mesh(me)
+    bpy.data.meshes.remove(me)
+    print(f"  merged {p['from']}")
+
+
+def op_carve(recipe, parts, p):
+    """Subtract a cylinder of radius r from `start` to `end` (one exact boolean; the part must be
+    closed). Removes a member and leaves a round socket where it entered, no fill."""
+    bm = load(recipe, parts, p["part"])
+    me = bpy.data.meshes.new("carve")
+    bm.to_mesh(me)
+    o = bpy.data.objects.new("carve", me)
+    bpy.context.scene.collection.objects.link(o)
+    a, b = Vector(p["start"]), Vector(p["end"])
+    axis = b - a
+    cut = bmesh.new()
+    bmesh.ops.create_cone(cut, cap_ends=True, cap_tris=False, segments=64, radius1=p["r"], radius2=p["r"],
+                          depth=axis.length,
+                          matrix=Matrix.Translation((a + b) / 2) @ axis.to_track_quat('Z', 'Y').to_matrix().to_4x4())
+    cme = bpy.data.meshes.new("cutter")
+    cut.to_mesh(cme)
+    cut.free()
+    c = bpy.data.objects.new("cutter", cme)
+    bpy.context.scene.collection.objects.link(c)
+    m = o.modifiers.new("carve", 'BOOLEAN')
+    m.operation, m.solver, m.object = 'DIFFERENCE', 'EXACT', c
+    bpy.context.view_layer.objects.active = o
+    bpy.ops.object.modifier_apply(modifier="carve")
+    bm.clear()
+    bm.from_mesh(o.data)
+    for ob in (o, c):
+        bpy.data.objects.remove(ob)
+    print(f"  carve '{p['name']}' r{p['r']} x {axis.length:.2f}mm -> {len(bm.faces)} faces")
+
+
+OPS = {"split": op_split, "sphere": op_sphere, "rod": op_rod, "strip": op_strip, "unball": op_unball,
+       "trim": op_trim, "merge": op_merge, "carve": op_carve}
 
 
 def report(name, bm):

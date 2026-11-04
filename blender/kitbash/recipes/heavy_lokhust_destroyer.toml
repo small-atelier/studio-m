@@ -30,15 +30,15 @@ seed            = 1
 clash_min_pairs = 100     # smaller overlap clusters are incidental contact
 max_tries       = 30
 
-# Head on its ball: same frame as the body, so part and body joint are the ball centre. Rotation
-# only (the body's own r1.70 ball sits inside the head's r1.75 one in every pose).
+# Head on its ball: the head's r2.0 ball sits deeper in the skull than the sculpted one, so the
+# head snaps back and down onto the body's neck ball (r1.70, the sculpted ball's centre), which
+# sits inside it in every pose. Rotation only.
 [[part]]
 name       = "head"
 file       = "Head.stl"
-part_joint = [1.356, 10.737, 42.872]     # ball r1.75
-body_joint = [1.356, 10.737, 42.872]
-joint_r    = 1.75
-joint_margin = 1.45                      # both pistons pass through the skull underside out to 3.13 from the pivot (inspected)
+part_joint = [1.356, 9.0, 43.5]          # head ball r2.0
+body_joint = [1.356, 10.737, 42.872]     # body ball r1.70
+joint_r    = 2.0
 rot        = { pitch = 10, yaw = 25, roll = 5 }
 
 # Gun rig: the three arms and the weapon as one rigid group, held by the arms' shoulder balls in
@@ -119,10 +119,12 @@ rot        = { yaw = [-30, 20], pitch = 3, roll = 3 }     # past +20 the lowered
 # Prep (tools/prep.py), run in order, writes parts/heavy_lokhust_destroyer/.
 
 # Head off the body. The head is the skull, its loop ring and its ball (sculpted sphere at the
-# back of the skull); it poses by rotating about the ball centre only. It is joined to the body by
-# the ball's neck, the jaw and two hoses. Each `cuts` plane splits only the surface within `reach`
-# of `at`; the ball's faces are the seam to the neck. The jaw is cut where it meets the body; each
-# hose is cut twice - the body keeps its stub, the middle goes, the head keeps none.
+# back of the skull). It is joined to the body by the ball's neck and two pistons; the jaw hangs
+# free above the chest. Each `cuts` plane splits only the surface within `reach` of `at`; the
+# ball's faces are the seam to the neck. Each piston is cut twice - the body keeps its stub, the
+# middle goes. The pistons run along the skull's underside before they enter it, so the head-side
+# cuts sit as high as a plane still crosses only the piston (higher, it catches the skull): the
+# head keeps a short flat-ended stub of each (left mostly taken by the back trim below).
 [[prep]]
 op        = "split"
 part      = "Body.stl"
@@ -131,11 +133,10 @@ seed      = [1.0, 6.0, 43.0]         # a point on the skull face
 rest_seed = [0.0, 18.0, 30.0]        # a point on the body
 ball      = { centre = [1.356, 10.737, 42.872], r = 1.75, tol = 0.015 }
 cuts      = [
-    { name = "jaw",             at = [1.15, 7.0, 38.3],   normal = [0, 0, 1],         reach = 1.45 },
     { name = "hose left",       at = [-1.1, 9.83, 40.3],  normal = [1.1, -0.25, 2.0], reach = 0.8 },
     { name = "hose right",      at = [2.8, 8.75, 40.3],   normal = [-1.05, 0.9, 2.0], reach = 0.7 },
-    { name = "hose left head",  at = [-0.311, 9.658, 41.853], normal = [1.1, -0.25, 2.0], reach = 0.8 },
-    { name = "hose right head", at = [2.52, 8.98, 40.8],  normal = [-1.05, 0.9, 2.0], reach = 0.7 },
+    { name = "hose left head",  at = [-0.321, 9.661, 41.745], normal = [1.1, -0.25, 2.0], reach = 0.7 },
+    { name = "hose right head", at = [2.603, 8.855, 40.813], normal = [-1.05, 0.9, 2.0], reach = 0.65 },
 ]
 
 # The body's own ball, inside the head's (same centre, 0.05 smaller - no coincident surfaces), so
@@ -205,25 +206,65 @@ start = [3.478, 8.174, 38.545]
 end   = [1.356, 10.737, 42.872]
 r     = 0.60
 
-# The head keeps none of the pistons: what is left above the head-side cuts is stripped.
+# The head keeps none of the pistons: a cylinder 0.15 wider than each piston, along its axis from
+# below the head-side cut to 0.3 past where it enters the skull, carves the stub out and leaves a
+# shallow round socket in the skull's underside.
 [[prep]]
-op    = "strip"
+op    = "carve"
 part  = "Head.stl"
 name  = "piston left"
-seed  = [1.0, 6.0, 43.0]
-point = [-1.562, 9.957, 39.537]
-dir   = [0.4865, -0.1162, 0.8659]
-range = [2.4, 3.55]          # head-side cut .. where it runs into the skull
-r     = 0.60
-tol   = 0.15                 # takes the faces fanning out where it joins the skull
+start = [-0.589, 9.725, 41.269]      # piston line t 2.0 .. 3.85
+end   = [0.311, 9.510, 42.871]
+r     = 0.75
 
 [[prep]]
-op    = "strip"
+op    = "carve"
 part  = "Head.stl"
 name  = "piston right"
-seed  = [1.0, 6.0, 43.0]
-point = [3.132, 8.353, 39.56]
-dir   = [-0.3645, 0.3463, 0.8644]
-range = [1.3, 2.75]
-r     = 0.60
-tol   = 0.15
+start = [2.768, 8.699, 40.424]       # piston line t 1.0 .. 3.05
+end   = [2.020, 9.409, 42.196]
+r     = 0.75
+
+# The head's back is rebuilt: its sculpted ball sat far behind the skull. A plane at y 9.6 takes
+# off the ball, the skull's rim around it and what is left of the left piston, and closes the
+# back flat; a new r2.0 ball sits further in. The loop ring's rear arm runs through that plane
+# and only enters the skull there, so the ring comes off first (cut at both arms, flat caps),
+# goes back on after the trim, and a rod of its tube's radius carries its rear arm on into the
+# new ball.
+[[prep]]
+op        = "split"
+part      = "Head.stl"
+out       = "Ring.stl"                    # the piece containing `seed`
+seed      = [-2.6, 9.6, 44.3]             # on the ring
+rest_seed = [1.0, 6.0, 43.0]
+fill      = "flat"
+cuts      = [
+    { name = "ring front", at = [-2.2, 8.2, 42.55], normal = [1, 0, 0], reach = 0.6 },
+    { name = "ring rear",  at = [-0.8, 9.75, 44.72], normal = [1, 0, 0], reach = 0.6 },
+]
+
+[[prep]]
+op     = "trim"
+part   = "Head.stl"
+at     = [0, 9.6, 0]
+normal = [0, 1, 0]
+seed   = [1.0, 6.0, 43.0]
+
+[[prep]]
+op     = "sphere"
+part   = "Head.stl"
+centre = [1.356, 9.0, 43.5]
+r      = 2.0
+
+[[prep]]
+op   = "merge"
+part = "Head.stl"
+from = "Ring.stl"
+
+[[prep]]
+op    = "rod"
+part  = "Head.stl"
+name  = "ring rear into the ball"
+start = [-0.9, 9.75, 44.72]
+end   = [0.2, 9.75, 44.72]
+r     = 0.45
