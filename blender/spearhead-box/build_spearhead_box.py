@@ -5,7 +5,7 @@ footprint (165.5 x 131.2 x 24.5mm base), the well layout, the lid and the decora
 what differs: colours, the back row of wells and the lid-top icons.
 
 - box_base: an open-top tray, every pocket cut to the same DEEP_DEPTH (22mm) floor. Left column:
-  3 hex-token wells stacked (or a force's rectangle-token wells), lift notches through the left wall. Right column: the card slot
+  3 hex-token wells stacked (or a force's own mix of hex and rectangle-token wells), lift notches through the left wall. Right column: the card slot
   (123x73, front-wall notch) up front, its floor carrying a cards + die icon inlay; behind it the
   force's back row, flush against the back wall (back-wall notches, except the dice well - loose
   dice would roll out). Mythos logo (icon + wordmark) inlaid flush into the underside.
@@ -75,8 +75,9 @@ INLAY_EXTRUDER_SLOT = 2
 #   ("dice",)                       closed loose-dice well, takes whatever width is left
 #   ("wheel",)                      Blood Tithe wheel pocket + peg + pointer (label under the pair)
 #   ("rack", cols, rows)            Destiny Dice rack, cols x rows 12mm die slots
-# left_column (optional): ("rect", count) swaps the 3 hex wells for count rectangle-token wells,
-# long side front-to-back, spread over the column's depth. The footprint stays the same.
+# left_column (optional): the left column's wells front to back, each "hex" (33mm hex tokens) or
+# "rect" (56x30 tokens, long side front-to-back), spread over the column's depth with equal gaps.
+# Default ("hex", "hex", "hex"). The footprint stays the same.
 # tray_body_d (optional): the trays' body depth front to back, TRAY_BODY_D by default - smaller for
 # trays sized to 12mm dice.
 # back_row_spread: True spreads the items across the full width with equal gaps instead of
@@ -123,7 +124,7 @@ FORCES = {
         "base_color": (0.04, 0.04, 0.04, 1.0),    # black
         "inlay_color": (0.30, 0.80, 0.10, 1.0),   # warpstone green
         # 13 ability tokens in 2 stacks of 7
-        "left_column": ("rect", 2),
+        "left_column": ("rect", "rect"),
         # 4 single trays in 2 stacks, the Warp Lightning Cannon's double tray, spare dice
         "back_row": [("tray", 22.0, 16.0), ("tray", 22.0, 16.0), ("tray", 41.4, 32.0), ("dice",)],
         "back_row_spread": False,
@@ -287,10 +288,7 @@ BACK_WALL_Y = IY0 + INT_FOOT_D
 BACK_ROW_D = INT_FOOT_D - SLOT_CARD_D - DIV_T   # depth available behind the card slot
 
 _hex_cx = IX0 + COL_A_W / 2.0
-HEX_WELL_CENTERS = [
-    (_hex_cx, IY0 + HEX_WELL_POINT_TO_POINT / 2.0 + i * (HEX_WELL_POINT_TO_POINT + DIV_T))
-    for i in range(HEX_WELL_COUNT)
-]
+LEFT_COLUMN_DEFAULT = ("hex",) * HEX_WELL_COUNT
 
 _col_b_x0 = IX0 + COL_A_W + DIV_T
 CARD_SLOT_CENTER = (_col_b_x0 + SLOT_CARD_W / 2.0, IY0 + SLOT_CARD_D / 2.0)
@@ -350,21 +348,25 @@ def _item_w(item):
 
 def left_column_wells(force):
     """The left column's wells: [(outline points, center_x, center_y, notch_w)], each flush against
-    the left wall. The default is the 3 stacked hex wells the footprint is sized by."""
-    col = force.get("left_column", "hex")
-    if col == "hex":
-        return [([(cx + x, cy + y) for x, y in hex_points(HEX_WELL_FLAT_TO_FLAT)], cx, cy, HEX_NOTCH_W)
-                for cx, cy in HEX_WELL_CENTERS]
-    kind, count = col
-    assert kind == "rect", f"unknown left column {col}"
+    the left wall, spread front to back with equal gaps - the first flush with the front wall, the
+    last with the back wall. The default is the 3 hex wells the footprint is sized by."""
+    kinds = force.get("left_column", LEFT_COLUMN_DEFAULT)
     assert RECT_WELL_SHORT <= COL_A_W, "rectangle wells wider than the left column"
-    gap = (INT_FOOT_D - count * RECT_WELL_LONG) / (count - 1) if count > 1 else 0.0
-    assert gap >= DIV_T, f"{count} rectangle wells don't fit the left column's depth"
-    cx = IX0 + RECT_WELL_SHORT / 2.0
-    wells = []
-    for i in range(count):
-        cy = IY0 + RECT_WELL_LONG / 2.0 + i * (RECT_WELL_LONG + gap)
-        wells.append(([(cx + x, cy + y) for x, y in rect_points(RECT_WELL_SHORT, RECT_WELL_LONG)], cx, cy, RECT_NOTCH_W))
+    depths = {"hex": HEX_WELL_POINT_TO_POINT, "rect": RECT_WELL_LONG}
+    for kind in kinds:
+        assert kind in depths, f"unknown left column well {kind}"
+    used = sum(depths[kind] for kind in kinds)
+    gap = (INT_FOOT_D - used) / (len(kinds) - 1) if len(kinds) > 1 else 0.0
+    assert gap >= DIV_T - 1e-9, f"left column {kinds} doesn't fit the column's depth"
+    wells, y = [], IY0
+    for kind in kinds:
+        cy = y + depths[kind] / 2.0
+        if kind == "hex":
+            cx, outline, notch_w = _hex_cx, hex_points(HEX_WELL_FLAT_TO_FLAT), HEX_NOTCH_W
+        else:
+            cx, outline, notch_w = IX0 + RECT_WELL_SHORT / 2.0, rect_points(RECT_WELL_SHORT, RECT_WELL_LONG), RECT_NOTCH_W
+        wells.append(([(cx + x, cy + py) for x, py in outline], cx, cy, notch_w))
+        y += depths[kind] + gap
     return wells
 
 
