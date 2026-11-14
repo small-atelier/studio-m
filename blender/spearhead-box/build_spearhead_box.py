@@ -82,8 +82,10 @@ INLAY_EXTRUDER_SLOT = 2
 # trays sized to 12mm dice.
 # back_row_spread: True spreads the items across the full width with equal gaps instead of
 # packing them DIV_T apart.
-# lid_center: {"contours", "w", optional "rot" (deg)}. lid_corners: {"contours"} - LID_CORNER_W
-# wide, LID_CORNER_MARGIN in from each lid edge.
+# lid_center: {"contours", "w", optional "rot" (deg)}. lid_corners: {"contours", optional "h"} -
+# contours is one path for all four corners, or a list of four (front-left, front-right, back-left,
+# back-right); LID_CORNER_W wide, or "h" tall instead (for tall icons); centered LID_CORNER_MARGIN in
+# from each lid edge.
 # ============================================================
 
 FORCES = {
@@ -1103,13 +1105,21 @@ def build_lid(force):
 
     corner = force["lid_corners"]
     if corner:
-        rune, rune_aspect = load_contours(corner["contours"])
-        rune_w, rune_h = LID_CORNER_W, LID_CORNER_W * rune_aspect
+        paths = corner["contours"]
+        paths = [paths] * 4 if isinstance(paths, str) else paths
+        assert len(paths) == 4, "lid_corners contours: one path, or one per corner"
         x0, x1 = cx - lid_ext_w / 2.0 + LID_CORNER_MARGIN, cx + lid_ext_w / 2.0 - LID_CORNER_MARGIN
         y0, y1 = cy - lid_ext_d / 2.0 + LID_CORNER_MARGIN, cy + lid_ext_d / 2.0 - LID_CORNER_MARGIN
-        assert x1 - rune_w / 2.0 > cx + icon_ext_x / 2.0 + 5.0 or y1 - rune_h / 2.0 > cy + icon_ext_y / 2.0 + 5.0, \
-            "corner icons crowd the center icon"
-        for i, (rx, ry) in enumerate(((x0, y0), (x1, y0), (x0, y1), (x1, y1))):
+        for i, ((rx, ry), path) in enumerate(zip(((x0, y0), (x1, y0), (x0, y1), (x1, y1)), paths)):
+            rune, rune_aspect = load_contours(path)
+            if "h" in corner:
+                rune_w, rune_h = corner["h"] / rune_aspect, corner["h"]
+            else:
+                rune_w, rune_h = LID_CORNER_W, LID_CORNER_W * rune_aspect
+            assert rune_h / 2.0 < LID_CORNER_MARGIN and rune_w / 2.0 < LID_CORNER_MARGIN, \
+                f"corner icon {i} runs off the lid edge"
+            assert x1 - rune_w / 2.0 > cx + icon_ext_x / 2.0 + 5.0 or y1 - rune_h / 2.0 > cy + icon_ext_y / 2.0 + 5.0, \
+                "corner icons crowd the center icon"
             inserts.append(build_icon_solid_xy(rune, rune_w, rune_h, rx, ry,
                                                LID_Z1 - INSERT_DEPTH, INSERT_DEPTH, f"lid_corner_{i}_ins"))
             cutters.append(build_icon_solid_xy(rune, rune_w, rune_h, rx, ry,
