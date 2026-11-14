@@ -8,5 +8,10 @@
   "chaos_star": {"path": "chaos_star.jpeg", "note": "the eight-pointed Chaos star - lid corners"},
   "rat_rune": {"path": "rat_rune.jpg", "min_hole_px": 400.0, "note": "the Horned Rat rune - hex tokens, damage trays, lid corners; min_hole_px drops the distress specks"},
   "rat_head": {"path": "rat_head.jpg", "upscale": 2, "note": "the Horned Rat head - lid top, token backs"},
-  "tzeentch_flame": {"path": "tzeentch_flame.jpg", "note": "the Tzeentch flame and orb - lid top"}
+  "tzeentch_flame": {"path": "tzeentch_flame.jpg", "note": "the Tzeentch flame and orb - lid top"},
+  "sylvaneth_faction": {"path": "sylvaneth_faction.jpeg", "upscale": 4, "min_hole_px": 400.0, "note": "the Sylvaneth faction glyph - lid top; no growth, it closes the knot under the crown"},
+  "sylvaneth_ironbark": {"path": "sylvaneth_ironbark.webp", "upscale": 4, "grow_px": 1, "min_hole_px": 400.0, "note": "Ironbark glade glyph - lid corner"},
+  "sylvaneth_oakenbrow": {"path": "sylvaneth_oakenbrow.png", "upscale": 4, "grow_px": 1, "min_hole_px": 400.0, "note": "Oakenbrow glade glyph - lid corner"},
+  "sylvaneth_gnarlroot": {"path": "sylvaneth_gnarlroot.webp", "upscale": 4, "grow_px": 1, "min_hole_px": 400.0, "note": "Gnarlroot glade glyph - lid corner"},
+  "sylvaneth_winterleaf": {"path": "sylvaneth_winterleaf.webp", "upscale": 4, "grow_px": 1, "min_hole_px": 400.0, "note": "Winterleaf glade glyph - lid corner"}
 }
