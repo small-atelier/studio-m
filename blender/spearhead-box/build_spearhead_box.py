@@ -9,6 +9,9 @@ what differs: colours, the back row of wells and the lid-top icons.
   (123x73, front-wall notch) up front, its floor carrying a cards + die icon inlay; behind it the
   force's back row, flush against the back wall (back-wall notches, except the dice well - loose
   dice would roll out). Mythos logo (icon + wordmark) inlaid flush into the underside.
+- roller_core + roller_tile_0..3 (forces with a ("roller",) back-row item): a loose four-state
+  counter bar for its trough - core printed standing on end, each tile flat with its text inlay,
+  glued into the core's keyed recesses.
 - box_lid: a flat-top slab with a full-height hollow skirt that slides over the base. The
   force's icons on the outside top; the dice_roll icon on the INSIDE face, mirrored so it reads
   correctly with the lid flipped over as a dice tray. Exported flipped, top slab on the bed.
@@ -75,6 +78,8 @@ INLAY_EXTRUDER_SLOT = 2
 #   ("dice",)                       closed loose-dice well, takes whatever width is left
 #   ("wheel",)                      Blood Tithe wheel pocket + peg + pointer (label under the pair)
 #   ("rack", cols, rows)            Destiny Dice rack, cols x rows 12mm die slots
+#   ("roller",)                     counter roller trough + label; the force sets "roller_faces"
+#                                   [(digit, word)] x4, "roller_label" and "roller_color"
 # left_column (optional): the left column's wells front to back, each "hex" (33mm hex tokens) or
 # "rect" (56x30 tokens, long side front-to-back), spread over the column's depth with equal gaps.
 # Default ("hex", "hex", "hex"). The footprint stays the same.
@@ -259,6 +264,30 @@ TITHE_LABEL = "BLOOD TITHE"    # text on the top surface, centered under the two
 TITHE_LABEL_SIZE = 8.0
 TITHE_LABEL_GAP = 1.5          # pointer base to label top
 
+# --- counter roller (Sylvaneth chords) --- a loose square bar in a trough along the back wall, one
+# state per long face, read from above. Lifted out (back-wall notch + front scoop), turned, dropped
+# back - the flat faces are the detent. Rolling it back (top face moving away) steps to the next
+# face. Brown core with a shallow recess per face; each face is a flat-printed two-colour tile glued
+# into its recess, keyed by one chamfered corner so it only fits text-upright.
+ROLLER_S = 20.0           # square cross-section - sits on the well floor, top 2mm under the rim
+ROLLER_L = 68.0           # as long as column B allows beside two 16mm-die tray wells
+ROLLER_CLEARANCE = 0.5    # per side, trough around the roller
+ROLLER_TROUGH_L = ROLLER_L + 2.0 * ROLLER_CLEARANCE
+ROLLER_TROUGH_W = ROLLER_S + 2.0 * ROLLER_CLEARANCE
+ROLLER_NOTCH_W = 24.0     # back-wall notch, middle of the trough
+ROLLER_SCOOP_R = 10.0     # front finger scoop, centered on the trough's front edge
+ROLLER_SCOOP_FLOOR_Z = FLOOR_T + ROLLER_S / 2.0   # down to the roller's mid-height
+ROLLER_RIM = 1.5          # core face left around each recess
+ROLLER_RECESS_D = 1.5     # = tile thickness, the tiles sit flush
+ROLLER_KEY = 3.0          # chamfer leg on the recess's bottom-right corner (face on top, read from the front)
+ROLLER_TILE_CLEARANCE = 0.2    # per side, tile in its recess
+ROLLER_TILE_T = ROLLER_RECESS_D
+ROLLER_TEXT_MARGIN = 1.2  # tile edge to ink
+ROLLER_TEXT_GAP = 2.0     # digit to word
+ROLLER_LABEL_H = 6.0      # label ink height, the strip between the tray tips and the card slot
+ROLLER_LABEL_MIN_H = 4.5
+ROLLER_RENDER_FACE = 2    # face shown on top in the renders
+
 # --- wheel test coupon --- one pocket + peg + pointer, rim exposed at the back edge, a quick fit print
 COUPON_W = WHEEL_POCKET_D + 10.0
 COUPON_D = WHEEL_POCKET_D + 16.0      # extra at the front for the pointer
@@ -344,6 +373,8 @@ def _item_w(item):
         return WHEEL_POCKET_D
     if kind == "rack":
         return _rack_span(item[1])
+    if kind == "roller":
+        return ROLLER_TROUGH_L
     assert kind == "dice", f"unknown back-row item {item}"
     return None   # takes whatever column B has left
 
@@ -394,7 +425,8 @@ def back_row_layout(force):
             assert w >= DIE_SIZE + 4.0, f"dice well only {w:.1f}mm wide - back row too full"
         depth = {"tray": _tray_well_d(force), "rect": item[2] if item[0] == "rect" else 0.0,
                  "dice": BACK_ROW_D, "wheel": WHEEL_POCKET_D + POINTER_GAP + POINTER_H,
-                 "rack": _rack_span(item[2]) if item[0] == "rack" else 0.0}[item[0]]
+                 "rack": _rack_span(item[2]) if item[0] == "rack" else 0.0,
+                 "roller": ROLLER_TROUGH_W + ROLLER_SCOOP_R}[item[0]]
         assert depth <= BACK_ROW_D, f"{item} too deep for the back row"
     return layout
 
@@ -974,6 +1006,15 @@ def build_base(force):
             for k, (sx, sy) in enumerate(_rack_slot_centers(item, x, w)):
                 cutters.append(extrude_xy([(sx + px, sy + py) for px, py in rect_points(RACK_SLOT_W, RACK_SLOT_W)],
                                           RACK_SLOT_FLOOR_Z, RACK_SLOT_DEPTH + HOLE_OVERSHOOT, f"rack_slot_{k}_cut"))
+        elif kind == "roller":
+            cy = BACK_WALL_Y - ROLLER_TROUGH_W / 2.0
+            pocket = extrude_xy([(cx + px, cy + py) for px, py in rect_points(w, ROLLER_TROUGH_W)],
+                                FLOOR_T, DEEP_DEPTH + HOLE_OVERSHOOT, "roller_trough_cut")
+            notch = extrude_xy(back_notch_points(cx, ROLLER_NOTCH_W, cy), FLOOR_T, DEEP_DEPTH, "roller_notch_cut")
+            scoop = extrude_xy(circle_points(ROLLER_SCOOP_R, 64, cx, cy - ROLLER_TROUGH_W / 2.0),
+                               ROLLER_SCOOP_FLOOR_Z, BASE_EXT_H - ROLLER_SCOOP_FLOOR_Z + HOLE_OVERSHOOT,
+                               "roller_scoop_cut")
+            cutters.append(union_onto(union_onto(pocket, notch), scoop))
     # Tithe wheel pockets - each breaks through the back wall, exposing the wheel rim for gripping
     for wx, wy in wheel_centers:
         cutters.append(wheel_pocket_cutter(wx, wy, BASE_EXT_H, EXT_D))
@@ -1013,6 +1054,30 @@ def build_base(force):
             inserts.append(extrude_xy(ptr, BASE_EXT_H - INSERT_DEPTH, INSERT_DEPTH, f"pointer_{i}_ins"))
             icon_cutters.append(extrude_xy(ptr, BASE_EXT_H - INSERT_DEPTH, INSERT_DEPTH + HOLE_OVERSHOOT,
                                            f"pointer_{i}_cut"))
+
+    rollers = [(x, w) for item, x, w in layout if item[0] == "roller"]
+    if rollers:
+        # Roller label - one line across column B, in the strip between the card slot and whatever
+        # back-row well reaches furthest forward (the tray tips, the roller's front scoop)
+        assert len(rollers) == 1, "one roller per box"
+        reach = [ROLLER_TROUGH_W + ROLLER_SCOOP_R]
+        reach += [_tray_well_d(force) for item, _, _ in layout if item[0] == "tray"]
+        margin = 1.0 + BEVEL_W
+        top = BACK_WALL_Y - max(reach) - margin
+        bottom = IY0 + SLOT_CARD_D + margin
+        label_h = min(ROLLER_LABEL_H, top - bottom)
+        assert label_h >= ROLLER_LABEL_MIN_H, f"roller label squeezed to {label_h:.1f}mm"
+        text = force["roller_label"]
+        size = text_size_for_height(text, label_h)
+        label_x, label_y = _col_b_x0 + COL_B_W / 2.0, (top + bottom) / 2.0
+        label_ins = build_text_xy(text, size, BASE_EXT_H - INSERT_DEPTH, INSERT_DEPTH,
+                                  label_x, label_y, 0.0, "roller_label_ins")
+        label_w, _ = ink_size(label_ins)
+        assert label_w <= COL_B_W - 2.0 * margin, f"roller label {label_w:.1f}mm wide - longer than column B"
+        print(f"roller label: {label_w:.1f} x {label_h:.1f}mm")
+        inserts.append(label_ins)
+        icon_cutters.append(build_text_xy(text, size, BASE_EXT_H - INSERT_DEPTH, INSERT_DEPTH + HOLE_OVERSHOOT,
+                                          label_x, label_y, 0.0, "roller_label_cut"))
 
     # 2) Card slot floor icons + underside logo - decorative class, own sequential cut after the
     # structural wells. Floor icon cutters poke up out of the floor into the (already empty) slot.
@@ -1187,6 +1252,105 @@ def build_digit_xy(text, size, z0, thickness, angle_deg, radius, name):
     a = math.radians(angle_deg)
     return build_text_xy(text, size, z0, thickness, radius * math.cos(a), radius * math.sin(a),
                          angle_deg + 90.0, name)
+
+
+def ink_size(obj):
+    """(width, height) of a flat text/icon object's ink in XY."""
+    xs = [v.co.x for v in obj.data.vertices]
+    ys = [v.co.y for v in obj.data.vertices]
+    return max(xs) - min(xs), max(ys) - min(ys)
+
+
+def _measure_text(text, size):
+    obj = build_text_xy(text, size, 0.0, 1.0, 0.0, 0.0, 0.0, "text_measure")
+    w, h = ink_size(obj)
+    bpy.data.objects.remove(obj, do_unlink=True)
+    return w, h
+
+
+def text_size_for_height(text, ink_h):
+    """Font size whose ink is ink_h tall - the font size is the em, not the ink (see
+    feedback: nominal size != visual size)."""
+    _, h = _measure_text(text, 10.0)
+    return 10.0 * ink_h / h
+
+
+# ============================================================
+# COUNTER ROLLER
+# ============================================================
+
+
+def _roller_recess_points():
+    """One face's recess in the face-on-top frame (x along the roller, +y away from the reader),
+    the bottom-right corner chamfered as the tile key."""
+    hw, hh, k = ROLLER_L / 2.0 - ROLLER_RIM, ROLLER_S / 2.0 - ROLLER_RIM, ROLLER_KEY
+    return [(-hw, -hh), (hw - k, -hh), (hw, -hh + k), (hw, hh), (-hw, hh)]
+
+
+def _roller_face_matrix(k):
+    """Face k's place on the roller: the top face turned k quarter turns about the roller's axis
+    (+X), toward the reader - rolling the roller back brings face k+1 to the top."""
+    return mathutils.Matrix.Rotation(math.radians(90.0 * k), 4, 'X')
+
+
+def build_roller_core():
+    """Square bar, axis along X, centered on the origin, a keyed recess in each long face."""
+    core = build_box(ROLLER_L, ROLLER_S, ROLLER_S, (0.0, 0.0, 0.0), "roller_core")
+    apply_bevel(core, BEVEL_W)
+    cutters = []
+    for k in range(4):
+        cut = extrude_xy(_roller_recess_points(), ROLLER_S / 2.0 - ROLLER_RECESS_D,
+                         ROLLER_RECESS_D + HOLE_OVERSHOOT, f"roller_recess_{k}_cut")
+        cut.data.transform(_roller_face_matrix(k))
+        cutters.append(cut)
+    prev_vol = mesh_volume(core)
+    apply_boolean(core, join_objects(cutters, "roller_recess_cutters"), 'DIFFERENCE')
+    vol = mesh_volume(core)
+    assert 0.0 < vol < prev_vol, f"roller core: recess cut corrupted it ({prev_vol:.1f} -> {vol:.1f}mm3)"
+    return core
+
+
+def roller_text_sizes(faces):
+    """(digit size, word size) shared by every tile - the digits as tall as the tile allows, the
+    words as big as the longest one fits beside its digit."""
+    tile_w, tile_h = ROLLER_L - 2.0 * (ROLLER_RIM + ROLLER_TILE_CLEARANCE), \
+        ROLLER_S - 2.0 * (ROLLER_RIM + ROLLER_TILE_CLEARANCE)
+    digit_dims = [_measure_text(d, 10.0) for d, _ in faces]
+    digit_size = 10.0 * (tile_h - 2.0 * ROLLER_TEXT_MARGIN) / max(h for _, h in digit_dims)
+    digit_w = max(w for w, _ in digit_dims) * digit_size / 10.0
+    avail_w = tile_w - 2.0 * ROLLER_TEXT_MARGIN - digit_w - ROLLER_TEXT_GAP
+    word_dims = [_measure_text(word, 10.0) for _, word in faces if word]
+    word_size = min(10.0 * avail_w / max(w for w, _ in word_dims),
+                    digit_size * max(h for _, h in digit_dims) / max(h for _, h in word_dims))
+    return digit_size, digit_w, word_size
+
+
+def build_roller_tile(digit, word, sizes, name):
+    """One face tile, print orientation: flat on the bed, text face up, reading from -Y. Returns
+    (tile, inlay). Digit left-aligned (the same spot on every face), word left-aligned after it."""
+    digit_size, digit_w, word_size = sizes
+    outline = offset_convex_polygon(_roller_recess_points(), -ROLLER_TILE_CLEARANCE)
+    tile = extrude_xy(outline, 0.0, ROLLER_TILE_T, name)
+    left = min(x for x, _ in outline) + ROLLER_TEXT_MARGIN
+    parts = [(digit, digit_size, left + digit_w / 2.0)]
+    inserts, cutters = [], []
+    for k, (text, size, cx) in enumerate(parts):
+        inserts.append(build_text_xy(text, size, ROLLER_TILE_T - INSERT_DEPTH, INSERT_DEPTH, cx, 0.0, 0.0,
+                                     f"{name}_ins_{k}"))
+    if word:
+        ww, _ = _measure_text(word, word_size)
+        cx = left + digit_w + ROLLER_TEXT_GAP + ww / 2.0
+        inserts.append(build_text_xy(word, word_size, ROLLER_TILE_T - INSERT_DEPTH, INSERT_DEPTH, cx, 0.0, 0.0,
+                                     f"{name}_ins_word"))
+        parts.append((word, word_size, cx))
+    for k, (text, size, cx) in enumerate(parts):
+        cutters.append(build_text_xy(text, size, ROLLER_TILE_T - INSERT_DEPTH, INSERT_DEPTH + HOLE_OVERSHOOT,
+                                     cx, 0.0, 0.0, f"{name}_cut_{k}"))
+    prev_vol = mesh_volume(tile)
+    apply_boolean(tile, join_objects(cutters, f"{name}_cutters"), 'DIFFERENCE')
+    vol = mesh_volume(tile)
+    assert 0.0 < vol < prev_vol, f"{name}: text pocket corrupted it ({prev_vol:.1f} -> {vol:.1f}mm3)"
+    return tile, join_objects(inserts, f"{name}_inlay")
 
 
 def build_wheel():
@@ -1368,8 +1532,39 @@ def build_force(force_name, force, out_dir, render_dir):
                 destiny_dice.append(die)
     colorize(force_name, force, [], destiny_dice)
 
+    # Counter roller: core + tiles built in their print orientation, seated in the trough for the
+    # renders (face ROLLER_RENDER_FACE on top), put back for the export
+    roller_parts, roller_export = [], None
+    for item, x, w in back_row_layout(force):
+        if item[0] != "roller":
+            continue
+        faces = force["roller_faces"]
+        assert len(faces) == 4, "the roller has four faces"
+        core = build_roller_core()
+        report("roller core", core)
+        apply_color(core, f"{force_name}_roller_mat", force["roller_color"])
+        sizes = roller_text_sizes(faces)
+        print(f"roller text: digit {sizes[0]:.2f}, word {sizes[2]:.2f} (font size)")
+        tiles = []
+        for k, (digit, word) in enumerate(faces):
+            tile, tile_inlay = build_roller_tile(digit, word, sizes, f"roller_tile_{k}")
+            report(f"roller tile {k}", tile)
+            colorize(force_name, force, [tile], [tile_inlay])
+            tiles.append((tile, tile_inlay))
+        seat = (mathutils.Matrix.Translation((x + w / 2.0, BACK_WALL_Y - ROLLER_TROUGH_W / 2.0,
+                                              FLOOR_T + ROLLER_S / 2.0))
+                @ _roller_face_matrix(-ROLLER_RENDER_FACE))
+        core.matrix_world = seat
+        for k, (tile, tile_inlay) in enumerate(tiles):
+            on_face = seat @ _roller_face_matrix(k) @ mathutils.Matrix.Translation(
+                (0.0, 0.0, ROLLER_S / 2.0 - ROLLER_RECESS_D))
+            for o in (tile, tile_inlay):
+                o.matrix_world = on_face
+        roller_parts = [core] + [o for pair in tiles for o in pair]
+        roller_export = (core, tiles)
+
     lid_parts = [lid, lid_inlay]
-    base_parts = [base, base_inlay] + wheels + destiny_dice
+    base_parts = [base, base_inlay] + wheels + destiny_dice + roller_parts
 
     bpy.context.view_layer.update()   # obj.bound_box is cached - refresh before any render framing
     for o in destiny_dice:
@@ -1403,6 +1598,18 @@ def build_force(force_name, force, out_dir, render_dir):
 
     export_two_color(out_dir, "box_base", base, base_inlay, force)
     export_two_color(out_dir, "box_lid", lid, lid_inlay, force)
+
+    if roller_export:
+        core, tiles = roller_export
+        # Core printed standing on one end - every recess on a vertical face, nothing to bridge
+        core.matrix_world = mathutils.Matrix.Translation((0.0, 0.0, ROLLER_L / 2.0)) @ \
+            mathutils.Matrix.Rotation(math.radians(-90.0), 4, 'Y')
+        export_stl(core, os.path.join(out_dir, "roller_core.stl"))
+        export_3mf([(core, force["roller_color"], "roller_core")], os.path.join(out_dir, "roller_core.3mf"))
+        for k, (tile, tile_inlay) in enumerate(tiles):
+            for o in (tile, tile_inlay):
+                o.matrix_world = mathutils.Matrix.Identity(4)
+            export_two_color(out_dir, f"roller_tile_{k}", tile, tile_inlay, force)
 
 
 def main():
