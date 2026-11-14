@@ -150,6 +150,25 @@ FORCES = {
                        "w": 70.0},
         "lid_corners": {"contours": os.path.join(_ICONS_DIR, "chaos_star_contours.json")},
     },
+    # Sylvaneth, Spitewing Flight Spearhead - box only, sized for standard tokens: a rect stack
+    # (quarry, Hunting Horn, Deafening Drone, once-per-battle flips) and a hex stack, single damage
+    # trays for 16mm dice, the Song of the Hunt chord roller
+    "sylvaneth": {
+        "base_color": (0.04, 0.04, 0.04, 1.0),    # black
+        "inlay_color": (0.95, 0.42, 0.05, 1.0),   # orange
+        "roller_color": (0.35, 0.20, 0.08, 1.0),  # brown
+        "left_column": ("rect", "hex"),
+        # 3 single trays in 2 stacks, either side of the roller
+        "back_row": [("tray", 22.0, 16.0), ("roller",), ("tray", 22.0, 16.0)],
+        "back_row_spread": True,
+        "roller_faces": [("0", ""), ("1", "SIMPLE"), ("2", "TUNEFUL"), ("3", "MELODIC")],
+        "roller_label": "SONG OF THE HUNT",
+        "lid_center": {"contours": os.path.join(_ICONS_DIR, "sylvaneth_faction_contours.json"), "w": 80.0},
+        # the Ironbark, Oakenbrow, Gnarlroot and Winterleaf glade glyphs - tall, so sized by height
+        "lid_corners": {"contours": [os.path.join(_ICONS_DIR, f"sylvaneth_{glade}_contours.json")
+                                     for glade in ("ironbark", "oakenbrow", "gnarlroot", "winterleaf")],
+                        "h": 26.0},
+    },
 }
 
 # ============================================================
