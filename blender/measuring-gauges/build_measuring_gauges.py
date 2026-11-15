@@ -106,6 +106,12 @@ KHORNE_CONTOURS_PATH = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "assets",
 SKAVEN_CONTOURS_PATH = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "assets", "icons", "rat_rune_contours.json"))
 # Hashut rune - the shared trace in blender/assets/icons.
 HASHUT_CONTOURS_PATH = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "assets", "icons", "hashut_rune_contours.json"))
+# Sylvaneth - the generated seed (bold enough for the small gauge) and the traced faction glyph
+# (too fine below ~40mm, fine on the medium gauge), both in blender/assets/icons.
+SYLVANETH_SEED_CONTOURS_PATH = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "assets", "icons",
+                                                             "sylvaneth_seed_contours.json"))
+SYLVANETH_FACTION_CONTOURS_PATH = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "assets", "icons",
+                                                                "sylvaneth_faction_contours.json"))
 
 EXPORT_DIR = os.path.join(SCRIPT_DIR, "output")
 RENDER_DIR = os.path.join(EXPORT_DIR, "renders")
@@ -116,6 +122,7 @@ INLAY_COLOR = (1.0, 1.0, 1.0, 1.0)     # preview only - white ticks/numerals/bad
 KHORNE_INLAY_COLOR = (0.65, 0.03, 0.03, 1.0)   # preview only - red, matches khorne-tokens
 SKAVEN_INLAY_COLOR = (0.30, 0.80, 0.10, 1.0)   # preview only - warpstone green, matches skaven-tokens
 HASHUT_INLAY_COLOR = (0.06, 0.45, 0.12, 1.0)   # preview only - green, matches hashut-spearhead-tokens
+SYLVANETH_INLAY_COLOR = (0.95, 0.42, 0.05, 1.0)   # preview only - orange, matches sylvaneth-tokens
 
 BASE_EXTRUDER_SLOT = 1    # edit to match your AMS loadout on the day you slice
 INLAY_EXTRUDER_SLOT = 2
@@ -964,6 +971,15 @@ GAUGES_SKAVEN = [
 GAUGES_HASHUT = [
     {**GAUGES_V2[0], "name": "small_hashut", "front_icon_h": 16.0, "front_icon_path": HASHUT_CONTOURS_PATH},
     {**GAUGES_V2[1], "name": "medium_hashut", "front_icon_h": 48.0, "front_icon_path": HASHUT_CONTOURS_PATH},
+]
+
+# Sylvaneth editions - the seed on the small gauge (tall, h/w 1.47 - narrower than the square
+# runes at the same height), the faction glyph on the medium one (wide, ~57mm at 48 tall, inside
+# the 6" zone's 76.2mm), orange inlay.
+GAUGES_SYLVANETH = [
+    {**GAUGES_V2[0], "name": "small_sylvaneth", "front_icon_h": 16.0, "front_icon_path": SYLVANETH_SEED_CONTOURS_PATH},
+    {**GAUGES_V2[1], "name": "medium_sylvaneth", "front_icon_h": 48.0,
+     "front_icon_path": SYLVANETH_FACTION_CONTOURS_PATH},
 ]
 
 
@@ -1826,6 +1842,7 @@ def main():
     build_gauges_v2(GAUGES_KHORNE, inlay_color=KHORNE_INLAY_COLOR)
     build_gauges_v2(GAUGES_SKAVEN, inlay_color=SKAVEN_INLAY_COLOR)
     build_gauges_v2(GAUGES_HASHUT, inlay_color=HASHUT_INLAY_COLOR)
+    build_gauges_v2(GAUGES_SYLVANETH, inlay_color=SYLVANETH_INLAY_COLOR)
 
     # configure_gauge's badge_text_size param reassigns the module-level
     # MYTHOS_TEXT_SIZE global (see that function's own docstring) - GAUGES_V2's
