@@ -73,6 +73,9 @@ inches in from the right edge."
 
 Run (builds every gauge and every stick in one pass):
   /Applications/Blender.app/Contents/MacOS/Blender --background --python build_measuring_gauges.py
+
+Outputs land in output/<force>/, renders in output/<force>/renders/: the generic Mythos set in
+output/mythos/, each faction edition (small_<force>, medium_<force>) in output/<force>/.
 """
 
 import bpy
@@ -113,8 +116,11 @@ SYLVANETH_SEED_CONTOURS_PATH = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "
 SYLVANETH_FACTION_CONTOURS_PATH = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "assets", "icons",
                                                                 "sylvaneth_faction_contours.json"))
 
-EXPORT_DIR = os.path.join(SCRIPT_DIR, "output")
-RENDER_DIR = os.path.join(EXPORT_DIR, "renders")
+OUTPUT_ROOT = os.path.join(SCRIPT_DIR, "output")
+# output/<force>/ (+ renders/) - the generic Mythos set under "mythos", each faction edition under
+# the force key ../spearhead-box and ../army-tokens use. Switched per phase by set_output_force.
+EXPORT_DIR = None
+RENDER_DIR = None
 RENDER_RESOLUTION = (1600, 700)
 
 BASE_COLOR = (0.05, 0.05, 0.05, 1.0)   # preview only - black plate
@@ -1820,9 +1826,16 @@ def build_gauges_v2(specs, inlay_color=INLAY_COLOR):
         export_piece(spec["name"], base, inlay, inlay_color=inlay_color)
 
 
-def main():
-    os.makedirs(EXPORT_DIR, exist_ok=True)
+def set_output_force(force):
+    """Point every export/render helper at output/<force>/ (and its renders/)."""
+    global EXPORT_DIR, RENDER_DIR
+    EXPORT_DIR = os.path.join(OUTPUT_ROOT, force)
+    RENDER_DIR = os.path.join(EXPORT_DIR, "renders")
     os.makedirs(RENDER_DIR, exist_ok=True)
+
+
+def main():
+    set_output_force("mythos")
 
     # Phase 1: the 3"/6"/9" range/engagement gauges.
     for spec in GAUGES:
@@ -1839,10 +1852,15 @@ def main():
     build_gauges_v2(GAUGES_V2)
 
     # Phase 1c: Khorne editions of the v2 pieces, red inlay.
+    set_output_force("khorne")
     build_gauges_v2(GAUGES_KHORNE, inlay_color=KHORNE_INLAY_COLOR)
+    set_output_force("skaven")
     build_gauges_v2(GAUGES_SKAVEN, inlay_color=SKAVEN_INLAY_COLOR)
+    set_output_force("hashut")
     build_gauges_v2(GAUGES_HASHUT, inlay_color=HASHUT_INLAY_COLOR)
+    set_output_force("sylvaneth")
     build_gauges_v2(GAUGES_SYLVANETH, inlay_color=SYLVANETH_INLAY_COLOR)
+    set_output_force("mythos")
 
     # configure_gauge's badge_text_size param reassigns the module-level
     # MYTHOS_TEXT_SIZE global (see that function's own docstring) - GAUGES_V2's
