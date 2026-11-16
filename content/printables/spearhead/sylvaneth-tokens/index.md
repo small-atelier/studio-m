@@ -1,7 +1,7 @@
 ---
 title: "Spitewing Flight Spearhead Tokens & Box"
 date: 2026-11-14
-draft: true
+draft: false
 tags: ["3d-printing", "warhammer", "age-of-sigmar", "multi-material"]
 ---
 
