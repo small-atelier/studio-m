@@ -71,8 +71,9 @@ matching every other Mythos badge in this repo. Badge position is the same
 rule on every piece in the family, gauges and sticks alike: centered "1.5
 inches in from the right edge."
 
-Run (builds every gauge and every stick in one pass):
+Run (every gauge and stick, or one set - mythos for the generic set, or a FORCES key):
   /Applications/Blender.app/Contents/MacOS/Blender --background --python build_measuring_gauges.py
+  /Applications/Blender.app/Contents/MacOS/Blender --background --python build_measuring_gauges.py -- --force khorne
 
 Outputs land in output/<force>/, renders in output/<force>/renders/: the generic Mythos set in
 output/mythos/, each faction edition (small_<force>, medium_<force>) in output/<force>/.
@@ -84,6 +85,7 @@ import json
 import math
 import mathutils
 import os
+import sys
 import zipfile
 
 # ============================================================
@@ -125,10 +127,6 @@ RENDER_RESOLUTION = (1600, 700)
 
 BASE_COLOR = (0.05, 0.05, 0.05, 1.0)   # preview only - black plate
 INLAY_COLOR = (1.0, 1.0, 1.0, 1.0)     # preview only - white ticks/numerals/badge
-KHORNE_INLAY_COLOR = (0.65, 0.03, 0.03, 1.0)   # preview only - red, matches army-tokens/build_khorne_tokens.py
-SKAVEN_INLAY_COLOR = (0.30, 0.80, 0.10, 1.0)   # preview only - warpstone green, matches army-tokens/build_skaven_tokens.py
-HASHUT_INLAY_COLOR = (0.06, 0.45, 0.12, 1.0)   # preview only - green, matches army-tokens/build_hashut_tokens.py
-SYLVANETH_INLAY_COLOR = (0.95, 0.42, 0.05, 1.0)   # preview only - orange, matches army-tokens/build_sylvaneth_tokens.py
 
 BASE_EXTRUDER_SLOT = 1    # edit to match your AMS loadout on the day you slice
 INLAY_EXTRUDER_SLOT = 2
@@ -955,38 +953,45 @@ GAUGES_V2 = [
      "badge_text_size": 21.0, "badge_font_path": MYTHOS_FONT_PATH, "badge_icon_scale": 2.1},
 ]
 
-# Khorne editions of small_v2/medium_v2 - identical bodies, ticks, labels and
-# back-face Mythos badge; the front face's badge is the Khorne rune instead
-# (front_icon_h/front_icon_path), and the whole inlay prints red (2-colour, red on black).
-# small: the 2" zone's ticks reach 3mm in from top and bottom at the badge's own
-# x (12.7), leaving 19.4mm - 16.0 keeps ~1.7mm clear each side. medium: the 6"
-# zone is 76.2mm tall with nothing but edge ticks in it.
-GAUGES_KHORNE = [
-    {**GAUGES_V2[0], "name": "small_khorne", "front_icon_h": 16.0, "front_icon_path": KHORNE_CONTOURS_PATH},
-    {**GAUGES_V2[1], "name": "medium_khorne", "front_icon_h": 48.0, "front_icon_path": KHORNE_CONTOURS_PATH},
-]
+# Faction editions of small_v2/medium_v2, one FORCES entry each (same keys as ../spearhead-box
+# and ../army-tokens, and the output/<force>/ folder name): identical bodies, ticks, labels and
+# back-face Mythos badge; the front face's badge is the force's icon instead (front_icon_h/
+# front_icon_path), and the whole inlay prints in the force's colour (2-colour, on black).
+# small: the 2" zone's ticks reach 3mm in from top and bottom at the badge's own x (12.7),
+# leaving 19.4mm - 16.0 keeps ~1.7mm clear each side. medium: the 6" zone is 76.2mm tall with
+# nothing but edge ticks in it.
+FORCE_SMALL_ICON_H = 16.0
+FORCE_MEDIUM_ICON_H = 48.0
 
-# Skaven editions - same as the Khorne ones with the Horned Rat rune (near-square,
-# like the Khorne rune, so the same heights fit), green inlay.
-GAUGES_SKAVEN = [
-    {**GAUGES_V2[0], "name": "small_skaven", "front_icon_h": 16.0, "front_icon_path": SKAVEN_CONTOURS_PATH},
-    {**GAUGES_V2[1], "name": "medium_skaven", "front_icon_h": 48.0, "front_icon_path": SKAVEN_CONTOURS_PATH},
-]
+# small_icon / medium_icon: contour paths for each gauge's front badge. inlay_color: preview only,
+# matches the force's army-tokens/build_<force>_tokens.py.
+FORCES = {
+    # Khorne rune, red.
+    "khorne": {"small_icon": KHORNE_CONTOURS_PATH, "medium_icon": KHORNE_CONTOURS_PATH,
+               "inlay_color": (0.65, 0.03, 0.03, 1.0)},
+    # Horned Rat rune (near-square, like the Khorne rune, so the same heights fit), warpstone green.
+    "skaven": {"small_icon": SKAVEN_CONTOURS_PATH, "medium_icon": SKAVEN_CONTOURS_PATH,
+               "inlay_color": (0.30, 0.80, 0.10, 1.0)},
+    # Hashut rune (square, aspect 1.0), green.
+    "hashut": {"small_icon": HASHUT_CONTOURS_PATH, "medium_icon": HASHUT_CONTOURS_PATH,
+               "inlay_color": (0.06, 0.45, 0.12, 1.0)},
+    # The seed on the small gauge (tall, h/w 1.47 - narrower than the square runes at the same
+    # height), the faction glyph on the medium one (wide, ~57mm at 48 tall, inside the 6" zone's
+    # 76.2mm), orange.
+    "sylvaneth": {"small_icon": SYLVANETH_SEED_CONTOURS_PATH, "medium_icon": SYLVANETH_FACTION_CONTOURS_PATH,
+                  "inlay_color": (0.95, 0.42, 0.05, 1.0)},
+}
 
-# Hashut editions - the Hashut rune (square, aspect 1.0), green inlay.
-GAUGES_HASHUT = [
-    {**GAUGES_V2[0], "name": "small_hashut", "front_icon_h": 16.0, "front_icon_path": HASHUT_CONTOURS_PATH},
-    {**GAUGES_V2[1], "name": "medium_hashut", "front_icon_h": 48.0, "front_icon_path": HASHUT_CONTOURS_PATH},
-]
 
-# Sylvaneth editions - the seed on the small gauge (tall, h/w 1.47 - narrower than the square
-# runes at the same height), the faction glyph on the medium one (wide, ~57mm at 48 tall, inside
-# the 6" zone's 76.2mm), orange inlay.
-GAUGES_SYLVANETH = [
-    {**GAUGES_V2[0], "name": "small_sylvaneth", "front_icon_h": 16.0, "front_icon_path": SYLVANETH_SEED_CONTOURS_PATH},
-    {**GAUGES_V2[1], "name": "medium_sylvaneth", "front_icon_h": 48.0,
-     "front_icon_path": SYLVANETH_FACTION_CONTOURS_PATH},
-]
+def force_gauges(force_name):
+    """The small/medium v2 specs for one FORCES entry - small_<force>, medium_<force>."""
+    force = FORCES[force_name]
+    return [
+        {**GAUGES_V2[0], "name": f"small_{force_name}", "front_icon_h": FORCE_SMALL_ICON_H,
+         "front_icon_path": force["small_icon"]},
+        {**GAUGES_V2[1], "name": f"medium_{force_name}", "front_icon_h": FORCE_MEDIUM_ICON_H,
+         "front_icon_path": force["medium_icon"]},
+    ]
 
 
 def gauge_outline_points():
@@ -1834,7 +1839,8 @@ def set_output_force(force):
     os.makedirs(RENDER_DIR, exist_ok=True)
 
 
-def main():
+def build_mythos():
+    """The generic Mythos set: phases 1-4, all into output/mythos/."""
     set_output_force("mythos")
 
     # Phase 1: the 3"/6"/9" range/engagement gauges.
@@ -1850,17 +1856,6 @@ def main():
     # Phase 1b: small_v2/medium_v2 - experimental restyle, see GAUGES_V2's own
     # docstring.
     build_gauges_v2(GAUGES_V2)
-
-    # Phase 1c: Khorne editions of the v2 pieces, red inlay.
-    set_output_force("khorne")
-    build_gauges_v2(GAUGES_KHORNE, inlay_color=KHORNE_INLAY_COLOR)
-    set_output_force("skaven")
-    build_gauges_v2(GAUGES_SKAVEN, inlay_color=SKAVEN_INLAY_COLOR)
-    set_output_force("hashut")
-    build_gauges_v2(GAUGES_HASHUT, inlay_color=HASHUT_INLAY_COLOR)
-    set_output_force("sylvaneth")
-    build_gauges_v2(GAUGES_SYLVANETH, inlay_color=SYLVANETH_INLAY_COLOR)
-    set_output_force("mythos")
 
     # configure_gauge's badge_text_size param reassigns the module-level
     # MYTHOS_TEXT_SIZE global (see that function's own docstring) - GAUGES_V2's
@@ -1912,6 +1907,24 @@ def main():
         report_tri_segment(f"{spec['name']}_inlay", inlay)
         render_charge_stick_tri(spec["name"], base, inlay)
         export_tri_segment(spec["name"], base, inlay)
+
+
+def build_force(force_name):
+    """One FORCES entry's small/medium editions into output/<force>/."""
+    set_output_force(force_name)
+    build_gauges_v2(force_gauges(force_name), inlay_color=FORCES[force_name]["inlay_color"])
+
+
+def main():
+    argv = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
+    names = [argv[argv.index("--force") + 1]] if "--force" in argv else ["mythos", *FORCES]
+    for name in names:
+        assert name == "mythos" or name in FORCES, f"unknown force {name} - mythos or one of {', '.join(FORCES)}"
+        print(f"=== {name}")
+        if name == "mythos":
+            build_mythos()
+        else:
+            build_force(name)
 
 
 if __name__ == "__main__":
