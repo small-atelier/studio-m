@@ -3,7 +3,7 @@ Generic combat-modifier tokens (Blender bpy) - not army/faction specific,
 usable in both 40k and AoS. Each token is a FLIP token: front and back
 show opposite states of the same stat (e.g. "+1"/"-1"), not the
 mirrored-duplicate content used on the Hashut army tokens
-(blender/tokens/build_tokens.py) - same double-sided-mirroring math
+(blender/army-tokens/build_hashut_aos_tokens.py) - same double-sided-mirroring math
 underneath (see module docstring there), just fed different text per
 side instead of the same text twice.
 
@@ -116,7 +116,7 @@ BORDER_OUTER_FRAC = 0.90   # ring's outer edge, as a fraction of the plate's own
 BORDER_INNER_FRAC = 0.78   # ring's inner edge - the gap between these two is the ring width
 
 # ============================================================
-# GENERIC HELPERS (ported from blender/tokens/build_tokens.py - see that
+# GENERIC HELPERS (ported from blender/army-tokens/build_hashut_aos_tokens.py - see that
 # file's own comments for why each fix exists; not re-derived here)
 # ============================================================
 
@@ -232,7 +232,7 @@ def dedupe_closed_loop(points, tol=1e-9):
     """Traced contours (skimage find_contours) can come back as closed
     rings with the first and last point identical - a degenerate
     zero-length edge that corrupts the extruded solid's topology if left
-    in. See blender/tokens/build_tokens.py's own version of this for the
+    in. See blender/army-tokens/build_hashut_aos_tokens.py's own version of this for the
     full story (~50% non-manifold edges traced back to exactly this)."""
     if len(points) > 1:
         x0, y0 = points[0]
@@ -248,7 +248,7 @@ def load_contours(path):
 
 
 def build_icon_solid(contours, icon_w, icon_h, center_x, top_z, mirror, name_prefix, poke=0.0):
-    """Traced-icon solid (ported from blender/tokens/build_tokens.py) -
+    """Traced-icon solid (ported from blender/army-tokens/build_hashut_aos_tokens.py) -
     built as its own free-standing composite (per-contour chained union/
     difference, holes already cut) before ever touching the shell; see
     that file's own module docstring for why (long chains directly onto
@@ -349,7 +349,7 @@ def carve_and_collect_inlay(shell, inserts, cutters, name_prefix):
 
 def reorient_for_print(obj):
     """Y (thickness) -> Z (build direction, [0, PLATE_T]); Z (shape's own
-    in-plane vertical) -> Y. See build_tokens.py's version for the full
+    in-plane vertical) -> Y. See build_hashut_aos_tokens.py's version for the full
     derivation (proper rotation, determinant +1, not a mirror)."""
     bm = bmesh.new()
     bm.from_mesh(obj.data)
@@ -388,7 +388,7 @@ def apply_color(obj, name, rgba):
 
 def export_project_3mf(parts, path):
     """Anycubic Slicer Next's project-3mf flavor - see
-    blender/tokens/build_tokens.py's own export_project_3mf for the full
+    blender/army-tokens/build_hashut_aos_tokens.py's own export_project_3mf for the full
     story (that slicer ignores the standard 3MF color hint entirely).
     `parts` is a list of (obj, name, extruder_slot)."""
     os.makedirs(os.path.dirname(path), exist_ok=True)

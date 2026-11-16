@@ -95,7 +95,7 @@ INLAY_EXTRUDER_SLOT = 2
 
 FORCES = {
     # Helsmiths of Hashut, full Age of Sigmar (Battletome) - DPP hex tokens + Desolation tokens,
-    # ../tokens/build_tokens.py
+    # ../army-tokens/build_hashut_aos_tokens.py
     "hashut_aos": {
         "base_color": (1.0, 1.0, 1.0, 1.0),       # white
         "inlay_color": (0.06, 0.45, 0.12, 1.0),   # green
@@ -104,8 +104,8 @@ FORCES = {
         "lid_center": {"contours": os.path.join(_ICONS_DIR, "hashut_bull_contours.json"), "w": 46.0},
         "lid_corners": {"contours": os.path.join(_ICONS_DIR, "hashut_rune_contours.json")},
     },
-    # Helsmiths of Hashut, Helforge Host Spearhead - hex DPP tokens (../tokens/build_tokens.py) and hex
-    # control tokens in the left column, ability tokens + damage trays from ../hashut-spearhead-tokens/
+    # Helsmiths of Hashut, Helforge Host Spearhead - hex DPP tokens (../army-tokens/build_hashut_aos_tokens.py) and hex
+    # control tokens in the left column, ability tokens + damage trays from ../army-tokens/build_hashut_tokens.py
     "hashut": {
         "base_color": (1.0, 1.0, 1.0, 1.0),       # white
         "inlay_color": (0.06, 0.45, 0.12, 1.0),   # green
@@ -116,7 +116,7 @@ FORCES = {
         "lid_center": {"contours": os.path.join(_ICONS_DIR, "hashut_bull_contours.json"), "w": 46.0},
         "lid_corners": {"contours": os.path.join(_ICONS_DIR, "hashut_rune_contours.json")},
     },
-    # Blades of Khorne - hex tokens + damage trays, ../khorne-tokens/build_khorne_tokens.py
+    # Blades of Khorne - hex tokens + damage trays, ../army-tokens/build_khorne_tokens.py
     "khorne": {
         "base_color": (0.04, 0.04, 0.04, 1.0),    # black
         "inlay_color": (0.65, 0.03, 0.03, 1.0),   # red
@@ -126,7 +126,7 @@ FORCES = {
                        "w": 50.0},
         "lid_corners": {"contours": os.path.join(_ICONS_DIR, "chaos_star_contours.json")},
     },
-    # Skaven - hex tokens + single/double damage trays, ../skaven-tokens/build_skaven_tokens.py
+    # Skaven - hex tokens + single/double damage trays, ../army-tokens/build_skaven_tokens.py
     "skaven": {
         "base_color": (0.04, 0.04, 0.04, 1.0),    # black
         "inlay_color": (0.30, 0.80, 0.10, 1.0),   # warpstone green
@@ -139,7 +139,7 @@ FORCES = {
                        "w": 90.0, "rot": 90.0},   # turned to run along the lid's long side, top toward -X
         "lid_corners": {"contours": os.path.join(_ICONS_DIR, "rat_rune_contours.json")},
     },
-    # Disciples of Tzeentch - hex tokens + damage trays, ../tzeentch-tokens/build_tzeentch_tokens.py
+    # Disciples of Tzeentch - hex tokens + damage trays, ../army-tokens/build_tzeentch_tokens.py
     "tzeentch": {
         "base_color": (1.0, 1.0, 1.0, 1.0),       # white
         "inlay_color": (0.05, 0.20, 0.55, 1.0),   # blue
@@ -223,7 +223,7 @@ RACK_SLOT_DEPTH = RACK_DIE / 2.0      # half the die sunk, half to grip
 CARD_NOTCH_W = 80.0
 HEX_NOTCH_W = 32.0     # through the left wall, across the hex's flat side
 
-# --- rectangle token wells --- (56x30mm ability tokens, ../skaven-tokens/build_skaven_tokens.py's
+# --- rectangle token wells --- (56x30mm ability tokens, ../army-tokens/build_skaven_tokens.py's
 # TOKEN_W/TOKEN_H - keep in sync); stand in the left column long side front-to-back
 RECT_TOKEN_W = 56.0
 RECT_TOKEN_H = 30.0
@@ -540,7 +540,7 @@ def build_box(sx, sy, sz, center, name):
 
 def extrude_xy(points, z0, thickness, name):
     """Build a flat face from a closed (x, y) point loop and extrude it
-    along +Z - the footprint-native counterpart of ../tokens/build_tokens.py's
+    along +Z - the footprint-native counterpart of ../army-tokens/build_hashut_aos_tokens.py's
     _extrude_profile (which extrudes an (x, z) loop along Y, the right
     convention for a flat token but not for a box built with Z already as
     the print-up axis)."""
@@ -562,7 +562,7 @@ def extrude_xy(points, z0, thickness, name):
 
 def join_objects(objs, name):
     """Merge several non-overlapping pieces into ONE mesh before a single
-    boolean call - see ../tokens/build_tokens.py's own join_objects docstring for
+    boolean call - see ../army-tokens/build_hashut_aos_tokens.py's own join_objects docstring for
     why (EXACT-solver corruption on long boolean chains)."""
     bpy.ops.object.select_all(action='DESELECT')
     for o in objs:
@@ -574,7 +574,7 @@ def join_objects(objs, name):
 
 
 def dedupe_closed_loop(points, tol=1e-9):
-    """See ../tokens/build_tokens.py's own dedupe_closed_loop - traced contours
+    """See ../army-tokens/build_hashut_aos_tokens.py's own dedupe_closed_loop - traced contours
     repeat their first point as their last; left in, that's a degenerate
     zero-length edge that corrupts the EXACT solver."""
     if len(points) > 1:
@@ -587,7 +587,7 @@ def dedupe_closed_loop(points, tol=1e-9):
 
 def hex_points(flat_to_flat):
     """Pointy-top regular hexagon outline (points at top/bottom), same
-    shape/orientation as ../tokens/build_tokens.py's hex_points - kept consistent
+    shape/orientation as ../army-tokens/build_hashut_aos_tokens.py's hex_points - kept consistent
     so a well reads as "the same hex, just bigger" next to the token
     itself, not a different orientation."""
     r = flat_to_flat / math.sqrt(3.0)
@@ -639,7 +639,7 @@ def load_contours(path):
 
 def build_icon_solid_xy(contours, icon_w, icon_h, center_x, center_y, z0, thickness, name_prefix,
                         mirror_y=False):
-    """XY-plane counterpart of ../tokens/build_tokens.py's build_icon_solid - same
+    """XY-plane counterpart of ../army-tokens/build_hashut_aos_tokens.py's build_icon_solid - same
     per-contour chained union/difference pattern (proven there), just
     footprint-oriented. u -> x, v -> y (v=0 is the icon's own bottom
     edge); mirror_y flips v for a face that's read from the other side."""
@@ -769,7 +769,7 @@ def export_stl(obj, path):
 
 
 def export_3mf(parts, path):
-    """Same generic multi-object colored 3MF writer as ../tokens/build_tokens.py's
+    """Same generic multi-object colored 3MF writer as ../army-tokens/build_hashut_aos_tokens.py's
     export_3mf - see that function's docstring."""
     os.makedirs(os.path.dirname(path), exist_ok=True)
     colors, color_index = [], {}
@@ -827,7 +827,7 @@ def export_3mf(parts, path):
 
 
 def export_project_3mf(parts, path):
-    """Same Anycubic Slicer Next project-3mf flavor as ../tokens/build_tokens.py's
+    """Same Anycubic Slicer Next project-3mf flavor as ../army-tokens/build_hashut_aos_tokens.py's
     export_project_3mf (extruder-per-part metadata, not the standard 3MF
     color hint - see that function's docstring for why)."""
     os.makedirs(os.path.dirname(path), exist_ok=True)
@@ -1248,7 +1248,7 @@ def build_text_xy(text, size, z0, thickness, cx, cy, rotation_deg, name):
     bpy.ops.object.convert(target='MESH')
 
     # merge-by-distance: FONT-curve conversion leaves duplicate cap vertices that corrupt the
-    # EXACT solver (see ../khorne-tokens/build_khorne_tokens.py's _build_flat_text_mesh)
+    # EXACT solver (see ../army-tokens/build_khorne_tokens.py's _build_flat_text_mesh)
     bm = bmesh.new()
     bm.from_mesh(obj.data)
     bmesh.ops.remove_doubles(bm, verts=bm.verts, dist=1e-3)

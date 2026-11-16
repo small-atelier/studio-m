@@ -54,7 +54,7 @@ EXPORT_DIR = "/Users/mannil/studio-m/blender/hellforge/output_corner_trim"
 EXPORT_STL = True
 EXPORT_3MF = True
 
-# Multi-color print, same technique as blender/tokens/build_tokens.py
+# Multi-color print, same technique as blender/army-tokens/build_hashut_aos_tokens.py
 # (which already worked this out for the Anycubic printer): CAP_COLOR is
 # a render-preview-only placeholder for whatever the bracket's own
 # filament actually is; INSERT_COLOR is the rune's contrasting color -
@@ -62,12 +62,12 @@ EXPORT_3MF = True
 # icon/text inlay across the whole army-accessory line, not just picked
 # fresh here. Swap to black by flipping the comment if that's preferred.
 CAP_COLOR = (0.15, 0.15, 0.17, 1.0)     # dark gunmetal placeholder - not a real material choice
-INSERT_COLOR = (0.06, 0.45, 0.12, 1.0)  # green - same value as build_tokens.py's INLAY_COLOR
+INSERT_COLOR = (0.06, 0.45, 0.12, 1.0)  # green - same value as build_hashut_aos_tokens.py's INLAY_COLOR
 # INSERT_COLOR = (0.02, 0.02, 0.02, 1.0)  # black, if preferred over green
 
 # Anycubic Slicer Next ignores the standard 3MF color hint entirely and
 # only reads its own project-3mf `extruder` metadata per part - same
-# finding as build_tokens.py's own export_project_3mf docstring. Edit
+# finding as build_hashut_aos_tokens.py's own export_project_3mf docstring. Edit
 # these to match your ACE Gen2/AMS loadout on the day you slice.
 CAP_EXTRUDER_SLOT = 1
 INSERT_EXTRUDER_SLOT = 2
@@ -97,7 +97,7 @@ RUNE_TARGET_W = 13.0
 # 2-color print: the rune is a SEPARATE insert (its own STL, printed in a
 # different color/material - black/green per the request) glued into a
 # socket cut into the main bracket, not a shallow surface engrave. Same
-# proven insert/pocket technique as build_tokens.py (INSERT_DEPTH/
+# proven insert/pocket technique as build_hashut_aos_tokens.py (INSERT_DEPTH/
 # POCKET_POKE values reused as-is from there) - flush with the surface
 # either way, so it still can't scrape/dent anything once glued in.
 RUNE_INSERT_DEPTH = 0.6   # flush insert thickness
@@ -349,7 +349,7 @@ def export_stl(obj, filename):
 def apply_color(obj, name, rgba):
     """Viewport/render-only material so preview renders show the intended
     two-color look - has no bearing on the exported geometry. Reused
-    verbatim from build_tokens.py's own apply_color."""
+    verbatim from build_hashut_aos_tokens.py's own apply_color."""
     mat = bpy.data.materials.get(name)
     if mat is None:
         mat = bpy.data.materials.new(name)
@@ -365,7 +365,7 @@ def apply_color(obj, name, rgba):
 
 def export_3mf(parts, path):
     """Portable 3MF with a standard <colorgroup> color hint - reused
-    verbatim from build_tokens.py's own export_3mf (itself adapted from
+    verbatim from build_hashut_aos_tokens.py's own export_3mf (itself adapted from
     ~/best/site's scout-name-tags project). Keeps both parts in one
     coordinate space so their relative alignment survives import (a
     slicer auto-centers independently-imported STLs, which would break
@@ -440,7 +440,7 @@ def export_3mf(parts, path):
 def export_project_3mf(parts, path):
     """Anycubic Slicer Next's own project-3mf flavor (Bambu Studio/
     OrcaSlicer lineage: Metadata/model_settings.config) - reused verbatim
-    from build_tokens.py's own export_project_3mf. That slicer ignores the
+    from build_hashut_aos_tokens.py's own export_project_3mf. That slicer ignores the
     standard 3MF color hint entirely (both <basematerials> and
     <colorgroup> came back flat/same-color on import there) and only
     reads its own `extruder` metadata per part, referencing whatever

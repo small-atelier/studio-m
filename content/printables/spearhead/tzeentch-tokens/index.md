@@ -111,7 +111,7 @@ Each piece comes as a base + inlay STL pair, an `_anycubic.3mf` (Anycubic Slicer
 - Base — [base](downloads/box_base_base.stl) · [inlay](downloads/box_base_inlay.stl) · [Anycubic 3MF](downloads/box_base_anycubic.3mf) · [plain 3MF](downloads/box_base.3mf)
 - Lid — [base](downloads/box_lid_base.stl) · [inlay](downloads/box_lid_inlay.stl) · [Anycubic 3MF](downloads/box_lid_anycubic.3mf) · [plain 3MF](downloads/box_lid.3mf)
 
-**Scripts** (Blender, headless) for adjusting sizes or counts: [build_tzeentch_tokens.py]({{< script "tzeentch-tokens/build_tzeentch_tokens.py" >}}) · [build_spearhead_box.py]({{< script "spearhead-box/build_spearhead_box.py" >}}) (`-- --force tzeentch`) · [extract_icon_contours.py]({{< script "icon-trace/extract_icon_contours.py" >}})
+**Scripts** (Blender, headless) for adjusting sizes or counts: [build_tzeentch_tokens.py]({{< script "army-tokens/build_tzeentch_tokens.py" >}}) · [build_spearhead_box.py]({{< script "spearhead-box/build_spearhead_box.py" >}}) (`-- --force tzeentch`) · [extract_icon_contours.py]({{< script "icon-trace/extract_icon_contours.py" >}})
 
 **Icon contours** (the scripts read them by relative path, so keep the folder layout from these URLs): [tzeentch_flame_contours.json]({{< script "assets/icons/tzeentch_flame_contours.json" >}}) · [chaos_star_contours.json]({{< script "assets/icons/chaos_star_contours.json" >}}) · [dice_roll_contours.json]({{< script "assets/icons/dice_roll_contours.json" >}}) · [cards_contours.json]({{< script "assets/icons/cards_contours.json" >}}) · [die_five_contours.json]({{< script "assets/icons/die_five_contours.json" >}}) · [logo_contours_v5.json]({{< script "card-stand/logo_contours_v5.json" >}})
 

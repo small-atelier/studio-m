@@ -215,7 +215,7 @@ def export_stl(obj, filename):
 
 def dedupe_closed_loop(points, tol=1e-9):
     """Traced hole contours repeat their first point as their last (see
-    extract_icon_contours.py / build_tokens.py's own note on this) - drop
+    extract_icon_contours.py / build_hashut_aos_tokens.py's own note on this) - drop
     it, or bm.faces.new builds a degenerate ngon with a zero-length edge."""
     if len(points) > 1:
         x0, y0 = points[0]

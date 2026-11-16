@@ -1,50 +1,47 @@
 """
-Sylvaneth (Spitewing Flight Spearhead) game pieces (Blender bpy) - ability
-pick/reminder tokens, effect hex tokens and arrow-shaped damage trays, sized
-for the Sylvaneth box (../spearhead-box/build_spearhead_box.py, --force
-sylvaneth): one rect well, one hex well, two 16mm tray wells. Built for
-GENUINE multi-material FDM printing (AMS/ACE-Gen2-style auto filament swap),
-not paint: every icon/text element is a RECESSED, flush insert - the base
-part has a shallow pocket cut for it, and the element itself is exported as
-its own separate STL/3MF object at the exact same size, so it drops into
-that pocket with zero gap. Two colors per piece: the base (black) and every
-icon/text insert joined into one "inlay" object (orange).
+Disciples of Tzeentch (Fluxblade Coven + Tzaangor Warflock Spearheads) game
+pieces (Blender bpy) - ability pick/reminder hex tokens and arrow-shaped
+damage trays. Built for GENUINE
+multi-material FDM printing (AMS/ACE-Gen2-style auto filament swap), not
+paint: every icon/text element is a RECESSED, flush insert - the base part
+has a shallow pocket cut for it, and the element itself is exported as its
+own separate STL/3MF object at the exact same size, so it drops into that
+pocket with zero gap. Two colors per piece: the base (white) and every
+icon/text insert joined into one "inlay" object (blue).
 
-Adapted from ../hashut-spearhead-tokens/build_hashut_spearhead_tokens.py
-(rect tokens, trays) and ../tzeentch-tokens/build_tzeentch_tokens.py (effect
-and generic hexes) - the generic helpers, recess/insert pipeline, 3MF
-exporters and the boolean-safety patterns (border cut as its own sequential
-difference, one combined content cut, volume-diff asserts) are carried over
-unchanged; see those scripts' comments for the reasoning.
+Adapted from build_skaven_tokens.py (itself adapted from
+the Khorne and Hashut token scripts) - the generic helpers, recess/insert
+pipeline, 3MF exporters and the boolean-safety patterns (border cut as its
+own sequential difference, one combined content cut, volume-diff asserts)
+are carried over unchanged; see those scripts' comments for the reasoning.
 
-Ability tokens: 56x30mm rectangles, one per regiment ability / enhancement
-pick (see TOKENS). Text only, no icon. Front: the name on rows 1-2 and a
-short rule on row 3, printed on top. Back (on the bed), mirrored so it reads
-when flipped: who it applies to (GENERAL / ARMY), then the timing. Print x1
-each - 6, one stack in the box's rect well.
-
-Effect hex tokens: 33mm pointy-top hex. Front: the seed icon, a big value
-and a short label - the effect, placed by the unit it applies to (see
-HEX_TOKENS). Back: the source ability, one word per line. Print x1 each.
-Generic hex token: the seed alone on both faces - spare marker. Print x4,
-filling the box's hex well to 7.
+Hex tokens: pointy-top hexagon, two different faces - front is the effect
+(Tzeentch flame, a big value, a short label), back is the source ability,
+mirrored so it reads correctly when flipped. One token per regiment ability
+/ enhancement pick across both Spearheads, plus the two lingering effects
+(Shield of Fate, Mutative Aura) that sit beside their target until the
+start of the next turn (see HEX_TOKENS). Once-per-battle abilities carry
+the Chaos star on the back instead - flip the token when it's spent.
+Plus a generic token (GENERIC_TOKEN_NAME): the flame alone on both faces -
+spares, and filler to top up the box's hex wells.
 
 Damage tray: arrow-shaped plate with a square pocket holding one 16mm d6
-showing the damage on the unit's current wounded model; the arrow points at
-the unit. Single-sided - the seed on the arrowhead's top face only. Print x3
-(Arch-Revenant, Spiterider Lancers, Revenant Seekers - every model has at
-most 6 health, one die each). Plain tray (damage_tray_plain): same arrow and
-die pocket, no seed - single-colour, base STL only.
+showing the damage on the unit's current wounded model; the arrow points
+at the unit. Single-sided - flame on the arrowhead's top face only. Print
+x5 (Fluxblade Coven's 5 multi-Health units; no model has more than 6
+Health, so no double tray).
 
-The seed icon is generated (../icon-trace/draw_sylvaneth_seed.py) and traced
-into ../assets/icons/ like every other icon: the traced Sylvaneth glyphs are
-too fine for inlays this small.
+Icons live in ../assets/icons/, traced by ../icon-trace/extract_icon_contours.py
+(tzeentch_flame_contours.json, chaos_star_contours.json).
 
-Run (everything):
-  /Applications/Blender.app/Contents/MacOS/Blender --background --python build_sylvaneth_tokens.py
+Plain tray (damage_tray_plain): same arrow and die pocket, no flame - single-
+colour, base STL only.
+
+Run (all hex tokens + both trays):
+  /Applications/Blender.app/Contents/MacOS/Blender --background --python build_tzeentch_tokens.py
 
 Run one piece only:
-  /Applications/Blender.app/Contents/MacOS/Blender --background --python build_sylvaneth_tokens.py -- --only tray   (or: --only token, --only hex, --only generic, --only tray_plain)
+  /Applications/Blender.app/Contents/MacOS/Blender --background --python build_tzeentch_tokens.py -- --only tray   (or: --only hex, --only tray_plain)
 """
 
 import bpy
@@ -63,7 +60,7 @@ import zipfile
 
 def _parse_args():
     argv = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
-    pieces, render = ["token", "hex", "generic", "tray", "tray_plain"], True
+    pieces, render = ["hex", "tray", "tray_plain"], True
     i = 0
     while i < len(argv):
         if argv[i] == "--only":
@@ -82,28 +79,29 @@ PIECES, RENDER_IMAGES = _parse_args()
 # ============================================================
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-SEED_CONTOURS_PATH = os.path.join(SCRIPT_DIR, "..", "assets", "icons", "sylvaneth_seed_contours.json")
-TEXT_FONT_PATH = os.path.join(SCRIPT_DIR, "..", "assets", "fonts", "BarlowCondensed-SemiBold.ttf")
-                             # condensed semibold sans (OFL): fits ~60% taller capitals per line than
-                             # Arial Black, and its letter holes (R, A) stay wider than a 0.4mm
-                             # nozzle line - Arial Black's closed up on the first printed hex tokens
+RUNE_CONTOURS_PATH = os.path.join(SCRIPT_DIR, "..", "assets", "icons", "tzeentch_flame_contours.json")
+HEAD_CONTOURS_PATH = os.path.join(SCRIPT_DIR, "..", "assets", "icons", "chaos_star_contours.json")
+TEXT_FONT_PATH = os.path.join(SCRIPT_DIR, "..", "assets", "fonts", "ArialBlack.ttf")   # bold sans - thin serif strokes
+                             # don't resolve on an FDM nozzle at small recessed size
+                             # (feedback_blender_text_mesh_gotchas)
 
-EXPORT_DIR = os.path.join(SCRIPT_DIR, "output")
+FORCE = "tzeentch"     # output/<force>/, same key as ../spearhead-box FORCES
+EXPORT_DIR = os.path.join(SCRIPT_DIR, "output", FORCE)
 EXPORT_STL = True
 EXPORT_3MF = True
 
-BASE_COLOR = (0.04, 0.04, 0.04, 1.0)   # black - the plate/tray, same as the box
-INLAY_COLOR = (0.95, 0.42, 0.05, 1.0)  # orange - every icon/text insert
+BASE_COLOR = (1.0, 1.0, 1.0, 1.0)      # white - the plate/tray
+INLAY_COLOR = (0.05, 0.20, 0.55, 1.0)  # blue - every icon/text insert
 
 # Anycubic Slicer Next only reads its own project-3mf `extruder` metadata per part (see
-# export_project_3mf) - set these to whichever ACE Gen2/AMS slot holds black/orange on the day
+# export_project_3mf) - set these to whichever ACE Gen2/AMS slot holds white/blue on the day
 # you slice; not derivable from the model itself.
-BASE_EXTRUDER_SLOT = 1    # black
-INLAY_EXTRUDER_SLOT = 2   # orange
+BASE_EXTRUDER_SLOT = 1    # white
+INLAY_EXTRUDER_SLOT = 2   # blue
 RENDER_DIR = os.path.join(EXPORT_DIR, "renders")
 RENDER_RESOLUTION = (1200, 1200)
 
-PLATE_T = 3.0               # ability token thickness (face_span's back face sits at y=PLATE_T)
+PLATE_T = 3.0               # hex token thickness (face_span's back face sits at y=PLATE_T)
 INSERT_DEPTH = 0.6          # flush recess depth for every icon/text insert
 POCKET_POKE = 0.4           # pocket CUTTER pokes past the outer face - avoids the coincident-
                              # face degenerate case for the EXACT solver; inserts stay flush
@@ -115,63 +113,53 @@ BORDER_WIDTH = 1.8          # ring thickness, same inlay color as everything els
 
 BOLD_OFFSET = 0.0           # synthetic bold is unstable once text bonds to the shell
 TEXT_SPACING = 1.1          # tracked letter-spacing - at 1.0 some Arial Black pairs touch, and
-                            # a touching pair corrupts the EXACT solver (see build_tokens.py)
-
-# ---- Ability tokens (rectangles) ----
-TOKEN_W = 56.0              # the box's rect well (58x32) takes a stack of up to 7
-TOKEN_H = 30.0
-TOKEN_INNER_W = TOKEN_W - 2.0 * (BORDER_INSET + BORDER_WIDTH)
-TOKEN_INNER_H = TOKEN_H - 2.0 * (BORDER_INSET + BORDER_WIDTH)
-TOKEN_CONTENT_CLEARANCE = 1.0
-
-# Text sizes aren't fixed: fit_text_size picks the largest size at which every token's lines fit -
-# one size shared by all fronts, one by all backs (the back's lines are shorter, so it comes out bigger).
-FRONT_ROWS = 3              # front: name on rows 1-2, rule on row 3
-FRONT_LINE_GAP = 1.6
-BACK_ROWS = 3               # back: who it applies to, then the timing
-BACK_LINE_GAP = 1.6
-TEXT_FIT_STEP = 0.1         # fitted sizes are rounded down to this
-
-# output name -> (name lines (1 or 2), rule line, back lines); print x1 each
-TOKENS = {
-    # regiment abilities
-    "leaves_on_the_wind": (["LEAVES ON", "THE WIND"], "RETREAT, NO MW",
-                           ["ARMY", "ONCE PER BATTLE", "END OF ANY TURN"]),
-    "lifebringers": (["LIFEBRINGERS"], "HEAL D3 EACH UNIT", ["ARMY", "ONCE PER TURN", "END OF ANY TURN"]),
-    # enhancements
-    "head_of_the_hunt": (["HEAD OF", "THE HUNT"], "+1 REND NEAR QUARRY", ["GENERAL", "PASSIVE"]),
-    "zephyrkin": (["ZEPHYRKIN"], '2D6" MOVE AFTER FIGHT', ["GENERAL", "REACTION", "AFTER CHARGE"]),
-    "bold_spirit": (["BOLD SPIRIT"], "+1 WOUND IN RANGE", ["GENERAL", "ONCE PER BATTLE", "ANY HERO PHASE"]),
-    "cunning_pursuer": (["CUNNING", "PURSUER"], "+1 CHARGE IF ENGAGED", ["GENERAL", "PASSIVE"]),
-}
+                            # a touching pair corrupts the EXACT solver (see build_hashut_aos_tokens.py)
 
 # ---- Hex tokens ----
-HEX_FLAT_TO_FLAT = 33.0     # the box's hex well (35 flat-to-flat) takes a stack of up to 7
+HEX_FLAT_TO_FLAT = 33.0     # same as the Hashut DPP token - proven size in hand
 HEX_INNER_FLAT_TO_FLAT = HEX_FLAT_TO_FLAT - 2.0 * (BORDER_INSET + BORDER_WIDTH)
-HEX_CONTENT_CLEARANCE = 0.5    # gap kept between content and the border's inner edge - three
-                               # elements share the front, as on the Tzeentch hexes
-HEX_SEED_H = 12.0           # the seed's minimum print size (see draw_sylvaneth_seed.py)
-HEX_SEED_TOP_Z = 12.6       # as high as the seed's top corners clear the tapering inner hex
-HEX_VALUE_SIZE = 10.0
-HEX_VALUE_GAP_BELOW_SEED = 0.8
-HEX_LABEL_SIZE = 5.6        # ATTACKS, the longest label, sets it
+HEX_CONTENT_CLEARANCE = 0.5    # gap kept between content and the border's inner edge - tighter
+                               # than DPP's 1.0 to fit three elements in the same hex
+
+HEX_RUNE_W = 9.5
+HEX_RUNE_TOP_Z = 12.2       # as high as the rune's top corners clear the tapering inner hex
+HEX_VALUE_SIZE = 9.0
+HEX_VALUE_GAP_BELOW_RUNE = 1.2
+HEX_LABEL_SIZE = 5.0
 HEX_LABEL_GAP_BELOW_VALUE = 0.8
-HEX_BACK_SIZE = 7.0         # back face: one word per line, block auto-centered
+HEX_BACK_SIZE = 5.0         # back face: one word per line, block auto-centered - Khorne's 6.0
+                            # caps lines at 6 letters; SKITTER/ENDLESS/SKILLED need 7
 HEX_BACK_LINE_GAP = 1.4
+
+USED = None                 # back of every once-per-battle token: the Chaos star
+HEX_HEAD_W = 18.5           # star on a once-per-battle back - largest where its bbox corners
+                            # clear the tapering inner hex
 
 # output name -> (front value, front label, back lines); print x1 each
 HEX_TOKENS = {
-    "quarry": ('9"', "QUARRY", ["TARGET OF", "VENGEANCE"]),          # Song of the Hunt range
-    "hunting_horn": ("+1", "CHORD", ["HUNTING", "HORN"]),             # Arch-Revenant, friendly unit
-    "deafening_drone": ("-1", "ATTACKS", ["DEAFENING", "DRONE"]),     # Revenant Seekers, enemy unit
+    # Fluxblade Coven
+    "fluxblade_transient_forms": ("4+", "RETURN", ["TRANSIENT", "FORMS"]),   # regiment
+    "fluxblade_conflagration": ("+1", "REND", ["ETERNAL", "FIRE"]),         # regiment
+    "fluxblade_shield_of_fate": ("6+", "WARD", ["SHIELD", "OF", "FATE"]),   # lingering, friendly unit
+    "fluxblade_glimpse": ("+1", "DESTINY", ["GLIMPSE"]),
+    "fluxblade_daemonheart": ("MW", "= ROUND", USED),
+    "fluxblade_timeslip": ("LAST", "STRIKE", USED),
+    # Tzaangor Warflock
+    "warflock_constant_flux": ("-1", "REND", ["CONSTANT", "FLUX"]),         # regiment
+    "warflock_ritualists": ("+1", "CAST", ["ARCANE", "RITUAL"]),              # regiment
+    "warflock_predicted_strike": ('D6"', "MOVE", USED),
+    "warflock_fold_reality": ("6+", "LEAP", ["FOLD", "REALITY"]),
+    "warflock_infernal_gateway": ("5+", "MW", ["INFERNAL", "GATEWAY"]),
+    "warflock_mutagenic": ("D3", "MW", ["MUTAGEN", "SORCERY"]),
+    "warflock_mutative_aura": ("1s", "MW", ["MUTATIVE", "AURA"]),           # Shaman; lingering, enemy unit
 }
 
-# Generic token: the seed alone, centered and as big as fits, on both faces - spares
-GENERIC_TOKEN_NAME = "sylvaneth_token"
-GENERIC_SEED_H = 20.0       # largest where the seed's bbox corners still clear the tapering inner hex
+# Generic token: the flame alone, centered and as big as fits, on both faces - spares/fillers
+GENERIC_TOKEN_NAME = "tzeentch_token"
+GENERIC_RUNE_W = 17.0       # largest where the rune's corners still clear the tapering inner hex
 
 # ---- Damage tray (arrow) ----
-DIE_SIZE = 16.0             # standard 16mm d6 - the box's ("tray", 22.0, 16.0) wells
+DIE_SIZE = 16.0             # standard 16mm d6
 DIE_CLEARANCE = 0.4         # per side - drops in and lifts out without sticking
 TRAY_POCKET_W = DIE_SIZE + 2.0 * DIE_CLEARANCE    # 16.8
 TRAY_POCKET_DEPTH = 5.0
@@ -179,9 +167,10 @@ TRAY_FLOOR_T = 1.5
 TRAY_T = TRAY_POCKET_DEPTH + TRAY_FLOOR_T         # 6.5 - three stack to 19.5, inside a 22mm well
 TRAY_WALL = 2.6             # material around the pocket
 TRAY_BODY_W = TRAY_POCKET_W + 2.0 * TRAY_WALL     # 22.0 - square body, pocket centered on origin
+TRAY_DOUBLE_BODY_W = 2.0 * TRAY_POCKET_W + 3.0 * TRAY_WALL   # 41.4 - two pockets, wall between
 TRAY_HEAD_L = 18.0          # arrowhead length, base to tip - head is as wide as the body
-TRAY_SEED_H = 11.0          # under the 12mm minimum: the arrowhead narrows too fast above the pocket
-TRAY_SEED_TOP_Z = 21.2      # on the arrowhead, clear of the pocket and the tapering sides
+TRAY_RUNE_W = 9.0
+TRAY_RUNE_TOP_Z = 20.0      # on the arrowhead, clear of the pocket and the tapering sides
 TRAY_CONTENT_CLEARANCE = 1.0
 
 # ============================================================
@@ -812,6 +801,41 @@ def carve_and_collect_inlay(shell, inserts, cutters, name_prefix):
 
 
 
+# ============================================================
+# HEX OUTLINE
+# ============================================================
+
+
+def hex_points(flat_to_flat):
+    """Pointy-top regular hexagon outline (points at top/bottom, flat
+    sides left/right) as a closed (x, z) loop, centered on the origin."""
+    r = flat_to_flat / math.sqrt(3.0)
+    pts = []
+    for k in range(6):
+        angle = math.radians(90.0 + 60.0 * k)
+        pts.append((r * math.cos(angle), r * math.sin(angle)))
+    return pts
+
+
+def hex_width_at_z(flat_to_flat, z):
+    """Usable horizontal width of the pointy-top hex at vertical offset z
+    from center - used to sanity-check content doesn't touch the sloped
+    sides near the top/bottom points."""
+    r = flat_to_flat / math.sqrt(3.0)
+    az = abs(z)
+    if az >= r:
+        return 0.0
+    # Full flat_to_flat width holds up to the side vertices (at z = +-r/2 for a pointy-top
+    # hex); above/below that the two slanted edges taper linearly to the top/bottom point.
+    side_vertex_z = r / 2.0
+    if az <= side_vertex_z:
+        return flat_to_flat
+    # linear taper from (apothem, side_vertex_z) to (0, r)
+    t = (az - side_vertex_z) / (r - side_vertex_z)
+    return flat_to_flat * (1.0 - t)
+
+
+
 def width_between(width_fn, top_z, bottom_z):
     """Narrowest usable width over an element's full vertical span - checks
     both edges, not just the center, so a rectangular icon's corners are
@@ -820,204 +844,121 @@ def width_between(width_fn, top_z, bottom_z):
 
 
 # ============================================================
-# ABILITY TOKEN (rectangle)
+# HEX TOKEN
 # ============================================================
-
-
-def _cap_height(size):
-    """Height of a capital at this size - the fixed line slot the front's rows are laid out on,
-    so the rule line sits at the same z on every token whatever its glyphs."""
-    obj, bottom_z, _ = build_text_solid("H", size, 0.0, 0.0, False, poke=0.0)
-    bpy.data.objects.remove(obj, do_unlink=True)
-    return -bottom_z
-
-
-def fit_text_size(lines, n_rows, gap):
-    """Largest font size (rounded down to TEXT_FIT_STEP) at which every line fits the token's inner
-    width and n_rows of capitals fit its inner height. Text width and cap height both scale linearly
-    with size, so one measurement at a reference size is enough."""
-    ref = 10.0
-    widest = 0.0
-    for text in set(lines):
-        obj, _, text_w = build_text_solid(text, ref, 0.0, 0.0, False, poke=0.0)
-        bpy.data.objects.remove(obj, do_unlink=True)
-        widest = max(widest, text_w)
-    usable_w = TOKEN_INNER_W - 2 * TOKEN_CONTENT_CLEARANCE
-    usable_h = TOKEN_INNER_H - 2 * TOKEN_CONTENT_CLEARANCE
-    by_width = ref * usable_w / widest
-    by_height = ref * (usable_h - (n_rows - 1) * gap) / (n_rows * _cap_height(ref))
-    return math.floor(min(by_width, by_height) / TEXT_FIT_STEP) * TEXT_FIT_STEP
-
-
-def build_ability_token(name_lines, rule, back_lines, front_size, back_size):
-    """Front (printed on top): the ability's name on rows 1-2, its rule on row 3 - three fixed
-    rows, so the rule is always in the same place. Back (printed on the bed, mirrored to read when
-    flipped): who it applies to, then the timing, block centered."""
-    assert 1 <= len(name_lines) <= 2, f"{name_lines}: names take one or two rows"
-    shell = build_box(TOKEN_W, PLATE_T, TOKEN_H, (0.0, PLATE_T / 2.0, 0.0), "token_shell")
-    apply_bevel(shell, BEVEL_W)
-    usable_w = TOKEN_INNER_W - 2 * TOKEN_CONTENT_CLEARANCE
-    usable_h = TOKEN_INNER_H - 2 * TOKEN_CONTENT_CLEARANCE
-
-    inserts, cutters = [], []
-
-    def add_line(text, size, top_z, mirror):
-        insert, _, text_w = build_text_solid(text, size, 0.0, top_z, mirror, poke=0.0)
-        cutter, _, _ = build_text_solid(text, size, 0.0, top_z, mirror, poke=POCKET_POKE)
-        assert text_w <= usable_w, \
-            f"'{text}' ({text_w:.1f}mm) wider than the token's inner border ({usable_w:.1f}mm) - shorten it or shrink its size"
-        inserts.append(insert)
-        cutters.append(cutter)
-
-    def rows_top(size, gap, n):
-        cap = _cap_height(size)
-        block_h = n * cap + (n - 1) * gap
-        assert block_h <= usable_h, f"{n} rows at {size}mm ({block_h:.1f}mm) taller than the inner border"
-        return [block_h / 2.0 - i * (cap + gap) for i in range(n)]
-
-    front_rows = rows_top(front_size, FRONT_LINE_GAP, FRONT_ROWS)
-    for text, top_z in zip(name_lines, front_rows):
-        add_line(text, front_size, top_z, False)
-    add_line(rule, front_size, front_rows[-1], False)
-
-    assert len(back_lines) <= BACK_ROWS, f"{back_lines}: more than {BACK_ROWS} back rows"
-    for text, top_z in zip(back_lines, rows_top(back_size, BACK_LINE_GAP, len(back_lines))):
-        add_line(text, back_size, top_z, True)
-
-    rect_shrink = lambda inset: rect_points(TOKEN_W - 2.0 * inset, TOKEN_H - 2.0 * inset)
-    border_cutters = []
-    for mirror, tag in ((False, "front"), (True, "back")):
-        inserts.append(build_border_solid(rect_shrink, mirror, f"token_border_{tag}_ins", poke=0.0))
-        border_cutters.append(build_border_solid(rect_shrink, mirror, f"token_border_{tag}_cut", poke=POCKET_POKE))
-
-    # Border cut FIRST as its own separate sequential difference, before the combined content
-    # cut - a border-ring cutter joined into the same boolean as content cutters can corrupt
-    # the mesh even when each is clean alone.
-    prev_vol = mesh_volume(shell)
-    apply_boolean(shell, join_objects(border_cutters, "token_border_cutters"), 'DIFFERENCE')
-    vol = mesh_volume(shell)
-    assert 0.0 < vol < prev_vol, f"token: border cut corrupted the shell ({prev_vol:.1f} -> {vol:.1f}mm3)"
-
-    return carve_and_collect_inlay(shell, inserts, cutters, "token")
-
-
-# ============================================================
-# HEX TOKENS
-# ============================================================
-
-
-def hex_points(flat_to_flat):
-    """Pointy-top regular hexagon outline (points at top/bottom, flat
-    sides left/right) as a closed (x, z) loop, centered on the origin."""
-    r = flat_to_flat / math.sqrt(3.0)
-    return [(r * math.cos(math.radians(90.0 + 60.0 * k)), r * math.sin(math.radians(90.0 + 60.0 * k)))
-            for k in range(6)]
-
-
-def hex_width_at_z(flat_to_flat, z):
-    """Horizontal width of the pointy-top hex at vertical offset z from center: full width
-    between the side vertices, tapering linearly to the top/bottom points."""
-    r = flat_to_flat / math.sqrt(3.0)
-    az = abs(z)
-    if az >= r:
-        return 0.0
-    if az <= r / 2.0:
-        return flat_to_flat
-    return flat_to_flat * (1.0 - (az - r / 2.0) / (r / 2.0))
-
-
-def _hex_shell(name):
-    shell = _extrude_profile(hex_points(HEX_FLAT_TO_FLAT), 'XZ', 0.0, PLATE_T, name)
-    apply_bevel(shell, BEVEL_W)
-    return shell
-
-
-def _hex_inner_w(z):
-    return hex_width_at_z(HEX_INNER_FLAT_TO_FLAT, z) - 2 * HEX_CONTENT_CLEARANCE
-
-
-def _finish_hex(shell, inserts, cutters, name_prefix):
-    """Border rings on both faces - cut FIRST as their own sequential difference, before the
-    combined content cut (a border-ring cutter joined into the same boolean as content cutters can
-    corrupt the mesh even when each is clean alone) - then the content."""
-    hex_shrink = lambda inset: hex_points(HEX_FLAT_TO_FLAT - 2.0 * inset)
-    border_cutters = []
-    for mirror, tag in ((False, "front"), (True, "back")):
-        inserts.append(build_border_solid(hex_shrink, mirror, f"{name_prefix}_border_{tag}_ins", poke=0.0))
-        border_cutters.append(build_border_solid(hex_shrink, mirror, f"{name_prefix}_border_{tag}_cut",
-                                                 poke=POCKET_POKE))
-    prev_vol = mesh_volume(shell)
-    apply_boolean(shell, join_objects(border_cutters, f"{name_prefix}_border_cutters"), 'DIFFERENCE')
-    vol = mesh_volume(shell)
-    assert 0.0 < vol < prev_vol, f"{name_prefix}: border cut corrupted the shell ({prev_vol:.1f} -> {vol:.1f}mm3)"
-    return carve_and_collect_inlay(shell, inserts, cutters, name_prefix)
 
 
 def build_hex_token(value, label, back_lines):
-    """Front (printed on top): seed, value, label stacked from HEX_SEED_TOP_Z down. Back (on the
-    bed, mirrored to read when flipped): the source ability, one word per line, block centered."""
-    shell = _hex_shell("hex_shell")
-    seed_contours, seed_aspect = load_contours(SEED_CONTOURS_PATH)
-    seed_w = HEX_SEED_H / seed_aspect
+    shell = _extrude_profile(hex_points(HEX_FLAT_TO_FLAT), 'XZ', 0.0, PLATE_T, "hex_shell")
+    apply_bevel(shell, BEVEL_W)
+
+    rune_contours, rune_aspect = load_contours(RUNE_CONTOURS_PATH)
+    rune_h = HEX_RUNE_W * rune_aspect
+    inner_w = lambda z: hex_width_at_z(HEX_INNER_FLAT_TO_FLAT, z) - 2 * HEX_CONTENT_CLEARANCE
+
     inserts, cutters = [], []
 
     def add_text_line(text, size, top_z, mirror):
         insert, bottom_z, text_w = build_text_solid(text, size, 0.0, top_z, mirror, poke=0.0)
         cutter, _, _ = build_text_solid(text, size, 0.0, top_z, mirror, poke=POCKET_POKE)
-        assert text_w <= width_between(_hex_inner_w, top_z, bottom_z), \
+        assert text_w <= width_between(inner_w, top_z, bottom_z), \
             f"'{text}' ({text_w:.1f}mm) too wide for the border's inner hex at this height - shrink its size or gaps"
         inserts.append(insert)
         cutters.append(cutter)
         return bottom_z
 
-    seed_insert, seed_bottom_z = build_icon_solid(seed_contours, seed_w, HEX_SEED_H, 0.0, HEX_SEED_TOP_Z,
-                                                  False, "hex_seed_ins", poke=0.0)
-    seed_cutter, _ = build_icon_solid(seed_contours, seed_w, HEX_SEED_H, 0.0, HEX_SEED_TOP_Z,
-                                      False, "hex_seed_cut", poke=POCKET_POKE)
-    assert seed_w <= width_between(_hex_inner_w, HEX_SEED_TOP_Z, seed_bottom_z), \
-        "Hex seed too wide for the border's inner hex at this height - lower HEX_SEED_TOP_Z"
-    inserts.append(seed_insert)
-    cutters.append(seed_cutter)
-    value_bottom_z = add_text_line(value, HEX_VALUE_SIZE, seed_bottom_z - HEX_VALUE_GAP_BELOW_SEED, False)
-    add_text_line(label, HEX_LABEL_SIZE, value_bottom_z - HEX_LABEL_GAP_BELOW_VALUE, False)
+    # Front: the effect - rune, "+1", "REND"
+    rune_insert, rune_bottom_z = build_icon_solid(rune_contours, HEX_RUNE_W, rune_h,
+                                                    0.0, HEX_RUNE_TOP_Z, False, "hex_rune_ins", poke=0.0)
+    rune_cutter, _ = build_icon_solid(rune_contours, HEX_RUNE_W, rune_h,
+                                       0.0, HEX_RUNE_TOP_Z, False, "hex_rune_cut", poke=POCKET_POKE)
+    assert HEX_RUNE_W <= width_between(inner_w, HEX_RUNE_TOP_Z, rune_bottom_z), \
+        "Hex rune too wide for the border's inner hex at this height - shrink HEX_RUNE_W or lower HEX_RUNE_TOP_Z"
+    inserts.append(rune_insert)
+    cutters.append(rune_cutter)
+    num_bottom_z = add_text_line(value, HEX_VALUE_SIZE,
+                                 rune_bottom_z - HEX_VALUE_GAP_BELOW_RUNE, False)
+    add_text_line(label, HEX_LABEL_SIZE, num_bottom_z - HEX_LABEL_GAP_BELOW_VALUE, False)
 
-    # Back: stacked from z=0, then the whole block shifted to center on the hex - the line count
-    # differs per token, so a fixed top z would only center one of them.
+    # Back: the source ability, one word per line (mirrored so it reads correctly when flipped).
+    # Stacked from z=0 first, then the whole block is shifted to center on the hex - the line
+    # count differs per variant, so a fixed top z would only center one of them.
+    # Once-per-battle (back_lines is USED): the Chaos star, centered, instead.
+    if back_lines is USED:
+        head_contours, head_aspect = load_contours(HEAD_CONTOURS_PATH)
+        head_h = HEX_HEAD_W * head_aspect
+        assert HEX_HEAD_W <= width_between(inner_w, head_h / 2.0, -head_h / 2.0), \
+            "Head too wide for the border's inner hex at its corners - shrink HEX_HEAD_W"
+        ins, _ = build_icon_solid(head_contours, HEX_HEAD_W, head_h, 0.0, head_h / 2.0, True,
+                                  "hex_head_ins", poke=0.0)
+        cut, _ = build_icon_solid(head_contours, HEX_HEAD_W, head_h, 0.0, head_h / 2.0, True,
+                                  "hex_head_cut", poke=POCKET_POKE)
+        inserts.append(ins)
+        cutters.append(cut)
+        back_lines = []
     lines, top_z = [], 0.0
     for word in back_lines:
         insert, bottom_z, text_w = build_text_solid(word, HEX_BACK_SIZE, 0.0, top_z, True, poke=0.0)
         cutter, _, _ = build_text_solid(word, HEX_BACK_SIZE, 0.0, top_z, True, poke=POCKET_POKE)
         lines.append((word, insert, cutter, top_z, bottom_z, text_w))
         top_z = bottom_z - HEX_BACK_LINE_GAP
-    shift = -(lines[0][3] + lines[-1][4]) / 2.0
+    shift = -(lines[0][3] + lines[-1][4]) / 2.0 if lines else 0.0
     for word, insert, cutter, line_top, line_bottom, text_w in lines:
         for obj in (insert, cutter):
             obj.data.transform(mathutils.Matrix.Translation((0.0, 0.0, shift)))
-        assert text_w <= width_between(_hex_inner_w, line_top + shift, line_bottom + shift), \
+        assert text_w <= width_between(inner_w, line_top + shift, line_bottom + shift), \
             f"'{word}' ({text_w:.1f}mm) too wide for the border's inner hex at this height - shrink HEX_BACK_SIZE"
         inserts.append(insert)
         cutters.append(cutter)
+    assert not lines or lines[0][3] + shift < HEX_INNER_FLAT_TO_FLAT / math.sqrt(3.0) - HEX_CONTENT_CLEARANCE, \
+        "Back text block taller than the border's inner hex - shrink HEX_BACK_SIZE or HEX_BACK_LINE_GAP"
 
-    return _finish_hex(shell, inserts, cutters, "hex")
+    hex_shrink = lambda inset: hex_points(HEX_FLAT_TO_FLAT - 2.0 * inset)
+    border_cutters = []
+    for mirror, tag in ((False, "front"), (True, "back")):
+        inserts.append(build_border_solid(hex_shrink, mirror, f"hex_border_{tag}_ins", poke=0.0))
+        border_cutters.append(build_border_solid(hex_shrink, mirror, f"hex_border_{tag}_cut", poke=POCKET_POKE))
+
+    # Border cut FIRST as its own separate sequential difference, before the combined content
+    # cut - a border-ring cutter joined into the same boolean as content cutters can corrupt
+    # the mesh even when each is clean alone.
+    prev_vol = mesh_volume(shell)
+    apply_boolean(shell, join_objects(border_cutters, "hex_border_cutters"), 'DIFFERENCE')
+    vol = mesh_volume(shell)
+    assert 0.0 < vol < prev_vol, f"hex: border cut corrupted the shell ({prev_vol:.1f} -> {vol:.1f}mm3)"
+
+    return carve_and_collect_inlay(shell, inserts, cutters, "hex")
 
 
 def build_generic_hex_token():
-    """The seed alone, centered, the same on both faces (the back mirrored)."""
-    shell = _hex_shell("generic_shell")
-    seed_contours, seed_aspect = load_contours(SEED_CONTOURS_PATH)
-    seed_w = GENERIC_SEED_H / seed_aspect
-    top_z = GENERIC_SEED_H / 2.0
-    assert seed_w <= width_between(_hex_inner_w, top_z, -top_z), \
-        "Generic seed too wide for the border's inner hex at its corners - shrink GENERIC_SEED_H"
-    inserts, cutters = [], []
+    shell = _extrude_profile(hex_points(HEX_FLAT_TO_FLAT), 'XZ', 0.0, PLATE_T, "generic_shell")
+    apply_bevel(shell, BEVEL_W)
+
+    rune_contours, rune_aspect = load_contours(RUNE_CONTOURS_PATH)
+    rune_h = GENERIC_RUNE_W * rune_aspect
+    top_z = rune_h / 2.0
+    inner_w = lambda z: hex_width_at_z(HEX_INNER_FLAT_TO_FLAT, z) - 2 * HEX_CONTENT_CLEARANCE
+    assert GENERIC_RUNE_W <= width_between(inner_w, top_z, -top_z), \
+        "Generic rune too wide for the border's inner hex at its corners - shrink GENERIC_RUNE_W"
+
+    inserts, cutters, border_cutters = [], [], []
+    hex_shrink = lambda inset: hex_points(HEX_FLAT_TO_FLAT - 2.0 * inset)
     for mirror, tag in ((False, "front"), (True, "back")):
-        ins, _ = build_icon_solid(seed_contours, seed_w, GENERIC_SEED_H, 0.0, top_z, mirror,
-                                  f"generic_seed_{tag}_ins", poke=0.0)
-        cut, _ = build_icon_solid(seed_contours, seed_w, GENERIC_SEED_H, 0.0, top_z, mirror,
-                                  f"generic_seed_{tag}_cut", poke=POCKET_POKE)
-        inserts.append(ins)
+        ins, _ = build_icon_solid(rune_contours, GENERIC_RUNE_W, rune_h, 0.0, top_z, mirror,
+                                  f"generic_rune_{tag}_ins", poke=0.0)
+        cut, _ = build_icon_solid(rune_contours, GENERIC_RUNE_W, rune_h, 0.0, top_z, mirror,
+                                  f"generic_rune_{tag}_cut", poke=POCKET_POKE)
+        inserts += [ins, build_border_solid(hex_shrink, mirror, f"generic_border_{tag}_ins", poke=0.0)]
         cutters.append(cut)
-    return _finish_hex(shell, inserts, cutters, "generic")
+        border_cutters.append(build_border_solid(hex_shrink, mirror, f"generic_border_{tag}_cut", poke=POCKET_POKE))
+
+    # Border cut first, its own sequential difference - same reason as build_hex_token
+    prev_vol = mesh_volume(shell)
+    apply_boolean(shell, join_objects(border_cutters, "generic_border_cutters"), 'DIFFERENCE')
+    vol = mesh_volume(shell)
+    assert 0.0 < vol < prev_vol, f"generic: border cut corrupted the shell ({prev_vol:.1f} -> {vol:.1f}mm3)"
+
+    return carve_and_collect_inlay(shell, inserts, cutters, "generic")
 
 
 # ============================================================
@@ -1042,14 +983,19 @@ def arrowhead_width_at_z(z, body_w):
     return body_w * max(0.0, TRAY_TIP_Z - z) / TRAY_HEAD_L
 
 
-def build_damage_tray(plain=False):
-    shell = _extrude_profile(arrow_points(TRAY_BODY_W), 'XZ', 0.0, TRAY_T, "tray_shell")
+def build_damage_tray(plain=False, pockets=1):
+    body_w = TRAY_BODY_W if pockets == 1 else TRAY_DOUBLE_BODY_W
+    shell = _extrude_profile(arrow_points(body_w), 'XZ', 0.0, TRAY_T, "tray_shell")
     apply_bevel(shell, BEVEL_W)
 
-    # Die pocket: structural cut, its own sequential difference (different class of cut from the
-    # decorative inlay pocket, same reasoning as the box's wells vs icon pockets).
-    pocket = build_box(TRAY_POCKET_W, TRAY_POCKET_DEPTH + POCKET_POKE, TRAY_POCKET_W,
-                       (0.0, (TRAY_POCKET_DEPTH - POCKET_POKE) / 2.0, 0.0), "tray_pocket_cut")
+    # Die pocket(s): structural cut, its own sequential difference (different class of cut from
+    # the decorative inlay pockets, same reasoning as the box's wells vs icon pockets). Two
+    # pockets don't touch (TRAY_WALL between), so a plain join is safe.
+    pitch = TRAY_POCKET_W + TRAY_WALL
+    pocket_xs = [(i - (pockets - 1) / 2.0) * pitch for i in range(pockets)]
+    pocket = join_objects([build_box(TRAY_POCKET_W, TRAY_POCKET_DEPTH + POCKET_POKE, TRAY_POCKET_W,
+                                     (x, (TRAY_POCKET_DEPTH - POCKET_POKE) / 2.0, 0.0), f"tray_pocket_cut_{i}")
+                           for i, x in enumerate(pocket_xs)], "tray_pocket_cut")
     prev_vol = mesh_volume(shell)
     apply_boolean(shell, pocket, 'DIFFERENCE')
     vol = mesh_volume(shell)
@@ -1057,19 +1003,19 @@ def build_damage_tray(plain=False):
     if plain:
         return shell, None
 
-    seed_contours, seed_aspect = load_contours(SEED_CONTOURS_PATH)
-    seed_w = TRAY_SEED_H / seed_aspect
-    seed_insert, seed_bottom_z = build_icon_solid(seed_contours, seed_w, TRAY_SEED_H,
-                                                  0.0, TRAY_SEED_TOP_Z, False, "tray_seed_ins", poke=0.0)
-    seed_cutter, _ = build_icon_solid(seed_contours, seed_w, TRAY_SEED_H,
-                                      0.0, TRAY_SEED_TOP_Z, False, "tray_seed_cut", poke=POCKET_POKE)
-    usable = lambda z: arrowhead_width_at_z(z, TRAY_BODY_W) - 2 * TRAY_CONTENT_CLEARANCE
-    assert seed_w <= width_between(usable, TRAY_SEED_TOP_Z, seed_bottom_z), \
-        "Tray seed too wide for the arrowhead at this height - shrink TRAY_SEED_H or lower TRAY_SEED_TOP_Z"
-    assert seed_bottom_z >= TRAY_POCKET_W / 2.0 + TRAY_CONTENT_CLEARANCE, \
-        "Tray seed runs into the die pocket's wall - raise TRAY_SEED_TOP_Z or shrink TRAY_SEED_H"
+    rune_contours, rune_aspect = load_contours(RUNE_CONTOURS_PATH)
+    rune_h = TRAY_RUNE_W * rune_aspect
+    rune_insert, rune_bottom_z = build_icon_solid(rune_contours, TRAY_RUNE_W, rune_h,
+                                                    0.0, TRAY_RUNE_TOP_Z, False, "tray_rune_ins", poke=0.0)
+    rune_cutter, _ = build_icon_solid(rune_contours, TRAY_RUNE_W, rune_h,
+                                       0.0, TRAY_RUNE_TOP_Z, False, "tray_rune_cut", poke=POCKET_POKE)
+    usable = lambda z: arrowhead_width_at_z(z, body_w) - 2 * TRAY_CONTENT_CLEARANCE
+    assert TRAY_RUNE_W <= width_between(usable, TRAY_RUNE_TOP_Z, rune_bottom_z), \
+        "Tray rune too wide for the arrowhead at this height - shrink TRAY_RUNE_W or lower TRAY_RUNE_TOP_Z"
+    assert rune_bottom_z >= TRAY_POCKET_W / 2.0 + TRAY_CONTENT_CLEARANCE, \
+        "Tray rune runs into the die pocket's wall - raise TRAY_RUNE_TOP_Z or shrink TRAY_RUNE_W"
 
-    return carve_and_collect_inlay(shell, [seed_insert], [seed_cutter], "tray")
+    return carve_and_collect_inlay(shell, [rune_insert], [rune_cutter], "tray")
 
 
 # ============================================================
@@ -1104,7 +1050,7 @@ def export_piece(name, base, inlay, thickness, render_back):
     assert base_vol > 0.0, f"{name}: base has zero/negative volume - a boolean likely emptied it"
     if inlay is None:
         # Single-colour piece (damage_tray_plain): base STL only.
-        apply_color(base, "base_black", BASE_COLOR)
+        apply_color(base, "base_white", BASE_COLOR)
         if RENDER_IMAGES:
             render_face(f"{name}_front", from_back=False)
         reorient_for_print(base, thickness)
@@ -1115,8 +1061,8 @@ def export_piece(name, base, inlay, thickness, render_back):
     print(f"{name}: inlay volume={inlay_vol:.1f}mm3 (non-manifold {inlay_nm:.4f})")
     assert inlay_vol > 0.0, f"{name}: inlay has zero/negative volume - a boolean likely emptied it"
 
-    apply_color(base, "base_black", BASE_COLOR)
-    apply_color(inlay, "inlay_orange", INLAY_COLOR)
+    apply_color(base, "base_white", BASE_COLOR)
+    apply_color(inlay, "inlay_blue", INLAY_COLOR)
     if RENDER_IMAGES:
         render_face(f"{name}_front", from_back=False)
         if render_back:
@@ -1142,25 +1088,11 @@ def main():
     if RENDER_IMAGES:
         os.makedirs(RENDER_DIR, exist_ok=True)
 
-    if "token" in PIECES:
-        clear_scene()
-        front_size = fit_text_size([t for nl, rule, _ in TOKENS.values() for t in nl + [rule]],
-                                   FRONT_ROWS, FRONT_LINE_GAP)
-        back_size = fit_text_size([t for _, _, bl in TOKENS.values() for t in bl], BACK_ROWS, BACK_LINE_GAP)
-        print(f"Token text: front size {front_size:.1f} (capitals {_cap_height(front_size):.2f}mm), "
-              f"back size {back_size:.1f} (capitals {_cap_height(back_size):.2f}mm)")
-        for name, (name_lines, rule, back_lines) in TOKENS.items():
-            clear_scene()
-            base, inlay = build_ability_token(name_lines, rule, back_lines, front_size, back_size)
-            export_piece(name, base, inlay, PLATE_T, render_back=True)
-
     if "hex" in PIECES:
         for name, (value, label, back_lines) in HEX_TOKENS.items():
             clear_scene()
             base, inlay = build_hex_token(value, label, back_lines)
             export_piece(name, base, inlay, PLATE_T, render_back=True)
-
-    if "generic" in PIECES:
         clear_scene()
         base, inlay = build_generic_hex_token()
         export_piece(GENERIC_TOKEN_NAME, base, inlay, PLATE_T, render_back=True)

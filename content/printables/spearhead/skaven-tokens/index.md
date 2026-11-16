@@ -151,6 +151,6 @@ Each piece comes as a base + inlay STL pair and an `_anycubic.3mf` (Anycubic Sli
 
 The gauge script lives with the [Measuring Gauges]({{< ref "/printables/measuring-gauges" >}}) post.
 
-**Scripts** (Blender, headless) for adjusting sizes or counts: [build_skaven_tokens.py]({{< script "skaven-tokens/build_skaven_tokens.py" >}}) · [build_spearhead_box.py]({{< script "spearhead-box/build_spearhead_box.py" >}}) (`-- --force skaven`) · [extract_icon_contours.py]({{< script "icon-trace/extract_icon_contours.py" >}})
+**Scripts** (Blender, headless) for adjusting sizes or counts: [build_skaven_tokens.py]({{< script "army-tokens/build_skaven_tokens.py" >}}) · [build_spearhead_box.py]({{< script "spearhead-box/build_spearhead_box.py" >}}) (`-- --force skaven`) · [extract_icon_contours.py]({{< script "icon-trace/extract_icon_contours.py" >}})
 
 **Icon contours** (the scripts read them by relative path, so keep the folder layout from these URLs): [rat_rune_contours.json]({{< script "assets/icons/rat_rune_contours.json" >}}) · [rat_head_contours.json]({{< script "assets/icons/rat_head_contours.json" >}}) · [dice_roll_contours.json]({{< script "assets/icons/dice_roll_contours.json" >}}) · [cards_contours.json]({{< script "assets/icons/cards_contours.json" >}}) · [die_five_contours.json]({{< script "assets/icons/die_five_contours.json" >}}) · [logo_contours_v5.json]({{< script "card-stand/logo_contours_v5.json" >}})

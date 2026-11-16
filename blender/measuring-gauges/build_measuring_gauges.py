@@ -41,13 +41,13 @@ plate's front/back (see PHASE 3's own build_text_solid_face0 docstring for
 why, and this project's own history of getting that camera convention
 wrong before finally verifying it analytically, not just by eye).
 
-Same GENUINE multi-material FDM technique as blender/tokens/build_tokens.py
+Same GENUINE multi-material FDM technique as blender/army-tokens/build_hashut_aos_tokens.py
 and blender/combat-modifiers/build_modifier_tokens.py: every tick/numeral/
 badge element is a shallow flush RECESS cut into the shell, with a
 same-size INSERT exported as a separate object that drops into it with
 zero gap (AMS/ACE-Gen2 style auto filament swap - not paint).
 
-Double-sided, printed FLAT with no supports - same as build_tokens.py, NOT
+Double-sided, printed FLAT with no supports - same as build_hashut_aos_tokens.py, NOT
 a stand-on-edge print. Each face's markings are just the shell's own
 outermost layers (front pockets recessed from y=0, back pockets recessed
 from y=PLATE_T - see face_span), so a single flat print lays both sets of
@@ -119,10 +119,10 @@ RENDER_RESOLUTION = (1600, 700)
 
 BASE_COLOR = (0.05, 0.05, 0.05, 1.0)   # preview only - black plate
 INLAY_COLOR = (1.0, 1.0, 1.0, 1.0)     # preview only - white ticks/numerals/badge
-KHORNE_INLAY_COLOR = (0.65, 0.03, 0.03, 1.0)   # preview only - red, matches khorne-tokens
-SKAVEN_INLAY_COLOR = (0.30, 0.80, 0.10, 1.0)   # preview only - warpstone green, matches skaven-tokens
-HASHUT_INLAY_COLOR = (0.06, 0.45, 0.12, 1.0)   # preview only - green, matches hashut-spearhead-tokens
-SYLVANETH_INLAY_COLOR = (0.95, 0.42, 0.05, 1.0)   # preview only - orange, matches sylvaneth-tokens
+KHORNE_INLAY_COLOR = (0.65, 0.03, 0.03, 1.0)   # preview only - red, matches army-tokens/build_khorne_tokens.py
+SKAVEN_INLAY_COLOR = (0.30, 0.80, 0.10, 1.0)   # preview only - warpstone green, matches army-tokens/build_skaven_tokens.py
+HASHUT_INLAY_COLOR = (0.06, 0.45, 0.12, 1.0)   # preview only - green, matches army-tokens/build_hashut_tokens.py
+SYLVANETH_INLAY_COLOR = (0.95, 0.42, 0.05, 1.0)   # preview only - orange, matches army-tokens/build_sylvaneth_tokens.py
 
 BASE_EXTRUDER_SLOT = 1    # edit to match your AMS loadout on the day you slice
 INLAY_EXTRUDER_SLOT = 2
@@ -144,7 +144,7 @@ BEVEL_W = 0.6
 BEVEL_SEGMENTS = 3
 
 BOLD_OFFSET = 0.0
-TEXT_SPACING = 1.1        # see build_tokens.py - default 1.0 kerning lets some letter
+TEXT_SPACING = 1.1        # see build_hashut_aos_tokens.py - default 1.0 kerning lets some letter
                             # pairs touch, which corrupts the boolean; 1.1 gives margin
 
 RECT_WIDTH = 25.4       # 1" - fixed across every piece in the family
@@ -191,7 +191,7 @@ MYTHOS_TEXT_SIZE = 10.0   # bumped from 8.0 to match LABEL_SIZE (the family's ow
 RULER_NUM_SIZE = 17.0
 
 # ============================================================
-# GENERIC HELPERS (ported from blender/tokens/build_tokens.py - see that
+# GENERIC HELPERS (ported from blender/army-tokens/build_hashut_aos_tokens.py - see that
 # script for the fuller rationale on each of these). Shared by both phases.
 # ============================================================
 
@@ -362,7 +362,7 @@ def _build_flat_text_mesh(text, size, thickness, font_path=TEXT_FONT_PATH):
     bpy.ops.object.convert(target='MESH')
 
     # font-curve-to-mesh conversion leaves duplicate overlapping verts at the cap-fill
-    # boundary - corrupts the EXACT boolean solver if left in, see build_tokens.py
+    # boundary - corrupts the EXACT boolean solver if left in, see build_hashut_aos_tokens.py
     bm = bmesh.new()
     bm.from_mesh(obj.data)
     bmesh.ops.remove_doubles(bm, verts=bm.verts, dist=1e-3)
@@ -486,7 +486,7 @@ def apply_color(obj, name, rgba):
 
 def export_project_3mf(parts, path):
     """Anycubic Slicer Next project-3mf (per-part `extruder` metadata) -
-    see build_tokens.py's export_project_3mf for the full rationale."""
+    see build_hashut_aos_tokens.py's export_project_3mf for the full rationale."""
     os.makedirs(os.path.dirname(path), exist_ok=True)
 
     leaf_objects_xml, components_xml, parts_config_xml = [], [], []
@@ -591,7 +591,7 @@ def compute_scene_bounds():
 
 
 def setup_camera_and_light(center, distance, ortho_scale, from_back=False):
-    """Same convention as build_tokens.py's own camera setup - see that
+    """Same convention as build_hashut_aos_tokens.py's own camera setup - see that
     file's docstring for why: a "walk around and view from behind" flip
     (camera on the opposite Y side, light follows it, both via track_quat
     rather than a hand-picked Euler so roll doesn't flip too)."""

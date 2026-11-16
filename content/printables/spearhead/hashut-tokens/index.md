@@ -133,7 +133,7 @@ Each piece comes as a base + inlay STL pair and an `_anycubic.3mf` (Anycubic Sli
 
 The gauge script lives with the [Measuring Gauges]({{< ref "/printables/measuring-gauges" >}}) post.
 
-**Scripts** (Blender, headless) for adjusting sizes or counts: [build_hashut_spearhead_tokens.py]({{< script "hashut-spearhead-tokens/build_hashut_spearhead_tokens.py" >}}) · [build_tokens.py]({{< script "tokens/build_tokens.py" >}}) (DPP tokens) · [build_spearhead_box.py]({{< script "spearhead-box/build_spearhead_box.py" >}}) (`-- --force hashut`) · [extract_icon_contours.py]({{< script "icon-trace/extract_icon_contours.py" >}})
+**Scripts** (Blender, headless) for adjusting sizes or counts: [build_hashut_tokens.py]({{< script "army-tokens/build_hashut_tokens.py" >}}) · [build_hashut_aos_tokens.py]({{< script "army-tokens/build_hashut_aos_tokens.py" >}}) (DPP tokens) · [build_spearhead_box.py]({{< script "spearhead-box/build_spearhead_box.py" >}}) (`-- --force hashut`) · [extract_icon_contours.py]({{< script "icon-trace/extract_icon_contours.py" >}})
 
 **Icon contours** (the scripts read them by relative path, so keep the folder layout from these URLs): [hashut_bull_contours.json]({{< script "assets/icons/hashut_bull_contours.json" >}}) · [hashut_rune_contours.json]({{< script "assets/icons/hashut_rune_contours.json" >}}) · [dice_roll_contours.json]({{< script "assets/icons/dice_roll_contours.json" >}}) · [cards_contours.json]({{< script "assets/icons/cards_contours.json" >}}) · [die_five_contours.json]({{< script "assets/icons/die_five_contours.json" >}}) · [logo_contours_v5.json]({{< script "card-stand/logo_contours_v5.json" >}})
 

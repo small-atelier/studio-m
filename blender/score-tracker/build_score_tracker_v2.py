@@ -631,7 +631,7 @@ def export_stl(obj, filename):
 def export_3mf(parts, path):
     """Standard 3MF with the materials-extension <colorgroup> - portable across
     slicers that actually read it (Bambu Studio, PrusaSlicer, Cura...). Ported as-is
-    from blender/tokens/build_tokens.py's export_3mf. `parts` is a list of
+    from blender/army-tokens/build_hashut_aos_tokens.py's export_3mf. `parts` is a list of
     (obj, (r, g, b, a), name), 0..1 each. A single 3MF with multiple objects keeps
     base/inlay in the same coordinate space, so they stay aligned on import."""
     os.makedirs(os.path.dirname(path), exist_ok=True)

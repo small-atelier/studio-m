@@ -9,7 +9,7 @@ own separate STL/3MF object at the exact same size, so it drops into that
 pocket with zero gap. Two colors per piece: the base (white) and every
 icon/text insert joined into one "inlay" object (green).
 
-Adapted from ../skaven-tokens/build_skaven_tokens.py (itself adapted from
+Adapted from build_skaven_tokens.py (itself adapted from
 the Khorne and Hashut token scripts) - the generic helpers, recess/insert
 pipeline, 3MF exporters and the boolean-safety patterns (border cut as its
 own sequential difference, one combined content cut, volume-diff asserts)
@@ -21,7 +21,7 @@ once-per-battle Strike the Gongs (see TOKENS). Text only, no icon. Front:
 the name on rows 1-2 and a short rule on row 3, printed on top. Back (on
 the bed), mirrored so it reads when flipped: who it applies to (GENERAL /
 ARMY / COHORT), then the timing. The Daemonic Power tokens are the hex DPP tokens
-from ../tokens/build_tokens.py, not built here.
+from build_hashut_aos_tokens.py, not built here.
 
 Damage tray: arrow-shaped plate with a square pocket holding one 12mm d6
 showing the damage on the unit's current wounded model; the arrow points
@@ -43,10 +43,10 @@ Plain tray (damage_tray_plain): same arrow and die pocket, no rune - single-
 colour, base STL only.
 
 Run (all ability tokens + trays):
-  /Applications/Blender.app/Contents/MacOS/Blender --background --python build_hashut_spearhead_tokens.py
+  /Applications/Blender.app/Contents/MacOS/Blender --background --python build_hashut_tokens.py
 
 Run one piece only:
-  /Applications/Blender.app/Contents/MacOS/Blender --background --python build_hashut_spearhead_tokens.py -- --only tray   (or: --only token, --only control, --only tray_double, --only tray_plain)
+  /Applications/Blender.app/Contents/MacOS/Blender --background --python build_hashut_tokens.py -- --only tray   (or: --only token, --only control, --only tray_double, --only tray_plain)
 """
 
 import bpy
@@ -90,7 +90,8 @@ TEXT_FONT_PATH = os.path.join(SCRIPT_DIR, "..", "assets", "fonts", "BarlowConden
                              # Arial Black, and its letter holes (R, A) stay wider than a 0.4mm
                              # nozzle line - Arial Black's closed up on the first printed hex tokens
 
-EXPORT_DIR = os.path.join(SCRIPT_DIR, "output")
+FORCE = "hashut"     # output/<force>/, same key as ../spearhead-box FORCES
+EXPORT_DIR = os.path.join(SCRIPT_DIR, "output", FORCE)
 EXPORT_STL = True
 EXPORT_3MF = True
 
@@ -117,7 +118,7 @@ BORDER_WIDTH = 1.8          # ring thickness, same inlay color as everything els
 
 BOLD_OFFSET = 0.0           # synthetic bold is unstable once text bonds to the shell
 TEXT_SPACING = 1.1          # tracked letter-spacing - at 1.0 some Arial Black pairs touch, and
-                            # a touching pair corrupts the EXACT solver (see build_tokens.py)
+                            # a touching pair corrupts the EXACT solver (see build_hashut_aos_tokens.py)
 
 # ---- Ability tokens (rectangles) ----
 TOKEN_W = 56.0              # same plate as the Hashut Desolation token - its 5.1mm one-line
@@ -153,7 +154,7 @@ TOKENS = {
 }
 
 # ---- Control token (hex) ----
-HEX_FLAT_TO_FLAT = 33.0     # the DPP tokens' hex (../tokens/build_tokens.py) - shares their box wells
+HEX_FLAT_TO_FLAT = 33.0     # the DPP tokens' hex (build_hashut_aos_tokens.py) - shares their box wells
 HEX_INNER_FLAT_TO_FLAT = HEX_FLAT_TO_FLAT - 2.0 * (BORDER_INSET + BORDER_WIDTH)
 HEX_CONTENT_CLEARANCE = 1.0
 CONTROL_RUNE_W = 8.0

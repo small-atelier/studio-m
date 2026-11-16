@@ -33,10 +33,10 @@ level is swapped by picking the right token rather than stacking, so each
 level needs its own STL/3MF. Desolation token: square, single design.
 
 Run (all 3 DPP levels + the desolation token):
-  /Applications/Blender.app/Contents/MacOS/Blender --background --python build_tokens.py
+  /Applications/Blender.app/Contents/MacOS/Blender --background --python build_hashut_aos_tokens.py
 
 Run one DPP level only:
-  /Applications/Blender.app/Contents/MacOS/Blender --background --python build_tokens.py -- --dpp-level 2 --no-desolation
+  /Applications/Blender.app/Contents/MacOS/Blender --background --python build_hashut_aos_tokens.py -- --dpp-level 2 --no-desolation
 """
 
 import bpy
@@ -85,7 +85,8 @@ TEXT_FONT_PATH = os.path.join(SCRIPT_DIR, "..", "assets", "fonts", "ArialBlack.t
                              # split only applied to combat-modifiers' Mythos badge) - all text on
                              # both tokens gets the bold font.
 
-EXPORT_DIR = os.path.join(SCRIPT_DIR, "output")
+FORCE = "hashut_aos"     # output/<force>/, same key as ../spearhead-box FORCES
+EXPORT_DIR = os.path.join(SCRIPT_DIR, "output", FORCE)
 EXPORT_STL = True
 EXPORT_3MF = True
 
