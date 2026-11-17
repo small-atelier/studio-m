@@ -9,6 +9,8 @@ tags: ["terrain", "3d-printing", "age-of-sigmar", "mythos"]
 A volcanic terrain set for the Age of Sigmar table at Mythos, built with a friend to match the store's lava mat.
 {{< /lead >}}
 
+{{< figure src="gallery/progress-1.jpeg" caption="Printed volcanoes, rocks and lava pieces, primed black, with the hardboard bases behind" >}}
+
 ## Models
 
 The STLs come from a friend and need repair before they print. Printed on the Anycubic Kobra X: 0.2mm layers, 0.4mm nozzle, high-quality profile.
@@ -16,7 +18,7 @@ The STLs come from a friend and need repair before they print. Printed on the An
 | Render | Terrain | STL file | Scale | Printed size (mm, X×Y×Z) | Needed | Printed | Notes |
 |--------|---------|----------|------:|--------------------------|-------:|--------:|-------|
 | ![Volcano 02](render-volcano-02.png) | Medium obstacle | `21_01_Volcano_02_fixed.stl` | 100% | 167×190×151 | 2 | 2 |  |
-| ![Volcano 04](render-volcano-04.png) | Medium obstacle | `21_01_Volcano_04_fixed.stl` | 88% | 174×170×158 | 2 | 0 |  |
+| ![Volcano 04](render-volcano-04.png) | Medium obstacle | `21_01_Volcano_04_fixed.stl` | 88% | 174×170×158 | 2 | 2 |  |
 | ![Volcano 05](render-volcano-05.png) | Medium Place of Power | `21_01_Volcano_05_fixed.stl` | 100% | 164×185×156 | 2 | 2 |  |
 | ![Lava piece 1](render-lava-piece-1.png) | Small Place of Power | `lavaPiece1correction_fixed.stl` | 100% | 37×40×54 | 2 | 2 |  |
 | ![Volcano 03](render-volcano-03.png) | Medium forest | `21_01_Volcano_03.stl` | 100% | 154×135×16 | 3 | 0 | Floating geometry |
