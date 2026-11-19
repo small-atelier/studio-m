@@ -21,7 +21,7 @@ The STLs come from a friend and need repair before they print. Printed on the An
 | ![Volcano 04](render-volcano-04.png) | Medium obstacle | `21_01_Volcano_04_fixed.stl` | 88% | 174×170×158 | 2 | 2 |  |
 | ![Volcano 05](render-volcano-05.png) | Medium Place of Power | `21_01_Volcano_05_fixed.stl` | 100% | 164×185×156 | 2 | 2 |  |
 | ![Lava piece 1](render-lava-piece-1.png) | Small Place of Power | `lavaPiece1correction_fixed.stl` | 100% | 37×40×54 | 2 | 2 |  |
-| ![Volcano 03](render-volcano-03.png) | Medium forest | `21_01_Volcano_03.stl` | 100% | 154×135×16 | 3 | 0 | Floating geometry |
+| ![Volcano 03](render-volcano-03.png) | Medium forest | `21_01_Volcano_03_flat.stl` | 100% | 154×135×16 | 3 | 3 |  |
 | ![Rocks](render-rocks.png) | Medium forest | `rocks.stl` | 100% | 99×53×52 | 2 | 2 |  |
 | ![Lava piece 4](render-lava-piece-4.png) | Medium forest | `lavaPiece4correction.stl` | 100% | 38×42×19 | 1 | 1 |  |
 | ![Lava piece 5](render-lava-piece-5.png) | Medium forest | `lavaPiece5correction.stl` | 100% | 42×39×6 | 1 | 1 |  |
@@ -50,7 +50,3 @@ The cut files are true size in mm with a 0.1mm red cut line. Script (plain Pytho
 ## Finishing
 
 Sealed and textured with the acrylic floor-primer mixes from the [floor primer note]({{< ref "/notes/floor-primer-as-hobby-medium" >}}).
-
-## Open
-
-- Volcano 03 has floating geometry and needs repair before it prints.
